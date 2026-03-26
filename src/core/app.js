@@ -30,6 +30,7 @@ const { SlackBot } = await import('../slack/bot.js');
 const { GitHubClient } = await import('../github/client.js');
 const { DevBotEngine } = await import('./engine.js');
 const { registerStripeRoutes } = await import('../api/stripe.js');
+const { registerAffiliateRoutes } = await import('../api/affiliates.js');
 
 const app = express();
 app.use(express.json());
@@ -45,6 +46,9 @@ app.use((req, res, next) => {
 
 // Stripe payment routes
 registerStripeRoutes(app);
+
+// Affiliate program routes
+registerAffiliateRoutes(app);
 
 // Initialize core components
 const engine = new DevBotEngine();
