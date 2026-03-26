@@ -7,11 +7,14 @@ export class SlackBot {
     this.github = github;
     this.conversations = new Map();
 
+    const useSocketMode = !!process.env.SLACK_APP_TOKEN;
+
     this.app = new App({
       token: process.env.SLACK_BOT_TOKEN,
       signingSecret: process.env.SLACK_SIGNING_SECRET,
-      socketMode: true,
-      appToken: process.env.SLACK_APP_TOKEN,
+      ...(useSocketMode
+        ? { socketMode: true, appToken: process.env.SLACK_APP_TOKEN }
+        : { port: process.env.SLACK_PORT || 3001 }),
     });
 
     this.registerHandlers();
@@ -162,6 +165,7 @@ export class SlackBot {
 
   async start() {
     await this.app.start();
-    console.log('[DevBot] Slack bot is running in socket mode');
+    const mode = process.env.SLACK_APP_TOKEN ? 'socket mode' : `HTTP mode on port ${process.env.SLACK_PORT || 3001}`;
+    console.log(`[DevBot] Slack bot is running in ${mode}`);
   }
 }
