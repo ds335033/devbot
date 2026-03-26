@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DevBot Pro CLI — Generate Apps From Your Terminal</title>
+    <meta name="description" content="DevBot Pro CLI: Generate production-ready apps offline from your terminal. One-time purchase, unlimited generations.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #6366f1;
+            --primary-light: #818cf8;
+            --primary-dark: #4f46e5;
+            --primary-glow: rgba(99, 102, 241, 0.4);
+            --secondary: #06b6d4;
+            --secondary-glow: rgba(6, 182, 212, 0.3);
+            --accent: #f59e0b;
+            --success: #10b981;
+            --dark-900: #030712;
+            --dark-800: #0a0f1e;
+            --dark-700: #111827;
+            --dark-600: #1e293b;
+            --dark-500: #334155;
+            --gray-400: #94a3b8;
+            --gray-300: #cbd5e1;
+            --white: #f8fafc;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--dark-900); color: var(--white); line-height: 1.7; overflow-x: hidden;
+        }
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+        .bg-grid {
+            position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+            background-image: linear-gradient(rgba(99, 102, 241, 0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(99, 102, 241, 0.03) 1px, transparent 1px);
+            background-size: 60px 60px; z-index: -2;
+        }
+        .bg-glow { position: fixed; width: 600px; height: 600px; border-radius: 50%; filter: blur(120px); z-index: -1; animation: float 20s ease-in-out infinite; }
+        .bg-glow-1 { top: -200px; left: -100px; background: var(--primary-glow); }
+        .bg-glow-2 { bottom: -200px; right: -100px; background: var(--secondary-glow); animation-delay: -10s; }
+        @keyframes float { 0%, 100% { transform: translate(0,0) scale(1); } 33% { transform: translate(30px,-30px) scale(1.05); } 66% { transform: translate(-20px,20px) scale(0.95); } }
+
+        nav { position: fixed; top: 0; left: 0; right: 0; z-index: 1000; padding: 16px 0; background: rgba(3,7,18,0.8); backdrop-filter: blur(20px); border-bottom: 1px solid rgba(99,102,241,0.1); transition: all 0.3s; }
+        nav.scrolled { padding: 10px 0; background: rgba(3,7,18,0.95); }
+        .nav-inner { display: flex; align-items: center; justify-content: space-between; max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+        .nav-brand { font-size: 1.5rem; font-weight: 800; text-decoration: none; color: var(--white); }
+        .nav-brand span { color: var(--primary); }
+        .nav-links { display: flex; align-items: center; gap: 28px; }
+        .nav-links a { color: var(--gray-400); text-decoration: none; font-size: 0.9rem; font-weight: 500; transition: color 0.3s; }
+        .nav-links a:hover { color: var(--white); }
+        .nav-cta { background: linear-gradient(135deg, var(--primary), var(--primary-dark)); color: var(--white) !important; padding: 8px 20px; border-radius: 8px; font-weight: 600 !important; }
+        .nav-cta:hover { transform: translateY(-2px); box-shadow: 0 8px 25px var(--primary-glow); }
+        .mobile-toggle { display: none; background: none; border: none; color: var(--white); font-size: 1.5rem; cursor: pointer; }
+
+        .hero { padding: 160px 0 80px; text-align: center; }
+        .hero-badge { display: inline-flex; align-items: center; gap: 8px; background: rgba(99,102,241,0.1); border: 1px solid rgba(99,102,241,0.3); padding: 6px 16px; border-radius: 50px; font-size: 0.85rem; color: var(--primary-light); margin-bottom: 24px; }
+        .hero h1 { font-size: clamp(2.5rem, 5vw, 4rem); font-weight: 900; line-height: 1.1; margin-bottom: 20px; background: linear-gradient(135deg, var(--white) 0%, var(--gray-300) 50%, var(--primary-light) 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+        .hero p { font-size: 1.2rem; color: var(--gray-400); max-width: 650px; margin: 0 auto 32px; }
+        .hero-price { font-size: 3rem; font-weight: 900; color: var(--success); font-family: 'JetBrains Mono', monospace; margin-bottom: 8px; }
+        .hero-price-sub { font-size: 1rem; color: var(--gray-400); margin-bottom: 32px; }
+
+        .btn-primary { padding: 16px 40px; border-radius: 12px; border: none; cursor: pointer; font-weight: 700; font-size: 1.1rem; font-family: 'Inter', sans-serif; background: linear-gradient(135deg, var(--primary), var(--primary-dark)); color: var(--white); transition: all 0.3s; text-decoration: none; display: inline-block; }
+        .btn-primary:hover { transform: translateY(-3px); box-shadow: 0 12px 35px var(--primary-glow); }
+
+        /* Terminal */
+        .terminal-section { padding: 60px 0; }
+        .terminal {
+            max-width: 800px; margin: 0 auto; border-radius: 16px; overflow: hidden;
+            background: var(--dark-800); border: 1px solid rgba(99,102,241,0.2);
+            box-shadow: 0 25px 80px rgba(0,0,0,0.5);
+            opacity: 0; transform: translateY(30px); transition: all 0.6s ease;
+        }
+        .terminal.visible { opacity: 1; transform: translateY(0); }
+        .terminal-bar { background: var(--dark-700); padding: 12px 16px; display: flex; gap: 8px; align-items: center; }
+        .terminal-dot { width: 12px; height: 12px; border-radius: 50%; }
+        .terminal-dot.red { background: #ef4444; }
+        .terminal-dot.yellow { background: #f59e0b; }
+        .terminal-dot.green { background: #10b981; }
+        .terminal-title { color: var(--gray-400); font-size: 0.8rem; margin-left: 12px; font-family: 'JetBrains Mono', monospace; }
+        .terminal-body { padding: 24px; font-family: 'JetBrains Mono', monospace; font-size: 0.9rem; line-height: 1.8; }
+        .terminal-line { margin-bottom: 4px; }
+        .t-prompt { color: var(--success); }
+        .t-cmd { color: var(--white); }
+        .t-flag { color: var(--accent); }
+        .t-string { color: var(--secondary); }
+        .t-comment { color: var(--gray-400); }
+        .t-output { color: var(--gray-300); }
+        .t-success { color: var(--success); }
+
+        /* Features */
+        .features { padding: 80px 0; }
+        .section-title { font-size: 2.5rem; font-weight: 800; text-align: center; margin-bottom: 60px; background: linear-gradient(135deg, var(--white), var(--primary-light)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+        .features-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 24px; }
+        .feature-card {
+            background: rgba(17,24,39,0.6); border: 1px solid rgba(99,102,241,0.15);
+            border-radius: 16px; padding: 32px; transition: all 0.4s;
+            opacity: 0; transform: translateY(30px);
+        }
+        .feature-card.visible { opacity: 1; transform: translateY(0); }
+        .feature-card:hover { border-color: var(--primary); transform: translateY(-4px); box-shadow: 0 16px 50px rgba(99,102,241,0.12); }
+        .feature-icon { font-size: 2rem; margin-bottom: 16px; }
+        .feature-card h3 { font-size: 1.2rem; font-weight: 700; margin-bottom: 8px; }
+        .feature-card p { color: var(--gray-400); font-size: 0.9rem; }
+
+        /* Comparison */
+        .comparison { padding: 80px 0; }
+        .comp-table { width: 100%; border-collapse: collapse; max-width: 800px; margin: 0 auto; }
+        .comp-table th, .comp-table td { padding: 16px 24px; text-align: left; border-bottom: 1px solid rgba(99,102,241,0.1); }
+        .comp-table th { color: var(--primary-light); font-weight: 700; font-size: 1rem; }
+        .comp-table th:first-child { color: var(--gray-400); }
+        .comp-table td { color: var(--gray-300); font-size: 0.95rem; }
+        .comp-table td:nth-child(3) { color: var(--success); font-weight: 600; }
+        .check { color: var(--success); font-weight: 700; }
+        .cross { color: var(--gray-400); }
+
+        /* System Req */
+        .sysreq { padding: 80px 0; }
+        .sysreq-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 24px; max-width: 800px; margin: 0 auto; }
+        .sysreq-item { background: rgba(17,24,39,0.6); border: 1px solid rgba(99,102,241,0.15); border-radius: 12px; padding: 24px; }
+        .sysreq-item h4 { color: var(--primary-light); margin-bottom: 8px; font-size: 0.9rem; text-transform: uppercase; letter-spacing: 1px; }
+        .sysreq-item p { color: var(--gray-300); font-size: 0.95rem; }
+
+        /* FAQ */
+        .faq { padding: 80px 0; }
+        .faq-list { max-width: 800px; margin: 0 auto; }
+        .faq-item {
+            background: rgba(17,24,39,0.6); border: 1px solid rgba(99,102,241,0.15);
+            border-radius: 12px; margin-bottom: 16px; overflow: hidden;
+            opacity: 0; transform: translateY(20px); transition: all 0.4s;
+        }
+        .faq-item.visible { opacity: 1; transform: translateY(0); }
+        .faq-q { padding: 20px 24px; cursor: pointer; font-weight: 600; display: flex; justify-content: space-between; align-items: center; transition: color 0.3s; }
+        .faq-q:hover { color: var(--primary-light); }
+        .faq-arrow { transition: transform 0.3s; font-size: 0.8rem; }
+        .faq-a { padding: 0 24px 20px; color: var(--gray-400); font-size: 0.95rem; display: none; }
+        .faq-item.open .faq-a { display: block; }
+        .faq-item.open .faq-arrow { transform: rotate(180deg); }
+
+        /* CTA */
+        .cta-section { padding: 80px 0; text-align: center; }
+        .cta-box { background: linear-gradient(135deg, rgba(99,102,241,0.15), rgba(6,182,212,0.1)); border: 1px solid rgba(99,102,241,0.3); border-radius: 24px; padding: 60px 40px; }
+        .cta-box h2 { font-size: 2.2rem; font-weight: 800; margin-bottom: 16px; }
+        .cta-box p { color: var(--gray-400); margin-bottom: 32px; font-size: 1.1rem; }
+
+        footer { padding: 40px 0; border-top: 1px solid rgba(99,102,241,0.1); margin-top: 40px; }
+        .footer-inner { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 20px; }
+        .footer-copy { color: var(--gray-400); font-size: 0.85rem; }
+        .footer-links { display: flex; gap: 24px; }
+        .footer-links a { color: var(--gray-400); text-decoration: none; font-size: 0.85rem; transition: color 0.3s; }
+        .footer-links a:hover { color: var(--primary-light); }
+
+        @media (max-width: 768px) {
+            .nav-links { display: none; }
+            .mobile-toggle { display: block; }
+            .nav-links.open { display: flex; flex-direction: column; position: absolute; top: 100%; left: 0; right: 0; background: var(--dark-800); padding: 20px; gap: 16px; border-bottom: 1px solid rgba(99,102,241,0.1); }
+            .comp-table { font-size: 0.85rem; }
+            .comp-table th, .comp-table td { padding: 12px 14px; }
+            .footer-inner { flex-direction: column; text-align: center; }
+        }
+    </style>
+</head>
+<body>
+    <div class="bg-grid"></div>
+    <div class="bg-glow bg-glow-1"></div>
+    <div class="bg-glow bg-glow-2"></div>
+
+    <nav id="navbar">
+        <div class="nav-inner">
+            <a href="https://devbotai.store" class="nav-brand">Dev<span>Bot</span></a>
+            <button class="mobile-toggle" onclick="document.querySelector('.nav-links').classList.toggle('open')">&#9776;</button>
+            <div class="nav-links">
+                <a href="studio.html">Studio</a>
+                <a href="index.html#pricing">Pricing</a>
+                <a href="blog.html">Blog</a>
+                <a href="https://github.com/ds335033/devbot" target="_blank">GitHub</a>
+                <a href="pro-cli.html" class="nav-cta">Pro CLI</a>
+            </div>
+        </div>
+    </nav>
+
+    <section class="hero">
+        <div class="container">
+            <div class="hero-badge">&#9889; Pro CLI</div>
+            <h1>DevBot Pro CLI</h1>
+            <p>Generate production-ready apps from your terminal. Offline. Unlimited. Yours forever.</p>
+            <div class="hero-price">$199</div>
+            <div class="hero-price-sub">One-time purchase. No subscriptions. No API costs.</div>
+            <a href="#" class="btn-primary">Buy Now &mdash; $199</a>
+        </div>
+    </section>
+
+    <section class="terminal-section">
+        <div class="container">
+            <div class="terminal" id="terminal">
+                <div class="terminal-bar">
+                    <div class="terminal-dot red"></div>
+                    <div class="terminal-dot yellow"></div>
+                    <div class="terminal-dot green"></div>
+                    <span class="terminal-title">devbot-pro ~ terminal</span>
+                </div>
+                <div class="terminal-body">
+                    <div class="terminal-line"><span class="t-prompt">$</span> <span class="t-cmd">devbot generate</span> <span class="t-string">"a dashboard with React and Tailwind"</span></div>
+                    <div class="terminal-line"><span class="t-comment"># Generating application...</span></div>
+                    <div class="terminal-line"><span class="t-output">&#9632; Analyzing prompt...</span></div>
+                    <div class="terminal-line"><span class="t-output">&#9632; Selecting architecture: React + Vite + Tailwind CSS</span></div>
+                    <div class="terminal-line"><span class="t-output">&#9632; Generating 18 files...</span></div>
+                    <div class="terminal-line"><span class="t-output">&#9632; Writing tests (14 test cases)...</span></div>
+                    <div class="terminal-line"><span class="t-output">&#9632; Creating Docker config...</span></div>
+                    <div class="terminal-line"><span class="t-success">&#10004; Application generated in 12.4s</span></div>
+                    <div class="terminal-line">&nbsp;</div>
+                    <div class="terminal-line"><span class="t-prompt">$</span> <span class="t-cmd">devbot generate</span> <span class="t-string">"REST API for task management"</span> <span class="t-flag">--framework express --db postgres</span></div>
+                    <div class="terminal-line"><span class="t-success">&#10004; Application generated in 8.7s</span></div>
+                    <div class="terminal-line">&nbsp;</div>
+                    <div class="terminal-line"><span class="t-prompt">$</span> <span class="t-cmd">devbot deploy</span> <span class="t-flag">--target vercel</span></div>
+                    <div class="terminal-line"><span class="t-success">&#10004; Deployed to https://my-dashboard.vercel.app</span></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="features">
+        <div class="container">
+            <h2 class="section-title">Everything You Need</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">&#128268;</div>
+                    <h3>Offline Mode</h3>
+                    <p>Generate apps without internet. Local AI model runs on your machine. No API keys or cloud dependencies needed.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">&#9854;</div>
+                    <h3>Unlimited Generations</h3>
+                    <p>No rate limits. No token counting. Generate as many applications as you want, forever.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">&#129504;</div>
+                    <h3>Local AI Model</h3>
+                    <p>Fine-tuned model optimized for code generation. Runs locally with GPU acceleration support.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">&#128196;</div>
+                    <h3>Custom Templates</h3>
+                    <p>Create your own templates. Import company boilerplates. Train on your codebase patterns.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">&#128279;</div>
+                    <h3>Git Integration</h3>
+                    <p>Auto-initialize repos, create branches, commit with meaningful messages. Integrates with GitHub and GitLab.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">&#128640;</div>
+                    <h3>Auto-Deploy</h3>
+                    <p>Deploy to Vercel, AWS, Railway, or Docker with a single command. CI/CD pipeline included.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="comparison">
+        <div class="container">
+            <h2 class="section-title">Free vs Pro CLI</h2>
+            <table class="comp-table">
+                <thead>
+                    <tr><th>Feature</th><th>Free</th><th>Pro CLI ($199)</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td>Monthly generations</td><td>5</td><td>Unlimited</td></tr>
+                    <tr><td>Offline mode</td><td class="cross">&#10007;</td><td class="check">&#10003;</td></tr>
+                    <tr><td>Custom templates</td><td class="cross">&#10007;</td><td class="check">&#10003;</td></tr>
+                    <tr><td>Git integration</td><td>Basic</td><td>Full (GitHub, GitLab, Bitbucket)</td></tr>
+                    <tr><td>Auto-deploy</td><td class="cross">&#10007;</td><td class="check">&#10003;</td></tr>
+                    <tr><td>GPU acceleration</td><td class="cross">&#10007;</td><td class="check">&#10003;</td></tr>
+                    <tr><td>File output limit</td><td>14 files</td><td>Unlimited</td></tr>
+                    <tr><td>Priority support</td><td class="cross">&#10007;</td><td class="check">&#10003; 12-month</td></tr>
+                    <tr><td>License</td><td>Personal</td><td>Commercial</td></tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+    <section class="sysreq">
+        <div class="container">
+            <h2 class="section-title">System Requirements</h2>
+            <div class="sysreq-grid">
+                <div class="sysreq-item">
+                    <h4>Operating System</h4>
+                    <p>macOS 12+, Windows 10+, Ubuntu 20.04+</p>
+                </div>
+                <div class="sysreq-item">
+                    <h4>RAM</h4>
+                    <p>8 GB minimum, 16 GB recommended</p>
+                </div>
+                <div class="sysreq-item">
+                    <h4>Storage</h4>
+                    <p>4 GB for CLI + model files</p>
+                </div>
+                <div class="sysreq-item">
+                    <h4>GPU (Optional)</h4>
+                    <p>NVIDIA with 6+ GB VRAM for acceleration</p>
+                </div>
+                <div class="sysreq-item">
+                    <h4>Node.js</h4>
+                    <p>v18+ required</p>
+                </div>
+                <div class="sysreq-item">
+                    <h4>Git</h4>
+                    <p>v2.30+ required for integration features</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="faq">
+        <div class="container">
+            <h2 class="section-title">Frequently Asked Questions</h2>
+            <div class="faq-list">
+                <div class="faq-item">
+                    <div class="faq-q" onclick="this.parentElement.classList.toggle('open')">
+                        Is this really a one-time purchase?
+                        <span class="faq-arrow">&#9660;</span>
+                    </div>
+                    <div class="faq-a">Yes. Pay $199 once and use DevBot Pro CLI forever. No subscriptions, no API costs, no hidden fees. You get 12 months of updates and priority support included.</div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-q" onclick="this.parentElement.classList.toggle('open')">
+                        Does it work completely offline?
+                        <span class="faq-arrow">&#9660;</span>
+                    </div>
+                    <div class="faq-a">Yes. The local AI model runs entirely on your machine. After initial download, no internet connection is needed for code generation. Deploy features require internet.</div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-q" onclick="this.parentElement.classList.toggle('open')">
+                        Can I use it for commercial projects?
+                        <span class="faq-arrow">&#9660;</span>
+                    </div>
+                    <div class="faq-a">Absolutely. The Pro CLI license includes full commercial usage rights. Build client projects, SaaS products, or internal tools with no restrictions.</div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-q" onclick="this.parentElement.classList.toggle('open')">
+                        What happens after 12 months of updates?
+                        <span class="faq-arrow">&#9660;</span>
+                    </div>
+                    <div class="faq-a">Your CLI continues to work forever. After 12 months, you can optionally renew updates for $49/year to get new model versions and features.</div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-q" onclick="this.parentElement.classList.toggle('open')">
+                        Is there a refund policy?
+                        <span class="faq-arrow">&#9660;</span>
+                    </div>
+                    <div class="faq-a">Yes, we offer a 30-day money-back guarantee. If you are not satisfied for any reason, contact us for a full refund.</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="cta-section">
+        <div class="container">
+            <div class="cta-box">
+                <h2>Ready to Build Faster?</h2>
+                <p>Join thousands of developers generating production apps from their terminal.</p>
+                <a href="#" class="btn-primary">Buy Now &mdash; $199</a>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container footer-inner">
+            <div class="footer-copy">&copy; 2026 DevBot AI. Built by Darren Smith. Powered by Claude Opus 4.6.</div>
+            <div class="footer-links">
+                <a href="https://github.com/ds335033/devbot" target="_blank">GitHub</a>
+                <a href="index.html#pricing">Pricing</a>
+                <a href="blog.html">Blog</a>
+                <a href="mailto:kooks2350@gmail.com">Contact</a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+    const nav = document.getElementById('navbar');
+    window.addEventListener('scroll', () => nav.classList.toggle('scrolled', window.scrollY > 50));
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry, i) => {
+            if (entry.isIntersecting) {
+                setTimeout(() => entry.target.classList.add('visible'), i * 80);
+                observer.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('.terminal, .feature-card, .faq-item').forEach(el => observer.observe(el));
+    </script>
+</body>
+</html>

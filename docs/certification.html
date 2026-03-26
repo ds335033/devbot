@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Certification Program — DevBot AI</title>
+    <meta name="description" content="Become a Certified DevBot Developer. Three certification levels to validate your AI-powered development skills.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #6366f1; --primary-light: #818cf8; --primary-dark: #4f46e5;
+            --primary-glow: rgba(99,102,241,0.4); --secondary: #06b6d4;
+            --secondary-glow: rgba(6,182,212,0.3); --accent: #f59e0b; --success: #10b981;
+            --dark-900: #030712; --dark-800: #0a0f1e; --dark-700: #111827;
+            --dark-600: #1e293b; --dark-500: #334155; --gray-400: #94a3b8;
+            --gray-300: #cbd5e1; --white: #f8fafc;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif; background: var(--dark-900); color: var(--white); line-height: 1.7; overflow-x: hidden; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+        .bg-grid { position: fixed; top: 0; left: 0; right: 0; bottom: 0; background-image: linear-gradient(rgba(99,102,241,0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(99,102,241,0.03) 1px, transparent 1px); background-size: 60px 60px; z-index: -2; }
+        .bg-glow { position: fixed; width: 600px; height: 600px; border-radius: 50%; filter: blur(120px); z-index: -1; animation: float 20s ease-in-out infinite; }
+        .bg-glow-1 { top: -200px; left: -100px; background: var(--primary-glow); }
+        .bg-glow-2 { bottom: -200px; right: -100px; background: var(--secondary-glow); animation-delay: -10s; }
+        @keyframes float { 0%, 100% { transform: translate(0,0) scale(1); } 33% { transform: translate(30px,-30px) scale(1.05); } 66% { transform: translate(-20px,20px) scale(0.95); } }
+
+        nav { position: fixed; top: 0; left: 0; right: 0; z-index: 1000; padding: 16px 0; background: rgba(3,7,18,0.8); backdrop-filter: blur(20px); border-bottom: 1px solid rgba(99,102,241,0.1); transition: all 0.3s; }
+        nav.scrolled { padding: 10px 0; background: rgba(3,7,18,0.95); }
+        .nav-inner { display: flex; align-items: center; justify-content: space-between; max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+        .nav-brand { font-size: 1.5rem; font-weight: 800; text-decoration: none; color: var(--white); }
+        .nav-brand span { color: var(--primary); }
+        .nav-links { display: flex; align-items: center; gap: 28px; }
+        .nav-links a { color: var(--gray-400); text-decoration: none; font-size: 0.9rem; font-weight: 500; transition: color 0.3s; }
+        .nav-links a:hover { color: var(--white); }
+        .nav-cta { background: linear-gradient(135deg, var(--primary), var(--primary-dark)); color: var(--white) !important; padding: 8px 20px; border-radius: 8px; font-weight: 600 !important; }
+        .mobile-toggle { display: none; background: none; border: none; color: var(--white); font-size: 1.5rem; cursor: pointer; }
+
+        .hero { padding: 160px 0 60px; text-align: center; }
+        .hero-badge { display: inline-flex; align-items: center; gap: 8px; background: rgba(99,102,241,0.1); border: 1px solid rgba(99,102,241,0.3); padding: 6px 16px; border-radius: 50px; font-size: 0.85rem; color: var(--primary-light); margin-bottom: 24px; }
+        .hero h1 { font-size: clamp(2.5rem, 5vw, 4rem); font-weight: 900; line-height: 1.1; margin-bottom: 20px; background: linear-gradient(135deg, var(--white) 0%, var(--gray-300) 50%, var(--primary-light) 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+        .hero p { font-size: 1.2rem; color: var(--gray-400); max-width: 600px; margin: 0 auto 32px; }
+        .hero-stat { font-size: 1rem; color: var(--success); font-weight: 600; }
+
+        /* Badge */
+        .badge-section { padding: 40px 0 60px; text-align: center; }
+        .cert-badge {
+            width: 160px; height: 160px; border-radius: 50%; margin: 0 auto 24px;
+            background: conic-gradient(var(--primary), var(--secondary), var(--primary-light), var(--accent), var(--primary));
+            padding: 6px; animation: spin 8s linear infinite;
+            opacity: 0; transform: scale(0.5); transition: all 0.6s;
+        }
+        .cert-badge.visible { opacity: 1; transform: scale(1); }
+        @keyframes spin { 0% { filter: hue-rotate(0deg); } 100% { filter: hue-rotate(360deg); } }
+        .cert-badge-inner {
+            width: 100%; height: 100%; border-radius: 50%;
+            background: var(--dark-900); display: flex; flex-direction: column;
+            align-items: center; justify-content: center;
+        }
+        .cert-badge-icon { font-size: 2.5rem; margin-bottom: 4px; }
+        .cert-badge-text { font-size: 0.7rem; font-weight: 800; text-transform: uppercase; letter-spacing: 2px; color: var(--primary-light); }
+
+        .section-title { font-size: 2.5rem; font-weight: 800; text-align: center; margin-bottom: 60px; background: linear-gradient(135deg, var(--white), var(--primary-light)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+
+        /* Certification levels */
+        .levels { padding: 80px 0; }
+        .levels-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 28px; }
+        .level-card {
+            background: rgba(17,24,39,0.7); border: 1px solid rgba(99,102,241,0.2);
+            border-radius: 20px; padding: 40px 32px; position: relative; overflow: hidden;
+            opacity: 0; transform: translateY(30px); transition: all 0.5s;
+        }
+        .level-card.visible { opacity: 1; transform: translateY(0); }
+        .level-card:hover { border-color: var(--primary); transform: translateY(-6px); box-shadow: 0 20px 60px rgba(99,102,241,0.12); }
+        .level-card::before {
+            content: ''; position: absolute; top: 0; left: 0; right: 0; height: 4px;
+        }
+        .level-card.associate::before { background: linear-gradient(90deg, #10b981, #06b6d4); }
+        .level-card.professional::before { background: linear-gradient(90deg, var(--primary), var(--primary-light)); }
+        .level-card.expert::before { background: linear-gradient(90deg, var(--accent), #ef4444); }
+
+        .level-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 20px; }
+        .level-mini-badge {
+            width: 64px; height: 64px; border-radius: 50%; padding: 3px;
+            display: flex; align-items: center; justify-content: center;
+        }
+        .level-mini-badge.associate { background: conic-gradient(#10b981, #06b6d4, #10b981); }
+        .level-mini-badge.professional { background: conic-gradient(var(--primary), var(--primary-light), var(--primary)); }
+        .level-mini-badge.expert { background: conic-gradient(var(--accent), #ef4444, var(--accent)); }
+        .level-mini-inner {
+            width: 100%; height: 100%; border-radius: 50%; background: var(--dark-800);
+            display: flex; align-items: center; justify-content: center; font-size: 1.5rem;
+        }
+        .level-price { font-size: 1.8rem; font-weight: 900; font-family: 'JetBrains Mono', monospace; }
+        .level-price.green { color: var(--success); }
+        .level-price.purple { color: var(--primary-light); }
+        .level-price.amber { color: var(--accent); }
+
+        .level-name { font-size: 1.4rem; font-weight: 800; margin-bottom: 6px; }
+        .level-subtitle { color: var(--gray-400); font-size: 0.9rem; margin-bottom: 20px; }
+
+        .level-details { margin-bottom: 24px; }
+        .level-detail { display: flex; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid rgba(99,102,241,0.08); font-size: 0.9rem; }
+        .level-detail-label { color: var(--gray-400); }
+        .level-detail-value { font-weight: 600; color: var(--gray-300); }
+
+        .level-topics { margin-bottom: 24px; }
+        .level-topics h4 { font-size: 0.85rem; color: var(--primary-light); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 12px; }
+        .level-topics ul { list-style: none; }
+        .level-topics li { padding: 6px 0; color: var(--gray-300); font-size: 0.9rem; }
+        .level-topics li::before { content: '\2713 '; color: var(--success); font-weight: 700; margin-right: 8px; }
+
+        .btn-primary { padding: 14px 32px; border-radius: 10px; border: none; cursor: pointer; font-weight: 700; font-size: 1rem; font-family: 'Inter', sans-serif; background: linear-gradient(135deg, var(--primary), var(--primary-dark)); color: var(--white); transition: all 0.3s; text-decoration: none; display: inline-block; width: 100%; text-align: center; }
+        .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 10px 30px var(--primary-glow); }
+
+        /* Benefits */
+        .cert-benefits { padding: 80px 0; }
+        .benefits-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 24px; }
+        .ben-card {
+            background: rgba(17,24,39,0.6); border: 1px solid rgba(99,102,241,0.15);
+            border-radius: 16px; padding: 32px; text-align: center;
+            opacity: 0; transform: translateY(20px); transition: all 0.4s;
+        }
+        .ben-card.visible { opacity: 1; transform: translateY(0); }
+        .ben-card:hover { border-color: var(--primary); }
+        .ben-icon { font-size: 2rem; margin-bottom: 16px; }
+        .ben-card h3 { font-size: 1.1rem; font-weight: 700; margin-bottom: 8px; }
+        .ben-card p { color: var(--gray-400); font-size: 0.9rem; }
+
+        /* Sample Questions */
+        .sample { padding: 80px 0; }
+        .sample-list { max-width: 800px; margin: 0 auto; }
+        .sample-q {
+            background: rgba(17,24,39,0.7); border: 1px solid rgba(99,102,241,0.15);
+            border-radius: 14px; padding: 28px; margin-bottom: 20px;
+            opacity: 0; transform: translateY(20px); transition: all 0.4s;
+        }
+        .sample-q.visible { opacity: 1; transform: translateY(0); }
+        .sample-q-label { font-size: 0.75rem; color: var(--primary-light); text-transform: uppercase; letter-spacing: 1px; font-weight: 700; margin-bottom: 12px; }
+        .sample-q-text { font-size: 1rem; color: var(--gray-300); margin-bottom: 16px; line-height: 1.6; }
+        .sample-q-options { display: flex; flex-direction: column; gap: 8px; }
+        .sample-option {
+            padding: 10px 16px; border-radius: 8px; font-size: 0.9rem; color: var(--gray-300);
+            background: var(--dark-600); border: 1px solid transparent; transition: all 0.3s; cursor: pointer;
+        }
+        .sample-option:hover { border-color: var(--primary); color: var(--white); }
+        .sample-option.correct { border-color: var(--success); background: rgba(16,185,129,0.1); }
+        .sample-option span { font-family: 'JetBrains Mono', monospace; color: var(--gray-400); margin-right: 8px; }
+
+        /* Stats */
+        .stats-bar { padding: 60px 0; text-align: center; }
+        .stats-row { display: flex; justify-content: center; gap: 60px; flex-wrap: wrap; }
+        .stat-item { text-align: center; }
+        .stat-num { font-size: 2.5rem; font-weight: 900; font-family: 'JetBrains Mono', monospace; color: var(--primary-light); }
+        .stat-label { color: var(--gray-400); font-size: 0.85rem; margin-top: 4px; }
+
+        footer { padding: 40px 0; border-top: 1px solid rgba(99,102,241,0.1); margin-top: 40px; }
+        .footer-inner { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 20px; }
+        .footer-copy { color: var(--gray-400); font-size: 0.85rem; }
+        .footer-links { display: flex; gap: 24px; }
+        .footer-links a { color: var(--gray-400); text-decoration: none; font-size: 0.85rem; transition: color 0.3s; }
+        .footer-links a:hover { color: var(--primary-light); }
+
+        @media (max-width: 768px) {
+            .nav-links { display: none; }
+            .mobile-toggle { display: block; }
+            .nav-links.open { display: flex; flex-direction: column; position: absolute; top: 100%; left: 0; right: 0; background: var(--dark-800); padding: 20px; gap: 16px; }
+            .levels-grid { grid-template-columns: 1fr; }
+            .stats-row { gap: 30px; }
+            .footer-inner { flex-direction: column; text-align: center; }
+        }
+    </style>
+</head>
+<body>
+    <div class="bg-grid"></div>
+    <div class="bg-glow bg-glow-1"></div>
+    <div class="bg-glow bg-glow-2"></div>
+
+    <nav id="navbar">
+        <div class="nav-inner">
+            <a href="https://devbotai.store" class="nav-brand">Dev<span>Bot</span></a>
+            <button class="mobile-toggle" onclick="document.querySelector('.nav-links').classList.toggle('open')">&#9776;</button>
+            <div class="nav-links">
+                <a href="studio.html">Studio</a>
+                <a href="index.html#pricing">Pricing</a>
+                <a href="blog.html">Blog</a>
+                <a href="https://github.com/ds335033/devbot" target="_blank">GitHub</a>
+                <a href="certification.html" class="nav-cta">Get Certified</a>
+            </div>
+        </div>
+    </nav>
+
+    <section class="hero">
+        <div class="container">
+            <div class="hero-badge">&#127942; Certification</div>
+            <h1>Become a Certified DevBot Developer</h1>
+            <p>Validate your AI-powered development skills. Stand out to employers and clients with an industry-recognized credential.</p>
+            <div class="hero-stat">500+ certified developers worldwide</div>
+        </div>
+    </section>
+
+    <section class="badge-section">
+        <div class="container">
+            <div class="cert-badge">
+                <div class="cert-badge-inner">
+                    <div class="cert-badge-icon">&#127942;</div>
+                    <div class="cert-badge-text">Certified</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="levels">
+        <div class="container">
+            <h2 class="section-title">Certification Levels</h2>
+            <div class="levels-grid">
+
+                <div class="level-card associate">
+                    <div class="level-header">
+                        <div class="level-mini-badge associate"><div class="level-mini-inner">&#9733;</div></div>
+                        <div class="level-price green">$49</div>
+                    </div>
+                    <div class="level-name">Associate</div>
+                    <div class="level-subtitle">Foundational AI-assisted development skills</div>
+                    <div class="level-details">
+                        <div class="level-detail"><span class="level-detail-label">Questions</span><span class="level-detail-value">40 multiple choice</span></div>
+                        <div class="level-detail"><span class="level-detail-label">Time Limit</span><span class="level-detail-value">60 minutes</span></div>
+                        <div class="level-detail"><span class="level-detail-label">Passing Score</span><span class="level-detail-value">70%</span></div>
+                        <div class="level-detail"><span class="level-detail-label">Validity</span><span class="level-detail-value">2 years</span></div>
+                    </div>
+                    <div class="level-topics">
+                        <h4>What it covers</h4>
+                        <ul>
+                            <li>DevBot Studio basics</li>
+                            <li>Prompt engineering fundamentals</li>
+                            <li>Understanding generated code structure</li>
+                            <li>Basic customization and deployment</li>
+                        </ul>
+                    </div>
+                    <a href="#" class="btn-primary">Start Exam</a>
+                </div>
+
+                <div class="level-card professional">
+                    <div class="level-header">
+                        <div class="level-mini-badge professional"><div class="level-mini-inner">&#11088;</div></div>
+                        <div class="level-price purple">$99</div>
+                    </div>
+                    <div class="level-name">Professional</div>
+                    <div class="level-subtitle">Advanced generation and architecture skills</div>
+                    <div class="level-details">
+                        <div class="level-detail"><span class="level-detail-label">Questions</span><span class="level-detail-value">60 mixed format</span></div>
+                        <div class="level-detail"><span class="level-detail-label">Time Limit</span><span class="level-detail-value">90 minutes</span></div>
+                        <div class="level-detail"><span class="level-detail-label">Passing Score</span><span class="level-detail-value">75%</span></div>
+                        <div class="level-detail"><span class="level-detail-label">Validity</span><span class="level-detail-value">2 years</span></div>
+                    </div>
+                    <div class="level-topics">
+                        <h4>What it covers</h4>
+                        <ul>
+                            <li>Advanced prompt techniques</li>
+                            <li>Multi-file architecture patterns</li>
+                            <li>Custom template creation</li>
+                            <li>CI/CD pipeline integration</li>
+                            <li>Testing generated code</li>
+                        </ul>
+                    </div>
+                    <a href="#" class="btn-primary">Start Exam</a>
+                </div>
+
+                <div class="level-card expert">
+                    <div class="level-header">
+                        <div class="level-mini-badge expert"><div class="level-mini-inner">&#128142;</div></div>
+                        <div class="level-price amber">$199</div>
+                    </div>
+                    <div class="level-name">Expert</div>
+                    <div class="level-subtitle">Enterprise-level AI development mastery</div>
+                    <div class="level-details">
+                        <div class="level-detail"><span class="level-detail-label">Questions</span><span class="level-detail-value">80 mixed + practical</span></div>
+                        <div class="level-detail"><span class="level-detail-label">Time Limit</span><span class="level-detail-value">120 minutes</span></div>
+                        <div class="level-detail"><span class="level-detail-label">Passing Score</span><span class="level-detail-value">80%</span></div>
+                        <div class="level-detail"><span class="level-detail-label">Validity</span><span class="level-detail-value">3 years</span></div>
+                    </div>
+                    <div class="level-topics">
+                        <h4>What it covers</h4>
+                        <ul>
+                            <li>Enterprise deployment strategies</li>
+                            <li>Custom AI training pipelines</li>
+                            <li>White-label configuration</li>
+                            <li>API integration and automation</li>
+                            <li>Security and compliance</li>
+                            <li>Performance optimization</li>
+                        </ul>
+                    </div>
+                    <a href="#" class="btn-primary">Start Exam</a>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <section class="cert-benefits">
+        <div class="container">
+            <h2 class="section-title">Why Get Certified?</h2>
+            <div class="benefits-grid">
+                <div class="ben-card">
+                    <div class="ben-icon">&#128188;</div>
+                    <h3>LinkedIn Badge</h3>
+                    <p>Display your certification on LinkedIn. Verified digital credentials that employers can validate instantly.</p>
+                </div>
+                <div class="ben-card">
+                    <div class="ben-icon">&#128269;</div>
+                    <h3>Job Listings Access</h3>
+                    <p>Get listed in our certified developer directory. Companies looking for DevBot expertise find you directly.</p>
+                </div>
+                <div class="ben-card">
+                    <div class="ben-icon">&#127760;</div>
+                    <h3>Community Recognition</h3>
+                    <p>Join the certified community. Access exclusive channels, events, and early access to new features.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="sample">
+        <div class="container">
+            <h2 class="section-title">Sample Exam Questions</h2>
+            <div class="sample-list">
+
+                <div class="sample-q">
+                    <div class="sample-q-label">Associate Level &mdash; Question 12</div>
+                    <div class="sample-q-text">What is the maximum number of files DevBot can generate from a single prompt on the free tier?</div>
+                    <div class="sample-q-options">
+                        <div class="sample-option"><span>A.</span> 5 files</div>
+                        <div class="sample-option"><span>B.</span> 10 files</div>
+                        <div class="sample-option correct"><span>C.</span> 14 files</div>
+                        <div class="sample-option"><span>D.</span> Unlimited</div>
+                    </div>
+                </div>
+
+                <div class="sample-q">
+                    <div class="sample-q-label">Professional Level &mdash; Question 28</div>
+                    <div class="sample-q-text">When generating a full-stack application, which DevBot flag ensures the generated code includes Docker and CI/CD configuration?</div>
+                    <div class="sample-q-options">
+                        <div class="sample-option"><span>A.</span> --include-ops</div>
+                        <div class="sample-option correct"><span>B.</span> --full-stack</div>
+                        <div class="sample-option"><span>C.</span> --docker-mode</div>
+                        <div class="sample-option"><span>D.</span> --production</div>
+                    </div>
+                </div>
+
+                <div class="sample-q">
+                    <div class="sample-q-label">Expert Level &mdash; Question 55</div>
+                    <div class="sample-q-text">In a white-label deployment, what is the recommended approach for customizing the AI model's code generation patterns to match enterprise standards?</div>
+                    <div class="sample-q-options">
+                        <div class="sample-option"><span>A.</span> Modify the base prompt template only</div>
+                        <div class="sample-option"><span>B.</span> Use system-level configuration overrides</div>
+                        <div class="sample-option correct"><span>C.</span> Train a custom model with the enterprise codebase and apply style configs</div>
+                        <div class="sample-option"><span>D.</span> Fork the open-source repo and modify generation logic</div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <section class="stats-bar">
+        <div class="container">
+            <div class="stats-row">
+                <div class="stat-item">
+                    <div class="stat-num" id="certCount">500+</div>
+                    <div class="stat-label">Certified Developers</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-num">92%</div>
+                    <div class="stat-label">Pass Rate</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-num">34</div>
+                    <div class="stat-label">Countries</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-num">4.8/5</div>
+                    <div class="stat-label">Satisfaction Rating</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container footer-inner">
+            <div class="footer-copy">&copy; 2026 DevBot AI. Built by Darren Smith. Powered by Claude Opus 4.6.</div>
+            <div class="footer-links">
+                <a href="https://github.com/ds335033/devbot" target="_blank">GitHub</a>
+                <a href="index.html#pricing">Pricing</a>
+                <a href="blog.html">Blog</a>
+                <a href="mailto:kooks2350@gmail.com">Contact</a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+    const nav = document.getElementById('navbar');
+    window.addEventListener('scroll', () => nav.classList.toggle('scrolled', window.scrollY > 50));
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry, i) => {
+            if (entry.isIntersecting) {
+                setTimeout(() => entry.target.classList.add('visible'), i * 100);
+                observer.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('.cert-badge, .level-card, .ben-card, .sample-q').forEach(el => observer.observe(el));
+
+    // Interactive sample questions
+    document.querySelectorAll('.sample-option').forEach(opt => {
+        opt.addEventListener('click', function() {
+            const parent = this.closest('.sample-q-options');
+            parent.querySelectorAll('.sample-option').forEach(o => o.style.opacity = '0.5');
+            this.style.opacity = '1';
+            if (this.classList.contains('correct')) {
+                this.style.borderColor = '#10b981';
+                this.style.background = 'rgba(16,185,129,0.15)';
+            } else {
+                this.style.borderColor = '#ef4444';
+                this.style.background = 'rgba(239,68,68,0.15)';
+                parent.querySelector('.correct').style.opacity = '1';
+                parent.querySelector('.correct').style.borderColor = '#10b981';
+                parent.querySelector('.correct').style.background = 'rgba(16,185,129,0.15)';
+            }
+        });
+    });
+    </script>
+</body>
+</html>

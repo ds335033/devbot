@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Premium Templates — DevBot AI</title>
+    <meta name="description" content="Skip the prompt, start building. Premium production-ready app templates for React, Next.js, Node.js and more.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #6366f1;
+            --primary-light: #818cf8;
+            --primary-dark: #4f46e5;
+            --primary-glow: rgba(99, 102, 241, 0.4);
+            --secondary: #06b6d4;
+            --secondary-glow: rgba(6, 182, 212, 0.3);
+            --accent: #f59e0b;
+            --success: #10b981;
+            --danger: #ef4444;
+            --dark-900: #030712;
+            --dark-800: #0a0f1e;
+            --dark-700: #111827;
+            --dark-600: #1e293b;
+            --dark-500: #334155;
+            --gray-400: #94a3b8;
+            --gray-300: #cbd5e1;
+            --white: #f8fafc;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--dark-900);
+            color: var(--white);
+            line-height: 1.7;
+            overflow-x: hidden;
+        }
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+
+        /* Background */
+        .bg-grid {
+            position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+            background-image:
+                linear-gradient(rgba(99, 102, 241, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(99, 102, 241, 0.03) 1px, transparent 1px);
+            background-size: 60px 60px;
+            z-index: -2;
+        }
+        .bg-glow {
+            position: fixed; width: 600px; height: 600px; border-radius: 50%;
+            filter: blur(120px); z-index: -1; animation: float 20s ease-in-out infinite;
+        }
+        .bg-glow-1 { top: -200px; left: -100px; background: var(--primary-glow); }
+        .bg-glow-2 { bottom: -200px; right: -100px; background: var(--secondary-glow); animation-delay: -10s; }
+        @keyframes float {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            33% { transform: translate(30px, -30px) scale(1.05); }
+            66% { transform: translate(-20px, 20px) scale(0.95); }
+        }
+
+        /* Nav */
+        nav {
+            position: fixed; top: 0; left: 0; right: 0;
+            z-index: 1000; padding: 16px 0;
+            background: rgba(3, 7, 18, 0.8); backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(99, 102, 241, 0.1);
+            transition: all 0.3s ease;
+        }
+        nav.scrolled { padding: 10px 0; background: rgba(3, 7, 18, 0.95); }
+        .nav-inner { display: flex; align-items: center; justify-content: space-between; max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+        .nav-brand { font-size: 1.5rem; font-weight: 800; text-decoration: none; color: var(--white); }
+        .nav-brand span { color: var(--primary); }
+        .nav-links { display: flex; align-items: center; gap: 28px; }
+        .nav-links a { color: var(--gray-400); text-decoration: none; font-size: 0.9rem; font-weight: 500; transition: color 0.3s; }
+        .nav-links a:hover { color: var(--white); }
+        .nav-cta {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: var(--white) !important; padding: 8px 20px; border-radius: 8px;
+            font-weight: 600 !important; transition: transform 0.3s, box-shadow 0.3s !important;
+        }
+        .nav-cta:hover { transform: translateY(-2px); box-shadow: 0 8px 25px var(--primary-glow); }
+        .mobile-toggle { display: none; background: none; border: none; color: var(--white); font-size: 1.5rem; cursor: pointer; }
+
+        /* Hero */
+        .hero {
+            padding: 160px 0 80px; text-align: center;
+        }
+        .hero-badge {
+            display: inline-flex; align-items: center; gap: 8px;
+            background: rgba(99, 102, 241, 0.1); border: 1px solid rgba(99, 102, 241, 0.3);
+            padding: 6px 16px; border-radius: 50px; font-size: 0.85rem; color: var(--primary-light);
+            margin-bottom: 24px;
+        }
+        .hero h1 {
+            font-size: clamp(2.5rem, 5vw, 4rem); font-weight: 900;
+            line-height: 1.1; margin-bottom: 20px;
+            background: linear-gradient(135deg, var(--white) 0%, var(--gray-300) 50%, var(--primary-light) 100%);
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .hero p { font-size: 1.2rem; color: var(--gray-400); max-width: 600px; margin: 0 auto 40px; }
+
+        /* Templates Grid */
+        .templates-grid {
+            display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+            gap: 24px; padding: 40px 0 80px;
+        }
+        .template-card {
+            background: rgba(17, 24, 39, 0.6); border: 1px solid rgba(99, 102, 241, 0.15);
+            border-radius: 16px; padding: 28px; transition: all 0.4s ease;
+            position: relative; overflow: hidden;
+            opacity: 0; transform: translateY(30px);
+        }
+        .template-card.visible { opacity: 1; transform: translateY(0); }
+        .template-card:hover {
+            border-color: var(--primary); transform: translateY(-6px);
+            box-shadow: 0 20px 60px rgba(99, 102, 241, 0.15);
+        }
+        .template-card::before {
+            content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            opacity: 0; transition: opacity 0.3s;
+        }
+        .template-card:hover::before { opacity: 1; }
+        .card-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 12px; }
+        .card-icon {
+            width: 48px; height: 48px; border-radius: 12px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            display: flex; align-items: center; justify-content: center; font-size: 1.4rem;
+        }
+        .card-price {
+            font-size: 1.5rem; font-weight: 800; color: var(--success);
+            font-family: 'JetBrains Mono', monospace;
+        }
+        .card-title { font-size: 1.2rem; font-weight: 700; margin-bottom: 8px; }
+        .card-desc { font-size: 0.9rem; color: var(--gray-400); margin-bottom: 16px; line-height: 1.6; }
+        .card-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 16px; }
+        .card-tag {
+            font-size: 0.75rem; padding: 3px 10px; border-radius: 50px;
+            background: rgba(99, 102, 241, 0.1); color: var(--primary-light);
+            border: 1px solid rgba(99, 102, 241, 0.2);
+            font-family: 'JetBrains Mono', monospace;
+        }
+        .card-meta { display: flex; justify-content: space-between; align-items: center; }
+        .card-files { font-size: 0.85rem; color: var(--gray-400); }
+        .btn-buy {
+            padding: 10px 24px; border-radius: 8px; border: none; cursor: pointer;
+            font-weight: 600; font-size: 0.9rem; font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: var(--white); transition: all 0.3s ease; text-decoration: none; display: inline-block;
+        }
+        .btn-buy:hover { transform: translateY(-2px); box-shadow: 0 8px 25px var(--primary-glow); }
+
+        /* Why Premium */
+        .why-section { padding: 80px 0; }
+        .why-section h2 {
+            font-size: 2.5rem; font-weight: 800; text-align: center; margin-bottom: 60px;
+            background: linear-gradient(135deg, var(--white), var(--primary-light));
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+        }
+        .why-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 32px; }
+        .why-card {
+            background: rgba(17, 24, 39, 0.6); border: 1px solid rgba(99, 102, 241, 0.15);
+            border-radius: 16px; padding: 36px; text-align: center;
+            opacity: 0; transform: translateY(30px); transition: all 0.4s ease;
+        }
+        .why-card.visible { opacity: 1; transform: translateY(0); }
+        .why-icon {
+            width: 64px; height: 64px; border-radius: 16px; margin: 0 auto 20px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            display: flex; align-items: center; justify-content: center; font-size: 1.8rem;
+        }
+        .why-card h3 { font-size: 1.3rem; font-weight: 700; margin-bottom: 12px; }
+        .why-card p { color: var(--gray-400); font-size: 0.95rem; }
+
+        /* Footer */
+        footer {
+            padding: 40px 0; border-top: 1px solid rgba(99, 102, 241, 0.1);
+            margin-top: 40px;
+        }
+        .footer-inner { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 20px; }
+        .footer-copy { color: var(--gray-400); font-size: 0.85rem; }
+        .footer-links { display: flex; gap: 24px; }
+        .footer-links a { color: var(--gray-400); text-decoration: none; font-size: 0.85rem; transition: color 0.3s; }
+        .footer-links a:hover { color: var(--primary-light); }
+
+        @media (max-width: 768px) {
+            .nav-links { display: none; }
+            .mobile-toggle { display: block; }
+            .nav-links.open {
+                display: flex; flex-direction: column; position: absolute;
+                top: 100%; left: 0; right: 0; background: var(--dark-800);
+                padding: 20px; gap: 16px; border-bottom: 1px solid rgba(99, 102, 241, 0.1);
+            }
+            .templates-grid { grid-template-columns: 1fr; }
+            .footer-inner { flex-direction: column; text-align: center; }
+        }
+    </style>
+</head>
+<body>
+    <div class="bg-grid"></div>
+    <div class="bg-glow bg-glow-1"></div>
+    <div class="bg-glow bg-glow-2"></div>
+
+    <nav id="navbar">
+        <div class="nav-inner">
+            <a href="https://devbotai.store" class="nav-brand">Dev<span>Bot</span></a>
+            <button class="mobile-toggle" onclick="document.querySelector('.nav-links').classList.toggle('open')">&#9776;</button>
+            <div class="nav-links">
+                <a href="studio.html">Studio</a>
+                <a href="index.html#pricing">Pricing</a>
+                <a href="blog.html">Blog</a>
+                <a href="https://github.com/ds335033/devbot" target="_blank">GitHub</a>
+                <a href="templates.html" class="nav-cta">Templates</a>
+            </div>
+        </div>
+    </nav>
+
+    <section class="hero">
+        <div class="container">
+            <div class="hero-badge">&#9733; Premium Collection</div>
+            <h1>Premium App Templates</h1>
+            <p>Skip the prompt, start building. Production-ready templates with tests, Docker configs, and CI/CD pipelines included.</p>
+        </div>
+    </section>
+
+    <section class="container">
+        <div class="templates-grid" id="templatesGrid">
+
+            <div class="template-card">
+                <div class="card-header">
+                    <div class="card-icon">&#128640;</div>
+                    <div class="card-price">$29</div>
+                </div>
+                <div class="card-title">SaaS Starter</div>
+                <div class="card-desc">Complete SaaS boilerplate with authentication, billing, dashboard, and user management. Stripe integration included.</div>
+                <div class="card-tags">
+                    <span class="card-tag">Next.js</span>
+                    <span class="card-tag">Prisma</span>
+                    <span class="card-tag">Stripe</span>
+                    <span class="card-tag">Tailwind</span>
+                </div>
+                <div class="card-meta">
+                    <span class="card-files">42 files</span>
+                    <a href="#" class="btn-buy">Buy Now</a>
+                </div>
+            </div>
+
+            <div class="template-card">
+                <div class="card-header">
+                    <div class="card-icon">&#128722;</div>
+                    <div class="card-price">$49</div>
+                </div>
+                <div class="card-title">E-Commerce Pro</div>
+                <div class="card-desc">Full-featured storefront with product catalog, cart, checkout, inventory management, and admin panel.</div>
+                <div class="card-tags">
+                    <span class="card-tag">React</span>
+                    <span class="card-tag">Node.js</span>
+                    <span class="card-tag">MongoDB</span>
+                    <span class="card-tag">Redis</span>
+                </div>
+                <div class="card-meta">
+                    <span class="card-files">68 files</span>
+                    <a href="#" class="btn-buy">Buy Now</a>
+                </div>
+            </div>
+
+            <div class="template-card">
+                <div class="card-header">
+                    <div class="card-icon">&#128202;</div>
+                    <div class="card-price">$19</div>
+                </div>
+                <div class="card-title">Real-Time Dashboard</div>
+                <div class="card-desc">WebSocket-powered live dashboard with charts, notifications, and real-time data streaming.</div>
+                <div class="card-tags">
+                    <span class="card-tag">React</span>
+                    <span class="card-tag">Socket.io</span>
+                    <span class="card-tag">D3.js</span>
+                    <span class="card-tag">Express</span>
+                </div>
+                <div class="card-meta">
+                    <span class="card-files">28 files</span>
+                    <a href="#" class="btn-buy">Buy Now</a>
+                </div>
+            </div>
+
+            <div class="template-card">
+                <div class="card-header">
+                    <div class="card-icon">&#129302;</div>
+                    <div class="card-price">$39</div>
+                </div>
+                <div class="card-title">AI Chatbot Pro</div>
+                <div class="card-desc">Production chatbot with multi-model support, conversation memory, RAG pipeline, and admin controls.</div>
+                <div class="card-tags">
+                    <span class="card-tag">Python</span>
+                    <span class="card-tag">FastAPI</span>
+                    <span class="card-tag">LangChain</span>
+                    <span class="card-tag">React</span>
+                </div>
+                <div class="card-meta">
+                    <span class="card-files">35 files</span>
+                    <a href="#" class="btn-buy">Buy Now</a>
+                </div>
+            </div>
+
+            <div class="template-card">
+                <div class="card-header">
+                    <div class="card-icon">&#127760;</div>
+                    <div class="card-price">$49</div>
+                </div>
+                <div class="card-title">Social Media Platform</div>
+                <div class="card-desc">Full social network with feeds, messaging, profiles, notifications, media uploads, and moderation tools.</div>
+                <div class="card-tags">
+                    <span class="card-tag">Next.js</span>
+                    <span class="card-tag">PostgreSQL</span>
+                    <span class="card-tag">S3</span>
+                    <span class="card-tag">WebSocket</span>
+                </div>
+                <div class="card-meta">
+                    <span class="card-files">72 files</span>
+                    <a href="#" class="btn-buy">Buy Now</a>
+                </div>
+            </div>
+
+            <div class="template-card">
+                <div class="card-header">
+                    <div class="card-icon">&#9881;</div>
+                    <div class="card-price">$15</div>
+                </div>
+                <div class="card-title">DevOps Pipeline</div>
+                <div class="card-desc">Complete CI/CD setup with Docker, Kubernetes configs, monitoring, and automated deployment scripts.</div>
+                <div class="card-tags">
+                    <span class="card-tag">Docker</span>
+                    <span class="card-tag">K8s</span>
+                    <span class="card-tag">GitHub Actions</span>
+                    <span class="card-tag">Terraform</span>
+                </div>
+                <div class="card-meta">
+                    <span class="card-files">24 files</span>
+                    <a href="#" class="btn-buy">Buy Now</a>
+                </div>
+            </div>
+
+            <div class="template-card">
+                <div class="card-header">
+                    <div class="card-icon">&#128241;</div>
+                    <div class="card-price">$29</div>
+                </div>
+                <div class="card-title">Mobile Backend</div>
+                <div class="card-desc">API backend for mobile apps with auth, push notifications, file storage, and rate limiting.</div>
+                <div class="card-tags">
+                    <span class="card-tag">Node.js</span>
+                    <span class="card-tag">Express</span>
+                    <span class="card-tag">Firebase</span>
+                    <span class="card-tag">JWT</span>
+                </div>
+                <div class="card-meta">
+                    <span class="card-files">31 files</span>
+                    <a href="#" class="btn-buy">Buy Now</a>
+                </div>
+            </div>
+
+            <div class="template-card">
+                <div class="card-header">
+                    <div class="card-icon">&#127912;</div>
+                    <div class="card-price">$9</div>
+                </div>
+                <div class="card-title">Portfolio Pro</div>
+                <div class="card-desc">Stunning developer portfolio with project showcase, blog, contact form, and dark/light mode.</div>
+                <div class="card-tags">
+                    <span class="card-tag">Astro</span>
+                    <span class="card-tag">Tailwind</span>
+                    <span class="card-tag">MDX</span>
+                    <span class="card-tag">Vercel</span>
+                </div>
+                <div class="card-meta">
+                    <span class="card-files">18 files</span>
+                    <a href="#" class="btn-buy">Buy Now</a>
+                </div>
+            </div>
+
+            <div class="template-card">
+                <div class="card-header">
+                    <div class="card-icon">&#128188;</div>
+                    <div class="card-price">$49</div>
+                </div>
+                <div class="card-title">CRM System</div>
+                <div class="card-desc">Customer relationship manager with contacts, deals pipeline, email integration, and reporting dashboards.</div>
+                <div class="card-tags">
+                    <span class="card-tag">React</span>
+                    <span class="card-tag">Node.js</span>
+                    <span class="card-tag">PostgreSQL</span>
+                    <span class="card-tag">GraphQL</span>
+                </div>
+                <div class="card-meta">
+                    <span class="card-files">56 files</span>
+                    <a href="#" class="btn-buy">Buy Now</a>
+                </div>
+            </div>
+
+            <div class="template-card">
+                <div class="card-header">
+                    <div class="card-icon">&#128197;</div>
+                    <div class="card-price">$39</div>
+                </div>
+                <div class="card-title">Booking Platform</div>
+                <div class="card-desc">Appointment scheduling system with calendar views, availability management, payments, and notifications.</div>
+                <div class="card-tags">
+                    <span class="card-tag">Next.js</span>
+                    <span class="card-tag">Prisma</span>
+                    <span class="card-tag">Stripe</span>
+                    <span class="card-tag">SendGrid</span>
+                </div>
+                <div class="card-meta">
+                    <span class="card-files">44 files</span>
+                    <a href="#" class="btn-buy">Buy Now</a>
+                </div>
+            </div>
+
+            <div class="template-card">
+                <div class="card-header">
+                    <div class="card-icon">&#128200;</div>
+                    <div class="card-price">$29</div>
+                </div>
+                <div class="card-title">Analytics Dashboard</div>
+                <div class="card-desc">Business intelligence dashboard with data visualization, filters, export, and scheduled reports.</div>
+                <div class="card-tags">
+                    <span class="card-tag">Vue.js</span>
+                    <span class="card-tag">Python</span>
+                    <span class="card-tag">FastAPI</span>
+                    <span class="card-tag">Chart.js</span>
+                </div>
+                <div class="card-meta">
+                    <span class="card-files">38 files</span>
+                    <a href="#" class="btn-buy">Buy Now</a>
+                </div>
+            </div>
+
+            <div class="template-card">
+                <div class="card-header">
+                    <div class="card-icon">&#127979;</div>
+                    <div class="card-price">$49</div>
+                </div>
+                <div class="card-title">Marketplace Platform</div>
+                <div class="card-desc">Multi-vendor marketplace with listings, reviews, escrow payments, seller dashboards, and search.</div>
+                <div class="card-tags">
+                    <span class="card-tag">Next.js</span>
+                    <span class="card-tag">Stripe Connect</span>
+                    <span class="card-tag">Algolia</span>
+                    <span class="card-tag">PostgreSQL</span>
+                </div>
+                <div class="card-meta">
+                    <span class="card-files">74 files</span>
+                    <a href="#" class="btn-buy">Buy Now</a>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <section class="why-section">
+        <div class="container">
+            <h2>Why Premium Templates?</h2>
+            <div class="why-grid">
+                <div class="why-card">
+                    <div class="why-icon">&#9989;</div>
+                    <h3>Production-Tested Code</h3>
+                    <p>Every template has been deployed and battle-tested in production environments. No prototype code, no shortcuts.</p>
+                </div>
+                <div class="why-card">
+                    <div class="why-icon">&#128295;</div>
+                    <h3>Includes Full Test Suites</h3>
+                    <p>Unit tests, integration tests, and E2E tests included. CI/CD pipelines configured and ready to run.</p>
+                </div>
+                <div class="why-card">
+                    <div class="why-icon">&#128260;</div>
+                    <h3>30-Day Free Updates</h3>
+                    <p>Get dependency updates, security patches, and new features for 30 days after purchase. Stay current effortlessly.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container footer-inner">
+            <div class="footer-copy">&copy; 2026 DevBot AI. Built by Darren Smith. Powered by Claude Opus 4.6.</div>
+            <div class="footer-links">
+                <a href="https://github.com/ds335033/devbot" target="_blank">GitHub</a>
+                <a href="index.html#pricing">Pricing</a>
+                <a href="blog.html">Blog</a>
+                <a href="mailto:kooks2350@gmail.com">Contact</a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+    const nav = document.getElementById('navbar');
+    window.addEventListener('scroll', () => {
+        nav.classList.toggle('scrolled', window.scrollY > 50);
+    });
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry, index) => {
+            if (entry.isIntersecting) {
+                setTimeout(() => entry.target.classList.add('visible'), index * 80);
+                observer.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('.template-card, .why-card').forEach(el => observer.observe(el));
+    </script>
+</body>
+</html>

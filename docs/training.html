@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Custom AI Training — DevBot AI</title>
+    <meta name="description" content="Train DevBot on your codebase. Generate code that matches your team's patterns, conventions, and standards.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #6366f1; --primary-light: #818cf8; --primary-dark: #4f46e5;
+            --primary-glow: rgba(99,102,241,0.4); --secondary: #06b6d4;
+            --secondary-glow: rgba(6,182,212,0.3); --accent: #f59e0b; --success: #10b981;
+            --dark-900: #030712; --dark-800: #0a0f1e; --dark-700: #111827;
+            --dark-600: #1e293b; --dark-500: #334155; --gray-400: #94a3b8;
+            --gray-300: #cbd5e1; --white: #f8fafc;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif; background: var(--dark-900); color: var(--white); line-height: 1.7; overflow-x: hidden; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+        .bg-grid { position: fixed; top: 0; left: 0; right: 0; bottom: 0; background-image: linear-gradient(rgba(99,102,241,0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(99,102,241,0.03) 1px, transparent 1px); background-size: 60px 60px; z-index: -2; }
+        .bg-glow { position: fixed; width: 600px; height: 600px; border-radius: 50%; filter: blur(120px); z-index: -1; animation: float 20s ease-in-out infinite; }
+        .bg-glow-1 { top: -200px; left: -100px; background: var(--primary-glow); }
+        .bg-glow-2 { bottom: -200px; right: -100px; background: var(--secondary-glow); animation-delay: -10s; }
+        @keyframes float { 0%, 100% { transform: translate(0,0) scale(1); } 33% { transform: translate(30px,-30px) scale(1.05); } 66% { transform: translate(-20px,20px) scale(0.95); } }
+
+        nav { position: fixed; top: 0; left: 0; right: 0; z-index: 1000; padding: 16px 0; background: rgba(3,7,18,0.8); backdrop-filter: blur(20px); border-bottom: 1px solid rgba(99,102,241,0.1); transition: all 0.3s; }
+        nav.scrolled { padding: 10px 0; background: rgba(3,7,18,0.95); }
+        .nav-inner { display: flex; align-items: center; justify-content: space-between; max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+        .nav-brand { font-size: 1.5rem; font-weight: 800; text-decoration: none; color: var(--white); }
+        .nav-brand span { color: var(--primary); }
+        .nav-links { display: flex; align-items: center; gap: 28px; }
+        .nav-links a { color: var(--gray-400); text-decoration: none; font-size: 0.9rem; font-weight: 500; transition: color 0.3s; }
+        .nav-links a:hover { color: var(--white); }
+        .nav-cta { background: linear-gradient(135deg, var(--primary), var(--primary-dark)); color: var(--white) !important; padding: 8px 20px; border-radius: 8px; font-weight: 600 !important; }
+        .mobile-toggle { display: none; background: none; border: none; color: var(--white); font-size: 1.5rem; cursor: pointer; }
+
+        .hero { padding: 160px 0 80px; text-align: center; }
+        .hero-badge { display: inline-flex; align-items: center; gap: 8px; background: rgba(99,102,241,0.1); border: 1px solid rgba(99,102,241,0.3); padding: 6px 16px; border-radius: 50px; font-size: 0.85rem; color: var(--primary-light); margin-bottom: 24px; }
+        .hero h1 { font-size: clamp(2.2rem, 5vw, 3.5rem); font-weight: 900; line-height: 1.1; margin-bottom: 20px; background: linear-gradient(135deg, var(--white) 0%, var(--gray-300) 50%, var(--primary-light) 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+        .hero p { font-size: 1.2rem; color: var(--gray-400); max-width: 650px; margin: 0 auto 16px; }
+        .hero-sub { font-size: 0.95rem; color: var(--accent); font-weight: 600; }
+
+        .section-title { font-size: 2.5rem; font-weight: 800; text-align: center; margin-bottom: 60px; background: linear-gradient(135deg, var(--white), var(--primary-light)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+
+        /* How it works */
+        .steps { padding: 80px 0; }
+        .steps-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; position: relative; }
+        .steps-grid::before {
+            content: ''; position: absolute; top: 50px; left: 15%; right: 15%; height: 2px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary), var(--primary));
+            opacity: 0.3;
+        }
+        .step-card {
+            background: rgba(17,24,39,0.7); border: 1px solid rgba(99,102,241,0.2);
+            border-radius: 20px; padding: 40px 28px; text-align: center; position: relative;
+            opacity: 0; transform: translateY(30px); transition: all 0.5s;
+        }
+        .step-card.visible { opacity: 1; transform: translateY(0); }
+        .step-card:hover { border-color: var(--primary); transform: translateY(-6px); box-shadow: 0 20px 60px rgba(99,102,241,0.12); }
+        .step-num {
+            width: 56px; height: 56px; border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            display: flex; align-items: center; justify-content: center;
+            font-size: 1.4rem; font-weight: 900; margin: 0 auto 20px;
+            font-family: 'JetBrains Mono', monospace;
+        }
+        .step-icon { font-size: 2.5rem; margin-bottom: 16px; }
+        .step-card h3 { font-size: 1.2rem; font-weight: 700; margin-bottom: 12px; }
+        .step-card p { color: var(--gray-400); font-size: 0.9rem; }
+
+        /* Benefits */
+        .benefits { padding: 80px 0; }
+        .benefits-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 24px; }
+        .benefit-card {
+            background: rgba(17,24,39,0.6); border: 1px solid rgba(99,102,241,0.15);
+            border-radius: 16px; padding: 32px;
+            opacity: 0; transform: translateY(30px); transition: all 0.4s;
+        }
+        .benefit-card.visible { opacity: 1; transform: translateY(0); }
+        .benefit-card:hover { border-color: var(--primary); }
+        .benefit-icon { font-size: 2rem; margin-bottom: 16px; }
+        .benefit-card h3 { font-size: 1.1rem; font-weight: 700; margin-bottom: 8px; }
+        .benefit-card p { color: var(--gray-400); font-size: 0.9rem; }
+
+        /* Pricing */
+        .pricing-section { padding: 80px 0; }
+        .pricing-box {
+            max-width: 700px; margin: 0 auto; text-align: center;
+            background: linear-gradient(135deg, rgba(99,102,241,0.1), rgba(6,182,212,0.08));
+            border: 1px solid rgba(99,102,241,0.3); border-radius: 24px; padding: 60px 40px;
+            opacity: 0; transform: translateY(30px); transition: all 0.5s;
+        }
+        .pricing-box.visible { opacity: 1; transform: translateY(0); }
+        .pricing-main { font-size: 3.5rem; font-weight: 900; font-family: 'JetBrains Mono', monospace; color: var(--white); margin-bottom: 8px; }
+        .pricing-label { color: var(--gray-400); font-size: 1rem; margin-bottom: 8px; }
+        .pricing-plus { font-size: 1.5rem; color: var(--gray-300); margin: 16px 0; }
+        .pricing-monthly { font-size: 2rem; font-weight: 800; font-family: 'JetBrains Mono', monospace; color: var(--secondary); }
+        .pricing-monthly-label { color: var(--gray-400); font-size: 0.9rem; margin-bottom: 32px; }
+        .pricing-note { color: var(--accent); font-weight: 600; font-size: 0.95rem; margin-top: 24px; }
+
+        /* Testimonial */
+        .testimonial { padding: 80px 0; }
+        .testimonial-box {
+            max-width: 700px; margin: 0 auto;
+            background: rgba(17,24,39,0.7); border: 1px solid rgba(99,102,241,0.2);
+            border-radius: 20px; padding: 40px; position: relative;
+            opacity: 0; transform: translateY(20px); transition: all 0.5s;
+        }
+        .testimonial-box.visible { opacity: 1; transform: translateY(0); }
+        .testimonial-quote { font-size: 1.1rem; color: var(--gray-300); font-style: italic; line-height: 1.8; margin-bottom: 24px; }
+        .testimonial-quote::before { content: '\201C'; font-size: 3rem; color: var(--primary); line-height: 0; vertical-align: -0.4em; margin-right: 4px; }
+        .testimonial-author { display: flex; align-items: center; gap: 16px; }
+        .testimonial-avatar {
+            width: 48px; height: 48px; border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 1.1rem;
+        }
+        .testimonial-name { font-weight: 700; font-size: 0.95rem; }
+        .testimonial-role { color: var(--gray-400); font-size: 0.85rem; }
+
+        /* Contact Form */
+        .contact { padding: 80px 0; }
+        .contact-form {
+            max-width: 600px; margin: 0 auto;
+            background: rgba(17,24,39,0.7); border: 1px solid rgba(99,102,241,0.2);
+            border-radius: 20px; padding: 40px;
+            opacity: 0; transform: translateY(30px); transition: all 0.5s;
+        }
+        .contact-form.visible { opacity: 1; transform: translateY(0); }
+        .form-group { margin-bottom: 20px; }
+        .form-group label { display: block; font-size: 0.85rem; font-weight: 600; margin-bottom: 6px; color: var(--gray-300); }
+        .form-group input, .form-group select, .form-group textarea {
+            width: 100%; padding: 12px 16px; border-radius: 10px; border: 1px solid rgba(99,102,241,0.2);
+            background: var(--dark-800); color: var(--white); font-family: 'Inter', sans-serif; font-size: 0.95rem;
+            transition: border-color 0.3s;
+        }
+        .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
+            outline: none; border-color: var(--primary);
+        }
+        .form-group select { cursor: pointer; }
+        .form-group select option { background: var(--dark-800); }
+        .btn-primary { padding: 14px 36px; border-radius: 10px; border: none; cursor: pointer; font-weight: 700; font-size: 1rem; font-family: 'Inter', sans-serif; background: linear-gradient(135deg, var(--primary), var(--primary-dark)); color: var(--white); transition: all 0.3s; text-decoration: none; display: inline-block; width: 100%; }
+        .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 10px 30px var(--primary-glow); }
+
+        footer { padding: 40px 0; border-top: 1px solid rgba(99,102,241,0.1); margin-top: 40px; }
+        .footer-inner { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 20px; }
+        .footer-copy { color: var(--gray-400); font-size: 0.85rem; }
+        .footer-links { display: flex; gap: 24px; }
+        .footer-links a { color: var(--gray-400); text-decoration: none; font-size: 0.85rem; transition: color 0.3s; }
+        .footer-links a:hover { color: var(--primary-light); }
+
+        @media (max-width: 768px) {
+            .nav-links { display: none; }
+            .mobile-toggle { display: block; }
+            .nav-links.open { display: flex; flex-direction: column; position: absolute; top: 100%; left: 0; right: 0; background: var(--dark-800); padding: 20px; gap: 16px; }
+            .steps-grid { grid-template-columns: 1fr; }
+            .steps-grid::before { display: none; }
+            .footer-inner { flex-direction: column; text-align: center; }
+        }
+    </style>
+</head>
+<body>
+    <div class="bg-grid"></div>
+    <div class="bg-glow bg-glow-1"></div>
+    <div class="bg-glow bg-glow-2"></div>
+
+    <nav id="navbar">
+        <div class="nav-inner">
+            <a href="https://devbotai.store" class="nav-brand">Dev<span>Bot</span></a>
+            <button class="mobile-toggle" onclick="document.querySelector('.nav-links').classList.toggle('open')">&#9776;</button>
+            <div class="nav-links">
+                <a href="studio.html">Studio</a>
+                <a href="index.html#pricing">Pricing</a>
+                <a href="blog.html">Blog</a>
+                <a href="https://github.com/ds335033/devbot" target="_blank">GitHub</a>
+                <a href="#contact" class="nav-cta">Contact Us</a>
+            </div>
+        </div>
+    </nav>
+
+    <section class="hero">
+        <div class="container">
+            <div class="hero-badge">&#129504; Enterprise AI</div>
+            <h1>Train DevBot on YOUR Codebase</h1>
+            <p>Generate code that matches your patterns, conventions, and standards. Custom-trained AI that writes code like your best developers.</p>
+            <div class="hero-sub">For teams of 20+ developers</div>
+        </div>
+    </section>
+
+    <section class="steps">
+        <div class="container">
+            <h2 class="section-title">How It Works</h2>
+            <div class="steps-grid">
+                <div class="step-card">
+                    <div class="step-num">1</div>
+                    <div class="step-icon">&#128228;</div>
+                    <h3>Upload Your Codebase</h3>
+                    <p>Securely share your repository. We analyze architecture patterns, naming conventions, and code structure.</p>
+                </div>
+                <div class="step-card">
+                    <div class="step-num">2</div>
+                    <div class="step-icon">&#129504;</div>
+                    <h3>AI Learns Patterns</h3>
+                    <p>Our AI studies your code style, framework preferences, testing patterns, and security standards.</p>
+                </div>
+                <div class="step-card">
+                    <div class="step-num">3</div>
+                    <div class="step-icon">&#128640;</div>
+                    <h3>Generate Matching Code</h3>
+                    <p>DevBot now generates code that looks like it was written by your team. Same patterns, same quality.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="benefits">
+        <div class="container">
+            <h2 class="section-title">What Your Team Gets</h2>
+            <div class="benefits-grid">
+                <div class="benefit-card">
+                    <div class="benefit-icon">&#127912;</div>
+                    <h3>Consistent Code Style</h3>
+                    <p>Every generated file matches your linting rules, formatting preferences, and naming conventions automatically.</p>
+                </div>
+                <div class="benefit-card">
+                    <div class="benefit-icon">&#128218;</div>
+                    <h3>Company Conventions</h3>
+                    <p>Folder structure, import ordering, error handling patterns, and logging standards are all learned.</p>
+                </div>
+                <div class="benefit-card">
+                    <div class="benefit-icon">&#128295;</div>
+                    <h3>Framework Preferences</h3>
+                    <p>Whether you use Redux or Zustand, Express or Fastify, the AI generates with your preferred tools.</p>
+                </div>
+                <div class="benefit-card">
+                    <div class="benefit-icon">&#128274;</div>
+                    <h3>Security Standards</h3>
+                    <p>Input validation, authentication patterns, and security best practices from your codebase are enforced.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="pricing-section">
+        <div class="container">
+            <h2 class="section-title">Enterprise Pricing</h2>
+            <div class="pricing-box">
+                <div class="pricing-main">$10,000</div>
+                <div class="pricing-label">One-time setup &amp; training fee</div>
+                <div class="pricing-plus">+</div>
+                <div class="pricing-monthly">$2,000/mo</div>
+                <div class="pricing-monthly-label">Ongoing maintenance, retraining &amp; support</div>
+                <a href="#contact" class="btn-primary" style="width: auto; margin-top: 24px;">Get Started</a>
+                <div class="pricing-note">Includes dedicated account manager and SLA guarantee</div>
+            </div>
+        </div>
+    </section>
+
+    <section class="testimonial">
+        <div class="container">
+            <div class="testimonial-box">
+                <div class="testimonial-quote">After training DevBot on our codebase, new feature development is 3x faster. The generated code is indistinguishable from what our senior engineers write. It even follows our custom ESLint rules.</div>
+                <div class="testimonial-author">
+                    <div class="testimonial-avatar">JS</div>
+                    <div>
+                        <div class="testimonial-name">James Sullivan</div>
+                        <div class="testimonial-role">VP of Engineering, TechCorp (placeholder)</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="contact" id="contact">
+        <div class="container">
+            <h2 class="section-title">Request Custom Training</h2>
+            <form class="contact-form" action="#">
+                <div class="form-group">
+                    <label for="name">Full Name</label>
+                    <input type="text" id="name" name="name" placeholder="Your name" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">Work Email</label>
+                    <input type="email" id="email" name="email" placeholder="you@company.com" required>
+                </div>
+                <div class="form-group">
+                    <label for="company">Company</label>
+                    <input type="text" id="company" name="company" placeholder="Company name" required>
+                </div>
+                <div class="form-group">
+                    <label for="codebase-size">Codebase Size</label>
+                    <select id="codebase-size" name="codebase_size" required>
+                        <option value="">Select size...</option>
+                        <option value="small">Small (under 50K lines)</option>
+                        <option value="medium">Medium (50K - 500K lines)</option>
+                        <option value="large">Large (500K - 2M lines)</option>
+                        <option value="enterprise">Enterprise (2M+ lines)</option>
+                    </select>
+                </div>
+                <button type="submit" class="btn-primary">Request Training Consultation</button>
+            </form>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container footer-inner">
+            <div class="footer-copy">&copy; 2026 DevBot AI. Built by Darren Smith. Powered by Claude Opus 4.6.</div>
+            <div class="footer-links">
+                <a href="https://github.com/ds335033/devbot" target="_blank">GitHub</a>
+                <a href="index.html#pricing">Pricing</a>
+                <a href="blog.html">Blog</a>
+                <a href="mailto:kooks2350@gmail.com">Contact</a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+    const nav = document.getElementById('navbar');
+    window.addEventListener('scroll', () => nav.classList.toggle('scrolled', window.scrollY > 50));
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry, i) => {
+            if (entry.isIntersecting) {
+                setTimeout(() => entry.target.classList.add('visible'), i * 100);
+                observer.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('.step-card, .benefit-card, .pricing-box, .testimonial-box, .contact-form').forEach(el => observer.observe(el));
+    </script>
+</body>
+</html>
