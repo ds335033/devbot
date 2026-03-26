@@ -10,9 +10,22 @@ const express = (await import('express')).default;
 const { SlackBot } = await import('../slack/bot.js');
 const { GitHubClient } = await import('../github/client.js');
 const { DevBotEngine } = await import('./engine.js');
+const { registerStripeRoutes } = await import('../api/stripe.js');
 
 const app = express();
 app.use(express.json());
+
+// Enable CORS for the GitHub Pages frontend
+app.use((req, res, next) => {
+  res.header('Access-Control-Allow-Origin', '*');
+  res.header('Access-Control-Allow-Headers', 'Content-Type');
+  res.header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
+  if (req.method === 'OPTIONS') return res.sendStatus(200);
+  next();
+});
+
+// Stripe payment routes
+registerStripeRoutes(app);
 
 // Initialize core components
 const engine = new DevBotEngine();
