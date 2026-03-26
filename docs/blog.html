@@ -1,0 +1,574 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Complete Guide to DevBot AI — Build Production Apps in Seconds | Blog</title>
+    <meta name="description" content="Everything you need to know about DevBot AI: the most powerful AI app creator ever built. Learn how it works, what it builds, pricing, and how to get started.">
+    <meta name="keywords" content="DevBot AI, AI app builder, code generator, Claude Opus, AI developer tool, build apps with AI, SaaS tool">
+    <meta property="og:title" content="The Complete Guide to DevBot AI">
+    <meta property="og:description" content="How one AI tool is replacing entire development teams. Build production-ready apps in 30 seconds.">
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://ds335033.github.io/devbot/blog.html">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #6366f1; --primary-light: #818cf8; --secondary: #06b6d4;
+            --success: #10b981; --accent: #f59e0b;
+            --dark-900: #030712; --dark-800: #0a0f1e; --dark-700: #111827;
+            --dark-600: #1e293b; --dark-500: #334155;
+            --gray-400: #94a3b8; --gray-300: #cbd5e1; --white: #f8fafc;
+        }
+        * { margin:0; padding:0; box-sizing:border-box; }
+        html { scroll-behavior:smooth; }
+        body { font-family:'Inter',sans-serif; background:var(--dark-900); color:var(--gray-300); line-height:1.85; overflow-x:hidden; }
+        .bg-grid { position:fixed; top:0;left:0;right:0;bottom:0; background-image:linear-gradient(rgba(99,102,241,0.02) 1px,transparent 1px),linear-gradient(90deg,rgba(99,102,241,0.02) 1px,transparent 1px); background-size:60px 60px; z-index:-2; }
+
+        nav { position:fixed; top:0;left:0;right:0; padding:14px 0; background:rgba(3,7,18,0.92); backdrop-filter:blur(20px); border-bottom:1px solid rgba(99,102,241,0.1); z-index:1000; }
+        .nav-inner { max-width:900px; margin:0 auto; padding:0 24px; display:flex; justify-content:space-between; align-items:center; }
+        .logo { font-size:1.4rem; font-weight:900; text-decoration:none; }
+        .logo-dev { color:var(--white); }
+        .logo-bot { background:linear-gradient(135deg,var(--primary),var(--secondary)); -webkit-background-clip:text; -webkit-text-fill-color:transparent; }
+        .logo-ai { font-size:0.65rem; background:var(--primary); color:white; padding:2px 7px; border-radius:4px; margin-left:6px; vertical-align:middle; }
+        .nav-links a { color:var(--gray-400); text-decoration:none; font-size:0.85rem; margin-left:24px; }
+        .nav-links a:hover { color:var(--white); }
+
+        .article { max-width:800px; margin:0 auto; padding:120px 24px 80px; }
+
+        .article-header { margin-bottom:48px; }
+        .article-tag { display:inline-block; background:rgba(99,102,241,0.1); color:var(--primary-light); padding:6px 16px; border-radius:100px; font-size:0.8rem; font-weight:600; text-transform:uppercase; letter-spacing:0.1em; margin-bottom:20px; }
+        .article-header h1 { font-size:clamp(2.2rem,5vw,3.2rem); font-weight:900; color:var(--white); line-height:1.15; letter-spacing:-0.02em; margin-bottom:20px; }
+        .article-meta { display:flex; align-items:center; gap:16px; color:var(--gray-400); font-size:0.9rem; flex-wrap:wrap; }
+        .article-meta .author { display:flex; align-items:center; gap:10px; }
+        .avatar { width:40px; height:40px; border-radius:12px; background:linear-gradient(135deg,var(--primary),var(--secondary)); display:flex; align-items:center; justify-content:center; font-weight:700; color:white; font-size:0.9rem; }
+        .article-meta .dot { color:var(--dark-500); }
+
+        .article-body h2 { font-size:1.7rem; font-weight:800; color:var(--white); margin:56px 0 16px; letter-spacing:-0.01em; padding-bottom:12px; border-bottom:1px solid var(--dark-600); }
+        .article-body h3 { font-size:1.25rem; font-weight:700; color:var(--white); margin:36px 0 12px; }
+        .article-body p { margin-bottom:20px; font-size:1.05rem; }
+        .article-body a { color:var(--primary-light); text-decoration:underline; text-underline-offset:3px; }
+        .article-body a:hover { color:var(--secondary); }
+        .article-body strong { color:var(--white); }
+        .article-body ul, .article-body ol { margin:0 0 24px 24px; }
+        .article-body li { margin-bottom:10px; font-size:1.02rem; }
+        .article-body li strong { color:var(--white); }
+
+        .callout { background:linear-gradient(135deg,rgba(99,102,241,0.08),rgba(6,182,212,0.05)); border:1px solid rgba(99,102,241,0.2); border-radius:14px; padding:24px 28px; margin:28px 0; }
+        .callout.green { background:linear-gradient(135deg,rgba(16,185,129,0.08),rgba(6,182,212,0.05)); border-color:rgba(16,185,129,0.2); }
+        .callout p { margin-bottom:0; }
+        .callout strong { color:var(--primary-light); }
+        .callout.green strong { color:var(--success); }
+
+        .code-block { background:var(--dark-800); border:1px solid var(--dark-500); border-radius:12px; padding:24px; margin:24px 0; overflow-x:auto; font-family:'JetBrains Mono',monospace; font-size:0.88rem; line-height:1.7; color:var(--secondary); }
+        .code-block .prompt { color:var(--success); }
+        .code-block .comment { color:var(--gray-400); }
+        .code-block .file { color:#a78bfa; }
+
+        .pricing-table { width:100%; border-collapse:collapse; margin:24px 0; }
+        .pricing-table th { text-align:left; padding:14px 20px; background:var(--dark-700); color:var(--gray-400); font-size:0.8rem; text-transform:uppercase; letter-spacing:0.08em; border-bottom:1px solid var(--dark-500); }
+        .pricing-table td { padding:16px 20px; border-bottom:1px solid var(--dark-600); font-size:0.98rem; }
+        .pricing-table .price { color:var(--white); font-weight:700; font-size:1.1rem; }
+        .pricing-table .highlight { color:var(--success); font-weight:600; }
+
+        .app-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:16px; margin:24px 0; }
+        .app-card { background:var(--dark-700); border:1px solid var(--dark-500); border-radius:12px; padding:20px; }
+        .app-card h4 { color:var(--white); font-size:1rem; margin-bottom:6px; }
+        .app-card p { color:var(--gray-400); font-size:0.88rem; margin:0; line-height:1.5; }
+
+        .cta-box { background:linear-gradient(135deg,rgba(99,102,241,0.1),rgba(6,182,212,0.05)); border:1px solid rgba(99,102,241,0.25); border-radius:16px; padding:40px; text-align:center; margin:48px 0; }
+        .cta-box h3 { color:var(--white); font-size:1.5rem; margin-bottom:12px; }
+        .cta-box p { color:var(--gray-400); margin-bottom:24px; }
+        .btn { display:inline-block; padding:14px 32px; border-radius:10px; font-size:1rem; font-weight:600; text-decoration:none; transition:all 0.3s; }
+        .btn-primary { background:linear-gradient(135deg,var(--primary),#4f46e5); color:white; box-shadow:0 0 25px rgba(99,102,241,0.3); }
+        .btn-primary:hover { transform:translateY(-2px); box-shadow:0 6px 30px rgba(99,102,241,0.4); text-decoration:none; }
+
+        .toc { background:var(--dark-700); border:1px solid var(--dark-500); border-radius:14px; padding:28px 32px; margin:32px 0; }
+        .toc h3 { color:var(--white); font-size:1.1rem; margin-bottom:16px; }
+        .toc ol { margin:0 0 0 20px; }
+        .toc li { margin-bottom:8px; }
+        .toc a { color:var(--primary-light); text-decoration:none; font-size:0.95rem; }
+        .toc a:hover { text-decoration:underline; }
+
+        .faq-item { border-bottom:1px solid var(--dark-500); padding:20px 0; }
+        .faq-q { font-weight:700; color:var(--white); font-size:1.05rem; margin-bottom:8px; }
+        .faq-a { color:var(--gray-400); font-size:0.98rem; }
+
+        footer { padding:48px 0; border-top:1px solid var(--dark-500); text-align:center; max-width:800px; margin:0 auto; }
+        footer p { color:var(--gray-400); font-size:0.85rem; }
+        footer a { color:var(--primary-light); text-decoration:none; }
+
+        @media(max-width:768px) {
+            .app-grid { grid-template-columns:1fr; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="bg-grid"></div>
+
+<nav>
+    <div class="nav-inner">
+        <a href="index.html" class="logo"><span class="logo-dev">Dev</span><span class="logo-bot">Bot</span><span class="logo-ai">AI</span></a>
+        <div class="nav-links">
+            <a href="index.html">Home</a>
+            <a href="index.html#pricing">Pricing</a>
+            <a href="affiliates.html">Affiliates</a>
+            <a href="https://github.com/ds335033/devbot" target="_blank">GitHub</a>
+        </div>
+    </div>
+</nav>
+
+<article class="article">
+    <header class="article-header">
+        <div class="article-tag">Complete Guide</div>
+        <h1>DevBot AI: The Complete Guide to Building Production Apps in Seconds</h1>
+        <div class="article-meta">
+            <div class="author">
+                <div class="avatar">DS</div>
+                <span><strong style="color:var(--white);">Darren Smith</strong> &mdash; Creator of DevBot AI</span>
+            </div>
+            <span class="dot">&bull;</span>
+            <span>March 27, 2026</span>
+            <span class="dot">&bull;</span>
+            <span>15 min read</span>
+        </div>
+    </header>
+
+    <div class="article-body">
+
+        <p>What if you could describe an app in plain English and have a complete, production-ready project appear in under 30 seconds? Not a code snippet. Not a template. A <strong>full application</strong> with source code, tests, Docker configs, CI/CD pipelines, and documentation &mdash; ready to deploy.</p>
+
+        <p>That is exactly what <strong>DevBot AI</strong> does. And it is changing the way software gets built.</p>
+
+        <p>This guide covers absolutely everything: what DevBot AI is, how it works under the hood, what kinds of apps it can build, how to use it step by step, the pricing structure, the affiliate program, and answers to every question you might have.</p>
+
+        <div class="toc">
+            <h3>Table of Contents</h3>
+            <ol>
+                <li><a href="#what-is-devbot">What Is DevBot AI?</a></li>
+                <li><a href="#how-it-works">How It Works Under the Hood</a></li>
+                <li><a href="#what-it-builds">What Can DevBot Build?</a></li>
+                <li><a href="#languages">Languages and Frameworks Supported</a></li>
+                <li><a href="#getting-started">Getting Started: Step by Step</a></li>
+                <li><a href="#features">Core Features Deep Dive</a></li>
+                <li><a href="#pricing">Pricing Tiers Explained</a></li>
+                <li><a href="#who-is-it-for">Who Is DevBot AI For?</a></li>
+                <li><a href="#monetisation">Monetisation and the Affiliate Program</a></li>
+                <li><a href="#github">Open Source and GitHub</a></li>
+                <li><a href="#roadmap">What Comes Next</a></li>
+                <li><a href="#faq">Frequently Asked Questions</a></li>
+            </ol>
+        </div>
+
+        <!-- SECTION 1 -->
+        <h2 id="what-is-devbot">1. What Is DevBot AI?</h2>
+
+        <p>DevBot AI is an <strong>AI-powered application creator</strong> that generates complete, production-ready software projects from a single natural language prompt. It is powered by <strong>Claude Opus 4.6</strong>, the most advanced AI model available, with a 1,000,000 token context window.</p>
+
+        <p>Think of it as having a senior full-stack developer who never sleeps, never makes typos, and can build an entire application in the time it takes you to pour a coffee. You describe what you want. DevBot builds it. Every file. Every config. Every test.</p>
+
+        <div class="callout">
+            <p><strong>Key Stat:</strong> DevBot generates an average of 14 production-ready files per project in under 30 seconds. That includes source code, package configs, environment files, Docker setups, CI/CD pipelines, and comprehensive test suites.</p>
+        </div>
+
+        <p>DevBot is not a code completion tool like GitHub Copilot. It does not suggest the next line while you type. It <strong>generates entire applications from scratch</strong>. Complete project structures that you can run immediately with zero modifications.</p>
+
+        <!-- SECTION 2 -->
+        <h2 id="how-it-works">2. How It Works Under the Hood</h2>
+
+        <p>DevBot AI runs on a three-layer architecture designed for speed, quality, and reliability:</p>
+
+        <h3>Layer 1: The AI Engine</h3>
+        <p>At the core sits <strong>Claude Opus 4.6</strong> with its massive 1M token context window. This is not a fine-tuned model or a wrapper around a basic API call. DevBot uses a carefully engineered system prompt that instructs Claude to think like a principal software engineer. It considers architecture, security, error handling, testing, deployment, and documentation for every single project it generates.</p>
+
+        <h3>Layer 2: The Orchestration Server</h3>
+        <p>A Node.js Express server handles request routing, authentication, rate limiting, and output formatting. When you send a prompt, the server validates it, enriches it with context about your preferred stack and conventions, forwards it to Claude, and structures the response into a clean project layout.</p>
+
+        <h3>Layer 3: The Integration Layer</h3>
+        <p>DevBot connects to <strong>Slack</strong> for conversational interaction, <strong>GitHub</strong> for automatic repository creation and code pushing, and <strong>Stripe</strong> for subscription management. This means you can go from idea to deployed code without leaving Slack.</p>
+
+        <div class="code-block">
+<span class="prompt">$</span> /devbot create "a real-time chat app with React, WebSocket, Redis, and JWT auth"
+
+<span class="comment"># DevBot AI is thinking...</span>
+<span class="comment"># Analyzing requirements...</span>
+<span class="comment"># Generating architecture...</span>
+<span class="comment"># Writing production code...</span>
+
+<span class="file">Created 14 files in 28 seconds:</span>
+  <span class="file">src/server.ts</span>        — Express + WebSocket server
+  <span class="file">src/components/</span>      — React chat UI components
+  <span class="file">src/hooks/</span>           — Custom WebSocket hooks
+  <span class="file">src/auth/</span>            — JWT authentication middleware
+  <span class="file">docker-compose.yml</span>   — Redis + app container stack
+  <span class="file">tests/</span>               — 24 test cases with full coverage
+  <span class="file">package.json</span>         — Dependencies and scripts
+  <span class="file">.github/workflows/</span>  — CI/CD pipeline
+  <span class="file">README.md</span>            — Setup and deployment docs
+        </div>
+
+        <!-- SECTION 3 -->
+        <h2 id="what-it-builds">3. What Can DevBot Build?</h2>
+
+        <p>The honest answer is: almost anything. Here are real examples of applications that DevBot has generated successfully:</p>
+
+        <div class="app-grid">
+            <div class="app-card">
+                <h4>Full-Stack Web Apps</h4>
+                <p>SaaS dashboards, admin panels, social media platforms, project management tools, CRM systems, and e-commerce stores.</p>
+            </div>
+            <div class="app-card">
+                <h4>REST and GraphQL APIs</h4>
+                <p>Complete backends with authentication, database models, CRUD endpoints, validation, rate limiting, and API documentation.</p>
+            </div>
+            <div class="app-card">
+                <h4>Real-Time Applications</h4>
+                <p>Chat systems, live dashboards, collaborative editors, notification services, and streaming data pipelines using WebSockets.</p>
+            </div>
+            <div class="app-card">
+                <h4>CLI Tools and Utilities</h4>
+                <p>Command-line applications, build tools, data processing scripts, automation utilities, and developer tooling.</p>
+            </div>
+            <div class="app-card">
+                <h4>Mobile Backends</h4>
+                <p>API servers for iOS and Android apps, push notification systems, user authentication services, and file upload handlers.</p>
+            </div>
+            <div class="app-card">
+                <h4>Microservices</h4>
+                <p>Individual service components with Docker, message queues, service discovery, health checks, and inter-service communication.</p>
+            </div>
+            <div class="app-card">
+                <h4>Data and ML Pipelines</h4>
+                <p>ETL scripts, data transformation workflows, ML model serving APIs, and analytics dashboards with visualisation.</p>
+            </div>
+            <div class="app-card">
+                <h4>Landing Pages and Portfolios</h4>
+                <p>Static sites, marketing pages, developer portfolios, documentation sites, and blog platforms with CMS integration.</p>
+            </div>
+        </div>
+
+        <div class="callout green">
+            <p><strong>No Limits:</strong> There is no hard limit on the number of apps you can generate. Solo Creator plans include 50 generations per month. Pro Studio includes 300. Enterprise Beast is completely unlimited.</p>
+        </div>
+
+        <!-- SECTION 4 -->
+        <h2 id="languages">4. Languages and Frameworks Supported</h2>
+
+        <p>DevBot supports <strong>50+ programming languages</strong> and <strong>100+ frameworks</strong>. Here are the most commonly used:</p>
+
+        <h3>Languages</h3>
+        <p><strong>JavaScript</strong>, <strong>TypeScript</strong>, <strong>Python</strong>, <strong>Go</strong>, <strong>Rust</strong>, <strong>Java</strong>, <strong>C#</strong>, <strong>Ruby</strong>, <strong>PHP</strong>, <strong>Swift</strong>, <strong>Kotlin</strong>, C, C++, Dart, Elixir, Scala, Haskell, Lua, R, Shell scripting, SQL, and more.</p>
+
+        <h3>Frontend Frameworks</h3>
+        <p>React, Next.js, Vue.js, Nuxt, Svelte, SvelteKit, Angular, Astro, Remix, Solid.js, and vanilla HTML/CSS/JS.</p>
+
+        <h3>Backend Frameworks</h3>
+        <p>Express, Fastify, NestJS, Hono, Django, Flask, FastAPI, Spring Boot, ASP.NET, Rails, Laravel, Gin, Fiber, Actix, and Phoenix.</p>
+
+        <h3>Databases</h3>
+        <p>PostgreSQL, MySQL, SQLite, MongoDB, Redis, DynamoDB, Supabase, PlanetScale, Prisma ORM, Drizzle, TypeORM, and Mongoose.</p>
+
+        <h3>DevOps and Deployment</h3>
+        <p>Docker, Docker Compose, Kubernetes manifests, GitHub Actions, GitLab CI, Terraform configs, Vercel, Railway, AWS, and GCP deployment scripts.</p>
+
+        <!-- SECTION 5 -->
+        <h2 id="getting-started">5. Getting Started: Step by Step</h2>
+
+        <p>There are three ways to use DevBot AI right now:</p>
+
+        <h3>Method 1: Through Slack (Recommended)</h3>
+        <ol>
+            <li>Join the DevBot AI Slack workspace or install the app in your own workspace</li>
+            <li>Open the <strong>DevBot AI Assistant</strong> in the side panel</li>
+            <li>Select a suggested prompt or type your own description</li>
+            <li>DevBot streams the response in real-time with progress indicators</li>
+            <li>Copy the generated code or let DevBot push it directly to GitHub</li>
+        </ol>
+
+        <h3>Method 2: Through the API</h3>
+        <div class="code-block">
+<span class="comment"># Generate a complete app via the API</span>
+<span class="prompt">$</span> curl -X POST https://your-server.com/api/generate \
+  -H "Content-Type: application/json" \
+  -d '{"prompt": "a blog platform with Next.js, Prisma, and PostgreSQL",
+       "language": "typescript"}'
+        </div>
+
+        <h3>Method 3: Self-Hosted</h3>
+        <ol>
+            <li>Clone the repository: <code>git clone https://github.com/ds335033/devbot.git</code></li>
+            <li>Install dependencies: <code>npm install</code></li>
+            <li>Add your API keys to <code>.env</code></li>
+            <li>Start the server: <code>npm start</code></li>
+            <li>DevBot runs locally on <code>localhost:3000</code></li>
+        </ol>
+
+        <!-- SECTION 6 -->
+        <h2 id="features">6. Core Features Deep Dive</h2>
+
+        <h3>Instant App Generation</h3>
+        <p>Describe your application in natural language. DevBot analyses the requirements, selects the optimal architecture, and generates every file needed to run the project. Each generated app includes proper error handling, input validation, security middleware, environment configuration, and comprehensive documentation.</p>
+
+        <h3>AI Code Review</h3>
+        <p>Paste any code snippet and DevBot performs a deep analysis covering security vulnerabilities (OWASP Top 10), performance bottlenecks, anti-patterns, code smells, and adherence to best practices. Each issue comes with a severity rating, explanation, and suggested fix.</p>
+
+        <h3>GitHub Integration</h3>
+        <p>DevBot can automatically create GitHub repositories, push generated code, create branches, open pull requests, and manage issues. Your entire development workflow from idea to deployed code can happen through a single Slack command.</p>
+
+        <h3>Slack-Native Experience</h3>
+        <p>DevBot runs as a full AI Assistant in Slack with streaming responses, task progress indicators, suggested prompts, and feedback buttons. It remembers conversation context so you can iterate on designs naturally.</p>
+
+        <h3>Deploy-Ready Output</h3>
+        <p>Every generated project includes Docker configuration, environment variable templates, CI/CD pipeline definitions, and deployment scripts. You can push to production immediately after generation.</p>
+
+        <!-- SECTION 7 -->
+        <h2 id="pricing">7. Pricing Tiers Explained</h2>
+
+        <p>DevBot AI uses a straightforward subscription model with three tiers. No hidden fees. No per-seat charges. Cancel anytime.</p>
+
+        <table class="pricing-table">
+            <thead>
+                <tr>
+                    <th>Feature</th>
+                    <th>Solo Creator</th>
+                    <th>Pro Studio</th>
+                    <th>Enterprise Beast</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>Price</strong></td>
+                    <td class="price">$29/mo</td>
+                    <td class="price">$99/mo</td>
+                    <td class="price">$499/mo</td>
+                </tr>
+                <tr>
+                    <td>App Generations</td>
+                    <td>50 / month</td>
+                    <td>300 / month</td>
+                    <td class="highlight">Unlimited</td>
+                </tr>
+                <tr>
+                    <td>Code Reviews</td>
+                    <td class="highlight">Unlimited</td>
+                    <td class="highlight">Unlimited</td>
+                    <td class="highlight">Unlimited</td>
+                </tr>
+                <tr>
+                    <td>Languages</td>
+                    <td>All 50+</td>
+                    <td>All 50+</td>
+                    <td>All 50+</td>
+                </tr>
+                <tr>
+                    <td>Slack Bot</td>
+                    <td class="highlight">Yes</td>
+                    <td class="highlight">Yes</td>
+                    <td class="highlight">Dedicated Instance</td>
+                </tr>
+                <tr>
+                    <td>GitHub Integration</td>
+                    <td class="highlight">Yes</td>
+                    <td class="highlight">Org-level</td>
+                    <td class="highlight">Enterprise SSO</td>
+                </tr>
+                <tr>
+                    <td>Team Members</td>
+                    <td>1</td>
+                    <td>Up to 10</td>
+                    <td class="highlight">Unlimited</td>
+                </tr>
+                <tr>
+                    <td>Support</td>
+                    <td>Email</td>
+                    <td>Priority</td>
+                    <td class="highlight">Dedicated Manager</td>
+                </tr>
+                <tr>
+                    <td>SLA</td>
+                    <td>&mdash;</td>
+                    <td>&mdash;</td>
+                    <td class="highlight">99.9% Guarantee</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div class="callout">
+            <p><strong>Best Value:</strong> The Pro Studio tier at $99/month gives you 300 app generations, priority AI processing, team workspace for up to 10 people, and org-level GitHub integration. For teams shipping fast, it pays for itself in the first hour.</p>
+        </div>
+
+        <!-- SECTION 8 -->
+        <h2 id="who-is-it-for">8. Who Is DevBot AI For?</h2>
+
+        <h3>Indie Developers and Freelancers</h3>
+        <p>Stop spending days on boilerplate. Generate the foundation of client projects in seconds and focus your time on the custom logic that actually matters. Take on more clients. Ship faster. Earn more.</p>
+
+        <h3>Startup Teams</h3>
+        <p>Prototype ideas in minutes instead of weeks. Test product-market fit by generating complete MVPs from a single description. Iterate rapidly based on user feedback without rewriting everything from scratch.</p>
+
+        <h3>Enterprise Engineering Teams</h3>
+        <p>Standardise project scaffolding across your organisation. Every generated project follows the same patterns, security practices, and deployment configurations. Onboard new team members faster with consistent, well-documented codebases.</p>
+
+        <h3>Students and Learners</h3>
+        <p>Generate working examples of any architecture pattern, framework, or concept. Study how production-grade code is structured. Compare different approaches by generating the same app in different stacks.</p>
+
+        <h3>Non-Technical Founders</h3>
+        <p>You have the idea. You know what the product should do. Now you can generate a working prototype without hiring a developer first. Use DevBot to validate your concept, then bring in specialists to refine and scale.</p>
+
+        <!-- SECTION 9 -->
+        <h2 id="monetisation">9. Monetisation and the Affiliate Program</h2>
+
+        <p>DevBot AI is not just a product you buy. It is a product you can <strong>earn from</strong>.</p>
+
+        <h3>The Affiliate Program</h3>
+        <p>The <a href="affiliates.html">DevBot AI Affiliate Program</a> pays <strong>20% recurring commissions</strong> on every subscription referred. That means you earn 20% of every payment your referrals make, every single month, for the entire lifetime of the customer.</p>
+
+        <table class="pricing-table">
+            <thead>
+                <tr>
+                    <th>If You Refer</th>
+                    <th>Plan</th>
+                    <th>You Earn Monthly</th>
+                    <th>You Earn Annually</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>10 customers</td>
+                    <td>Solo ($29)</td>
+                    <td class="highlight">$58/mo</td>
+                    <td class="highlight">$696/yr</td>
+                </tr>
+                <tr>
+                    <td>10 customers</td>
+                    <td>Pro ($99)</td>
+                    <td class="highlight">$198/mo</td>
+                    <td class="highlight">$2,376/yr</td>
+                </tr>
+                <tr>
+                    <td>50 customers</td>
+                    <td>Pro ($99)</td>
+                    <td class="highlight">$990/mo</td>
+                    <td class="highlight">$11,880/yr</td>
+                </tr>
+                <tr>
+                    <td>10 customers</td>
+                    <td>Enterprise ($499)</td>
+                    <td class="highlight">$998/mo</td>
+                    <td class="highlight">$11,976/yr</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <p>The affiliate program includes 90-day cookie tracking, a real-time dashboard with click and conversion analytics, and monthly payouts with no minimum threshold. <a href="affiliates.html">Sign up here</a>.</p>
+
+        <!-- SECTION 10 -->
+        <h2 id="github">10. Open Source and GitHub</h2>
+
+        <p>The DevBot AI project is hosted publicly on GitHub at <a href="https://github.com/ds335033/devbot" target="_blank">github.com/ds335033/devbot</a>. The repository contains:</p>
+
+        <ul>
+            <li><strong>Core AI Engine</strong> &mdash; Claude Opus 4.6 integration for app generation and code review</li>
+            <li><strong>Express API Server</strong> &mdash; REST endpoints for generation, health checks, and Stripe payments</li>
+            <li><strong>Slack Bot</strong> &mdash; Full Slack Bolt integration with slash commands and HTTP mode</li>
+            <li><strong>Slack Assistant</strong> &mdash; Python-based AI Assistant with streaming responses and side panel UX</li>
+            <li><strong>GitHub Client</strong> &mdash; Automated repo creation, file pushing, issue management, and PR creation</li>
+            <li><strong>Affiliate System</strong> &mdash; Complete referral tracking, commission calculation, and dashboard API</li>
+            <li><strong>Website</strong> &mdash; GitHub Pages site with landing page, affiliate signup, and this blog</li>
+            <li><strong>Marketing</strong> &mdash; Google Ads campaigns, social media posts, and YouTube ad scripts</li>
+        </ul>
+
+        <p>The codebase is structured for clarity. Every component has a single responsibility. The architecture supports easy extension for new integrations and features.</p>
+
+        <!-- SECTION 11 -->
+        <h2 id="roadmap">11. What Comes Next</h2>
+
+        <p>DevBot AI is actively developed with major features shipping regularly:</p>
+
+        <ul>
+            <li><strong>Visual Preview</strong> &mdash; See a live preview of generated web apps before downloading</li>
+            <li><strong>One-Click Deploy</strong> &mdash; Push generated apps directly to Vercel, Railway, or AWS with zero configuration</li>
+            <li><strong>Template Marketplace</strong> &mdash; Browse and share community-created project templates</li>
+            <li><strong>Team Workspaces</strong> &mdash; Collaborative environments for sharing generations and reviewing code together</li>
+            <li><strong>Custom Model Training</strong> &mdash; Train DevBot on your codebase to generate code that matches your patterns</li>
+            <li><strong>Plugin System</strong> &mdash; Extend DevBot with custom tools, integrations, and output formats</li>
+            <li><strong>Mobile App</strong> &mdash; Generate apps on the go from your phone</li>
+        </ul>
+
+        <!-- SECTION 12 -->
+        <h2 id="faq">12. Frequently Asked Questions</h2>
+
+        <div class="faq-item">
+            <div class="faq-q">Is the generated code really production-ready?</div>
+            <div class="faq-a">Yes. Every generated project includes proper error handling, security middleware (Helmet, CORS, rate limiting), input validation, environment configuration, Docker setup, CI/CD pipelines, and comprehensive test suites. The code follows industry best practices and is ready to deploy immediately.</div>
+        </div>
+
+        <div class="faq-item">
+            <div class="faq-q">How is DevBot different from ChatGPT or GitHub Copilot?</div>
+            <div class="faq-a">ChatGPT and Copilot generate code snippets or complete individual lines. DevBot generates entire applications: complete project structures with 14+ interconnected files that work together out of the box. It also integrates directly with GitHub and Slack for a seamless workflow.</div>
+        </div>
+
+        <div class="faq-item">
+            <div class="faq-q">Do I own the code that DevBot generates?</div>
+            <div class="faq-a">100%. All generated code is yours to use for any purpose: commercial projects, open source, client work, or personal use. There are zero licensing restrictions on generated output.</div>
+        </div>
+
+        <div class="faq-item">
+            <div class="faq-q">Can I use DevBot for client projects?</div>
+            <div class="faq-a">Absolutely. Many freelancers and agencies use DevBot to generate project foundations for clients. You own the output and can use it however you like. The Solo plan at $29/month is designed exactly for this use case.</div>
+        </div>
+
+        <div class="faq-item">
+            <div class="faq-q">What happens if I hit my generation limit?</div>
+            <div class="faq-a">You can upgrade your plan at any time to get more generations. Code reviews are always unlimited on all plans. Enterprise Beast plans have no generation limits at all.</div>
+        </div>
+
+        <div class="faq-item">
+            <div class="faq-q">Can I cancel my subscription?</div>
+            <div class="faq-a">Yes, anytime. No contracts, no cancellation fees, no questions asked. You keep access until the end of your current billing period.</div>
+        </div>
+
+        <div class="faq-item">
+            <div class="faq-q">Can I self-host DevBot?</div>
+            <div class="faq-a">Yes. The source code is available on GitHub. Clone the repo, add your own Anthropic API key, and run it on your own infrastructure. You will need a Claude API key with sufficient credits.</div>
+        </div>
+
+        <div class="faq-item">
+            <div class="faq-q">How do affiliate payouts work?</div>
+            <div class="faq-a">Affiliates earn 20% of every subscription payment made by their referrals. Commissions are recurring for the lifetime of the customer. Payouts are processed monthly via PayPal with no minimum threshold.</div>
+        </div>
+
+        <div class="faq-item">
+            <div class="faq-q">Is my data safe?</div>
+            <div class="faq-a">DevBot does not store your generated code on its servers. Projects are generated in real-time and delivered directly to you. If you use the GitHub integration, code is pushed to your own repository. Your prompts are processed by Claude and are subject to Anthropic's data handling policies.</div>
+        </div>
+
+        <div class="faq-item">
+            <div class="faq-q">What kind of support is available?</div>
+            <div class="faq-a">Solo Creator plans include email support. Pro Studio plans include priority support with faster response times. Enterprise Beast plans include a dedicated account manager and 99.9% SLA guarantee.</div>
+        </div>
+
+        <!-- CTA -->
+        <div class="cta-box">
+            <h3>Ready to Build 100x Faster?</h3>
+            <p>Join the developers who stopped writing boilerplate and started shipping.</p>
+            <a href="index.html#pricing" class="btn btn-primary">Get Started with DevBot AI &rarr;</a>
+        </div>
+
+        <p style="text-align:center; margin-top:32px;">
+            <a href="index.html">Home</a> &nbsp;&bull;&nbsp;
+            <a href="index.html#pricing">Pricing</a> &nbsp;&bull;&nbsp;
+            <a href="affiliates.html">Affiliate Program</a> &nbsp;&bull;&nbsp;
+            <a href="https://github.com/ds335033/devbot" target="_blank">GitHub</a>
+        </p>
+
+    </div>
+</article>
+
+<footer>
+    <p>&copy; 2026 DevBot AI. Built by Darren Smith. Powered by Claude Opus 4.6. <a href="index.html">Back to Home</a></p>
+</footer>
+
+</body>
+</html>
