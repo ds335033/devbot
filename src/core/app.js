@@ -34,6 +34,7 @@ const { DevBotEngine } = await import('./engine.js');
 const { registerStripeRoutes } = await import('../api/stripe.js');
 const { registerAffiliateRoutes } = await import('../api/affiliates.js');
 const { whiteLabelRouter } = await import('../api/whitelabel.js');
+const { registerCreditsRoutes } = await import('../api/credits.js');
 
 const app = express();
 
@@ -99,6 +100,9 @@ registerAffiliateRoutes(app);
 
 // White-label routes
 whiteLabelRouter(app);
+
+// Credits system routes
+registerCreditsRoutes(app);
 
 // Initialize core components
 const engine = new DevBotEngine();

@@ -1,0 +1,40 @@
+{
+  "users": {
+    "dazza@test.com": {
+      "email": "dazza@test.com",
+      "credits": 395,
+      "totalCreditsEarned": 0,
+      "totalCreditsBought": 400,
+      "totalCreditsSpent": 5,
+      "totalGenerations": 1,
+      "totalReviews": 0,
+      "totalRefactors": 0,
+      "badges": [],
+      "streak": {
+        "current": 1,
+        "lastActiveDate": "2026-03-26"
+      },
+      "createdAt": "2026-03-26T23:19:41.236Z"
+    }
+  },
+  "transactions": [
+    {
+      "id": "4cc30f98-9f52-4312-be67-a573255a7f7e",
+      "email": "dazza@test.com",
+      "type": "purchase",
+      "pack": "pro",
+      "credits": 400,
+      "amount": 10000,
+      "timestamp": "2026-03-26T23:19:41.237Z"
+    },
+    {
+      "id": "a9287d73-9f7e-4357-bc1c-d10f2f9fe94e",
+      "email": "dazza@test.com",
+      "type": "spend",
+      "action": "generate",
+      "credits": -5,
+      "timestamp": "2026-03-26T23:19:41.374Z"
+    }
+  ],
+  "rewards": []
+}
