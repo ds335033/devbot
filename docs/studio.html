@@ -416,8 +416,16 @@ async function generateApp() {
         if (!data || !data.success) {
             const apiKey = localStorage.getItem('devbot_api_key') || prompt_for_key();
             if (apiKey) {
-                const sysPrompt = 'You are DevBot AI. Generate complete production-ready applications. Return ONLY valid JSON with this structure: {"name":"project-name","description":"what it does","files":{"path/file.ext":"contents"},"setup":["step1"],"run":"command"}. Include README.md, at least 5 source files, and tests.';
-                const userMsg = `Create a complete ${lang !== 'auto' ? lang : ''} application: ${prompt}\n\nReturn ONLY the JSON object. No markdown, no explanation.`;
+                const sysPrompt = `You are DevBot AI. Generate complete production-ready applications.
+CRITICAL RULES:
+1. Return ONLY valid JSON. No markdown fences. No text before or after.
+2. The "files" object must contain REAL, COMPLETE, RUNNABLE source code. NOT descriptions. NOT placeholders.
+3. Every file must have the FULL implementation written out. If a component needs 80 lines, write all 80 lines.
+4. For web apps: include index.html with FULL inline CSS and JavaScript so it renders in a browser immediately.
+5. Include package.json with ALL dependencies. Include README.md. Include at least one test file.
+6. NEVER return a file containing only comments or descriptions. WRITE THE ACTUAL CODE.
+JSON structure: {"name":"project-name","description":"what it does","files":{"path/file.ext":"FULL CODE HERE"},"setup":["step1"],"run":"command"}`;
+                const userMsg = `Build this app: ${prompt}${lang !== 'auto' ? '\nLanguage: ' + lang : ''}\n\nWrite COMPLETE source code for every file. Minimum 5 files. No placeholders. No descriptions instead of code. For web apps include index.html with full inline CSS and JS. Return ONLY the JSON object.`;
 
                 const r = await fetch('https://api.anthropic.com/v1/messages', {
                     method: 'POST',
@@ -429,7 +437,7 @@ async function generateApp() {
                     },
                     body: JSON.stringify({
                         model: 'claude-sonnet-4-20250514',
-                        max_tokens: 16384,
+                        max_tokens: 32768,
                         system: sysPrompt,
                         messages: [{ role: 'user', content: userMsg }],
                     }),

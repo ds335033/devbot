@@ -1,19 +1,19 @@
 import Anthropic from '@anthropic-ai/sdk';
 
 const SYSTEM_PROMPT = `You are DevBot, the most powerful AI app creator ever built.
-You are powered by Claude Opus 4.6 with a 1,000,000 token context window.
 
-Your capabilities:
-- Generate complete, production-ready applications from a single prompt
-- Support any language: JavaScript, TypeScript, Python, Go, Rust, etc.
-- Support any framework: React, Next.js, Express, FastAPI, Django, etc.
-- Generate full project structures with all files, configs, and tests
-- Create deployment configs (Docker, Kubernetes, Vercel, AWS)
-- Write comprehensive documentation
-- Implement best practices: security, performance, accessibility
+CRITICAL RULES — FOLLOW EVERY TIME:
+1. Return ONLY a valid JSON object. No markdown fences. No explanation before or after.
+2. The "files" object must contain REAL, COMPLETE, RUNNABLE source code — NOT descriptions, NOT placeholders, NOT comments like "// add your code here".
+3. Every file must contain the FULL implementation. If a React component needs 80 lines, write all 80 lines.
+4. Include at minimum: source files with full code, package.json/requirements.txt with all dependencies, README.md with setup instructions, and at least one test file.
+5. All imports must be correct. All function signatures must match their usage. The app must run with ZERO modifications.
+6. For web apps: include complete HTML with inline CSS and JavaScript so it renders in a browser immediately.
+7. For React/Vue/Svelte apps: include an index.html entry point that loads the app.
+8. NEVER return a file that just describes what should be in it. WRITE THE ACTUAL CODE.
 
-Output format: Always return structured JSON with file paths and contents.
-Every app you create should be immediately runnable with zero modifications.`;
+JSON structure (return ONLY this, nothing else):
+{"name":"project-name","description":"what this app does","files":{"path/to/file.ext":"FULL FILE CONTENTS HERE"},"setup":["npm install","npm start"],"run":"npm start"}`;
 
 export class DevBotEngine {
   constructor() {
@@ -26,15 +26,22 @@ export class DevBotEngine {
   async generateApp({ prompt, language = 'auto', framework = 'auto' }) {
     const userPrompt = this.buildPrompt(prompt, language, framework);
 
-    const response = await this.client.messages.create({
+    // Use streaming to avoid timeout on large generations
+    let fullText = '';
+    const stream = this.client.messages.stream({
       model: this.model,
       max_tokens: 16384,
       system: SYSTEM_PROMPT,
       messages: [{ role: 'user', content: userPrompt }],
     });
 
-    const content = response.content[0].text;
-    return this.parseResponse(content);
+    for await (const event of stream) {
+      if (event.type === 'content_block_delta' && event.delta?.text) {
+        fullText += event.delta.text;
+      }
+    }
+
+    return this.parseResponse(fullText);
   }
 
   async chat(messages) {
@@ -74,20 +81,19 @@ export class DevBotEngine {
   }
 
   buildPrompt(prompt, language, framework) {
-    let fullPrompt = `Create a complete, production-ready application:\n\n${prompt}\n\n`;
+    let fullPrompt = `Build this app: ${prompt}\n\n`;
     if (language !== 'auto') fullPrompt += `Language: ${language}\n`;
     if (framework !== 'auto') fullPrompt += `Framework: ${framework}\n`;
-    fullPrompt += `\nReturn a JSON object with this structure:
-{
-  "name": "project-name",
-  "description": "what this app does",
-  "files": {
-    "path/to/file.ext": "file contents...",
-    ...
-  },
-  "setup": ["step 1", "step 2"],
-  "run": "command to run the app"
-}`;
+    fullPrompt += `
+IMPORTANT:
+- Write COMPLETE source code for every file. No placeholders. No "// TODO". No descriptions instead of code.
+- For web apps, include an index.html with full inline CSS and JS so it works when opened directly in a browser.
+- Include package.json or requirements.txt with ALL dependencies listed.
+- Include at least one test file with real test cases.
+- Include a README.md with clear setup and run instructions.
+- Minimum 5 files. Write REAL, WORKING, COMPLETE code in every single file.
+
+Return ONLY the JSON object. No text before or after it.`;
     return fullPrompt;
   }
 
