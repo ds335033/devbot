@@ -259,7 +259,7 @@ async function submitAffiliate(e) {
     try {
         // For now, generate locally since API may not be public
         const code = data.name.toLowerCase().replace(/[^a-z0-9]/g,'').slice(0,8) + '-' + Math.random().toString(36).slice(2,8);
-        const link = `https://ds335033.github.io/devbot/?ref=${code}`;
+        const link = `https://devbotai.store/?ref=${code}`;
 
         document.getElementById('refLink').textContent = link;
         document.getElementById('result').style.display = 'block';
