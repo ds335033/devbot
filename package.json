@@ -1,0 +1,29 @@
+{
+  "name": "devbot",
+  "version": "1.0.0",
+  "description": "DevBot - AI-powered world-class app creator. Powered by Claude Opus 4.6, integrated with GitHub and Slack.",
+  "main": "src/core/app.js",
+  "type": "module",
+  "scripts": {
+    "start": "node src/core/app.js",
+    "dev": "node --watch src/core/app.js",
+    "test": "node --test tests/",
+    "slack": "node src/slack/bot.js"
+  },
+  "dependencies": {
+    "@anthropic-ai/sdk": "^0.39.0",
+    "@slack/bolt": "^4.1.0",
+    "@slack/web-api": "^7.8.0",
+    "@octokit/rest": "^21.1.0",
+    "express": "^4.21.0",
+    "dotenv": "^16.4.7"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.9"
+  },
+  "engines": {
+    "node": ">=20.0.0"
+  },
+  "author": "Dazza",
+  "license": "MIT"
+}
