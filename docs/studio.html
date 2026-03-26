@@ -388,35 +388,83 @@ async function generateApp() {
     const startTime = Date.now();
 
     try {
-        // Try Python server first, then Node
-        let response;
+        let data = null;
+
+        // Method 1: Try local Python server
         try {
-            response = await fetch('http://localhost:8000/api/generate', {
+            const r = await fetch('http://localhost:8000/api/generate', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ prompt, language: lang }),
             });
-        } catch {
-            response = await fetch('http://localhost:3000/api/generate', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ prompt, language: lang }),
-            });
+            data = await r.json();
+        } catch {}
+
+        // Method 2: Try local Node server
+        if (!data || !data.success) {
+            try {
+                const r = await fetch('http://localhost:3000/api/generate', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ prompt, language: lang }),
+                });
+                data = await r.json();
+            } catch {}
         }
 
-        const data = await response.json();
+        // Method 3: Direct Anthropic API call (works from hosted site)
+        if (!data || !data.success) {
+            const apiKey = localStorage.getItem('devbot_api_key') || prompt_for_key();
+            if (apiKey) {
+                const sysPrompt = 'You are DevBot AI. Generate complete production-ready applications. Return ONLY valid JSON with this structure: {"name":"project-name","description":"what it does","files":{"path/file.ext":"contents"},"setup":["step1"],"run":"command"}. Include README.md, at least 5 source files, and tests.';
+                const userMsg = `Create a complete ${lang !== 'auto' ? lang : ''} application: ${prompt}\n\nReturn ONLY the JSON object. No markdown, no explanation.`;
+
+                const r = await fetch('https://api.anthropic.com/v1/messages', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'x-api-key': apiKey,
+                        'anthropic-version': '2023-06-01',
+                        'anthropic-dangerous-direct-browser-access': 'true',
+                    },
+                    body: JSON.stringify({
+                        model: 'claude-sonnet-4-20250514',
+                        max_tokens: 16384,
+                        system: sysPrompt,
+                        messages: [{ role: 'user', content: userMsg }],
+                    }),
+                });
+
+                const apiData = await r.json();
+                if (apiData.content && apiData.content[0]) {
+                    const text = apiData.content[0].text;
+                    const parsed = parseJsonResponse(text);
+                    data = {
+                        success: true,
+                        app: parsed,
+                        meta: {
+                            tokens_used: (apiData.usage?.input_tokens || 0) + (apiData.usage?.output_tokens || 0),
+                        },
+                    };
+                } else {
+                    throw new Error(apiData.error?.message || 'API call failed');
+                }
+            }
+        }
+
         const elapsed = ((Date.now() - startTime) / 1000).toFixed(1);
 
-        if (data.success && (data.app || data.result)) {
+        if (data && data.success && (data.app || data.result)) {
             currentApp = data.app || data.result;
             renderFileTree(currentApp.files || {});
             updateStatus(currentApp, elapsed, data.meta);
             renderPreview(currentApp);
         } else {
-            alert('Generation failed: ' + (data.error || data.detail || 'Unknown error'));
+            const errMsg = data?.error || data?.detail || 'Generation failed. Check your API key or start the local server.';
+            alert(errMsg);
         }
     } catch (err) {
-        alert('Could not connect to DevBot server. Make sure it is running on localhost:8000 or localhost:3000.');
+        alert('Error: ' + err.message);
     } finally {
         clearInterval(msgInterval);
         document.getElementById('generating').classList.remove('active');
@@ -613,6 +661,45 @@ function shareApp() {
         navigator.clipboard.writeText(text);
         alert('Share text copied to clipboard!');
     }
+}
+
+// ===== API KEY MANAGEMENT =====
+function prompt_for_key() {
+    const key = window.prompt('Enter your Anthropic API key to generate apps.\nGet one at console.anthropic.com/settings/keys\n\nYour key is stored locally and never sent to our servers.');
+    if (key && key.startsWith('sk-ant-')) {
+        localStorage.setItem('devbot_api_key', key);
+        return key;
+    }
+    return null;
+}
+
+function parseJsonResponse(text) {
+    // Try direct parse
+    try { return JSON.parse(text.trim()); } catch {}
+
+    // Try code blocks
+    const m = text.match(/```(?:json)?\s*\n?([\s\S]*?)\n?```/);
+    if (m) { try { return JSON.parse(m[1].trim()); } catch {} }
+
+    // Try brace matching
+    const start = text.indexOf('{');
+    if (start !== -1) {
+        let depth = 0, inStr = false, esc = false;
+        for (let i = start; i < text.length; i++) {
+            const ch = text[i];
+            if (esc) { esc = false; continue; }
+            if (ch === '\\') { esc = true; continue; }
+            if (ch === '"') { inStr = !inStr; continue; }
+            if (inStr) continue;
+            if (ch === '{') depth++;
+            if (ch === '}') { depth--; if (depth === 0) {
+                try { return JSON.parse(text.slice(start, i + 1)); } catch { break; }
+            }}
+        }
+    }
+
+    // Fallback
+    return { name: 'generated-app', description: 'Generated by DevBot AI', files: { 'output.md': text }, setup: ['Review output'], run: 'See output.md' };
 }
 
 // Keyboard shortcut
