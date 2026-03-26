@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DevBot AI - Build World-Class Apps in Seconds</title>
+    <meta name="description" content="DevBot AI generates complete, production-ready applications from a single prompt. Powered by Claude Opus 4.6 with 1M token context.">
+    <style>
+        :root {
+            --primary: #6366f1;
+            --primary-dark: #4f46e5;
+            --secondary: #0ea5e9;
+            --dark: #0f172a;
+            --darker: #020617;
+            --light: #f8fafc;
+            --gray: #94a3b8;
+            --card: #1e293b;
+            --border: #334155;
+            --success: #22c55e;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: var(--darker);
+            color: var(--light);
+            line-height: 1.6;
+        }
+
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+
+        /* Navigation */
+        nav {
+            padding: 20px 0;
+            border-bottom: 1px solid var(--border);
+            position: sticky;
+            top: 0;
+            background: rgba(2, 6, 23, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 100;
+        }
+        nav .container { display: flex; justify-content: space-between; align-items: center; }
+        .logo { font-size: 1.5rem; font-weight: 800; }
+        .logo span { color: var(--primary); }
+        nav a { color: var(--gray); text-decoration: none; margin-left: 32px; font-size: 0.95rem; }
+        nav a:hover { color: var(--light); }
+        .nav-cta {
+            background: var(--primary);
+            color: white !important;
+            padding: 10px 24px;
+            border-radius: 8px;
+            font-weight: 600;
+        }
+        .nav-cta:hover { background: var(--primary-dark); }
+
+        /* Hero */
+        .hero {
+            padding: 120px 0 80px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle at 50% 50%, rgba(99, 102, 241, 0.08) 0%, transparent 50%);
+        }
+        .badge {
+            display: inline-block;
+            background: rgba(99, 102, 241, 0.15);
+            border: 1px solid rgba(99, 102, 241, 0.3);
+            padding: 6px 16px;
+            border-radius: 100px;
+            font-size: 0.85rem;
+            color: var(--primary);
+            margin-bottom: 24px;
+        }
+        h1 {
+            font-size: 4rem;
+            font-weight: 800;
+            line-height: 1.1;
+            margin-bottom: 24px;
+            letter-spacing: -0.02em;
+        }
+        h1 .gradient {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .hero p {
+            font-size: 1.25rem;
+            color: var(--gray);
+            max-width: 640px;
+            margin: 0 auto 40px;
+        }
+        .hero-buttons { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
+        .btn {
+            padding: 14px 32px;
+            border-radius: 10px;
+            font-size: 1rem;
+            font-weight: 600;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.2s;
+            cursor: pointer;
+            border: none;
+        }
+        .btn-primary { background: var(--primary); color: white; }
+        .btn-primary:hover { background: var(--primary-dark); transform: translateY(-2px); box-shadow: 0 8px 30px rgba(99,102,241,0.3); }
+        .btn-secondary { background: transparent; color: var(--light); border: 1px solid var(--border); }
+        .btn-secondary:hover { border-color: var(--gray); }
+
+        /* Demo */
+        .demo {
+            margin: 60px auto;
+            max-width: 700px;
+            background: var(--dark);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            overflow: hidden;
+        }
+        .demo-header {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 12px 16px;
+            background: var(--card);
+            border-bottom: 1px solid var(--border);
+        }
+        .demo-dot { width: 12px; height: 12px; border-radius: 50%; }
+        .demo-dot.r { background: #ef4444; }
+        .demo-dot.y { background: #eab308; }
+        .demo-dot.g { background: #22c55e; }
+        .demo-body { padding: 24px; font-family: 'Courier New', monospace; font-size: 0.9rem; }
+        .demo-body .prompt { color: var(--success); }
+        .demo-body .cmd { color: var(--secondary); }
+        .demo-body .output { color: var(--gray); margin-top: 8px; }
+        .demo-body .files { color: #a78bfa; }
+
+        /* Features */
+        .features { padding: 100px 0; }
+        .features h2 { text-align: center; font-size: 2.5rem; margin-bottom: 16px; }
+        .features .subtitle { text-align: center; color: var(--gray); margin-bottom: 64px; font-size: 1.1rem; }
+        .features-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); gap: 24px; }
+        .feature-card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 32px;
+            transition: all 0.2s;
+        }
+        .feature-card:hover { border-color: var(--primary); transform: translateY(-4px); }
+        .feature-icon { font-size: 2rem; margin-bottom: 16px; }
+        .feature-card h3 { font-size: 1.25rem; margin-bottom: 8px; }
+        .feature-card p { color: var(--gray); font-size: 0.95rem; }
+
+        /* Pricing */
+        .pricing { padding: 100px 0; }
+        .pricing h2 { text-align: center; font-size: 2.5rem; margin-bottom: 16px; }
+        .pricing .subtitle { text-align: center; color: var(--gray); margin-bottom: 64px; font-size: 1.1rem; }
+        .pricing-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 24px; max-width: 1050px; margin: 0 auto; }
+        .price-card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 40px 32px;
+            position: relative;
+        }
+        .price-card.popular {
+            border-color: var(--primary);
+            box-shadow: 0 0 40px rgba(99, 102, 241, 0.15);
+        }
+        .popular-badge {
+            position: absolute;
+            top: -14px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--primary);
+            color: white;
+            padding: 4px 20px;
+            border-radius: 100px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+        .price-card .tier { font-size: 0.9rem; color: var(--primary); font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 8px; }
+        .price-card .price { font-size: 3.5rem; font-weight: 800; margin-bottom: 4px; }
+        .price-card .price span { font-size: 1rem; color: var(--gray); font-weight: 400; }
+        .price-card .desc { color: var(--gray); margin-bottom: 32px; font-size: 0.95rem; }
+        .price-card ul { list-style: none; margin-bottom: 32px; }
+        .price-card li {
+            padding: 8px 0;
+            color: var(--gray);
+            font-size: 0.95rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .price-card li::before { content: '\2713'; color: var(--success); font-weight: 700; }
+        .price-card .btn { width: 100%; justify-content: center; }
+
+        /* Social proof */
+        .stats {
+            padding: 60px 0;
+            border-top: 1px solid var(--border);
+            border-bottom: 1px solid var(--border);
+        }
+        .stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; text-align: center; }
+        .stat-num { font-size: 2.5rem; font-weight: 800; color: var(--primary); }
+        .stat-label { color: var(--gray); font-size: 0.9rem; margin-top: 4px; }
+
+        /* CTA */
+        .cta {
+            padding: 100px 0;
+            text-align: center;
+        }
+        .cta h2 { font-size: 2.5rem; margin-bottom: 16px; }
+        .cta p { color: var(--gray); margin-bottom: 40px; font-size: 1.1rem; }
+
+        /* Footer */
+        footer {
+            padding: 40px 0;
+            border-top: 1px solid var(--border);
+            text-align: center;
+            color: var(--gray);
+            font-size: 0.85rem;
+        }
+        footer a { color: var(--gray); text-decoration: none; }
+        footer a:hover { color: var(--light); }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            h1 { font-size: 2.5rem; }
+            .stats-grid { grid-template-columns: repeat(2, 1fr); }
+            .pricing-grid { grid-template-columns: 1fr; }
+            .features-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+<nav>
+    <div class="container">
+        <div class="logo">Dev<span>Bot</span> AI</div>
+        <div>
+            <a href="#features">Features</a>
+            <a href="#pricing">Pricing</a>
+            <a href="https://github.com/ds335033/devbot" target="_blank">GitHub</a>
+            <a href="#pricing" class="nav-cta">Get Started</a>
+        </div>
+    </div>
+</nav>
+
+<section class="hero">
+    <div class="container">
+        <div class="badge">Powered by Claude Opus 4.6 &mdash; 1M Token Context</div>
+        <h1>Build World-Class Apps<br><span class="gradient">In Seconds</span></h1>
+        <p>DevBot AI generates complete, production-ready applications from a single prompt. Any language. Any framework. Ship faster than ever.</p>
+        <div class="hero-buttons">
+            <a href="#pricing" class="btn btn-primary">Start Building Now</a>
+            <a href="https://github.com/ds335033/devbot" class="btn btn-secondary" target="_blank">View on GitHub</a>
+        </div>
+
+        <div class="demo">
+            <div class="demo-header">
+                <div class="demo-dot r"></div>
+                <div class="demo-dot y"></div>
+                <div class="demo-dot g"></div>
+            </div>
+            <div class="demo-body">
+                <div class="prompt">$ /devbot create</div>
+                <div class="cmd">"a real-time chat app with React, WebSocket, and Redis"</div>
+                <div class="output">Generating complete application...</div>
+                <div class="files" style="margin-top: 12px;">
+                    Created 14 files:<br>
+                    &nbsp;&nbsp;src/server.ts<br>
+                    &nbsp;&nbsp;src/components/Chat.tsx<br>
+                    &nbsp;&nbsp;src/hooks/useWebSocket.ts<br>
+                    &nbsp;&nbsp;docker-compose.yml<br>
+                    &nbsp;&nbsp;...and 10 more
+                </div>
+                <div class="output" style="margin-top: 12px; color: #22c55e;">Ready to run: npm start</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="stats">
+    <div class="container">
+        <div class="stats-grid">
+            <div><div class="stat-num">1M</div><div class="stat-label">Token Context Window</div></div>
+            <div><div class="stat-num">50+</div><div class="stat-label">Languages Supported</div></div>
+            <div><div class="stat-num">100+</div><div class="stat-label">Frameworks</div></div>
+            <div><div class="stat-num">&lt;30s</div><div class="stat-label">App Generation Time</div></div>
+        </div>
+    </div>
+</section>
+
+<section class="features" id="features">
+    <div class="container">
+        <h2>Everything You Need to Ship</h2>
+        <p class="subtitle">From idea to production-ready code in a single command</p>
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="feature-icon">&#9889;</div>
+                <h3>Instant App Generation</h3>
+                <p>Describe what you want. DevBot generates every file, every config, every test. Complete projects ready to deploy with zero modifications.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">&#128270;</div>
+                <h3>AI Code Review</h3>
+                <p>Thorough security analysis, performance auditing, and architecture review. Catches OWASP Top 10 vulnerabilities, anti-patterns, and more.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">&#128171;</div>
+                <h3>GitHub Integration</h3>
+                <p>Auto-create repos, push generated code, create issues and PRs. DevBot manages your entire GitHub workflow from Slack.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">&#128172;</div>
+                <h3>Slack-Native</h3>
+                <p>Full conversational interface via Slack. Use /devbot commands or just mention @DevBot. Maintains context across your entire conversation.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">&#127760;</div>
+                <h3>Any Stack</h3>
+                <p>JavaScript, TypeScript, Python, Go, Rust, Java, C#. React, Next.js, Vue, Django, FastAPI, Express, and 100+ more frameworks.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">&#128640;</div>
+                <h3>Deploy Ready</h3>
+                <p>Generated apps include Docker configs, CI/CD pipelines, and deployment scripts for Vercel, AWS, GCP, Railway, and more.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="pricing" id="pricing">
+    <div class="container">
+        <h2>Simple, Transparent Pricing</h2>
+        <p class="subtitle">Start free. Scale as you grow. Cancel anytime.</p>
+        <div class="pricing-grid">
+            <div class="price-card">
+                <div class="tier">Solo Creator</div>
+                <div class="price">$29<span>/mo</span></div>
+                <div class="desc">Perfect for indie developers and freelancers</div>
+                <ul>
+                    <li>50 app generations per month</li>
+                    <li>Unlimited code reviews</li>
+                    <li>Slack bot access</li>
+                    <li>GitHub integration</li>
+                    <li>All languages and frameworks</li>
+                    <li>Email support</li>
+                </ul>
+                <a href="mailto:guitargiveawaychannel345@gmail.com?subject=DevBot Solo Creator" class="btn btn-secondary">Get Started</a>
+            </div>
+            <div class="price-card popular">
+                <div class="popular-badge">Most Popular</div>
+                <div class="tier">Pro Studio</div>
+                <div class="price">$99<span>/mo</span></div>
+                <div class="desc">For teams shipping fast and breaking records</div>
+                <ul>
+                    <li>300 app generations per month</li>
+                    <li>Unlimited code reviews</li>
+                    <li>Priority Slack bot</li>
+                    <li>GitHub org integration</li>
+                    <li>Custom deployment configs</li>
+                    <li>Priority support</li>
+                    <li>Team workspace (up to 10)</li>
+                </ul>
+                <a href="mailto:guitargiveawaychannel345@gmail.com?subject=DevBot Pro Studio" class="btn btn-primary">Start Free Trial</a>
+            </div>
+            <div class="price-card">
+                <div class="tier">Enterprise Beast</div>
+                <div class="price">$499<span>/mo</span></div>
+                <div class="desc">Unlimited power for organizations at scale</div>
+                <ul>
+                    <li>Unlimited app generations</li>
+                    <li>Unlimited everything</li>
+                    <li>Dedicated Slack instance</li>
+                    <li>Custom model fine-tuning</li>
+                    <li>SSO / SAML authentication</li>
+                    <li>Dedicated account manager</li>
+                    <li>SLA guarantee (99.9%)</li>
+                    <li>On-premise deployment option</li>
+                </ul>
+                <a href="mailto:guitargiveawaychannel345@gmail.com?subject=DevBot Enterprise" class="btn btn-secondary">Contact Sales</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="cta">
+    <div class="container">
+        <h2>Ready to Build Faster?</h2>
+        <p>Join developers who are shipping 10x faster with DevBot AI.</p>
+        <a href="#pricing" class="btn btn-primary" style="font-size: 1.1rem; padding: 16px 40px;">Get Started Now</a>
+    </div>
+</section>
+
+<footer>
+    <div class="container">
+        <p>&copy; 2026 DevBot AI. Built by Darren Smith. Powered by Claude Opus 4.6.</p>
+        <p style="margin-top: 8px;">
+            <a href="https://github.com/ds335033/devbot">GitHub</a> &nbsp;|&nbsp;
+            <a href="mailto:guitargiveawaychannel345@gmail.com">Contact</a>
+        </p>
+    </div>
+</footer>
+
+</body>
+</html>

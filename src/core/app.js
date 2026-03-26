@@ -1,8 +1,15 @@
-import 'dotenv/config';
-import express from 'express';
-import { SlackBot } from '../slack/bot.js';
-import { GitHubClient } from '../github/client.js';
-import { DevBotEngine } from './engine.js';
+import dotenv from 'dotenv';
+import { fileURLToPath } from 'url';
+import { dirname, resolve } from 'path';
+
+const __dirname = dirname(fileURLToPath(import.meta.url));
+dotenv.config({ path: resolve(__dirname, '../../.env') });
+
+// Dynamic imports AFTER env is loaded
+const express = (await import('express')).default;
+const { SlackBot } = await import('../slack/bot.js');
+const { GitHubClient } = await import('../github/client.js');
+const { DevBotEngine } = await import('./engine.js');
 
 const app = express();
 app.use(express.json());
