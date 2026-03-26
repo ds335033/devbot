@@ -1,0 +1,58 @@
+{
+  "$schema": "https://raw.githubusercontent.com/slackapi/manifest-schema/main/manifest.schema.json",
+  "display_information": {
+    "name": "DevBot AI",
+    "description": "Build production apps in seconds. Powered by Claude Opus 4.6.",
+    "background_color": "#6366f1"
+  },
+  "features": {
+    "app_home": {
+      "home_tab_enabled": false,
+      "messages_tab_enabled": true,
+      "messages_tab_read_only_enabled": false
+    },
+    "bot_user": {
+      "display_name": "DevBot AI",
+      "always_online": true
+    },
+    "assistant_view": {
+      "assistant_description": "I'm DevBot AI — I generate complete production-ready apps, review code, and manage GitHub repos. Powered by Claude Opus 4.6 with 1M token context.",
+      "suggested_prompts": []
+    },
+    "slash_commands": [
+      {
+        "command": "/devbot",
+        "description": "DevBot AI commands: create, review, github, help",
+        "usage_hint": "[create|review|github|help] [prompt]",
+        "should_escape": false
+      }
+    ]
+  },
+  "oauth_config": {
+    "scopes": {
+      "bot": [
+        "app_mentions:read",
+        "assistant:write",
+        "im:history",
+        "chat:write",
+        "commands",
+        "files:write"
+      ]
+    }
+  },
+  "settings": {
+    "event_subscriptions": {
+      "bot_events": [
+        "assistant_thread_started",
+        "message.im",
+        "app_mention"
+      ]
+    },
+    "interactivity": {
+      "is_enabled": true
+    },
+    "org_deploy_enabled": false,
+    "socket_mode_enabled": true,
+    "token_rotation_enabled": false
+  }
+}
