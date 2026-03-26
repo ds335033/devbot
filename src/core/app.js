@@ -174,8 +174,8 @@ app.post('/api/generate', generateLimiter, async (req, res) => {
       },
     });
   } catch (err) {
-    console.error('[DevBot] Generation error:', err.message);
-    res.status(500).json({ success: false, error: 'Generation failed. Please try again.' });
+    console.error('[DevBot] Generation error:', err.message, err.stack?.split('\n')[1]);
+    res.status(500).json({ success: false, error: err.message });
   }
 });
 
