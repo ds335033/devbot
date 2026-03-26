@@ -17,7 +17,9 @@ Every app you create should be immediately runnable with zero modifications.`;
 
 export class DevBotEngine {
   constructor() {
-    this.client = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY });
+    const key = process.env.ANTHROPIC_API_KEY;
+    if (!key) throw new Error('ANTHROPIC_API_KEY not set in environment');
+    this.client = new Anthropic({ apiKey: key });
     this.model = 'claude-sonnet-4-20250514';
   }
 
