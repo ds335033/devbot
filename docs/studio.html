@@ -765,7 +765,8 @@ ${features.js || '// App logic here'}
         license: "MIT"
     }, null, 2);
 
-    const readme = `# ${title}\n\n${desc}\n\n## Quick Start\n\n\\`\\`\\`bash\nnpx serve .\n\\`\\`\\`\n\nThen open http://localhost:3000\n\n## Built With\n\n- DevBot AI (https://devbotai.store)\n- Claude Opus 4.6\n\n## License\n\nMIT`;
+    const ticks = '```';
+    const readme = '# ' + title + '\n\n' + desc + '\n\n## Quick Start\n\n' + ticks + 'bash\nnpx serve .\n' + ticks + '\n\nThen open http://localhost:3000\n\n## Built With\n\n- DevBot AI (https://devbotai.store)\n- Claude Opus 4.6\n\n## License\n\nMIT';
 
     const testFile = `// ${title} Tests
 const assert = require('assert');
