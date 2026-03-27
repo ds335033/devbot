@@ -40,6 +40,7 @@ const { registerNewRevenueRoutes, NEW_REVENUE_STREAMS } = await import('../api/n
 const { registerRevenue42_49Routes, REVENUE_42_49 } = await import('../api/revenue42_49.js');
 const { registerAgentKitRoutes } = await import('../trading/agentkit.js');
 const { registerSchedulerRoutes } = await import('../trading/scheduler.js');
+const { registerDropshippingRoutes } = await import('../api/dropshipping.js');
 
 const app = express();
 
@@ -128,6 +129,7 @@ registerAgentKitRoutes(app);
 
 // Auto-trading scheduler — recurring trades on interval
 registerSchedulerRoutes(app);
+registerDropshippingRoutes(app);
 
 // Health check
 app.get('/health', (req, res) => {

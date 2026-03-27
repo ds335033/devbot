@@ -3,3 +3,12 @@ node_modules/
 *.log
 dist/
 .DS_Store
+Thumbs.db
+
+# Sensitive data — NEVER commit
+data/vault/
+data/trading/
+data/dropshipping/
+*.pem
+*.key
+credentials.json

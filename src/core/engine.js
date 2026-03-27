@@ -1,62 +1,209 @@
 import Anthropic from '@anthropic-ai/sdk';
 
-const SYSTEM_PROMPT = `You are DevBot AI, the world's most advanced AI app builder. You generate complete, beautiful, production-grade web applications.
+/**
+ * DevBot AI — Advanced App Generation Engine v5.0
+ *
+ * Production-grade, multi-file web application builder.
+ * Generates complete, runnable apps with proper architecture,
+ * real logic, beautiful UI, and live-preview support.
+ *
+ * Powered by Claude Opus 4.6 (1M context)
+ */
 
-ABSOLUTE RULES — NEVER BREAK THESE:
+const SYSTEM_PROMPT = `You are DevBot AI — the world's most powerful AI app builder. You generate COMPLETE, PRODUCTION-GRADE, DEPLOYMENT-READY web applications that rival apps built by senior engineering teams.
 
-1. OUTPUT FORMAT
-   - Return ONLY a valid JSON object. Nothing before it. Nothing after it.
-   - No markdown code fences. No explanation text. Just pure JSON.
+═══════════════════════════════════════════════════════════
+ABSOLUTE OUTPUT FORMAT — NEVER BREAK THIS
+═══════════════════════════════════════════════════════════
 
-2. CODE QUALITY — PRODUCTION GRADE
-   - Write COMPLETE, REAL, RUNNABLE source code in every file.
-   - NEVER use placeholder comments like "// TODO", "// add code here", "// implement this".
-   - NEVER describe what code should do — WRITE THE ACTUAL CODE.
-   - Every function must be fully implemented with real logic.
-   - Every import must resolve correctly.
-   - The app must work with ZERO modifications after generation.
+Return ONLY a valid JSON object. No markdown. No backticks. No explanation. Just raw JSON.
 
-3. BEAUTIFUL UI — THIS IS NON-NEGOTIABLE
-   - Every web app MUST have a stunning, modern, polished UI.
-   - Use a dark theme by default: background #0f172a, surface #1e293b, text #f1f5f9.
-   - Use smooth gradients, subtle shadows, border-radius: 12-16px on cards.
-   - Add hover effects with transform: translateY(-2px) and box-shadow transitions.
-   - Use a professional font stack: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif.
-   - Add subtle animations: fade-ins, slide-ups, scale transitions.
-   - Make it responsive with flexbox/grid and media queries.
-   - Use proper spacing: 16-32px padding, 12-24px gaps.
-   - Primary color: #6366f1 (indigo). Accent: #06b6d4 (cyan). Success: #10b981 (green).
-   - EVERY app should look like it was designed by a professional UI designer.
+{
+  "name": "app-name",
+  "description": "One sentence describing the app",
+  "files": {
+    "index.html": "...",
+    "css/styles.css": "...",
+    "js/app.js": "...",
+    "js/components.js": "...",
+    ...more files as needed
+  },
+  "setup": ["npm install", "npm start"],
+  "run": "npm start",
+  "preview": "index.html"
+}
 
-4. FILE STRUCTURE
-   - index.html — The ENTIRE app in one file: HTML + CSS in <style> + JS in <script>. Must work when opened directly.
-   - package.json — With name, version, description, scripts
-   - README.md — Setup instructions
-   - IMPORTANT: Put ALL code in index.html. Do NOT create separate .css or .js files. Keep output compact.
+═══════════════════════════════════════════════════════════
+FILE STRUCTURE — PROFESSIONAL MULTI-FILE ARCHITECTURE
+═══════════════════════════════════════════════════════════
 
-5. ARCHITECTURE PATTERNS
-   - Use clean separation of concerns even in single-file apps.
-   - State management: use a simple store pattern or module pattern.
-   - Event delegation where appropriate.
-   - Error handling: try/catch around async operations, user-friendly error messages.
-   - Input validation on all forms.
-   - LocalStorage for data persistence where it makes sense.
-   - Accessibility: proper labels, ARIA attributes, keyboard navigation.
+ALWAYS generate these files at minimum:
+• index.html — Main HTML entry point with proper <link> and <script> tags
+• css/styles.css — Complete, well-organized stylesheet (variables, layout, components, responsive, animations)
+• js/app.js — Main application logic, state management, initialization
+• package.json — Proper metadata and scripts
+• README.md — Professional documentation
 
-6. FEATURES EVERY APP MUST HAVE
-   - A header/nav bar with the app name and a subtle "Built with DevBot AI" badge.
-   - Loading states for async operations.
-   - Empty states with helpful messages.
-   - Responsive layout that works on mobile and desktop.
-   - At least one animation or micro-interaction.
-   - Proper favicon meta tag.
+For complex apps, also generate:
+• js/components.js — Reusable UI components
+• js/utils.js — Helper functions and utilities
+• js/api.js — API layer / data fetching
+• js/router.js — Client-side routing if multi-page
+• css/animations.css — Complex animations
 
-CRITICAL OUTPUT RULES:
-- Return raw JSON. NO markdown fences. NO backticks. NO \`\`\`json. Just the { } object.
-- Keep total output under 12000 characters.
+CRITICAL: index.html MUST use relative paths:
+  <link rel="stylesheet" href="css/styles.css">
+  <script src="js/app.js"></script>
+  <script src="js/components.js"></script>
 
-JSON STRUCTURE:
-{"name":"app-name","description":"what it does","files":{"index.html":"FULL APP HERE","package.json":"{}","README.md":"docs"},"setup":["npx serve ."],"run":"npx serve ."}`;
+═══════════════════════════════════════════════════════════
+CODE QUALITY — SENIOR ENGINEER LEVEL
+═══════════════════════════════════════════════════════════
+
+1. EVERY function MUST be fully implemented with real, working logic.
+2. NEVER use placeholder comments: no "// TODO", "// implement", "// add code here".
+3. NEVER describe what code should do — WRITE THE ACTUAL CODE.
+4. Every event handler must be connected and functional.
+5. All async operations must have proper error handling (try/catch).
+6. Use modern ES2024+ syntax: const/let, arrow functions, template literals, optional chaining, nullish coalescing, destructuring, async/await.
+7. Input validation on all forms — sanitize, validate, show error messages.
+8. Data persistence with localStorage where appropriate (save state, user preferences, etc).
+9. Proper separation of concerns: data layer, UI layer, event handlers.
+10. Use a clean state management pattern:
+    const State = { data: [], loading: false, error: null };
+    function setState(updates) { Object.assign(State, updates); render(); }
+
+═══════════════════════════════════════════════════════════
+UI/UX — WORLD-CLASS DESIGN (NON-NEGOTIABLE)
+═══════════════════════════════════════════════════════════
+
+DESIGN SYSTEM:
+- Background: #0a0a1a (deep dark), Surface: #111827, Card: #1e293b, Elevated: #283548
+- Text: #f1f5f9 (primary), #94a3b8 (secondary), #64748b (muted)
+- Primary: #6366f1 (indigo), Primary hover: #818cf8
+- Accent: #06b6d4 (cyan), Success: #10b981 (green), Warning: #f59e0b, Danger: #ef4444
+- Gradients: linear-gradient(135deg, #6366f1, #8b5cf6) for primary actions
+- Font stack: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif
+- Mono: 'JetBrains Mono', 'Fira Code', 'Consolas', monospace
+
+SPACING & LAYOUT:
+- Use CSS Grid and Flexbox for all layouts
+- 8px base unit: spacing should be multiples of 8 (8, 16, 24, 32, 48, 64)
+- Container max-width: 1200px for full-page apps, 800px for focused apps
+- Border radius: 8px (small), 12px (medium), 16px (large), 24px (cards)
+- Always responsive: mobile-first with min 2 breakpoints (768px, 1024px)
+
+VISUAL POLISH:
+- Subtle box-shadows: 0 1px 3px rgba(0,0,0,0.3), 0 4px 24px rgba(0,0,0,0.2)
+- Glass morphism on key elements: background: rgba(30,41,59,0.8); backdrop-filter: blur(20px)
+- Smooth transitions on ALL interactive elements: transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1)
+- Hover states: transform: translateY(-2px), increased box-shadow, color shift
+- Active states: transform: scale(0.98)
+- Focus states: outline: 2px solid #6366f1; outline-offset: 2px
+- Loading skeletons for async content (pulsing gradient)
+- Empty states with helpful illustrations (emoji + message)
+- Toast notifications for user feedback
+- Smooth page transitions / content animations (fade-in, slide-up)
+
+CSS VARIABLES in :root — organized by category:
+  --color-bg, --color-surface, --color-card, --color-primary, etc.
+  --font-sans, --font-mono
+  --radius-sm, --radius-md, --radius-lg
+  --shadow-sm, --shadow-md, --shadow-lg
+  --transition-fast, --transition-normal
+
+ANIMATIONS:
+- @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+- @keyframes slideIn { from { opacity: 0; transform: translateX(-20px); } to { opacity: 1; transform: translateX(0); } }
+- @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
+- Stagger children animations with animation-delay
+
+EVERY APP MUST HAVE:
+1. A professional header/nav with app name, navigation, and user actions
+2. A main content area with proper padding and max-width
+3. A footer with "Powered by DevBot AI" and relevant links
+4. Toast/notification system for user feedback
+5. Loading states (skeleton screens or spinners)
+6. Empty states with clear call-to-action
+7. Responsive design that genuinely works on mobile
+8. At least 3 micro-interactions (hover, click, scroll)
+9. Keyboard shortcuts for power users (documented in a modal)
+10. Smooth scroll behavior and scroll-to-top button
+11. Dark mode by default with polished aesthetics
+12. Proper favicon meta tag and page title
+
+═══════════════════════════════════════════════════════════
+CONTENT & DATA — MAKE IT REAL
+═══════════════════════════════════════════════════════════
+
+- Generate realistic sample data (not "Lorem ipsum")
+- If the app needs items/products/users, include 8-15 realistic entries
+- Use real-looking names, descriptions, prices, dates
+- Generate meaningful chart data if dashboards are involved
+- Implement all CRUD operations fully (Create, Read, Update, Delete)
+- Every button, every form, every feature MUST work
+
+═══════════════════════════════════════════════════════════
+ARCHITECTURE PATTERNS — USE THESE
+═══════════════════════════════════════════════════════════
+
+STATE MANAGEMENT (in js/app.js):
+\`\`\`
+const Store = {
+  state: { items: [], filter: 'all', search: '', loading: false },
+  listeners: new Set(),
+  setState(updates) {
+    Object.assign(this.state, updates);
+    this.notify();
+  },
+  subscribe(fn) { this.listeners.add(fn); return () => this.listeners.delete(fn); },
+  notify() { this.listeners.forEach(fn => fn(this.state)); }
+};
+\`\`\`
+
+COMPONENT PATTERN (in js/components.js):
+\`\`\`
+const Components = {
+  Card({ title, content, actions }) {
+    return \`<div class="card">...</div>\`;
+  },
+  Modal({ title, body, onClose }) {
+    return \`<div class="modal-overlay">...</div>\`;
+  },
+  Toast(message, type = 'success') {
+    // Show notification, auto-dismiss after 3s
+  }
+};
+\`\`\`
+
+ROUTER PATTERN (for multi-page apps):
+\`\`\`
+const Router = {
+  routes: {},
+  register(path, handler) { this.routes[path] = handler; },
+  navigate(path) {
+    history.pushState(null, '', path);
+    this.render(path);
+  },
+  render(path) {
+    const handler = this.routes[path] || this.routes['/404'];
+    document.getElementById('app').innerHTML = handler();
+  }
+};
+\`\`\`
+
+REMEMBER: Return ONLY the JSON object. No markdown fences. No backticks. No text before or after.`;
+
+
+const ENHANCEMENT_PROMPT = `You are DevBot AI, enhancing an existing app. The user wants to modify their app.
+
+RULES:
+1. Return the COMPLETE updated files — not just diffs.
+2. Maintain all existing functionality unless told to remove it.
+3. Keep the same JSON output format: {"name","description","files":{},"setup","run","preview"}
+4. Preserve the app's state management and data.
+5. Return ONLY valid JSON. No markdown. No explanation.`;
+
 
 export class DevBotEngine {
   constructor() {
@@ -66,14 +213,17 @@ export class DevBotEngine {
     this.model = 'claude-opus-4-6';
   }
 
+  /**
+   * Generate a complete production app from a prompt.
+   * Streams the response to handle large outputs (64K tokens).
+   */
   async generateApp({ prompt, language = 'auto', framework = 'auto' }) {
     const userPrompt = this.buildPrompt(prompt, language, framework);
 
-    // Use streaming to avoid timeout on large generations
     let fullText = '';
     const stream = this.client.messages.stream({
       model: this.model,
-      max_tokens: 16384,
+      max_tokens: 65536,
       system: SYSTEM_PROMPT,
       messages: [{ role: 'user', content: userPrompt }],
     });
@@ -85,74 +235,187 @@ export class DevBotEngine {
     }
 
     const result = this.parseResponse(fullText);
-
-    // Validate the output quality
     this.validateOutput(result);
+
+    // Post-process: ensure index.html references CSS/JS files properly
+    result.files = this.postProcessFiles(result.files);
 
     return result;
   }
 
+  /**
+   * Enhance/iterate on an existing app with new instructions.
+   */
+  async enhanceApp({ currentApp, instruction }) {
+    const filesSummary = Object.entries(currentApp.files)
+      .map(([path, content]) => `--- ${path} ---\n${content}`)
+      .join('\n\n');
+
+    const userPrompt = `CURRENT APP: "${currentApp.name}"
+CURRENT FILES:
+${filesSummary}
+
+USER REQUEST: ${instruction}
+
+Update the app based on the user's request. Return the COMPLETE updated app as JSON.
+Keep all existing functionality unless told to remove it. Return ONLY the JSON object.`;
+
+    let fullText = '';
+    const stream = this.client.messages.stream({
+      model: this.model,
+      max_tokens: 65536,
+      system: ENHANCEMENT_PROMPT,
+      messages: [{ role: 'user', content: userPrompt }],
+    });
+
+    for await (const event of stream) {
+      if (event.type === 'content_block_delta' && event.delta?.text) {
+        fullText += event.delta.text;
+      }
+    }
+
+    const result = this.parseResponse(fullText);
+    this.validateOutput(result);
+    result.files = this.postProcessFiles(result.files);
+    return result;
+  }
+
+  /**
+   * Chat with the engine for general questions.
+   */
   async chat(messages) {
     const response = await this.client.messages.create({
       model: this.model,
       max_tokens: 8192,
-      system: SYSTEM_PROMPT,
+      system: 'You are DevBot AI, an expert software engineer. Help users with coding questions, architecture decisions, and debugging. Be thorough and provide working code examples.',
       messages,
     });
     return response.content[0].text;
   }
 
+  /**
+   * Review code for bugs, security, performance.
+   */
   async reviewCode(code, language) {
     const response = await this.client.messages.create({
       model: this.model,
-      max_tokens: 4096,
-      system: 'You are a senior code reviewer. Be thorough, specific, and constructive. Rate severity as Critical, Warning, or Info. Always suggest the exact fix.',
+      max_tokens: 8192,
+      system: `You are a principal software engineer conducting a thorough code review.
+
+For each issue found, provide:
+- **Severity**: 🔴 Critical | 🟠 Warning | 🔵 Info
+- **Line(s)**: Where the issue is
+- **Problem**: Clear description
+- **Fix**: Exact code to fix it
+
+Also provide:
+- Overall code quality score (1-10)
+- Architecture assessment
+- Security audit
+- Performance analysis
+- Accessibility check (for frontend code)
+- Top 3 improvements to make`,
       messages: [{
         role: 'user',
-        content: `Review this ${language} code for bugs, security vulnerabilities, performance issues, and best practice violations. Be thorough:\n\n\`\`\`${language}\n${code}\n\`\`\``,
+        content: `Review this ${language} code thoroughly:\n\n\`\`\`${language}\n${code}\n\`\`\``,
       }],
     });
     return response.content[0].text;
   }
 
+  /**
+   * Refactor code with specific instructions.
+   */
   async refactorCode(code, language, instructions) {
     const response = await this.client.messages.create({
       model: this.model,
-      max_tokens: 8192,
-      system: 'You are a senior software engineer. Return ONLY the refactored code with no explanation.',
+      max_tokens: 16384,
+      system: 'You are a principal software engineer. Return ONLY the refactored code with no explanation. The code must be production-ready.',
       messages: [{
         role: 'user',
-        content: `Refactor this ${language} code. Instructions: ${instructions}\n\n\`\`\`${language}\n${code}\n\`\`\`\n\nReturn the complete refactored code.`,
+        content: `Refactor this ${language} code.\n\nInstructions: ${instructions}\n\n\`\`\`${language}\n${code}\n\`\`\`\n\nReturn the complete refactored code.`,
       }],
     });
     return response.content[0].text;
   }
 
+  /**
+   * Build the user prompt with framework/language hints.
+   */
   buildPrompt(prompt, language, framework) {
-    let fullPrompt = `BUILD THIS APP:\n${prompt}\n\n`;
+    let fullPrompt = `BUILD THIS APPLICATION:\n${prompt}\n\n`;
 
     if (language !== 'auto') fullPrompt += `Primary Language: ${language}\n`;
-    if (framework !== 'auto') fullPrompt += `Framework: ${framework}\n`;
+    if (framework !== 'auto') fullPrompt += `Framework/Library: ${framework}\n`;
 
     fullPrompt += `
 MANDATORY REQUIREMENTS:
-1. Put ALL CSS and ALL JavaScript INLINE inside index.html. The entire app must be ONE self-contained HTML file.
-2. DO NOT create separate styles.css or app.js files — put EVERYTHING in index.html.
-3. Write BEAUTIFUL UI — dark theme (#0f172a bg), gradients, shadows, hover effects, animations.
-4. The app must be FUNCTIONAL — all buttons work, all forms submit, all features implemented.
-5. Use localStorage for data persistence.
-6. Include: index.html (main app), package.json, README.md
-7. Keep the total output under 12000 characters to avoid truncation.
-8. Make it responsive — works on mobile and desktop.
-9. Add a small "Built with DevBot AI" link in the footer.
+1. Generate a MULTI-FILE project with proper separation: index.html, css/styles.css, js/app.js, and more files as needed.
+2. index.html MUST use <link rel="stylesheet" href="css/styles.css"> and <script src="js/app.js"></script> — NOT inline styles/scripts.
+3. CSS must be comprehensive: variables, layout, components, animations, responsive breakpoints, dark theme.
+4. JavaScript must use modern patterns: state management, component functions, event delegation, proper error handling.
+5. The app MUST be fully functional — every button, form, feature, and interaction must work with zero modifications.
+6. Generate realistic sample data — real names, descriptions, prices. NOT lorem ipsum.
+7. Include proper package.json, README.md, and .gitignore.
+8. Make it responsive — genuinely works on mobile (not just "doesn't break").
+9. Add toast notifications, loading states, empty states, keyboard shortcuts.
+10. The UI must look like it was designed by a professional — polished, consistent, beautiful.
+11. Add a subtle "Powered by DevBot AI" footer link.
+12. Write COMPLETE code — no placeholders, no TODOs, no stubs.
 
-Return ONLY the JSON object. No markdown fences. No backticks. No text before or after the JSON.`;
+OUTPUT: Return ONLY the JSON object. No markdown fences. No backticks. No text before or after the JSON.`;
 
     return fullPrompt;
   }
 
+  /**
+   * Post-process generated files:
+   * - Create a self-contained preview version of index.html
+   *   (with CSS/JS inlined for iframe preview)
+   * - Ensure all file references are correct
+   */
+  postProcessFiles(files) {
+    if (!files || typeof files !== 'object') return files;
+
+    // Create a __preview__.html that inlines all CSS and JS for live preview
+    const indexHtml = files['index.html'];
+    if (indexHtml) {
+      let previewHtml = indexHtml;
+
+      // Inline all CSS <link> tags
+      previewHtml = previewHtml.replace(
+        /<link\s+rel="stylesheet"\s+href="([^"]+)"[^>]*>/gi,
+        (match, cssPath) => {
+          const cssContent = files[cssPath] || files[cssPath.replace(/^\.\//, '')];
+          if (cssContent) {
+            return `<style>\n/* Inlined from ${cssPath} */\n${cssContent}\n</style>`;
+          }
+          return match;
+        }
+      );
+
+      // Inline all <script src="..."> tags
+      previewHtml = previewHtml.replace(
+        /<script\s+src="([^"]+)"[^>]*><\/script>/gi,
+        (match, jsPath) => {
+          const jsContent = files[jsPath] || files[jsPath.replace(/^\.\//, '')];
+          if (jsContent) {
+            return `<script>\n/* Inlined from ${jsPath} */\n${jsContent}\n</script>`;
+          }
+          return match;
+        }
+      );
+
+      files['__preview__.html'] = previewHtml;
+    }
+
+    return files;
+  }
+
+  /**
+   * Validate the generated output quality.
+   */
   validateOutput(result) {
-    // Ensure we have files
     if (!result.files || typeof result.files !== 'object') {
       throw new Error('Generation produced no files');
     }
@@ -160,42 +423,49 @@ Return ONLY the JSON object. No markdown fences. No backticks. No text before or
     const files = Object.keys(result.files);
     const totalChars = Object.values(result.files).reduce((sum, c) => sum + (c?.length || 0), 0);
 
-    // Warn if low file count but don't crash — some apps are simpler
-    if (files.length < 3) {
-      console.warn(`[DevBot] Warning: Only ${files.length} files generated`);
+    // Log generation stats
+    console.log(`[DevBot] Generated: ${files.length} files, ${totalChars.toLocaleString()} chars total`);
+    console.log(`[DevBot] Files: ${files.join(', ')}`);
+
+    // Quality warnings
+    if (!result.files['index.html']) {
+      console.warn('[DevBot] Warning: No index.html generated');
     }
 
-    // Check that files have real content (not just descriptions)
     for (const [path, content] of Object.entries(result.files)) {
-      if (!content || content.length < 50) {
-        console.warn(`[DevBot] Warning: ${path} has very little content (${content?.length || 0} chars)`);
+      if (!content || content.length < 30) {
+        console.warn(`[DevBot] Warning: ${path} has minimal content (${content?.length || 0} chars)`);
       }
     }
 
-    // Check for index.html with actual HTML
-    const indexHtml = result.files['index.html'];
-    if (indexHtml && !indexHtml.includes('<!DOCTYPE') && !indexHtml.includes('<html')) {
-      console.warn('[DevBot] Warning: index.html may not contain valid HTML');
+    // Check for placeholder code (quality gate)
+    const allCode = Object.values(result.files).join('\n');
+    const placeholders = ['// TODO', '// implement', '// add code here', '// placeholder', '// your code'];
+    for (const ph of placeholders) {
+      if (allCode.toLowerCase().includes(ph.toLowerCase())) {
+        console.warn(`[DevBot] Warning: Found placeholder "${ph}" in generated code`);
+      }
     }
-
-    console.log(`[DevBot] Generated: ${files.length} files, ${totalChars.toLocaleString()} chars total`);
   }
 
+  /**
+   * Parse AI response text into structured JSON.
+   * Handles: direct JSON, markdown fences, truncated output, malformed JSON.
+   */
   parseResponse(text) {
     const trimmed = text.trim();
 
-    // Step 1: Try direct parse
+    // Step 1: Direct parse
     try { return JSON.parse(trimmed); } catch (e) {
-      console.log('[DevBot] Direct parse failed:', e.message.substring(0, 80));
+      console.log('[DevBot] Direct parse failed:', e.message.substring(0, 100));
     }
 
-    // Step 2: Try extracting from markdown code blocks (greedy match for large blocks)
+    // Step 2: Extract from markdown code blocks
     const codeBlockMatch = trimmed.match(/```(?:json)?\s*\n?([\s\S]+?)\n?```\s*$/);
     if (codeBlockMatch) {
       const inner = codeBlockMatch[1].trim();
       try { return JSON.parse(inner); } catch (e) {
-        console.log('[DevBot] Code block parse failed:', e.message.substring(0, 80));
-        // Try fixing truncated JSON — find the last complete file entry
+        console.log('[DevBot] Code block parse failed:', e.message.substring(0, 100));
         const repaired = this.repairTruncatedJson(inner);
         if (repaired) {
           try { return JSON.parse(repaired); } catch {}
@@ -203,25 +473,25 @@ Return ONLY the JSON object. No markdown fences. No backticks. No text before or
       }
     }
 
-    // Step 3: Find the JSON by locating first { and last }
+    // Step 3: Find JSON by locating first { and last }
     const firstBrace = trimmed.indexOf('{');
     const lastBrace = trimmed.lastIndexOf('}');
     if (firstBrace !== -1 && lastBrace > firstBrace) {
       const candidate = trimmed.slice(firstBrace, lastBrace + 1);
       try { return JSON.parse(candidate); } catch (e) {
-        console.log('[DevBot] Slice parse failed:', e.message.substring(0, 80));
+        console.log('[DevBot] Slice parse failed:', e.message.substring(0, 100));
 
-        // Step 3b: Try to fix common JSON issues — trailing commas, unescaped newlines
+        // Fix trailing commas
         try {
           const fixed = candidate
-            .replace(/,\s*}/g, '}')       // Remove trailing commas before }
-            .replace(/,\s*]/g, ']');       // Remove trailing commas before ]
+            .replace(/,\s*}/g, '}')
+            .replace(/,\s*]/g, ']');
           return JSON.parse(fixed);
         } catch {}
       }
     }
 
-    // Step 4: Brace-depth matching as last resort
+    // Step 4: Brace-depth matching
     const start = trimmed.indexOf('{');
     if (start !== -1) {
       let depth = 0, inStr = false, esc = false;
@@ -241,72 +511,56 @@ Return ONLY the JSON object. No markdown fences. No backticks. No text before or
       }
     }
 
-    // Step 5: Try to repair truncated JSON from the raw text
+    // Step 5: Repair truncated JSON
     const rawJson = trimmed.replace(/^```(?:json)?\s*\n?/, '').replace(/\n?```\s*$/, '').trim();
     const repaired = this.repairTruncatedJson(rawJson);
     if (repaired) {
       try { return JSON.parse(repaired); } catch {}
     }
 
-    // Step 6: Fallback — return raw text
+    // Step 6: Fallback
     console.warn('[DevBot] All parse methods failed. Returning raw output.');
     return {
       name: 'generated-app',
       description: 'Generated by DevBot AI',
-      files: { 'output.md': trimmed },
+      files: { 'output.txt': trimmed },
       setup: ['Review the generated output'],
-      run: 'See output.md',
+      run: 'See output.txt',
     };
   }
 
   /**
-   * Attempt to repair truncated JSON from the AI.
-   * The AI sometimes runs out of tokens mid-JSON, leaving unterminated strings.
-   * This finds the last complete key-value pair and closes the JSON properly.
+   * Repair truncated JSON by finding the last complete file entry
+   * and closing the JSON structure properly.
    */
   repairTruncatedJson(text) {
     if (!text || !text.startsWith('{')) return null;
 
     try {
-      // Find the "files" object and extract complete file entries
       const filesMatch = text.match(/"files"\s*:\s*\{/);
       if (!filesMatch) return null;
 
       const filesStart = filesMatch.index + filesMatch[0].length;
-
-      // Find all complete "filename": "content" pairs
-      // A complete pair ends with a closing quote followed by optional comma/whitespace
-      let lastGoodPos = filesStart;
-      let inKey = false;
-      let inValue = false;
+      let lastCompleteEntry = filesStart;
       let depth = 1;
       let i = filesStart;
       let esc = false;
       let inStr = false;
-      let lastCompleteEntry = filesStart;
 
       while (i < text.length && depth > 0) {
         const ch = text[i];
-
         if (esc) { esc = false; i++; continue; }
         if (ch === '\\') { esc = true; i++; continue; }
-
-        if (ch === '"') {
-          inStr = !inStr;
-        } else if (!inStr) {
+        if (ch === '"') { inStr = !inStr; }
+        else if (!inStr) {
           if (ch === '{') depth++;
           if (ch === '}') {
             depth--;
             if (depth === 0) {
-              // Found the closing brace of "files" — check if rest of JSON exists
               const afterFiles = text.substring(i + 1).trim();
-              if (afterFiles.includes('}')) {
-                // There's more JSON after files — try to parse the whole thing
-                return null; // Let other parsers handle it
-              }
+              if (afterFiles.includes('}')) return null;
             }
           }
-          // Track positions after commas between file entries
           if (ch === ',' && depth === 1) {
             lastCompleteEntry = i;
           }
@@ -314,13 +568,9 @@ Return ONLY the JSON object. No markdown fences. No backticks. No text before or
         i++;
       }
 
-      // If we exited because depth > 0, the JSON is truncated
       if (depth > 0 && lastCompleteEntry > filesStart) {
-        // Truncate at the last complete entry and close the JSON
         const truncated = text.substring(0, lastCompleteEntry);
-        // Close: files object, then add setup/run, close main object
-        const closed = truncated + '}, "setup": ["npx serve ."], "run": "npx serve ."}';
-        return closed;
+        return truncated + '}, "setup": ["npx serve ."], "run": "npx serve .", "preview": "index.html"}';
       }
 
       return null;

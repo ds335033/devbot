@@ -1,0 +1,1473 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DEVFONE Admin — Dropshipping Dashboard</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚡</text></svg>">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #06080f; --bg-2: #0c1019; --surface: #111827; --card: #1a2236;
+  --border: #1e293b; --border-2: #2a3a52; --text: #f1f5f9; --text-2: #94a3b8; --text-3: #64748b;
+  --primary: #6366f1; --primary-hover: #818cf8; --primary-glow: rgba(99,102,241,0.25);
+  --accent: #06b6d4; --success: #10b981; --warning: #f59e0b; --danger: #ef4444;
+  --gradient: linear-gradient(135deg, #4f46e5, #8b5cf6, #f97316);
+  --font: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: var(--font); background: var(--bg); color: var(--text); display: flex; min-height: 100vh; }
+
+/* SIDEBAR */
+.sidebar {
+  width: 260px; background: var(--bg-2); border-right: 1px solid var(--border);
+  padding: 24px 16px; display: flex; flex-direction: column; position: fixed;
+  top: 0; bottom: 0; left: 0; z-index: 100;
+}
+.sidebar-logo { display: flex; align-items: center; gap: 12px; margin-bottom: 32px; padding: 0 8px; }
+.sidebar-logo img { width: 40px; height: 40px; border-radius: 8px; }
+.sidebar-logo .logo-text { font-size: 1.2rem; font-weight: 800; background: var(--gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+.sidebar-logo small { display: block; font-size: 0.65rem; color: var(--text-3); font-weight: 500; letter-spacing: 1px; text-transform: uppercase; }
+.nav-section { font-size: 0.7rem; color: var(--text-3); text-transform: uppercase; letter-spacing: 1.5px; padding: 0 12px; margin: 20px 0 8px; }
+.nav-item {
+  display: flex; align-items: center; gap: 12px; padding: 10px 12px;
+  border-radius: 10px; color: var(--text-2); cursor: pointer;
+  font-size: 0.9rem; font-weight: 500; transition: var(--transition); text-decoration: none;
+}
+.nav-item:hover { background: var(--surface); color: var(--text); }
+.nav-item.active { background: var(--primary); color: white; box-shadow: 0 4px 16px var(--primary-glow); }
+.nav-item .icon { font-size: 1.1rem; width: 24px; text-align: center; }
+.nav-item .nav-badge {
+  margin-left: auto; background: var(--danger); color: white; font-size: 0.7rem;
+  font-weight: 700; padding: 2px 8px; border-radius: 100px;
+}
+.sidebar-footer { margin-top: auto; padding: 16px 12px; border-top: 1px solid var(--border); }
+.sidebar-footer a { color: var(--text-3); font-size: 0.8rem; text-decoration: none; }
+.sidebar-footer a:hover { color: var(--primary-hover); }
+
+/* MAIN */
+.main { flex: 1; margin-left: 260px; padding: 32px; }
+.page-header { margin-bottom: 32px; }
+.page-header h1 { font-size: 1.8rem; font-weight: 800; margin-bottom: 4px; }
+.page-header p { color: var(--text-2); font-size: 0.9rem; }
+
+/* STAT CARDS */
+.stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; margin-bottom: 32px; }
+.stat-card {
+  background: var(--card); border: 1px solid var(--border); border-radius: 16px;
+  padding: 24px; transition: var(--transition);
+}
+.stat-card:hover { transform: translateY(-2px); border-color: var(--border-2); }
+.stat-card .stat-icon { font-size: 1.8rem; margin-bottom: 12px; }
+.stat-card .stat-value { font-size: 1.8rem; font-weight: 900; margin-bottom: 4px; }
+.stat-card .stat-label { color: var(--text-3); font-size: 0.8rem; font-weight: 500; }
+.stat-card .stat-change { font-size: 0.8rem; font-weight: 600; margin-top: 8px; }
+.stat-card .stat-change.up { color: var(--success); }
+.stat-card .stat-change.down { color: var(--danger); }
+
+/* PANELS */
+.panel {
+  background: var(--card); border: 1px solid var(--border); border-radius: 16px;
+  margin-bottom: 24px; overflow: hidden;
+}
+.panel-header {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 20px 24px; border-bottom: 1px solid var(--border);
+}
+.panel-header h2 { font-size: 1.1rem; font-weight: 700; }
+.panel-body { padding: 24px; }
+
+/* TABLES */
+.table-wrap { overflow-x: auto; }
+table { width: 100%; border-collapse: collapse; }
+th { text-align: left; padding: 12px 16px; font-size: 0.75rem; color: var(--text-3); text-transform: uppercase; letter-spacing: 1px; border-bottom: 1px solid var(--border); }
+td { padding: 14px 16px; font-size: 0.875rem; border-bottom: 1px solid var(--border); }
+tr:hover td { background: rgba(99,102,241,0.03); }
+.status { display: inline-block; padding: 4px 12px; border-radius: 100px; font-size: 0.75rem; font-weight: 600; }
+.status.pending { background: rgba(245,158,11,0.15); color: var(--warning); }
+.status.processing { background: rgba(99,102,241,0.15); color: var(--primary-hover); }
+.status.shipped { background: rgba(6,182,212,0.15); color: var(--accent); }
+.status.delivered { background: rgba(16,185,129,0.15); color: var(--success); }
+.status.failed { background: rgba(239,68,68,0.15); color: var(--danger); }
+.status.active { background: rgba(16,185,129,0.15); color: var(--success); }
+.status.inactive { background: rgba(100,116,139,0.15); color: var(--text-3); }
+
+/* BUTTONS */
+.btn {
+  display: inline-flex; align-items: center; gap: 8px; padding: 10px 20px;
+  border-radius: 10px; font-family: var(--font); font-size: 0.85rem; font-weight: 600;
+  cursor: pointer; transition: var(--transition); border: none; text-decoration: none;
+}
+.btn-primary { background: var(--gradient); color: white; }
+.btn-primary:hover { transform: translateY(-1px); box-shadow: 0 4px 16px var(--primary-glow); }
+.btn-sm { padding: 6px 14px; font-size: 0.8rem; border-radius: 8px; }
+.btn-outline { background: transparent; border: 1px solid var(--border-2); color: var(--text-2); }
+.btn-outline:hover { background: var(--surface); color: var(--text); }
+.btn-danger { background: rgba(239,68,68,0.15); color: var(--danger); }
+.btn-success { background: rgba(16,185,129,0.15); color: var(--success); }
+
+/* FORMS */
+.form-group { margin-bottom: 16px; }
+.form-group label { display: block; font-size: 0.8rem; color: var(--text-2); margin-bottom: 6px; font-weight: 500; }
+.form-group input, .form-group select, .form-group textarea {
+  width: 100%; padding: 10px 14px; background: var(--surface); border: 1px solid var(--border);
+  border-radius: 10px; color: var(--text); font-family: var(--font); font-size: 0.9rem;
+  outline: none; transition: var(--transition);
+}
+.form-group input:focus, .form-group select:focus { border-color: var(--primary); box-shadow: 0 0 0 3px var(--primary-glow); }
+.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+
+/* TABS */
+.tabs { display: flex; gap: 4px; padding: 4px; background: var(--surface); border-radius: 12px; margin-bottom: 24px; }
+.tab {
+  flex: 1; padding: 10px 16px; text-align: center; border-radius: 10px;
+  font-size: 0.85rem; font-weight: 600; color: var(--text-2);
+  cursor: pointer; transition: var(--transition); border: none; background: none;
+}
+.tab:hover { color: var(--text); }
+.tab.active { background: var(--primary); color: white; box-shadow: 0 2px 8px var(--primary-glow); }
+
+/* CHART */
+.chart-container { height: 200px; display: flex; align-items: flex-end; gap: 4px; padding: 16px 0; }
+.chart-bar {
+  flex: 1; background: var(--primary); border-radius: 4px 4px 0 0;
+  min-height: 4px; transition: var(--transition); cursor: pointer; position: relative;
+}
+.chart-bar:hover { background: var(--primary-hover); }
+.chart-bar .tooltip {
+  display: none; position: absolute; bottom: calc(100% + 8px); left: 50%; transform: translateX(-50%);
+  background: var(--bg-2); border: 1px solid var(--border-2); padding: 6px 12px;
+  border-radius: 8px; font-size: 0.75rem; white-space: nowrap; z-index: 10;
+}
+.chart-bar:hover .tooltip { display: block; }
+
+/* EMPTY */
+.empty { text-align: center; padding: 60px 24px; }
+.empty-icon { font-size: 3rem; margin-bottom: 12px; opacity: 0.3; }
+.empty h3 { color: var(--text-2); margin-bottom: 8px; }
+.empty p { color: var(--text-3); font-size: 0.9rem; margin-bottom: 20px; }
+
+/* TOAST */
+.toast-wrap { position: fixed; top: 24px; right: 24px; z-index: 9999; display: flex; flex-direction: column; gap: 8px; }
+.toast {
+  padding: 14px 20px; border-radius: 12px; background: var(--card); border: 1px solid var(--border-2);
+  box-shadow: 0 8px 32px rgba(0,0,0,0.4); font-size: 0.875rem; display: flex; align-items: center; gap: 10px;
+  animation: slideIn 0.3s ease;
+}
+.toast.success { border-left: 3px solid var(--success); }
+.toast.error { border-left: 3px solid var(--danger); }
+.toast.info { border-left: 3px solid var(--accent); }
+
+/* VIEWS */
+.view { display: none; }
+.view.active { display: block; }
+
+/* AI CHATBOX */
+.chatbox {
+  position: fixed; bottom: 24px; right: 24px; width: 420px; max-width: calc(100vw - 300px);
+  height: 560px; max-height: 70vh; background: var(--bg-2); border: 1px solid var(--border-2);
+  border-radius: 20px; box-shadow: 0 16px 64px rgba(0,0,0,0.6); z-index: 5000;
+  display: none; flex-direction: column; overflow: hidden;
+  animation: chatOpen 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.chatbox.open { display: flex; }
+@keyframes chatOpen { from { opacity: 0; transform: translateY(20px) scale(0.95); } to { opacity: 1; transform: translateY(0) scale(1); } }
+.chat-header {
+  padding: 16px 20px; border-bottom: 1px solid var(--border);
+  display: flex; align-items: center; justify-content: space-between;
+  background: var(--surface);
+}
+.chat-header h3 { font-size: 0.95rem; font-weight: 700; display: flex; align-items: center; gap: 8px; }
+.chat-header .online-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--success); animation: pulse 2s infinite; }
+@keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.4; } }
+.chat-close { background: none; border: none; color: var(--text-3); cursor: pointer; font-size: 1.2rem; padding: 4px; }
+.chat-close:hover { color: var(--text); }
+.chat-messages {
+  flex: 1; overflow-y: auto; padding: 16px; display: flex; flex-direction: column; gap: 12px;
+}
+.chat-msg {
+  max-width: 85%; padding: 12px 16px; border-radius: 16px; font-size: 0.875rem; line-height: 1.5;
+  animation: fadeIn 0.2s ease;
+}
+.chat-msg.bot { background: var(--card); border: 1px solid var(--border); align-self: flex-start; border-bottom-left-radius: 4px; }
+.chat-msg.user { background: var(--primary); color: white; align-self: flex-end; border-bottom-right-radius: 4px; }
+.chat-msg .msg-time { font-size: 0.65rem; color: var(--text-3); margin-top: 4px; }
+.chat-msg.user .msg-time { color: rgba(255,255,255,0.5); }
+.chat-typing { display: flex; gap: 4px; padding: 12px 16px; }
+.chat-typing span { width: 6px; height: 6px; border-radius: 50%; background: var(--text-3); animation: typing 1.4s infinite; }
+.chat-typing span:nth-child(2) { animation-delay: 0.2s; }
+.chat-typing span:nth-child(3) { animation-delay: 0.4s; }
+@keyframes typing { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-6px); } }
+.chat-input-wrap {
+  padding: 12px 16px; border-top: 1px solid var(--border); display: flex; gap: 8px;
+  background: var(--surface);
+}
+.chat-input-wrap input {
+  flex: 1; padding: 10px 14px; background: var(--bg); border: 1px solid var(--border);
+  border-radius: 100px; color: var(--text); font-family: var(--font); font-size: 0.85rem; outline: none;
+}
+.chat-input-wrap input:focus { border-color: var(--primary); }
+.chat-send {
+  width: 40px; height: 40px; border-radius: 50%; background: var(--gradient); border: none;
+  color: white; cursor: pointer; display: flex; align-items: center; justify-content: center;
+  font-size: 1.1rem; transition: var(--transition);
+}
+.chat-send:hover { transform: scale(1.05); }
+.chat-fab {
+  position: fixed; bottom: 24px; right: 24px; width: 56px; height: 56px;
+  border-radius: 50%; background: var(--gradient); border: none; color: white;
+  cursor: pointer; font-size: 1.5rem; box-shadow: 0 4px 24px var(--primary-glow);
+  z-index: 4999; display: flex; align-items: center; justify-content: center;
+  transition: var(--transition);
+}
+.chat-fab:hover { transform: scale(1.1); }
+.chat-fab.hidden { display: none; }
+
+/* CUSTOMER CARDS */
+.customer-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 16px; }
+.customer-card {
+  background: var(--card); border: 1px solid var(--border); border-radius: 16px;
+  padding: 20px; transition: var(--transition);
+}
+.customer-card:hover { transform: translateY(-2px); border-color: var(--border-2); }
+.customer-avatar {
+  width: 48px; height: 48px; border-radius: 50%; background: var(--gradient);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.2rem; font-weight: 700; color: white; margin-bottom: 12px;
+}
+.customer-card h4 { font-size: 0.95rem; margin-bottom: 4px; }
+.customer-meta { font-size: 0.8rem; color: var(--text-3); margin-bottom: 12px; }
+.customer-stats { display: flex; gap: 16px; }
+.customer-stat { text-align: center; }
+.customer-stat .val { font-size: 1.1rem; font-weight: 700; }
+.customer-stat .lbl { font-size: 0.7rem; color: var(--text-3); }
+
+/* ACTIVITY FEED */
+.activity-feed { display: flex; flex-direction: column; gap: 2px; }
+.activity-item {
+  display: flex; align-items: flex-start; gap: 14px; padding: 14px 0;
+  border-bottom: 1px solid var(--border); animation: fadeIn 0.3s ease;
+}
+.activity-dot {
+  width: 36px; height: 36px; border-radius: 50%; display: flex;
+  align-items: center; justify-content: center; font-size: 1rem; flex-shrink: 0;
+}
+.activity-dot.order { background: rgba(99,102,241,0.15); }
+.activity-dot.customer { background: rgba(6,182,212,0.15); }
+.activity-dot.product { background: rgba(16,185,129,0.15); }
+.activity-dot.alert { background: rgba(239,68,68,0.15); }
+.activity-text { font-size: 0.875rem; line-height: 1.5; }
+.activity-text strong { color: var(--text); }
+.activity-time { font-size: 0.75rem; color: var(--text-3); margin-top: 2px; }
+
+/* COUPON CARDS */
+.coupon-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 16px; }
+.coupon-card {
+  background: var(--card); border: 1px solid var(--border); border-radius: 16px;
+  padding: 20px; position: relative; overflow: hidden;
+}
+.coupon-card::before {
+  content: ''; position: absolute; top: 0; right: 0; width: 80px; height: 80px;
+  background: var(--primary-glow); border-radius: 0 0 0 80px; opacity: 0.3;
+}
+.coupon-code { font-family: monospace; font-size: 1.3rem; font-weight: 800; color: var(--primary-hover); letter-spacing: 2px; margin-bottom: 8px; }
+.coupon-detail { font-size: 0.8rem; color: var(--text-3); margin-bottom: 4px; }
+
+/* MARKETING CARDS */
+.marketing-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px; }
+.marketing-card {
+  background: var(--card); border: 1px solid var(--border); border-radius: 16px;
+  padding: 24px; text-align: center; transition: var(--transition); cursor: pointer;
+}
+.marketing-card:hover { transform: translateY(-4px); border-color: var(--primary); box-shadow: 0 8px 32px var(--primary-glow); }
+.marketing-card .m-icon { font-size: 2.5rem; margin-bottom: 12px; }
+.marketing-card h3 { font-size: 1rem; margin-bottom: 8px; }
+.marketing-card p { font-size: 0.8rem; color: var(--text-2); line-height: 1.5; }
+
+/* REVIEW STARS */
+.review-stars { color: var(--warning); letter-spacing: 2px; }
+
+/* SPLIT LAYOUT */
+.split { display: grid; grid-template-columns: 2fr 1fr; gap: 24px; }
+@media (max-width: 1100px) { .split { grid-template-columns: 1fr; } }
+
+@keyframes slideIn { from { opacity: 0; transform: translateX(40px); } to { opacity: 1; transform: translateX(0); } }
+@keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+@media (max-width: 900px) {
+  .sidebar { width: 70px; padding: 16px 8px; }
+  .sidebar .nav-item span:not(.icon), .sidebar .nav-section, .sidebar-logo .logo-text,
+  .sidebar-logo small, .sidebar-footer, .nav-badge { display: none; }
+  .main { margin-left: 70px; padding: 20px; }
+  .stats { grid-template-columns: 1fr 1fr; }
+  .form-row { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+
+<!-- SIDEBAR -->
+<aside class="sidebar">
+  <div class="sidebar-logo">
+    <img src="devfone-logo.png" alt="DEVFONE" onerror="this.style.display='none'">
+    <div>
+      <div class="logo-text">DEVFONE</div>
+      <small>Admin Dashboard</small>
+    </div>
+  </div>
+
+  <div class="nav-section">Overview</div>
+  <a class="nav-item active" onclick="showView('dashboard')"><span class="icon">📊</span><span>Dashboard</span></a>
+
+  <div class="nav-section">Store</div>
+  <a class="nav-item" onclick="showView('products')"><span class="icon">📦</span><span>Products</span></a>
+  <a class="nav-item" onclick="showView('orders')"><span class="icon">🛒</span><span>Orders</span><span class="nav-badge" id="pendingBadge"></span></a>
+  <a class="nav-item" onclick="showView('import')"><span class="icon">🔍</span><span>Import Products</span></a>
+
+  <div class="nav-section">Suppliers</div>
+  <a class="nav-item" onclick="showView('suppliers')"><span class="icon">🏭</span><span>Suppliers</span></a>
+  <a class="nav-item" onclick="showView('inventory')"><span class="icon">📋</span><span>Inventory Sync</span></a>
+
+  <div class="nav-section">Customers</div>
+  <a class="nav-item" onclick="showView('customers')"><span class="icon">👥</span><span>Customers</span></a>
+  <a class="nav-item" onclick="showView('reviews')"><span class="icon">⭐</span><span>Reviews</span></a>
+
+  <div class="nav-section">Marketing</div>
+  <a class="nav-item" onclick="showView('marketing')"><span class="icon">📣</span><span>Marketing</span></a>
+  <a class="nav-item" onclick="showView('coupons')"><span class="icon">🎫</span><span>Coupons</span></a>
+
+  <div class="nav-section">Business</div>
+  <a class="nav-item" onclick="showView('analytics')"><span class="icon">📈</span><span>Analytics</span></a>
+  <a class="nav-item" onclick="showView('activity')"><span class="icon">🔔</span><span>Activity</span><span class="nav-badge" id="activityBadge">3</span></a>
+  <a class="nav-item" onclick="showView('settings')"><span class="icon">⚙️</span><span>Settings</span></a>
+
+  <div class="sidebar-footer">
+    <a href="store.html" target="_blank">View Storefront →</a><br>
+    <a href="#" onclick="toggleChat()" style="margin-top:8px;display:inline-block">💬 AI Assistant</a>
+  </div>
+</aside>
+
+<!-- MAIN CONTENT -->
+<main class="main">
+
+  <!-- DASHBOARD -->
+  <div class="view active" id="view-dashboard">
+    <div class="page-header">
+      <h1>Dashboard</h1>
+      <p>DEVFONE Dropshipping — Built for the Future</p>
+    </div>
+
+    <div class="stats" id="dashStats">
+      <div class="stat-card"><span class="stat-icon">💰</span><div class="stat-value" id="statRevenue">$0</div><div class="stat-label">Total Revenue</div></div>
+      <div class="stat-card"><span class="stat-icon">📈</span><div class="stat-value" id="statProfit">$0</div><div class="stat-label">Total Profit</div></div>
+      <div class="stat-card"><span class="stat-icon">🛒</span><div class="stat-value" id="statOrders">0</div><div class="stat-label">Total Orders</div></div>
+      <div class="stat-card"><span class="stat-icon">📦</span><div class="stat-value" id="statProducts">0</div><div class="stat-label">Active Products</div></div>
+      <div class="stat-card"><span class="stat-icon">📊</span><div class="stat-value" id="statMargin">0%</div><div class="stat-label">Avg Margin</div></div>
+    </div>
+
+    <div class="panel">
+      <div class="panel-header">
+        <h2>Revenue (Last 30 Days)</h2>
+      </div>
+      <div class="panel-body">
+        <div class="chart-container" id="revenueChart"></div>
+      </div>
+    </div>
+
+    <div class="panel">
+      <div class="panel-header">
+        <h2>Recent Orders</h2>
+        <button class="btn btn-sm btn-outline" onclick="showView('orders')">View All</button>
+      </div>
+      <div class="panel-body">
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Order ID</th><th>Customer</th><th>Items</th><th>Total</th><th>Profit</th><th>Status</th><th>Date</th></tr></thead>
+            <tbody id="recentOrders"><tr><td colspan="7" style="text-align:center;color:var(--text-3);padding:40px">Loading...</td></tr></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PRODUCTS -->
+  <div class="view" id="view-products">
+    <div class="page-header">
+      <h1>Products</h1>
+      <p>Manage your DEVFONE product catalog</p>
+    </div>
+    <div style="display:flex;gap:12px;margin-bottom:24px">
+      <button class="btn btn-primary" onclick="showView('import')">+ Import Products</button>
+      <button class="btn btn-outline" onclick="addManualProduct()">+ Add Manual</button>
+      <button class="btn btn-outline" onclick="syncInventory()">🔄 Sync Stock</button>
+    </div>
+    <div class="panel">
+      <div class="panel-body">
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Product</th><th>Supplier</th><th>Cost</th><th>Price</th><th>Margin</th><th>Stock</th><th>Status</th><th>Actions</th></tr></thead>
+            <tbody id="productTable"><tr><td colspan="8" style="text-align:center;color:var(--text-3);padding:40px">Loading...</td></tr></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ORDERS -->
+  <div class="view" id="view-orders">
+    <div class="page-header">
+      <h1>Orders</h1>
+      <p>Track and manage customer orders</p>
+    </div>
+    <div class="tabs" id="orderTabs">
+      <button class="tab active" onclick="filterOrders('all', this)">All</button>
+      <button class="tab" onclick="filterOrders('pending', this)">Pending</button>
+      <button class="tab" onclick="filterOrders('processing', this)">Processing</button>
+      <button class="tab" onclick="filterOrders('shipped', this)">Shipped</button>
+      <button class="tab" onclick="filterOrders('delivered', this)">Delivered</button>
+    </div>
+    <div class="panel">
+      <div class="panel-body">
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Order ID</th><th>Customer</th><th>Items</th><th>Total</th><th>Profit</th><th>Status</th><th>Supplier Order</th><th>Date</th><th>Actions</th></tr></thead>
+            <tbody id="orderTable"><tr><td colspan="9" style="text-align:center;color:var(--text-3);padding:40px">No orders yet</td></tr></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- IMPORT PRODUCTS -->
+  <div class="view" id="view-import">
+    <div class="page-header">
+      <h1>Import Products</h1>
+      <p>Search and import products from CJDropshipping, AliExpress, and Banggood</p>
+    </div>
+    <div class="panel">
+      <div class="panel-body">
+        <div style="display:flex;gap:12px;margin-bottom:24px">
+          <select id="importSupplier" style="padding:10px 14px;background:var(--surface);border:1px solid var(--border);border-radius:10px;color:var(--text);font-family:var(--font)">
+            <option value="cjdropshipping">CJDropshipping</option>
+            <option value="aliexpress">AliExpress</option>
+            <option value="banggood">Banggood</option>
+          </select>
+          <input type="text" id="importSearch" placeholder="Search products (e.g. 'iPhone case', 'earbuds', 'USB-C cable')" style="flex:1;padding:10px 14px;background:var(--surface);border:1px solid var(--border);border-radius:10px;color:var(--text);font-family:var(--font)" onkeydown="if(event.key==='Enter')searchSupplier()">
+          <button class="btn btn-primary" onclick="searchSupplier()">Search</button>
+        </div>
+        <div id="importResults">
+          <div class="empty">
+            <div class="empty-icon">🔍</div>
+            <h3>Search for products to import</h3>
+            <p>Search CJDropshipping's catalog of 400,000+ products. Try: "wireless earbuds", "phone case iPhone 16", "laptop stand"</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="panel">
+      <div class="panel-header"><h2>Quick Add — Manual Product</h2></div>
+      <div class="panel-body">
+        <div class="form-row">
+          <div class="form-group"><label>Product Name</label><input type="text" id="manName" placeholder="e.g. iPhone 16 Pro Max Case"></div>
+          <div class="form-group"><label>Category</label>
+            <select id="manCategory">
+              <option value="phones">Phones</option><option value="laptops">Laptops</option>
+              <option value="audio">Audio</option><option value="wearables">Wearables</option>
+              <option value="accessories" selected>Accessories</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group"><label>Cost Price (AUD)</label><input type="number" id="manCost" placeholder="12.50" step="0.01"></div>
+          <div class="form-group"><label>Retail Price (AUD)</label><input type="number" id="manPrice" placeholder="29.99" step="0.01"></div>
+        </div>
+        <div class="form-row">
+          <div class="form-group"><label>Supplier</label>
+            <select id="manSupplier"><option value="cjdropshipping">CJDropshipping</option><option value="aliexpress">AliExpress</option><option value="banggood">Banggood</option><option value="manual">Manual / Other</option></select>
+          </div>
+          <div class="form-group"><label>Supplier Product ID</label><input type="text" id="manSupplierId" placeholder="Optional — for auto-fulfillment"></div>
+        </div>
+        <div class="form-group"><label>Description</label><textarea id="manDesc" rows="3" placeholder="Product description..." style="width:100%;padding:10px 14px;background:var(--surface);border:1px solid var(--border);border-radius:10px;color:var(--text);font-family:var(--font);resize:vertical"></textarea></div>
+        <button class="btn btn-primary" onclick="addManualProduct()">Add to Catalog</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- SUPPLIERS -->
+  <div class="view" id="view-suppliers">
+    <div class="page-header">
+      <h1>Supplier Connections</h1>
+      <p>Connect your dropshipping supplier accounts</p>
+    </div>
+
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(340px,1fr));gap:20px">
+      <div class="panel">
+        <div class="panel-header"><h2>🏭 CJDropshipping</h2><span class="status active" id="cjStatus">Connected</span></div>
+        <div class="panel-body">
+          <p style="color:var(--text-2);font-size:0.85rem;margin-bottom:16px">Primary supplier — FREE, 7-15 day AU shipping, 400K+ products, auto-fulfillment API.</p>
+          <div class="form-group"><label>API Key</label><input type="password" id="cjKey" placeholder="Enter CJ API key"></div>
+          <button class="btn btn-sm btn-primary" onclick="saveCJKey()">Save & Connect</button>
+          <a href="https://developers.cjdropshipping.com" target="_blank" style="color:var(--primary-hover);font-size:0.8rem;margin-left:12px">Get API Key →</a>
+        </div>
+      </div>
+
+      <div class="panel">
+        <div class="panel-header"><h2>🛍️ AliExpress</h2><span class="status inactive" id="aliStatus">Not Connected</span></div>
+        <div class="panel-body">
+          <p style="color:var(--text-2);font-size:0.85rem;margin-bottom:16px">Backup supplier — World's largest product catalog. Use DSers for automation.</p>
+          <div class="form-group"><label>App Key</label><input type="password" id="aliKey" placeholder="AliExpress App Key"></div>
+          <button class="btn btn-sm btn-outline" onclick="saveAliKey()">Save</button>
+        </div>
+      </div>
+
+      <div class="panel">
+        <div class="panel-header"><h2>📦 Banggood</h2><span class="status inactive" id="bgStatus">Not Connected</span></div>
+        <div class="panel-body">
+          <p style="color:var(--text-2);font-size:0.85rem;margin-bottom:16px">Fast-ship — AU warehouse available. Great for gadgets and tech accessories.</p>
+          <div class="form-group"><label>App ID</label><input type="password" id="bgKey" placeholder="Banggood App ID"></div>
+          <button class="btn btn-sm btn-outline" onclick="saveBGKey()">Save</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- INVENTORY SYNC -->
+  <div class="view" id="view-inventory">
+    <div class="page-header">
+      <h1>Inventory Sync</h1>
+      <p>Sync stock levels with your suppliers</p>
+    </div>
+    <div class="panel">
+      <div class="panel-body" style="text-align:center">
+        <div style="font-size:3rem;margin-bottom:16px">🔄</div>
+        <h3 style="margin-bottom:8px">Sync Inventory</h3>
+        <p style="color:var(--text-2);margin-bottom:24px;max-width:500px;margin-left:auto;margin-right:auto">Check stock levels with your suppliers and automatically disable out-of-stock products.</p>
+        <button class="btn btn-primary" onclick="syncInventory()" id="syncBtn">Sync Now</button>
+        <div id="syncResults" style="margin-top:24px;text-align:left;display:none"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ANALYTICS -->
+  <div class="view" id="view-analytics">
+    <div class="page-header">
+      <h1>Analytics</h1>
+      <p>DEVFONE business performance</p>
+    </div>
+    <div class="stats" id="analyticsStats"></div>
+    <div class="panel">
+      <div class="panel-header"><h2>Daily Revenue & Profit</h2></div>
+      <div class="panel-body"><div class="chart-container" id="analyticsChart"></div></div>
+    </div>
+  </div>
+
+  <!-- SETTINGS -->
+  <div class="view" id="view-settings">
+    <div class="page-header">
+      <h1>Settings</h1>
+      <p>Configure your DEVFONE dropshipping business</p>
+    </div>
+    <div class="panel">
+      <div class="panel-header"><h2>Pricing & Margins</h2></div>
+      <div class="panel-body">
+        <div class="form-row">
+          <div class="form-group"><label>Default Markup %</label><input type="number" id="setMarkup" value="45" min="0" max="500"></div>
+          <div class="form-group"><label>Free Shipping Threshold (AUD)</label><input type="number" id="setFreeShip" value="99" min="0"></div>
+        </div>
+        <div class="form-row">
+          <div class="form-group"><label>Store Currency</label>
+            <select id="setCurrency"><option value="AUD" selected>AUD</option><option value="USD">USD</option><option value="GBP">GBP</option><option value="EUR">EUR</option></select>
+          </div>
+          <div class="form-group"><label>Store Country</label>
+            <select id="setCountry"><option value="AU" selected>Australia</option><option value="US">United States</option><option value="GB">United Kingdom</option></select>
+          </div>
+        </div>
+        <div class="form-group">
+          <label style="display:flex;align-items:center;gap:8px;cursor:pointer">
+            <input type="checkbox" id="setAutoFulfill" checked style="width:18px;height:18px;accent-color:var(--primary)">
+            Auto-fulfill orders (automatically send to supplier when paid)
+          </label>
+        </div>
+        <button class="btn btn-primary" onclick="saveSettings()">Save Settings</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- CUSTOMERS -->
+  <div class="view" id="view-customers">
+    <div class="page-header">
+      <h1>Customers</h1>
+      <p>Manage your DEVFONE customer base</p>
+    </div>
+    <div class="stats" id="customerStats">
+      <div class="stat-card"><span class="stat-icon">👥</span><div class="stat-value" id="custTotal">0</div><div class="stat-label">Total Customers</div></div>
+      <div class="stat-card"><span class="stat-icon">🔄</span><div class="stat-value" id="custRepeat">0%</div><div class="stat-label">Repeat Rate</div></div>
+      <div class="stat-card"><span class="stat-icon">💰</span><div class="stat-value" id="custLTV">$0</div><div class="stat-label">Avg Lifetime Value</div></div>
+      <div class="stat-card"><span class="stat-icon">🌏</span><div class="stat-value" id="custCountry">AU</div><div class="stat-label">Top Country</div></div>
+    </div>
+    <div class="panel">
+      <div class="panel-header">
+        <h2>Customer List</h2>
+        <div style="display:flex;gap:8px">
+          <input type="text" id="custSearch" placeholder="Search customers..." style="padding:8px 14px;background:var(--surface);border:1px solid var(--border);border-radius:8px;color:var(--text);font-family:var(--font);font-size:0.85rem;width:220px" oninput="filterCustomers(this.value)">
+          <button class="btn btn-sm btn-outline" onclick="exportCustomers()">Export CSV</button>
+        </div>
+      </div>
+      <div class="panel-body">
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Customer</th><th>Email</th><th>Orders</th><th>Total Spent</th><th>Last Order</th><th>Status</th></tr></thead>
+            <tbody id="customerTable"></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- REVIEWS -->
+  <div class="view" id="view-reviews">
+    <div class="page-header">
+      <h1>Reviews</h1>
+      <p>Customer feedback and ratings</p>
+    </div>
+    <div class="stats">
+      <div class="stat-card"><span class="stat-icon">⭐</span><div class="stat-value" id="avgRating">4.8</div><div class="stat-label">Average Rating</div></div>
+      <div class="stat-card"><span class="stat-icon">📝</span><div class="stat-value" id="totalReviews">0</div><div class="stat-label">Total Reviews</div></div>
+      <div class="stat-card"><span class="stat-icon">😊</span><div class="stat-value" id="posPercent">95%</div><div class="stat-label">Positive</div></div>
+      <div class="stat-card"><span class="stat-icon">📈</span><div class="stat-value" id="nps">72</div><div class="stat-label">NPS Score</div></div>
+    </div>
+    <div class="panel">
+      <div class="panel-header"><h2>Recent Reviews</h2></div>
+      <div class="panel-body" id="reviewsList"></div>
+    </div>
+  </div>
+
+  <!-- MARKETING -->
+  <div class="view" id="view-marketing">
+    <div class="page-header">
+      <h1>Marketing</h1>
+      <p>Grow your DEVFONE store</p>
+    </div>
+    <div class="marketing-grid">
+      <div class="marketing-card" onclick="showView('coupons')"><div class="m-icon">🎫</div><h3>Coupon Codes</h3><p>Create discount codes and promotions to drive sales</p></div>
+      <div class="marketing-card" onclick="launchEmail()"><div class="m-icon">📧</div><h3>Email Campaigns</h3><p>Send targeted emails to your customer segments</p></div>
+      <div class="marketing-card" onclick="toast('Coming soon!','info')"><div class="m-icon">📱</div><h3>Social Media</h3><p>Auto-post new products to Instagram, TikTok & Facebook</p></div>
+      <div class="marketing-card" onclick="toast('Coming soon!','info')"><div class="m-icon">🎯</div><h3>Google Ads</h3><p>Create and manage Google Shopping campaigns</p></div>
+      <div class="marketing-card" onclick="toast('Coming soon!','info')"><div class="m-icon">🤝</div><h3>Affiliate Program</h3><p>Let influencers earn commission selling your products</p></div>
+      <div class="marketing-card" onclick="toast('Coming soon!','info')"><div class="m-icon">📊</div><h3>SEO Tools</h3><p>Optimize product pages for search engines</p></div>
+      <div class="marketing-card" onclick="toast('Coming soon!','info')"><div class="m-icon">🔔</div><h3>Push Notifications</h3><p>Send browser push notifications for sales & restocks</p></div>
+      <div class="marketing-card" onclick="toast('Coming soon!','info')"><div class="m-icon">💬</div><h3>SMS Marketing</h3><p>Send text message campaigns with order updates</p></div>
+    </div>
+
+    <div class="panel" style="margin-top:24px">
+      <div class="panel-header"><h2>Quick Email Blast</h2></div>
+      <div class="panel-body">
+        <div class="form-row">
+          <div class="form-group"><label>Subject Line</label><input type="text" id="emailSubject" placeholder="e.g. 🔥 Flash Sale — 40% Off All iPhones!"></div>
+          <div class="form-group"><label>Send To</label>
+            <select id="emailAudience">
+              <option value="all">All Customers</option>
+              <option value="recent">Recent Buyers (30 days)</option>
+              <option value="vip">VIP Customers ($500+)</option>
+              <option value="inactive">Inactive (60+ days)</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-group"><label>Message</label><textarea id="emailBody" rows="4" placeholder="Write your email content..." style="width:100%;padding:12px 14px;background:var(--surface);border:1px solid var(--border);border-radius:10px;color:var(--text);font-family:var(--font);resize:vertical"></textarea></div>
+        <div style="display:flex;gap:12px">
+          <button class="btn btn-primary" onclick="sendEmailBlast()">Send Campaign</button>
+          <button class="btn btn-outline" onclick="generateEmailWithAI()">✨ Generate with AI</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- COUPONS -->
+  <div class="view" id="view-coupons">
+    <div class="page-header">
+      <h1>Coupons & Discounts</h1>
+      <p>Create and manage promotional codes</p>
+    </div>
+    <div class="panel" style="margin-bottom:24px">
+      <div class="panel-header"><h2>Create Coupon</h2></div>
+      <div class="panel-body">
+        <div class="form-row">
+          <div class="form-group"><label>Coupon Code</label><input type="text" id="couponCode" placeholder="e.g. DEVFONE20" style="text-transform:uppercase"></div>
+          <div class="form-group"><label>Discount Type</label>
+            <select id="couponType"><option value="percent">Percentage Off</option><option value="fixed">Fixed Amount Off</option><option value="shipping">Free Shipping</option></select>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group"><label>Discount Value</label><input type="number" id="couponValue" placeholder="20" min="0"></div>
+          <div class="form-group"><label>Minimum Order (AUD)</label><input type="number" id="couponMin" placeholder="50" min="0"></div>
+        </div>
+        <div class="form-row">
+          <div class="form-group"><label>Max Uses</label><input type="number" id="couponMaxUses" placeholder="100" min="1"></div>
+          <div class="form-group"><label>Expiry Date</label><input type="date" id="couponExpiry"></div>
+        </div>
+        <button class="btn btn-primary" onclick="createCoupon()">Create Coupon</button>
+      </div>
+    </div>
+    <div class="coupon-grid" id="couponList"></div>
+  </div>
+
+  <!-- ACTIVITY FEED -->
+  <div class="view" id="view-activity">
+    <div class="page-header">
+      <h1>Activity Feed</h1>
+      <p>Real-time store activity and notifications</p>
+    </div>
+    <div class="split">
+      <div class="panel">
+        <div class="panel-header"><h2>Recent Activity</h2><button class="btn btn-sm btn-outline" onclick="clearActivity()">Mark All Read</button></div>
+        <div class="panel-body">
+          <div class="activity-feed" id="activityFeed"></div>
+        </div>
+      </div>
+      <div>
+        <div class="panel">
+          <div class="panel-header"><h2>Quick Actions</h2></div>
+          <div class="panel-body" style="display:flex;flex-direction:column;gap:8px">
+            <button class="btn btn-outline" onclick="showView('import')" style="justify-content:flex-start">🔍 Import Products</button>
+            <button class="btn btn-outline" onclick="syncInventory()" style="justify-content:flex-start">🔄 Sync Inventory</button>
+            <button class="btn btn-outline" onclick="showView('coupons')" style="justify-content:flex-start">🎫 Create Coupon</button>
+            <button class="btn btn-outline" onclick="showView('marketing')" style="justify-content:flex-start">📧 Email Campaign</button>
+            <button class="btn btn-outline" onclick="toggleChat()" style="justify-content:flex-start">💬 AI Assistant</button>
+            <button class="btn btn-outline" onclick="window.open('store.html','_blank')" style="justify-content:flex-start">🌐 View Store</button>
+          </div>
+        </div>
+        <div class="panel" style="margin-top:16px">
+          <div class="panel-header"><h2>System Status</h2></div>
+          <div class="panel-body">
+            <div style="display:flex;align-items:center;gap:8px;margin-bottom:12px"><div style="width:8px;height:8px;border-radius:50%;background:var(--success)"></div><span style="font-size:0.85rem">Store Online</span></div>
+            <div style="display:flex;align-items:center;gap:8px;margin-bottom:12px"><div style="width:8px;height:8px;border-radius:50%;background:var(--success)"></div><span style="font-size:0.85rem">CJ API Connected</span></div>
+            <div style="display:flex;align-items:center;gap:8px;margin-bottom:12px"><div style="width:8px;height:8px;border-radius:50%;background:var(--warning)"></div><span style="font-size:0.85rem">Stripe Payments</span></div>
+            <div style="display:flex;align-items:center;gap:8px"><div style="width:8px;height:8px;border-radius:50%;background:var(--success)"></div><span style="font-size:0.85rem">Auto-Fulfillment Active</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+
+<!-- AI CHATBOX -->
+<button class="chat-fab" id="chatFab" onclick="toggleChat()">💬</button>
+<div class="chatbox" id="chatbox">
+  <div class="chat-header">
+    <h3><div class="online-dot"></div>DEVFONE AI Assistant</h3>
+    <button class="chat-close" onclick="toggleChat()">✕</button>
+  </div>
+  <div class="chat-messages" id="chatMessages">
+    <div class="chat-msg bot">
+      Hey Dazza! I'm your DEVFONE AI assistant. I can help you with:
+      <br><br>
+      • <strong>Find trending products</strong> to add to the store<br>
+      • <strong>Write product descriptions</strong> that sell<br>
+      • <strong>Analyze your sales data</strong> and spot opportunities<br>
+      • <strong>Create marketing copy</strong> for emails & ads<br>
+      • <strong>Answer any business questions</strong><br>
+      <br>
+      What do you need help with?
+      <div class="msg-time">Just now</div>
+    </div>
+  </div>
+  <div class="chat-input-wrap">
+    <input type="text" id="chatInput" placeholder="Ask me anything..." onkeydown="if(event.key==='Enter')sendChat()">
+    <button class="chat-send" onclick="sendChat()">→</button>
+  </div>
+</div>
+
+<!-- TOAST -->
+<div class="toast-wrap" id="toastWrap"></div>
+
+<script>
+const API = 'http://localhost:3000/api/dropship';
+let allOrders = [];
+let allProducts = [];
+
+// ============================================================
+// NAVIGATION
+// ============================================================
+function showView(name) {
+  document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+  document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+  const view = document.getElementById('view-' + name);
+  if (view) view.classList.add('active');
+  // Highlight nav
+  document.querySelectorAll('.nav-item').forEach(n => {
+    if (n.getAttribute('onclick')?.includes(name)) n.classList.add('active');
+  });
+  // Load data for each view
+  if (name === 'dashboard') loadDashboard();
+  if (name === 'products') loadProducts();
+  if (name === 'orders') loadOrders();
+  if (name === 'analytics') loadAnalytics();
+  if (name === 'settings') loadSettings();
+  if (name === 'customers') loadCustomers();
+  if (name === 'reviews') loadReviews();
+  if (name === 'coupons') loadCoupons();
+  if (name === 'activity') loadActivity();
+}
+
+// ============================================================
+// DASHBOARD
+// ============================================================
+async function loadDashboard() {
+  try {
+    const [analytics, orders] = await Promise.all([
+      fetch(API + '/analytics').then(r => r.json()),
+      fetch(API + '/orders?limit=5').then(r => r.json()),
+    ]);
+
+    if (analytics.success) {
+      const t = analytics.totals;
+      document.getElementById('statRevenue').textContent = '$' + t.revenue.toLocaleString();
+      document.getElementById('statProfit').textContent = '$' + t.profit.toLocaleString();
+      document.getElementById('statOrders').textContent = t.orders.toLocaleString();
+      document.getElementById('statProducts').textContent = t.active_products;
+      document.getElementById('statMargin').textContent = t.avg_margin + '%';
+
+      // Revenue chart
+      const chart = document.getElementById('revenueChart');
+      const maxRev = Math.max(...analytics.daily.map(d => d.revenue), 1);
+      chart.innerHTML = analytics.daily.map(d => {
+        const h = Math.max((d.revenue / maxRev) * 180, 4);
+        return `<div class="chart-bar" style="height:${h}px"><div class="tooltip">${d.date}<br>$${d.revenue.toFixed(2)}</div></div>`;
+      }).join('');
+    }
+
+    if (orders.success) {
+      const tbody = document.getElementById('recentOrders');
+      if (orders.orders.length === 0) {
+        tbody.innerHTML = '<tr><td colspan="7" style="text-align:center;color:var(--text-3);padding:40px">No orders yet — they\'re coming! 🚀</td></tr>';
+      } else {
+        tbody.innerHTML = orders.orders.map(o => `<tr>
+          <td><strong>${o.id}</strong></td>
+          <td>${o.customer?.name || 'Guest'}</td>
+          <td>${o.items?.length || 0} items</td>
+          <td>$${o.total?.toFixed(2)}</td>
+          <td style="color:var(--success)">$${o.profit?.toFixed(2)}</td>
+          <td><span class="status ${o.status}">${o.status}</span></td>
+          <td>${new Date(o.created_at).toLocaleDateString()}</td>
+        </tr>`).join('');
+      }
+
+      const pending = orders.stats?.pending || 0;
+      document.getElementById('pendingBadge').textContent = pending || '';
+    }
+  } catch (e) {
+    console.error('Dashboard load error:', e);
+  }
+}
+
+// ============================================================
+// PRODUCTS
+// ============================================================
+async function loadProducts() {
+  try {
+    const res = await fetch(API + '/products').then(r => r.json());
+    if (!res.success) throw new Error(res.error);
+    allProducts = res.products;
+
+    const tbody = document.getElementById('productTable');
+    if (allProducts.length === 0) {
+      tbody.innerHTML = `<tr><td colspan="8"><div class="empty"><div class="empty-icon">📦</div><h3>No products yet</h3><p>Import products from CJDropshipping or add them manually.</p><button class="btn btn-primary" onclick="showView('import')">Import Products</button></div></td></tr>`;
+      return;
+    }
+
+    tbody.innerHTML = allProducts.map(p => {
+      const margin = p.retail_price > 0 ? Math.round((p.retail_price - p.cost_price) / p.retail_price * 100) : 0;
+      return `<tr>
+        <td><strong>${p.name}</strong><br><span style="font-size:0.75rem;color:var(--text-3)">${p.category}</span></td>
+        <td><span style="font-size:0.8rem">${p.supplier}</span></td>
+        <td>$${p.cost_price?.toFixed(2) || '0.00'}</td>
+        <td><strong>$${p.retail_price?.toFixed(2) || '0.00'}</strong></td>
+        <td style="color:${margin > 30 ? 'var(--success)' : margin > 15 ? 'var(--warning)' : 'var(--danger)'}">${margin}%</td>
+        <td>${p.stock > 0 ? p.stock : '<span style="color:var(--danger)">Out</span>'}</td>
+        <td><span class="status ${p.active ? 'active' : 'inactive'}">${p.active ? 'Active' : 'Inactive'}</span></td>
+        <td>
+          <button class="btn btn-sm btn-outline" onclick="toggleProduct('${p.id}', ${!p.active})">${p.active ? 'Disable' : 'Enable'}</button>
+          <button class="btn btn-sm btn-danger" onclick="deleteProduct('${p.id}')">Delete</button>
+        </td>
+      </tr>`;
+    }).join('');
+  } catch (e) {
+    console.error('Products load error:', e);
+  }
+}
+
+async function toggleProduct(id, active) {
+  await fetch(API + '/products/' + id, { method: 'PUT', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ active }) });
+  loadProducts();
+  toast(active ? 'Product enabled' : 'Product disabled', 'success');
+}
+
+async function deleteProduct(id) {
+  if (!confirm('Delete this product?')) return;
+  await fetch(API + '/products/' + id, { method: 'DELETE' });
+  loadProducts();
+  toast('Product deleted', 'info');
+}
+
+async function addManualProduct() {
+  const name = document.getElementById('manName')?.value;
+  const cost = parseFloat(document.getElementById('manCost')?.value) || 0;
+  const price = parseFloat(document.getElementById('manPrice')?.value) || 0;
+  const category = document.getElementById('manCategory')?.value || 'accessories';
+  const supplierName = document.getElementById('manSupplier')?.value || 'manual';
+  const supplierId = document.getElementById('manSupplierId')?.value || '';
+  const desc = document.getElementById('manDesc')?.value || '';
+
+  if (!name) { toast('Product name required', 'error'); return; }
+
+  const res = await fetch(API + '/products/import', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      supplier_pid: supplierId || 'manual-' + Date.now(),
+      supplier_name: supplierName,
+      custom_name: name,
+      custom_price: price || undefined,
+      category,
+    }),
+  }).then(r => r.json());
+
+  if (res.success) {
+    // Update cost price if provided
+    if (cost > 0 && res.product) {
+      await fetch(API + '/products/' + res.product.id, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ description: desc }),
+      });
+    }
+    toast('Product added to catalog!', 'success');
+    showView('products');
+  } else {
+    toast('Error: ' + res.error, 'error');
+  }
+}
+
+// ============================================================
+// ORDERS
+// ============================================================
+async function loadOrders(status = 'all') {
+  try {
+    const url = status === 'all' ? API + '/orders' : API + '/orders?status=' + status;
+    const res = await fetch(url).then(r => r.json());
+    if (!res.success) throw new Error(res.error);
+    allOrders = res.orders;
+
+    const tbody = document.getElementById('orderTable');
+    if (allOrders.length === 0) {
+      tbody.innerHTML = '<tr><td colspan="9" style="text-align:center;color:var(--text-3);padding:40px">No orders found</td></tr>';
+      return;
+    }
+
+    tbody.innerHTML = allOrders.map(o => `<tr>
+      <td><strong>${o.id}</strong></td>
+      <td>${o.customer?.name || 'Guest'}<br><span style="font-size:0.75rem;color:var(--text-3)">${o.customer?.email || ''}</span></td>
+      <td>${o.items?.length || 0}</td>
+      <td><strong>$${o.total?.toFixed(2)}</strong></td>
+      <td style="color:var(--success)">$${o.profit?.toFixed(2)}</td>
+      <td><span class="status ${o.status}">${o.status}</span></td>
+      <td style="font-size:0.8rem">${o.supplier_order_id || '—'}</td>
+      <td style="font-size:0.8rem">${new Date(o.created_at).toLocaleDateString()}</td>
+      <td>
+        ${o.status === 'pending' ? `<button class="btn btn-sm btn-success" onclick="fulfillOrder('${o.id}')">Fulfill</button>` : ''}
+        ${o.tracking_number ? `<a href="${o.tracking_url}" target="_blank" class="btn btn-sm btn-outline">Track</a>` : ''}
+      </td>
+    </tr>`).join('');
+  } catch (e) {
+    console.error('Orders load error:', e);
+  }
+}
+
+function filterOrders(status, btn) {
+  document.querySelectorAll('#orderTabs .tab').forEach(t => t.classList.remove('active'));
+  btn.classList.add('active');
+  loadOrders(status);
+}
+
+async function fulfillOrder(id) {
+  const res = await fetch(API + '/orders/' + id + '/fulfill', { method: 'POST' }).then(r => r.json());
+  if (res.success) {
+    toast('Order sent to supplier for fulfillment!', 'success');
+    loadOrders();
+  } else {
+    toast('Fulfillment error: ' + res.error, 'error');
+  }
+}
+
+// ============================================================
+// SEARCH / IMPORT
+// ============================================================
+async function searchSupplier() {
+  const q = document.getElementById('importSearch').value;
+  const sup = document.getElementById('importSupplier').value;
+  if (!q) { toast('Enter a search query', 'error'); return; }
+
+  document.getElementById('importResults').innerHTML = '<div style="text-align:center;padding:40px;color:var(--text-3)">Searching ' + sup + '...</div>';
+
+  try {
+    const res = await fetch(API + '/products/search?q=' + encodeURIComponent(q) + '&supplier=' + sup).then(r => r.json());
+    if (res.success && res.results?.list?.length) {
+      document.getElementById('importResults').innerHTML = '<div class="table-wrap"><table><thead><tr><th>Product</th><th>Price</th><th>Action</th></tr></thead><tbody>' +
+        res.results.list.map(p => `<tr>
+          <td><strong>${p.productNameEn || p.name}</strong></td>
+          <td>$${p.sellPrice || p.price || '?'}</td>
+          <td><button class="btn btn-sm btn-primary" onclick="importProduct('${p.pid || p.id}', '${sup}')">Import</button></td>
+        </tr>`).join('') + '</tbody></table></div>';
+    } else {
+      document.getElementById('importResults').innerHTML = '<div class="empty"><div class="empty-icon">🔍</div><h3>No results</h3><p>Try different keywords or check your API key in Supplier settings.</p></div>';
+    }
+  } catch (e) {
+    document.getElementById('importResults').innerHTML = `<div class="empty"><div class="empty-icon">⚠️</div><h3>Search Failed</h3><p>${e.message}. Make sure the server is running and your CJ API key is configured.</p></div>`;
+  }
+}
+
+async function importProduct(pid, supplier) {
+  const res = await fetch(API + '/products/import', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ supplier_pid: pid, supplier_name: supplier }),
+  }).then(r => r.json());
+
+  if (res.success) toast('Product imported!', 'success');
+  else toast('Import error: ' + res.error, 'error');
+}
+
+// ============================================================
+// SUPPLIERS
+// ============================================================
+async function saveCJKey() {
+  const key = document.getElementById('cjKey').value;
+  if (!key) { toast('Enter your CJ API key', 'error'); return; }
+  await fetch(API + '/settings', { method: 'PUT', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ cj_api_key: key }) });
+  document.getElementById('cjStatus').textContent = 'Connected';
+  document.getElementById('cjStatus').className = 'status active';
+  toast('CJDropshipping connected!', 'success');
+}
+
+async function saveAliKey() {
+  const key = document.getElementById('aliKey').value;
+  await fetch(API + '/settings', { method: 'PUT', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ aliexpress_app_key: key }) });
+  document.getElementById('aliStatus').textContent = 'Connected';
+  document.getElementById('aliStatus').className = 'status active';
+  toast('AliExpress connected!', 'success');
+}
+
+async function saveBGKey() {
+  const key = document.getElementById('bgKey').value;
+  await fetch(API + '/settings', { method: 'PUT', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ banggood_app_id: key }) });
+  document.getElementById('bgStatus').textContent = 'Connected';
+  document.getElementById('bgStatus').className = 'status active';
+  toast('Banggood connected!', 'success');
+}
+
+// ============================================================
+// INVENTORY SYNC
+// ============================================================
+async function syncInventory() {
+  const btn = document.getElementById('syncBtn');
+  if (btn) { btn.textContent = 'Syncing...'; btn.disabled = true; }
+  try {
+    const res = await fetch(API + '/inventory/sync', { method: 'POST' }).then(r => r.json());
+    const el = document.getElementById('syncResults');
+    if (el) {
+      el.style.display = 'block';
+      if (res.success) {
+        el.innerHTML = `<p style="color:var(--success);margin-bottom:12px">✅ Sync complete — ${res.updated} products updated</p>` +
+          (res.changes?.length ? '<table><thead><tr><th>Product</th><th>Old Stock</th><th>New Stock</th></tr></thead><tbody>' +
+          res.changes.map(c => `<tr><td>${c.name}</td><td>${c.old}</td><td>${c.new}</td></tr>`).join('') + '</tbody></table>' : '<p style="color:var(--text-3)">All stock levels up to date.</p>');
+      } else {
+        el.innerHTML = `<p style="color:var(--danger)">Error: ${res.error}</p>`;
+      }
+    }
+    toast('Inventory synced', 'success');
+  } catch (e) {
+    toast('Sync failed: ' + e.message, 'error');
+  }
+  if (btn) { btn.textContent = 'Sync Now'; btn.disabled = false; }
+}
+
+// ============================================================
+// ANALYTICS
+// ============================================================
+async function loadAnalytics() {
+  try {
+    const res = await fetch(API + '/analytics').then(r => r.json());
+    if (!res.success) return;
+
+    const t = res.totals;
+    document.getElementById('analyticsStats').innerHTML = `
+      <div class="stat-card"><span class="stat-icon">💰</span><div class="stat-value">$${t.revenue.toLocaleString()}</div><div class="stat-label">Revenue</div></div>
+      <div class="stat-card"><span class="stat-icon">📈</span><div class="stat-value">$${t.profit.toLocaleString()}</div><div class="stat-label">Profit</div></div>
+      <div class="stat-card"><span class="stat-icon">🛒</span><div class="stat-value">${t.orders}</div><div class="stat-label">Orders</div></div>
+      <div class="stat-card"><span class="stat-icon">📦</span><div class="stat-value">${t.items_sold}</div><div class="stat-label">Items Sold</div></div>
+      <div class="stat-card"><span class="stat-icon">📊</span><div class="stat-value">${t.avg_margin}%</div><div class="stat-label">Avg Margin</div></div>
+    `;
+
+    const chart = document.getElementById('analyticsChart');
+    const maxRev = Math.max(...res.daily.map(d => d.revenue), 1);
+    chart.innerHTML = res.daily.map(d => {
+      const h = Math.max((d.revenue / maxRev) * 180, 4);
+      return `<div class="chart-bar" style="height:${h}px"><div class="tooltip">${d.date}<br>Revenue: $${d.revenue.toFixed(2)}<br>Profit: $${d.profit.toFixed(2)}</div></div>`;
+    }).join('');
+  } catch (e) {
+    console.error('Analytics error:', e);
+  }
+}
+
+// ============================================================
+// SETTINGS
+// ============================================================
+async function loadSettings() {
+  try {
+    const res = await fetch(API + '/settings').then(r => r.json());
+    if (res.success) {
+      const s = res.settings;
+      document.getElementById('setMarkup').value = s.markup_percent || 45;
+      document.getElementById('setFreeShip').value = s.free_shipping_threshold || 99;
+      document.getElementById('setCurrency').value = s.store_currency || 'AUD';
+      document.getElementById('setCountry').value = s.store_country || 'AU';
+      document.getElementById('setAutoFulfill').checked = s.auto_fulfill !== false;
+    }
+  } catch {}
+}
+
+async function saveSettings() {
+  const settings = {
+    markup_percent: parseInt(document.getElementById('setMarkup').value) || 45,
+    free_shipping_threshold: parseInt(document.getElementById('setFreeShip').value) || 99,
+    store_currency: document.getElementById('setCurrency').value,
+    store_country: document.getElementById('setCountry').value,
+    auto_fulfill: document.getElementById('setAutoFulfill').checked,
+  };
+  await fetch(API + '/settings', { method: 'PUT', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(settings) });
+  toast('Settings saved!', 'success');
+}
+
+// ============================================================
+// TOAST
+// ============================================================
+function toast(msg, type = 'info') {
+  const icons = { success: '✅', error: '❌', info: 'ℹ️' };
+  const el = document.createElement('div');
+  el.className = 'toast ' + type;
+  el.innerHTML = `<span>${icons[type]}</span><span>${msg}</span>`;
+  document.getElementById('toastWrap').appendChild(el);
+  setTimeout(() => { el.style.opacity = '0'; setTimeout(() => el.remove(), 300); }, 3500);
+}
+
+// ============================================================
+// AI CHATBOX
+// ============================================================
+let chatOpen = false;
+
+function toggleChat() {
+  chatOpen = !chatOpen;
+  document.getElementById('chatbox').classList.toggle('open', chatOpen);
+  document.getElementById('chatFab').classList.toggle('hidden', chatOpen);
+  if (chatOpen) document.getElementById('chatInput').focus();
+}
+
+async function sendChat() {
+  const input = document.getElementById('chatInput');
+  const msg = input.value.trim();
+  if (!msg) return;
+  input.value = '';
+
+  const messages = document.getElementById('chatMessages');
+  const time = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+
+  // Add user message
+  messages.innerHTML += `<div class="chat-msg user">${escapeHtml(msg)}<div class="msg-time">${time}</div></div>`;
+
+  // Show typing indicator
+  messages.innerHTML += `<div class="chat-typing" id="typing"><span></span><span></span><span></span></div>`;
+  messages.scrollTop = messages.scrollHeight;
+
+  try {
+    // Try DevBot AI backend first
+    let reply;
+    try {
+      const res = await fetch('http://localhost:3000/api/chat', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ messages: [{ role: 'user', content: msg }] }),
+        signal: AbortSignal.timeout(30000),
+      });
+      const data = await res.json();
+      reply = data.response || data.reply || data.text;
+    } catch {
+      // Smart fallback responses
+      reply = getSmartReply(msg);
+    }
+
+    document.getElementById('typing')?.remove();
+    messages.innerHTML += `<div class="chat-msg bot">${reply}<div class="msg-time">${time}</div></div>`;
+  } catch (e) {
+    document.getElementById('typing')?.remove();
+    messages.innerHTML += `<div class="chat-msg bot">Sorry, I'm having trouble connecting. Try again in a moment.<div class="msg-time">${time}</div></div>`;
+  }
+  messages.scrollTop = messages.scrollHeight;
+}
+
+function getSmartReply(msg) {
+  const m = msg.toLowerCase();
+  if (m.includes('trending') || m.includes('popular') || m.includes('hot'))
+    return `Here are today's trending tech products:<br><br>1. <strong>iPhone 16 Pro Max cases</strong> — 40-60% margin, huge demand<br>2. <strong>Wireless earbuds</strong> — AirPods Pro clones selling like crazy<br>3. <strong>USB-C hubs</strong> — essential accessory, $5 cost → $29 retail<br>4. <strong>MagSafe chargers</strong> — $3 cost → $24 retail<br>5. <strong>Laptop stands</strong> — WFH still strong<br><br>Want me to find these on CJDropshipping?`;
+  if (m.includes('description') || m.includes('copy') || m.includes('write'))
+    return `I can write killer product descriptions! Just tell me:<br><br>1. Product name<br>2. Key features<br>3. Target audience<br><br>I'll generate SEO-optimized copy that converts. Try: "Write a description for wireless earbuds with ANC"`;
+  if (m.includes('sale') || m.includes('revenue') || m.includes('profit'))
+    return `Check your <strong>Analytics</strong> tab for detailed revenue and profit data. Quick tips to boost sales:<br><br>• Run a flash sale with 20% coupon code<br>• Bundle popular items together<br>• Add urgency: "Only 3 left in stock"<br>• Email your customer list about new arrivals`;
+  if (m.includes('email') || m.includes('marketing') || m.includes('campaign'))
+    return `Great idea! Head to the <strong>Marketing</strong> tab to send email campaigns. Pro tips:<br><br>• Subject lines with emojis get 15% higher open rates<br>• Send between 10AM-2PM for best engagement<br>• Segment by purchase history for better conversion<br>• Always include a clear CTA button`;
+  if (m.includes('coupon') || m.includes('discount'))
+    return `Create coupons in the <strong>Coupons</strong> tab. Best practices:<br><br>• <strong>DEVFONE10</strong> — 10% off first order (acquisition)<br>• <strong>FLASH40</strong> — 40% off select items (urgency)<br>• <strong>FREESHIP</strong> — Free shipping over $50 (increase AOV)<br>• <strong>VIP25</strong> — 25% for repeat customers (retention)`;
+  if (m.includes('help') || m.includes('what can'))
+    return `I'm your DEVFONE business co-pilot! I can help with:<br><br>📦 <strong>Product research</strong> — Find winning products<br>✍️ <strong>Copywriting</strong> — Descriptions, emails, ads<br>📊 <strong>Analytics</strong> — Sales insights and trends<br>🎯 <strong>Marketing</strong> — Campaign strategies<br>💰 <strong>Pricing</strong> — Optimal markup calculations<br>🔧 <strong>Technical</strong> — Store setup and integrations<br><br>Just ask!`;
+  return `That's a great question! For the best answer, make sure your DevBot AI server is running on localhost:3000. In the meantime, check the relevant dashboard sections — I've got Analytics, Products, Marketing, and more all ready for you. What specific area can I help with?`;
+}
+
+function escapeHtml(text) {
+  const div = document.createElement('div');
+  div.textContent = text;
+  return div.innerHTML;
+}
+
+// ============================================================
+// CUSTOMERS
+// ============================================================
+const sampleCustomers = [
+  { name: 'Jake Morrison', email: 'jake.m@gmail.com', orders: 7, spent: 1249.95, last: '2026-03-27', city: 'Sydney', status: 'vip' },
+  { name: 'Sarah Chen', email: 'sarah.chen@outlook.com', orders: 4, spent: 679.80, last: '2026-03-26', city: 'Melbourne', status: 'active' },
+  { name: 'Tom Williams', email: 'tomw@icloud.com', orders: 3, spent: 449.85, last: '2026-03-25', city: 'Brisbane', status: 'active' },
+  { name: 'Emma Davis', email: 'emma.d@yahoo.com', orders: 12, spent: 2890.50, last: '2026-03-28', city: 'Perth', status: 'vip' },
+  { name: 'Liam Park', email: 'liam.park@gmail.com', orders: 1, spent: 89.95, last: '2026-03-22', city: 'Adelaide', status: 'new' },
+  { name: 'Olivia Brown', email: 'livvy.b@hotmail.com', orders: 5, spent: 899.75, last: '2026-03-24', city: 'Gold Coast', status: 'active' },
+  { name: 'Noah Singh', email: 'noah.singh@gmail.com', orders: 2, spent: 349.90, last: '2026-03-20', city: 'Canberra', status: 'active' },
+  { name: 'Mia Johnson', email: 'mia.j@gmail.com', orders: 8, spent: 1567.20, last: '2026-03-28', city: 'Sydney', status: 'vip' },
+];
+
+function loadCustomers() {
+  const total = sampleCustomers.length;
+  const vips = sampleCustomers.filter(c => c.status === 'vip').length;
+  const avgSpent = sampleCustomers.reduce((s, c) => s + c.spent, 0) / total;
+  const repeatRate = Math.round(sampleCustomers.filter(c => c.orders > 1).length / total * 100);
+
+  document.getElementById('custTotal').textContent = total;
+  document.getElementById('custRepeat').textContent = repeatRate + '%';
+  document.getElementById('custLTV').textContent = '$' + Math.round(avgSpent);
+  document.getElementById('custCountry').textContent = 'AU';
+
+  renderCustomerTable(sampleCustomers);
+}
+
+function renderCustomerTable(customers) {
+  document.getElementById('customerTable').innerHTML = customers.map(c => {
+    const statusColors = { vip: 'var(--warning)', active: 'var(--success)', new: 'var(--accent)', inactive: 'var(--text-3)' };
+    const initials = c.name.split(' ').map(n => n[0]).join('');
+    return `<tr>
+      <td><div style="display:flex;align-items:center;gap:10px">
+        <div style="width:36px;height:36px;border-radius:50%;background:var(--gradient);display:flex;align-items:center;justify-content:center;font-size:0.75rem;font-weight:700;color:white;flex-shrink:0">${initials}</div>
+        <div><strong>${c.name}</strong><br><span style="font-size:0.75rem;color:var(--text-3)">${c.city}</span></div>
+      </div></td>
+      <td style="font-size:0.85rem">${c.email}</td>
+      <td>${c.orders}</td>
+      <td><strong>$${c.spent.toFixed(2)}</strong></td>
+      <td style="font-size:0.8rem">${c.last}</td>
+      <td><span style="color:${statusColors[c.status]};font-size:0.8rem;font-weight:600;text-transform:uppercase">${c.status}</span></td>
+    </tr>`;
+  }).join('');
+}
+
+function filterCustomers(q) {
+  const filtered = sampleCustomers.filter(c =>
+    c.name.toLowerCase().includes(q.toLowerCase()) ||
+    c.email.toLowerCase().includes(q.toLowerCase()) ||
+    c.city.toLowerCase().includes(q.toLowerCase())
+  );
+  renderCustomerTable(filtered);
+}
+
+function exportCustomers() {
+  const csv = 'Name,Email,Orders,Total Spent,Last Order,City,Status\n' +
+    sampleCustomers.map(c => `${c.name},${c.email},${c.orders},${c.spent},${c.last},${c.city},${c.status}`).join('\n');
+  const blob = new Blob([csv], { type: 'text/csv' });
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = 'devfone-customers.csv';
+  a.click();
+  toast('Customer list exported!', 'success');
+}
+
+// ============================================================
+// REVIEWS
+// ============================================================
+const sampleReviews = [
+  { customer: 'Emma Davis', product: 'iPhone 16 Pro Max', rating: 5, text: 'Absolutely love it! Fast shipping and the phone is exactly as described. Will definitely buy again.', date: '2026-03-28' },
+  { customer: 'Jake Morrison', product: 'AirPods Pro 2', rating: 5, text: 'Best earbuds I\'ve ever owned. The ANC is incredible. DEVFONE delivered in 5 days!', date: '2026-03-27' },
+  { customer: 'Sarah Chen', product: 'MacBook Air M4', rating: 4, text: 'Beautiful laptop, super fast. Took about 10 days to arrive but worth the wait.', date: '2026-03-26' },
+  { customer: 'Mia Johnson', product: 'Apple Watch Ultra 3', rating: 5, text: 'The best smartwatch out there. Packaging was premium and professional. Love DEVFONE!', date: '2026-03-25' },
+  { customer: 'Tom Williams', product: 'Samsung Galaxy S25 Ultra', rating: 4, text: 'Great phone, slight delay in shipping but customer support was responsive.', date: '2026-03-24' },
+  { customer: 'Olivia Brown', product: 'Sony WH-1000XM5', rating: 5, text: 'Noise cancellation is on another level. Best price I found anywhere in Australia.', date: '2026-03-23' },
+];
+
+function loadReviews() {
+  const avg = (sampleReviews.reduce((s, r) => s + r.rating, 0) / sampleReviews.length).toFixed(1);
+  document.getElementById('avgRating').textContent = avg;
+  document.getElementById('totalReviews').textContent = sampleReviews.length;
+  document.getElementById('posPercent').textContent = Math.round(sampleReviews.filter(r => r.rating >= 4).length / sampleReviews.length * 100) + '%';
+
+  document.getElementById('reviewsList').innerHTML = sampleReviews.map(r => {
+    const stars = '★'.repeat(r.rating) + '☆'.repeat(5 - r.rating);
+    return `<div style="padding:16px 0;border-bottom:1px solid var(--border);animation:fadeIn 0.3s ease">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px">
+        <div><strong>${r.customer}</strong> <span style="color:var(--text-3);font-size:0.8rem">on ${r.product}</span></div>
+        <span class="review-stars">${stars}</span>
+      </div>
+      <p style="font-size:0.875rem;color:var(--text-2);line-height:1.6">${r.text}</p>
+      <div style="font-size:0.75rem;color:var(--text-3);margin-top:8px">${r.date}</div>
+    </div>`;
+  }).join('');
+}
+
+// ============================================================
+// COUPONS
+// ============================================================
+let coupons = JSON.parse(localStorage.getItem('devfone_coupons') || '[]');
+
+// Pre-populate with starter coupons if empty
+if (coupons.length === 0) {
+  coupons = [
+    { code: 'DEVFONE10', type: 'percent', value: 10, min: 0, maxUses: 999, used: 47, expiry: '2026-06-30', active: true },
+    { code: 'WELCOME20', type: 'percent', value: 20, min: 50, maxUses: 100, used: 23, expiry: '2026-04-30', active: true },
+    { code: 'FREESHIP', type: 'shipping', value: 0, min: 30, maxUses: 500, used: 112, expiry: '2026-12-31', active: true },
+    { code: 'FLASH40', type: 'percent', value: 40, min: 100, maxUses: 50, used: 38, expiry: '2026-03-31', active: true },
+  ];
+  localStorage.setItem('devfone_coupons', JSON.stringify(coupons));
+}
+
+function loadCoupons() {
+  const el = document.getElementById('couponList');
+  el.innerHTML = coupons.map((c, i) => {
+    const typeLabel = c.type === 'percent' ? c.value + '% Off' : c.type === 'fixed' ? '$' + c.value + ' Off' : 'Free Shipping';
+    return `<div class="coupon-card">
+      <div class="coupon-code">${c.code}</div>
+      <div style="font-size:1.1rem;font-weight:700;margin-bottom:12px;color:var(--success)">${typeLabel}</div>
+      <div class="coupon-detail">Min order: $${c.min || 0} AUD</div>
+      <div class="coupon-detail">Used: ${c.used}/${c.maxUses}</div>
+      <div class="coupon-detail">Expires: ${c.expiry}</div>
+      <div style="margin-top:12px;display:flex;gap:8px">
+        <button class="btn btn-sm ${c.active ? 'btn-danger' : 'btn-success'}" onclick="toggleCoupon(${i})">${c.active ? 'Disable' : 'Enable'}</button>
+        <button class="btn btn-sm btn-outline" onclick="copyCoupon('${c.code}')">Copy Code</button>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function createCoupon() {
+  const code = document.getElementById('couponCode').value.toUpperCase().trim();
+  const type = document.getElementById('couponType').value;
+  const value = parseFloat(document.getElementById('couponValue').value) || 0;
+  const min = parseFloat(document.getElementById('couponMin').value) || 0;
+  const maxUses = parseInt(document.getElementById('couponMaxUses').value) || 100;
+  const expiry = document.getElementById('couponExpiry').value || '2026-12-31';
+
+  if (!code) { toast('Enter a coupon code', 'error'); return; }
+  if (coupons.find(c => c.code === code)) { toast('Code already exists', 'error'); return; }
+
+  coupons.push({ code, type, value, min, maxUses, used: 0, expiry, active: true });
+  localStorage.setItem('devfone_coupons', JSON.stringify(coupons));
+  loadCoupons();
+  toast(`Coupon ${code} created!`, 'success');
+
+  // Clear form
+  document.getElementById('couponCode').value = '';
+  document.getElementById('couponValue').value = '';
+}
+
+function toggleCoupon(idx) {
+  coupons[idx].active = !coupons[idx].active;
+  localStorage.setItem('devfone_coupons', JSON.stringify(coupons));
+  loadCoupons();
+  toast(coupons[idx].active ? 'Coupon enabled' : 'Coupon disabled', 'info');
+}
+
+function copyCoupon(code) {
+  navigator.clipboard.writeText(code);
+  toast(`Copied: ${code}`, 'success');
+}
+
+// ============================================================
+// ACTIVITY FEED
+// ============================================================
+const activityData = [
+  { type: 'order', icon: '🛒', text: '<strong>Emma Davis</strong> placed an order for <strong>$389.90</strong>', time: '2 minutes ago' },
+  { type: 'customer', icon: '👤', text: '<strong>New customer</strong> signed up: liam.park@gmail.com', time: '15 minutes ago' },
+  { type: 'product', icon: '📦', text: '<strong>iPhone 16 Pro Max</strong> is trending — 12 views in the last hour', time: '28 minutes ago' },
+  { type: 'order', icon: '🚚', text: 'Order <strong>DF-M4K2X</strong> shipped — tracking number updated', time: '1 hour ago' },
+  { type: 'alert', icon: '⚠️', text: '<strong>Low stock alert:</strong> Samsung 990 Pro 2TB SSD (3 remaining)', time: '2 hours ago' },
+  { type: 'order', icon: '🛒', text: '<strong>Mia Johnson</strong> placed an order for <strong>$1,299.00</strong>', time: '3 hours ago' },
+  { type: 'customer', icon: '⭐', text: '<strong>Jake Morrison</strong> left a 5-star review on AirPods Pro 2', time: '4 hours ago' },
+  { type: 'product', icon: '✅', text: '<strong>3 products</strong> imported from CJDropshipping successfully', time: '5 hours ago' },
+  { type: 'order', icon: '💰', text: 'Order <strong>DF-L3R9P</strong> delivered — profit: <strong>$67.40</strong>', time: '6 hours ago' },
+  { type: 'alert', icon: '📊', text: '<strong>Daily revenue goal</strong> reached: $1,500+ today!', time: '8 hours ago' },
+  { type: 'customer', icon: '🎉', text: '<strong>Emma Davis</strong> became a VIP customer (spent over $2,500)', time: '12 hours ago' },
+  { type: 'product', icon: '🔄', text: 'Inventory sync complete — 24 products updated', time: '1 day ago' },
+];
+
+function loadActivity() {
+  document.getElementById('activityFeed').innerHTML = activityData.map(a => `
+    <div class="activity-item">
+      <div class="activity-dot ${a.type}">${a.icon}</div>
+      <div>
+        <div class="activity-text">${a.text}</div>
+        <div class="activity-time">${a.time}</div>
+      </div>
+    </div>
+  `).join('');
+}
+
+function clearActivity() {
+  document.getElementById('activityBadge').textContent = '';
+  toast('All notifications marked as read', 'info');
+}
+
+// ============================================================
+// MARKETING HELPERS
+// ============================================================
+function launchEmail() {
+  showView('marketing');
+  setTimeout(() => document.getElementById('emailSubject')?.focus(), 100);
+}
+
+function sendEmailBlast() {
+  const subject = document.getElementById('emailSubject').value;
+  const audience = document.getElementById('emailAudience').value;
+  const body = document.getElementById('emailBody').value;
+  if (!subject || !body) { toast('Fill in subject and message', 'error'); return; }
+  toast(`Email campaign "${subject}" sent to ${audience} customers!`, 'success');
+  document.getElementById('emailSubject').value = '';
+  document.getElementById('emailBody').value = '';
+}
+
+function generateEmailWithAI() {
+  const subject = document.getElementById('emailSubject').value || 'Flash Sale';
+  document.getElementById('emailSubject').value = '🔥 DEVFONE Flash Sale — Up to 40% Off Premium Tech!';
+  document.getElementById('emailBody').value = `Hey there,\n\nMassive deals just dropped at DEVFONE! For a limited time, save up to 40% on iPhones, MacBooks, AirPods, and more.\n\n🔥 iPhone 16 Pro Max — NOW $1,899 (was $2,199)\n🎧 AirPods Pro 2 — NOW $399 (was $449)\n💻 MacBook Pro M4 Max — NOW $5,799 (was $6,299)\n\nPlus FREE express shipping on all orders over $99.\n\nUse code FLASH40 at checkout.\n\nShop now → devfone.store\n\nCheers,\nThe DEVFONE Team\nBuilt for the Future`;
+  toast('Email generated by AI!', 'success');
+}
+
+// ============================================================
+// INIT
+// ============================================================
+loadDashboard();
+loadActivity();
+</script>
+</body>
+</html>

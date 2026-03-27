@@ -79,11 +79,23 @@ async function getCdpClient() {
   const { CdpClient } = await import('@coinbase/cdp-sdk');
 
   const apiKeyId = process.env.CDP_API_KEY_ID;
-  const apiKeySecret = process.env.CDP_API_KEY_SECRET;
+  let apiKeySecret = process.env.CDP_API_KEY_SECRET;
   const walletSecret = process.env.CDP_WALLET_SECRET;
 
-  if (!apiKeyId || !apiKeySecret) {
-    throw new Error('CDP_API_KEY_ID and CDP_API_KEY_SECRET required. Set them in .env or use the vault.');
+  if (!apiKeyId) {
+    throw new Error('CDP_API_KEY_ID required. Set it in .env');
+  }
+
+  // Load PEM key from file (most reliable) or fall back to env var
+  const pemPath = resolve(__dirname, '../../data/vault/cdp_key.pem');
+  if (existsSync(pemPath)) {
+    apiKeySecret = readFileSync(pemPath, 'utf8').trim();
+    log('CDP key loaded from PEM file');
+  } else if (apiKeySecret) {
+    // .env may store literal \n — convert to real newlines
+    apiKeySecret = apiKeySecret.replace(/\\n/g, '\n');
+  } else {
+    throw new Error('CDP API key secret not found. Place PEM at data/vault/cdp_key.pem or set CDP_API_KEY_SECRET in .env');
   }
 
   _cdpClient = new CdpClient({
