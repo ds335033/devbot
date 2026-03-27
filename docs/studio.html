@@ -736,28 +736,29 @@ function generateDemoApp(prompt, lang) {
     const p = prompt.toLowerCase();
     const appName = prompt.split(' ').slice(0, 3).join('-').toLowerCase().replace(/[^a-z0-9-]/g, '') || 'my-app';
 
-    // Detect what kind of app user wants
+    // Detect what kind of app user wants (ORDER MATTERS - more specific first)
+    const isGame = /game|quiz|trivia|puzzle|tower|climb|doom|spooky|horror|jump|platformer|arcade|rpg/i.test(p);
     const isChat = /chat|messag|real.?time|socket/i.test(p);
-    const isTodo = /todo|task|list|checklist/i.test(p);
+    const isTodo = /todo|task|checklist/i.test(p);
     const isDashboard = /dashboard|admin|panel|analytics/i.test(p);
-    const isCounter = /counter|click|increment|tally/i.test(p);
     const isCalc = /calc|math|convert/i.test(p);
-    const isGame = /game|quiz|trivia|puzzle/i.test(p);
+    const isCounter = /counter|click|increment|tally/i.test(p);
     const isPortfolio = /portfolio|resume|personal|about me/i.test(p);
     const isWeather = /weather|forecast|temperature/i.test(p);
     const isEcommerce = /shop|store|ecommerce|cart|product/i.test(p);
     const isBlog = /blog|article|post|cms/i.test(p);
+    const isList = /list/i.test(p) && !isGame;
 
     // Build a real working HTML app based on what they asked for
     let title = appName;
-    let desc = `A complete web application: ${prompt}`;
+    let desc = 'A complete web application: ' + prompt;
     let primaryColor = '#6366f1';
     let features = '';
 
-    if (isTodo) { title = 'Todo App'; primaryColor = '#10b981'; features = buildTodoApp(); }
-    else if (isCounter) { title = 'Counter App'; primaryColor = '#6366f1'; features = buildCounterApp(); }
+    if (isGame) { title = prompt.split(' ').slice(0, 4).join(' '); primaryColor = '#ef4444'; features = buildTowerGame(prompt); }
+    else if (isTodo || isList) { title = 'Todo App'; primaryColor = '#10b981'; features = buildTodoApp(); }
     else if (isCalc) { title = 'Calculator'; primaryColor = '#f59e0b'; features = buildCalculatorApp(); }
-    else if (isGame) { title = 'Quiz Game'; primaryColor = '#ef4444'; features = buildQuizApp(); }
+    else if (isCounter) { title = 'Counter App'; primaryColor = '#6366f1'; features = buildCounterApp(); }
     else if (isWeather) { title = 'Weather App'; primaryColor = '#06b6d4'; features = buildWeatherApp(); }
     else if (isDashboard) { title = 'Dashboard'; primaryColor = '#8b5cf6'; features = buildDashboardApp(); }
     else if (isPortfolio) { title = 'Portfolio'; primaryColor = '#ec4899'; features = buildPortfolioApp(); }
@@ -870,6 +871,15 @@ function buildCalculatorApp() {
         html: '<div style="max-width:300px;margin:0 auto"><div id="display" style="background:#0f172a;padding:20px;border-radius:12px;text-align:right;font-size:2rem;font-weight:700;margin-bottom:16px;min-height:70px;word-break:break-all">0</div><div style="display:grid;grid-template-columns:repeat(4,1fr);gap:8px" id="keys"></div></div>',
         js: `let current='0';let prev='';let op='';const keys=['C','±','%','÷','7','8','9','×','4','5','6','-','1','2','3','+','0','.','⌫','='];document.getElementById('keys').innerHTML=keys.map(k=>{let bg='#334155';if('÷×-+='.includes(k))bg='#6366f1';if(k==='C'||k==='±'||k==='%')bg='#475569';return'<button onclick="press(\\''+k+'\\')" style="background:'+bg+';padding:16px;font-size:1.2rem;border-radius:10px'+(k==='0'?';grid-column:span 1':'')+'">'+k+'</button>'}).join('');function press(k){if(k==='C'){current='0';prev='';op=''}else if(k==='⌫'){current=current.length>1?current.slice(0,-1):'0'}else if('÷×-+'.includes(k)){prev=current;op=k;current='0'}else if(k==='='){const a=parseFloat(prev),b=parseFloat(current);if(op==='÷')current=String(a/b);if(op==='×')current=String(a*b);if(op==='-')current=String(a-b);if(op==='+')current=String(a+b);op=''}else if(k==='.'){if(!current.includes('.'))current+='.'}else if(k==='±'){current=String(-parseFloat(current))}else if(k==='%'){current=String(parseFloat(current)/100)}else{current=current==='0'?k:current+k}document.getElementById('display').textContent=current}`,
         css: ''
+    };
+}
+
+function buildTowerGame(prompt) {
+    const gameName = prompt.split(' ').slice(0, 4).join(' ') || 'Tower of Doom';
+    return {
+        html: '<canvas id="gameCanvas" width="400" height="600" style="border-radius:12px;display:block;margin:0 auto;background:#0a0a1a;cursor:pointer"></canvas><div style="display:flex;justify-content:space-between;margin-top:12px"><span id="scoreDisplay" style="color:#10b981;font-weight:700;font-size:1.1rem">Score: 0</span><span id="livesDisplay" style="color:#ef4444;font-weight:700;font-size:1.1rem">Lives: 3</span></div><div style="display:flex;gap:8px;margin-top:12px"><button onclick="moveLeft=true" ontouchstart="moveLeft=true" ontouchend="moveLeft=false" style="flex:1;padding:16px;font-size:1.2rem">&#9664; Left</button><button onclick="playerJump()" ontouchstart="playerJump()" style="flex:1;padding:16px;font-size:1.2rem;background:#10b981">&#9650; Jump</button><button onclick="moveRight=true" ontouchstart="moveRight=true" ontouchend="moveRight=false" style="flex:1;padding:16px;font-size:1.2rem">Right &#9654;</button></div>',
+        js: 'const canvas=document.getElementById("gameCanvas"),ctx=canvas.getContext("2d");let player={x:180,y:500,w:30,h:30,vy:0,vx:0,jumping:false,color:"#818cf8"},platforms=[],score=0,lives=3,gameOver=false,moveLeft=false,moveRight=false,level=1,particles=[],highScore=0,frame=0;const colors=["#ef4444","#f59e0b","#10b981","#06b6d4","#8b5cf6","#ec4899","#6366f1"];function init(){platforms=[];for(let i=0;i<10;i++){platforms.push({x:Math.random()*320,y:550-i*60,w:60+Math.random()*40,h:8,color:colors[i%colors.length],speed:i>5?Math.random()*1.5:0,dir:Math.random()>0.5?1:-1})}player.x=platforms[0].x+10;player.y=platforms[0].y-35;player.vy=0;score=0;lives=3;gameOver=false;level=1}function playerJump(){if(!player.jumping||player.vy===0){player.vy=-12;player.jumping=true;addParticles(player.x+15,player.y+30,"#818cf8",5)}}function addParticles(x,y,color,count){for(let i=0;i<count;i++){particles.push({x,y,vx:(Math.random()-0.5)*4,vy:(Math.random()-0.5)*4,life:30,color,size:3+Math.random()*3})}}function update(){if(gameOver)return;frame++;player.vy+=0.5;player.y+=player.vy;if(moveLeft)player.vx=-4;else if(moveRight)player.vx=4;else player.vx*=0.85;player.x+=player.vx;if(player.x<0)player.x=0;if(player.x>370)player.x=370;platforms.forEach(p=>{if(p.speed){p.x+=p.speed*p.dir;if(p.x<0||p.x>400-p.w)p.dir*=-1}if(player.vy>0&&player.y+player.h>p.y&&player.y+player.h<p.y+p.h+10&&player.x+player.w>p.x&&player.x<p.x+p.w){player.y=p.y-player.h;player.vy=0;player.jumping=false}});if(player.y>650){lives--;addParticles(200,300,"#ef4444",20);if(lives<=0){gameOver=true;if(score>highScore)highScore=score}else{player.y=500;player.x=180;player.vy=0}}if(player.y<300){const shift=300-player.y;player.y=300;platforms.forEach(p=>p.y+=shift);score+=Math.floor(shift);if(score>level*500){level++;platforms.forEach(p=>{p.speed=Math.min(p.speed+0.3,3)})}}platforms=platforms.filter(p=>p.y<650);while(platforms.length<10){const topP=Math.min(...platforms.map(p=>p.y));platforms.push({x:Math.random()*320,y:topP-50-Math.random()*30,w:50+Math.random()*40,h:8,color:colors[Math.floor(Math.random()*colors.length)],speed:Math.random()*level*0.5,dir:Math.random()>0.5?1:-1})}particles.forEach(p=>{p.x+=p.vx;p.y+=p.vy;p.life--});particles=particles.filter(p=>p.life>0);document.getElementById("scoreDisplay").textContent="Score: "+score+" | Level: "+level;document.getElementById("livesDisplay").textContent="Lives: "+"\\u2764\\ufe0f".repeat(lives)}function draw(){ctx.fillStyle="#0a0a1a";ctx.fillRect(0,0,400,600);ctx.fillStyle="#0f172a88";for(let i=0;i<400;i+=40)for(let j=0;j<600;j+=40)ctx.fillRect(i,j,1,1);platforms.forEach(p=>{ctx.shadowColor=p.color;ctx.shadowBlur=12;ctx.fillStyle=p.color;ctx.beginPath();ctx.roundRect(p.x,p.y,p.w,p.h,4);ctx.fill();ctx.shadowBlur=0});ctx.shadowColor=player.color;ctx.shadowBlur=15;ctx.fillStyle=player.color;ctx.fillRect(player.x,player.y,player.w,player.h);ctx.fillStyle="white";ctx.fillRect(player.x+6,player.y+8,6,6);ctx.fillRect(player.x+18,player.y+8,6,6);ctx.fillStyle="#0a0a1a";ctx.fillRect(player.x+8,player.y+10,3,3);ctx.fillRect(player.x+20,player.y+10,3,3);ctx.shadowBlur=0;particles.forEach(p=>{ctx.globalAlpha=p.life/30;ctx.fillStyle=p.color;ctx.beginPath();ctx.arc(p.x,p.y,p.size,0,Math.PI*2);ctx.fill()});ctx.globalAlpha=1;ctx.fillStyle="white";ctx.font="bold 14px system-ui";ctx.fillText("' + gameName + '",10,25);if(gameOver){ctx.fillStyle="rgba(0,0,0,0.8)";ctx.fillRect(0,0,400,600);ctx.fillStyle="#ef4444";ctx.font="bold 36px system-ui";ctx.textAlign="center";ctx.fillText("GAME OVER",200,250);ctx.fillStyle="#f59e0b";ctx.font="bold 24px system-ui";ctx.fillText("Score: "+score,200,300);ctx.fillStyle="#10b981";ctx.font="18px system-ui";ctx.fillText("High Score: "+highScore,200,340);ctx.fillStyle="white";ctx.font="16px system-ui";ctx.fillText("Click or Tap to Restart",200,400);ctx.textAlign="start"}}function gameLoop(){update();draw();requestAnimationFrame(gameLoop)}document.addEventListener("keydown",e=>{if(e.key==="ArrowLeft")moveLeft=true;if(e.key==="ArrowRight")moveRight=true;if(e.key==="ArrowUp"||e.key===" ")playerJump();if(gameOver&&(e.key==="Enter"||e.key===" "))init()});document.addEventListener("keyup",e=>{if(e.key==="ArrowLeft")moveLeft=false;if(e.key==="ArrowRight")moveRight=false});canvas.addEventListener("click",()=>{if(gameOver)init();else playerJump()});init();gameLoop()',
+        css: 'canvas{image-rendering:pixelated} .container{max-width:440px;padding:20px}'
     };
 }
 
