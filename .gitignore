@@ -16,3 +16,14 @@ credentials.json
 # Trading bot sensitive files
 trading-bot/.env
 trading-bot/data/
+
+# C# Trading bot
+trading-bot-csharp/**/bin/
+trading-bot-csharp/**/obj/
+trading-bot-csharp/**/.vs/
+trading-bot-csharp/**/data/
+*.user
+*.suo
+
+# Reference repos (cloned for study)
+reference/
