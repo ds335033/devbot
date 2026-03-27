@@ -236,6 +236,36 @@ body { font-family: var(--font); background: var(--bg); color: var(--text); line
 .hero p { font-size: 1.1rem; color: var(--text-2); max-width: 520px; margin: 0 auto 32px; line-height: 1.7; }
 .hero-ctas { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
 
+/* ===== HERO VIDEO ===== */
+.hero-video {
+  max-width: 1060px; margin: 0 auto; padding: 0 32px 64px;
+}
+.hero-video-inner {
+  position: relative; width: 100%; padding-bottom: 56.25%; /* 16:9 */
+  border-radius: var(--radius-xl); overflow: hidden;
+  box-shadow: var(--shadow-xl); border: 1px solid var(--border);
+  background: #000;
+}
+.hero-video-inner iframe {
+  position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0;
+}
+.hero-video-label {
+  text-align: center; margin-bottom: 20px;
+}
+.hero-video-label span {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: var(--text); color: white; padding: 6px 18px;
+  border-radius: 100px; font-size: 0.8rem; font-weight: 600;
+  letter-spacing: 0.5px; text-transform: uppercase;
+}
+.hero-video-label span::before {
+  content: '▶'; font-size: 0.65rem;
+}
+.hero-video-caption {
+  text-align: center; margin-top: 16px; font-size: 0.875rem;
+  color: var(--text-3); font-weight: 500;
+}
+
 .btn {
   display: inline-flex; align-items: center; gap: 8px; padding: 12px 28px;
   border-radius: 100px; font-family: var(--font); font-size: 0.9rem; font-weight: 600;
@@ -533,6 +563,8 @@ body { font-family: var(--font); background: var(--bg); color: var(--text); line
   .cart-panel { width: 100%; }
   .search-box input { width: 150px; }
   .search-box input:focus { width: 200px; }
+  .hero-video { padding: 0 16px 40px; }
+  .hero-video-inner { border-radius: var(--radius-md); }
 }
 </style>
 </head>
@@ -585,6 +617,22 @@ body { font-family: var(--font); background: var(--bg); color: var(--text); line
     <a href="#products" class="btn btn-outline" onclick="filterCat('sale')">View Deals</a>
   </div>
 </section>
+
+<!-- HERO VIDEO — DEVFONE PROMO -->
+<div class="hero-video">
+  <div class="hero-video-label"><span>Watch Our Story</span></div>
+  <div class="hero-video-inner">
+    <iframe
+      src="https://www.youtube.com/embed/xVH1-jxZS4k?rel=0&modestbranding=1&color=white"
+      title="DEVFONE — Built for the Future | Official Promo"
+      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+      referrerpolicy="strict-origin-when-cross-origin"
+      allowfullscreen
+      loading="lazy"
+    ></iframe>
+  </div>
+  <p class="hero-video-caption">DEVFONE — Premium Phones, Laptops & Electronics | Built for the Future</p>
+</div>
 
 <!-- CATEGORIES -->
 <div class="categories" id="cats"></div>
