@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PINK TV — Skincare Videos, Routines & Reviews</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌸</text></svg>">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#fff;--bg-3:#fdf2f8;--pink:#ec4899;--pink-hover:#db2777;--text:#111827;--text-2:#4b5563;--text-3:#9ca3af;--border:#f3e8f0;--border-2:#e8d5e0;--shadow-md:0 4px 12px rgba(236,72,153,.08);--shadow-lg:0 8px 30px rgba(236,72,153,.1);--shadow-xl:0 20px 50px rgba(236,72,153,.12);--radius-md:12px;--radius-lg:16px;--radius-xl:20px;--font:'Inter',-apple-system,sans-serif;--ease:cubic-bezier(.4,0,.2,1)}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}html{scroll-behavior:smooth;-webkit-font-smoothing:antialiased}body{font-family:var(--font);background:var(--bg);color:var(--text);line-height:1.6}::selection{background:var(--pink);color:#fff}a{text-decoration:none;color:inherit}
+.header{position:fixed;top:0;left:0;right:0;z-index:1000;background:rgba(255,255,255,.92);backdrop-filter:blur(20px);border-bottom:1px solid var(--border)}.header-inner{max-width:1320px;margin:0 auto;padding:0 32px;display:flex;align-items:center;justify-content:space-between;height:64px}.logo{display:flex;align-items:center;gap:10px}.logo-mark{width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,#ec4899,#f472b6);display:flex;align-items:center;justify-content:center;color:#fff;font-size:.9rem;font-weight:800}.logo-text{font-size:1.4rem;font-weight:900;letter-spacing:2px;background:linear-gradient(135deg,#ec4899,#db2777);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.nav{display:flex;gap:4px}.nav a{color:var(--text-2);padding:6px 14px;border-radius:100px;font-size:.875rem;font-weight:500;transition:all .2s}.nav a:hover{color:var(--pink);background:var(--bg-3)}.nav a.active{color:var(--pink);font-weight:600}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:14px 32px;border-radius:100px;font-family:var(--font);font-size:.9rem;font-weight:600;cursor:pointer;transition:all .2s;border:none}.btn-pink{background:var(--pink);color:#fff}.btn-pink:hover{background:var(--pink-hover)}.btn-dark{background:var(--text);color:#fff}
+.hero{padding:120px 32px 60px;text-align:center;background:linear-gradient(180deg,var(--bg-3),var(--bg))}.hero .tag{display:inline-block;background:var(--pink);color:#fff;padding:4px 14px;border-radius:100px;font-size:.75rem;font-weight:700;text-transform:uppercase;letter-spacing:1px;margin-bottom:16px}.hero h1{font-size:clamp(2.2rem,5vw,3.5rem);font-weight:900;letter-spacing:-1.5px;margin-bottom:16px}.hero p{font-size:1.1rem;color:var(--text-2);max-width:600px;margin:0 auto}
+.section{max-width:1320px;margin:0 auto;padding:64px 32px}
+.featured{max-width:900px;margin:0 auto 48px}.featured-label{text-align:center;margin-bottom:16px}.featured-label span{display:inline-flex;align-items:center;gap:8px;background:var(--pink);color:#fff;padding:6px 18px;border-radius:100px;font-size:.8rem;font-weight:600;text-transform:uppercase}.vid-wrap{position:relative;width:100%;padding-bottom:56.25%;border-radius:var(--radius-xl);overflow:hidden;box-shadow:var(--shadow-xl);border:1px solid var(--border);background:#000}.vid-wrap iframe{position:absolute;top:0;left:0;width:100%;height:100%;border:0}.featured-caption{text-align:center;margin-top:16px}.featured-caption h3{font-size:1.1rem;font-weight:700;margin-bottom:4px}.featured-caption p{font-size:.85rem;color:var(--text-3)}
+.filters{display:flex;gap:8px;justify-content:center;margin-bottom:40px;flex-wrap:wrap}.filter-btn{padding:8px 20px;border:1.5px solid var(--border);border-radius:100px;background:#fff;font-family:var(--font);font-size:.85rem;font-weight:500;color:var(--text-2);cursor:pointer;transition:all .2s}.filter-btn:hover{border-color:var(--pink);color:var(--pink)}.filter-btn.active{background:var(--pink);color:#fff;border-color:var(--pink)}
+.vid-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-bottom:48px}.vid-card{border:1px solid var(--border);border-radius:var(--radius-lg);overflow:hidden;transition:all .2s;background:#fff}.vid-card:hover{box-shadow:var(--shadow-lg);transform:translateY(-3px)}.vid-thumb{position:relative;width:100%;padding-bottom:56.25%;background:#000;overflow:hidden}.vid-thumb iframe{position:absolute;top:0;left:0;width:100%;height:100%;border:0}.vid-body{padding:16px 20px}.vid-cat{display:inline-block;background:var(--bg-3);color:var(--pink);padding:2px 10px;border-radius:100px;font-size:.7rem;font-weight:600;text-transform:uppercase;margin-bottom:8px}.vid-body h3{font-size:.95rem;font-weight:700;margin-bottom:6px;line-height:1.3}.vid-meta{display:flex;gap:12px;font-size:.75rem;color:var(--text-3)}
+.subscribe{text-align:center;padding:64px 32px;background:var(--text);border-radius:var(--radius-xl);margin-bottom:48px}.subscribe h2{color:#fff;font-size:2rem;font-weight:800;margin-bottom:8px}.subscribe p{color:rgba(255,255,255,.7);margin-bottom:24px;max-width:500px;margin-left:auto;margin-right:auto}
+.footer{background:var(--bg-3);border-top:1px solid var(--border);padding:56px 32px 24px}.footer-inner{max-width:1320px;margin:0 auto;display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:48px;margin-bottom:48px}.footer-brand p{color:var(--text-2);font-size:.85rem;line-height:1.7;max-width:280px;margin-top:12px}.footer-col h4{font-size:.75rem;color:var(--text-3);text-transform:uppercase;letter-spacing:1.5px;font-weight:600;margin-bottom:14px}.footer-col a{display:block;color:var(--text-2);font-size:.875rem;padding:3px 0}.footer-col a:hover{color:var(--pink)}.footer-bottom{max-width:1320px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;padding-top:24px;border-top:1px solid var(--border);font-size:.8rem;color:var(--text-3)}
+@media(max-width:1024px){.vid-grid{grid-template-columns:repeat(2,1fr)}.footer-inner{grid-template-columns:1fr 1fr}}
+@media(max-width:768px){.header-inner{padding:0 16px}.nav{display:none}.hero{padding:80px 16px 40px}.hero h1{font-size:1.8rem}.section{padding:40px 16px}.vid-grid{grid-template-columns:1fr}.footer-inner{grid-template-columns:1fr;gap:28px}.footer-bottom{flex-direction:column;gap:12px}}
+</style>
+</head>
+<body>
+<header class="header"><div class="header-inner"><a href="pink-store.html" class="logo"><div class="logo-mark">P</div><span class="logo-text">PINK</span></a><nav class="nav"><a href="pink-store.html">Shop</a><a href="pink-about.html">About</a><a href="pink-blog.html">Blog</a><a href="pink-videos.html" class="active">PINK TV</a><a href="pink-reviews.html">Reviews</a><a href="pink-shipping.html">Shipping</a><a href="pink-history.html">Our Story</a></nav><a href="pink-store.html" class="btn btn-pink" style="padding:8px 20px;font-size:.825rem">Shop Now</a></div></header>
+
+<section class="hero"><div class="tag">▶ PINK TV</div><h1>Skincare Videos</h1><p>Routines, reviews, tutorials and tips from the PINK team and top skincare creators.</p></section>
+
+<div class="section">
+  <div class="featured"><div class="featured-label"><span>★ Featured Video</span></div><div class="vid-wrap"><iframe src="https://www.youtube.com/embed/OrElyY7MFVs?rel=0&modestbranding=1" title="Skincare Essentials" allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture" allowfullscreen loading="lazy"></iframe></div><div class="featured-caption"><h3>The Ultimate Skincare Routine for Beginners</h3><p>March 2026 — Everything you need to know to start your glow journey.</p></div></div>
+
+  <div class="filters">
+    <button class="filter-btn active" onclick="filterV('all',this)">All</button>
+    <button class="filter-btn" onclick="filterV('routine',this)">Routines</button>
+    <button class="filter-btn" onclick="filterV('review',this)">Reviews</button>
+    <button class="filter-btn" onclick="filterV('tips',this)">Tips</button>
+    <button class="filter-btn" onclick="filterV('brand',this)">Brand Spotlights</button>
+  </div>
+  <div class="vid-grid" id="vGrid"></div>
+
+  <div class="subscribe"><h2>Subscribe to PINK TV</h2><p>Never miss a skincare tip, review, or routine. Subscribe and glow with us.</p><a href="https://youtube.com" target="_blank" class="btn btn-pink">▶ Subscribe on YouTube</a></div>
+</div>
+
+<footer class="footer"><div class="footer-inner"><div class="footer-brand"><a href="pink-store.html" class="logo"><div class="logo-mark">P</div><span class="logo-text">PINK</span></a><p>Australia's destination for premium skincare.</p></div><div class="footer-col"><h4>Shop</h4><a href="pink-store.html">All Products</a><a href="pink-reviews.html">Reviews</a><a href="pink-shipping.html">Shipping</a><a href="pink-videos.html">PINK TV</a><a href="pink-blog.html">Blog</a></div><div class="footer-col"><h4>Company</h4><a href="pink-about.html">About</a><a href="pink-history.html">Our Story</a><a href="pink-about.html#contact">Contact</a></div><div class="footer-col"><h4>Legal</h4><a href="pink-legal.html#terms">Terms</a><a href="pink-legal.html#privacy">Privacy</a><a href="pink-legal.html#returns">Returns</a></div></div><div class="footer-bottom"><span>&copy; 2026 PINK. All rights reserved.</span><span>Glow Different.</span></div></footer>
+
+<script>
+const vids=[
+  {id:'OrElyY7MFVs',title:'Morning Skincare Routine 2026',cat:'routine',date:'Mar 26',views:'8.2K'},
+  {id:'OrElyY7MFVs',title:'CeraVe vs Cetaphil — Which Is Better?',cat:'review',date:'Mar 24',views:'12.1K'},
+  {id:'OrElyY7MFVs',title:'The Ordinary — Complete Brand Guide',cat:'brand',date:'Mar 22',views:'15.4K'},
+  {id:'OrElyY7MFVs',title:'How to Layer Skincare Products',cat:'tips',date:'Mar 20',views:'9.8K'},
+  {id:'OrElyY7MFVs',title:'Drunk Elephant — Worth the Hype?',cat:'review',date:'Mar 18',views:'7.3K'},
+  {id:'OrElyY7MFVs',title:'Night Routine for Glowing Skin',cat:'routine',date:'Mar 15',views:'11.5K'},
+  {id:'OrElyY7MFVs',title:'SPF Guide — Why Sunscreen Is Non-Negotiable',cat:'tips',date:'Mar 12',views:'6.9K'},
+  {id:'OrElyY7MFVs',title:'La Roche-Posay Brand Spotlight',cat:'brand',date:'Mar 10',views:'5.2K'},
+  {id:'OrElyY7MFVs',title:'Best Serums Under $20 AUD',cat:'review',date:'Mar 8',views:'14.7K'},
+];
+const catL={routine:'Routine',review:'Review',tips:'Tips',brand:'Brand Spotlight'};
+function renderV(f){
+  document.getElementById('vGrid').innerHTML=(f==='all'?vids:vids.filter(v=>v.cat===f)).map(v=>`
+    <div class="vid-card"><div class="vid-thumb"><iframe src="https://www.youtube.com/embed/${v.id}?rel=0" loading="lazy" allowfullscreen></iframe></div>
+    <div class="vid-body"><span class="vid-cat">${catL[v.cat]}</span><h3>${v.title}</h3><div class="vid-meta"><span>📅 ${v.date}</span><span>👁 ${v.views}</span></div></div></div>`).join('');
+}
+function filterV(c,b){document.querySelectorAll('.filter-btn').forEach(x=>x.classList.remove('active'));b.classList.add('active');renderV(c)}
+renderV('all');
+</script>
+</body>
+</html>

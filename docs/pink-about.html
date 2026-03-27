@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>About PINK — Glow Different</title>
+<meta name="description" content="Learn about PINK — Australia's home for the world's best skincare brands. Our mission, team, values, and story.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌸</text></svg>">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#fff;--bg-3:#fdf2f8;--pink:#ec4899;--pink-hover:#db2777;--text:#111827;--text-2:#4b5563;--text-3:#9ca3af;--border:#f3e8f0;--border-2:#e8d5e0;--shadow-md:0 4px 12px rgba(236,72,153,.08);--shadow-lg:0 8px 30px rgba(236,72,153,.1);--radius-md:12px;--radius-lg:16px;--radius-xl:20px;--font:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;--ease:cubic-bezier(.4,0,.2,1)}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}html{scroll-behavior:smooth;-webkit-font-smoothing:antialiased}body{font-family:var(--font);background:var(--bg);color:var(--text);line-height:1.6}::selection{background:var(--pink);color:#fff}a{text-decoration:none;color:inherit}
+.header{position:fixed;top:0;left:0;right:0;z-index:1000;background:rgba(255,255,255,.92);backdrop-filter:blur(20px) saturate(180%);border-bottom:1px solid var(--border)}
+.header-inner{max-width:1320px;margin:0 auto;padding:0 32px;display:flex;align-items:center;justify-content:space-between;height:64px}
+.logo{display:flex;align-items:center;gap:10px}.logo-mark{width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,#ec4899,#f472b6);display:flex;align-items:center;justify-content:center;color:#fff;font-size:.9rem;font-weight:800}.logo-text{font-size:1.4rem;font-weight:900;letter-spacing:2px;background:linear-gradient(135deg,#ec4899,#db2777);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.nav{display:flex;gap:4px}.nav a{color:var(--text-2);padding:6px 14px;border-radius:100px;font-size:.875rem;font-weight:500;transition:all .2s var(--ease)}.nav a:hover{color:var(--pink);background:var(--bg-3)}.nav a.active{color:var(--pink);font-weight:600}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:14px 32px;border-radius:100px;font-family:var(--font);font-size:.9rem;font-weight:600;cursor:pointer;transition:all .2s var(--ease);border:none}
+.btn-pink{background:var(--pink);color:#fff}.btn-pink:hover{background:var(--pink-hover);transform:translateY(-1px)}
+.btn-white{background:#fff;color:var(--text)}.btn-white:hover{transform:translateY(-1px);box-shadow:var(--shadow-md)}
+.hero{padding:120px 32px 60px;text-align:center;background:linear-gradient(180deg,var(--bg-3) 0%,var(--bg) 100%)}.hero h1{font-size:clamp(2.2rem,5vw,3.5rem);font-weight:900;letter-spacing:-1.5px;line-height:1.1;margin-bottom:16px}.hero h1 span{background:linear-gradient(135deg,#ec4899,#db2777);-webkit-background-clip:text;-webkit-text-fill-color:transparent}.hero p{font-size:1.1rem;color:var(--text-2);max-width:600px;margin:0 auto;line-height:1.7}
+.section{max-width:1320px;margin:0 auto;padding:64px 32px}
+.mission{background:var(--bg-3);border-radius:var(--radius-xl);padding:48px;text-align:center;margin-bottom:64px}
+.mission h2{font-size:1.8rem;font-weight:800;margin-bottom:16px}.mission p{font-size:1.1rem;color:var(--text-2);max-width:700px;margin:0 auto;line-height:1.8}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:24px;margin-bottom:64px}
+.stat-card{text-align:center;padding:32px 20px;background:#fff;border:1px solid var(--border);border-radius:var(--radius-lg);transition:all .2s var(--ease)}.stat-card:hover{transform:translateY(-2px);box-shadow:var(--shadow-md)}.stat-num{font-size:2.2rem;font-weight:900;color:var(--pink);margin-bottom:4px}.stat-label{font-size:.875rem;color:var(--text-2)}
+.values{display:grid;grid-template-columns:repeat(2,1fr);gap:24px;margin-bottom:64px}
+.value-card{padding:32px;background:#fff;border:1px solid var(--border);border-radius:var(--radius-lg);transition:all .2s var(--ease)}.value-card:hover{box-shadow:var(--shadow-md);transform:translateY(-2px)}.value-icon{font-size:2rem;margin-bottom:12px}.value-card h3{font-size:1.1rem;font-weight:700;margin-bottom:8px}.value-card p{color:var(--text-2);font-size:.9rem;line-height:1.7}
+.team{display:grid;grid-template-columns:repeat(2,1fr);gap:32px;margin-bottom:64px}
+.team-card{display:flex;gap:24px;padding:32px;background:#fff;border:1px solid var(--border);border-radius:var(--radius-lg);transition:all .2s var(--ease)}.team-card:hover{box-shadow:var(--shadow-md)}.team-avatar{width:80px;height:80px;border-radius:50%;background:var(--bg-3);display:flex;align-items:center;justify-content:center;font-size:2rem;flex-shrink:0}.team-info h3{font-size:1.1rem;font-weight:700;margin-bottom:2px}.team-role{font-size:.8rem;color:var(--pink);font-weight:600;text-transform:uppercase;letter-spacing:.5px;margin-bottom:8px}.team-info p{color:var(--text-2);font-size:.875rem;line-height:1.7}
+.map-section{margin-bottom:64px}.map-wrap{border-radius:var(--radius-xl);overflow:hidden;box-shadow:var(--shadow-lg);border:1px solid var(--border)}.map-wrap iframe{width:100%;height:400px;border:0}
+.map-info{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:24px}
+.map-card{padding:24px;background:var(--bg-3);border-radius:var(--radius-md);text-align:center}.map-card .icon{font-size:1.5rem;margin-bottom:8px}.map-card h4{font-size:.9rem;font-weight:700;margin-bottom:4px}.map-card p{font-size:.85rem;color:var(--text-2)}
+.cta-section{text-align:center;padding:64px 32px;background:var(--text);border-radius:var(--radius-xl);margin-bottom:64px}.cta-section h2{color:#fff;font-size:2rem;font-weight:800;margin-bottom:12px}.cta-section p{color:rgba(255,255,255,.7);margin-bottom:24px}
+.footer{background:var(--bg-3);border-top:1px solid var(--border);padding:56px 32px 24px}
+.footer-inner{max-width:1320px;margin:0 auto;display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:48px;margin-bottom:48px}
+.footer-brand p{color:var(--text-2);font-size:.85rem;line-height:1.7;max-width:280px;margin-top:12px}
+.footer-col h4{font-size:.75rem;color:var(--text-3);text-transform:uppercase;letter-spacing:1.5px;font-weight:600;margin-bottom:14px}
+.footer-col a{display:block;color:var(--text-2);font-size:.875rem;padding:3px 0;transition:color .15s}.footer-col a:hover{color:var(--pink)}
+.footer-bottom{max-width:1320px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;padding-top:24px;border-top:1px solid var(--border);font-size:.8rem;color:var(--text-3)}
+.sc{text-align:center}.sc .section-sub{margin:0 auto 40px}
+@media(max-width:1024px){.stats{grid-template-columns:repeat(2,1fr)}.team{grid-template-columns:1fr}.footer-inner{grid-template-columns:1fr 1fr}}
+@media(max-width:768px){.header-inner{padding:0 16px}.nav{display:none}.hero{padding:80px 16px 40px}.hero h1{font-size:1.8rem}.section{padding:40px 16px}.stats{grid-template-columns:1fr 1fr}.values{grid-template-columns:1fr}.map-info{grid-template-columns:1fr}.footer-inner{grid-template-columns:1fr;gap:28px}.footer-bottom{flex-direction:column;gap:12px}}
+</style>
+</head>
+<body>
+<header class="header"><div class="header-inner"><a href="pink-store.html" class="logo"><div class="logo-mark">P</div><span class="logo-text">PINK</span></a><nav class="nav"><a href="pink-store.html">Shop</a><a href="pink-about.html" class="active">About</a><a href="pink-blog.html">Blog</a><a href="pink-videos.html">PINK TV</a><a href="pink-reviews.html">Reviews</a><a href="pink-shipping.html">Shipping</a><a href="pink-history.html">Our Story</a></nav><a href="pink-store.html" class="btn btn-pink" style="padding:8px 20px;font-size:.825rem">Shop Now</a></div></header>
+
+<section class="hero"><h1>About <span>PINK</span></h1><p>We believe great skin shouldn't cost a fortune. PINK brings the world's most loved skincare brands to Australia — authentically, affordably, beautifully.</p></section>
+
+<div class="section">
+  <div class="mission"><h2>Our Mission</h2><p>To make premium skincare accessible to every Australian. No fakes, no markups, no gatekeeping. Just the world's best formulations — CeraVe, The Ordinary, Drunk Elephant, Tatcha & more — delivered to your door with love.</p></div>
+
+  <div class="sc"><h2 style="font-size:1.5rem;font-weight:800;margin-bottom:8px">PINK by the Numbers</h2><p class="section-sub" style="color:var(--text-2);max-width:600px">Growing every day, glowing every day.</p></div>
+  <div class="stats">
+    <div class="stat-card"><div class="stat-num">35+</div><div class="stat-label">Premium Products</div></div>
+    <div class="stat-card"><div class="stat-num">800+</div><div class="stat-label">Happy Customers</div></div>
+    <div class="stat-card"><div class="stat-num">4.8★</div><div class="stat-label">Average Rating</div></div>
+    <div class="stat-card"><div class="stat-num">15+</div><div class="stat-label">Trusted Brands</div></div>
+  </div>
+
+  <div class="sc"><h2 style="font-size:1.5rem;font-weight:800;margin-bottom:8px">Our Values</h2><p class="section-sub" style="color:var(--text-2);max-width:600px">Four promises to every PINK customer.</p></div>
+  <div class="values">
+    <div class="value-card"><div class="value-icon">✅</div><h3>100% Authentic</h3><p>Every product is sourced from authorised distributors. No fakes, no dupes, no grey market. Your skin deserves real formulations from real brands.</p></div>
+    <div class="value-card"><div class="value-icon">💰</div><h3>Best Prices</h3><p>We partner directly with suppliers to cut out middlemen. The savings go to you — premium skincare at prices that actually make sense.</p></div>
+    <div class="value-card"><div class="value-icon">🚚</div><h3>Fast Shipping</h3><p>Free express shipping on orders over $79 AUD. Metro orders arrive in 2-4 business days. Real tracking, real updates, every step of the way.</p></div>
+    <div class="value-card"><div class="value-icon">💕</div><h3>Skin-First Approach</h3><p>We curate based on what actually works — backed by dermatologists, loved by real people. No hype, no gimmicks, just results.</p></div>
+  </div>
+
+  <div class="sc"><h2 style="font-size:1.5rem;font-weight:800;margin-bottom:8px">Meet the Team</h2><p class="section-sub" style="color:var(--text-2);max-width:600px">The people (and AI) behind PINK.</p></div>
+  <div class="team">
+    <div class="team-card"><div class="team-avatar">👨‍💻</div><div class="team-info"><h3>Darren Smith</h3><div class="team-role">Founder & CEO</div><p>Skincare obsessive and tech entrepreneur from South Australia. Darren built PINK to bring the world's best skincare brands to Australians without the premium retail markups.</p></div></div>
+    <div class="team-card"><div class="team-avatar">🤖</div><div class="team-info"><h3>DevBot AI</h3><div class="team-role">Technology Partner</div><p>AI-powered operations engine managing inventory, pricing, customer support, and order fulfilment 24/7. The backbone that lets PINK deliver big-store performance.</p></div></div>
+  </div>
+
+  <div class="sc" id="map"><h2 style="font-size:1.5rem;font-weight:800;margin-bottom:8px">Where to Find Us</h2><p class="section-sub" style="color:var(--text-2);max-width:600px">Based in South Australia, shipping nationwide.</p></div>
+  <div class="map-section">
+    <div class="map-wrap"><iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d26124.8!2d138.72!3d-34.82!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x6ab0b5e5f5a5a5a5%3A0x0!2sRedwood+Park+SA+5097!5e0!3m2!1sen!2sau!4v1" allowfullscreen loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe></div>
+    <div class="map-info">
+      <div class="map-card"><div class="icon">📍</div><h4>Location</h4><p>Redwood Park<br>South Australia 5097</p></div>
+      <div class="map-card" id="contact"><div class="icon">✉️</div><h4>Email</h4><p>hello@pinkbeauty.store<br>Mon-Fri 9am-6pm ACST</p></div>
+      <div class="map-card"><div class="icon">🌏</div><h4>Shipping</h4><p>All of Australia<br>NZ & International</p></div>
+    </div>
+  </div>
+
+  <div class="cta-section"><h2>Ready to Glow?</h2><p>Browse 35+ premium skincare products with free shipping over $79.</p><a href="pink-store.html" class="btn btn-white">Shop PINK →</a></div>
+</div>
+
+<footer class="footer"><div class="footer-inner"><div class="footer-brand"><a href="pink-store.html" class="logo"><div class="logo-mark">P</div><span class="logo-text">PINK</span></a><p>Australia's destination for the world's best skincare. 100% authentic, always affordable.</p></div><div class="footer-col"><h4>Shop</h4><a href="pink-store.html">All Products</a><a href="pink-reviews.html">Reviews</a><a href="pink-shipping.html">Shipping</a><a href="pink-videos.html">PINK TV</a><a href="pink-blog.html">Blog</a></div><div class="footer-col"><h4>Company</h4><a href="pink-about.html">About</a><a href="pink-history.html">Our Story</a><a href="#contact">Contact</a><a href="#map">Find Us</a></div><div class="footer-col"><h4>Legal</h4><a href="pink-legal.html#terms">Terms</a><a href="pink-legal.html#privacy">Privacy</a><a href="pink-legal.html#returns">Returns</a><a href="pink-legal.html#shipping">Shipping</a></div></div><div class="footer-bottom"><span>&copy; 2026 PINK. All rights reserved.</span><span>Glow Different. Powered by DevBot AI.</span></div></footer>
+</body>
+</html>

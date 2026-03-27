@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Shipping & Delivery — PINK Skincare</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌸</text></svg>">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#fff;--bg-3:#fdf2f8;--pink:#ec4899;--pink-hover:#db2777;--text:#111827;--text-2:#4b5563;--text-3:#9ca3af;--border:#f3e8f0;--border-2:#e8d5e0;--success:#059669;--shadow-md:0 4px 12px rgba(236,72,153,.08);--shadow-lg:0 8px 30px rgba(236,72,153,.1);--radius-md:12px;--radius-lg:16px;--radius-xl:20px;--font:'Inter',-apple-system,sans-serif;--ease:cubic-bezier(.4,0,.2,1)}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}html{scroll-behavior:smooth;-webkit-font-smoothing:antialiased}body{font-family:var(--font);background:var(--bg);color:var(--text);line-height:1.6}::selection{background:var(--pink);color:#fff}a{text-decoration:none;color:inherit}
+.header{position:fixed;top:0;left:0;right:0;z-index:1000;background:rgba(255,255,255,.92);backdrop-filter:blur(20px);border-bottom:1px solid var(--border)}.header-inner{max-width:1320px;margin:0 auto;padding:0 32px;display:flex;align-items:center;justify-content:space-between;height:64px}.logo{display:flex;align-items:center;gap:10px}.logo-mark{width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,#ec4899,#f472b6);display:flex;align-items:center;justify-content:center;color:#fff;font-size:.9rem;font-weight:800}.logo-text{font-size:1.4rem;font-weight:900;letter-spacing:2px;background:linear-gradient(135deg,#ec4899,#db2777);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.nav{display:flex;gap:4px}.nav a{color:var(--text-2);padding:6px 14px;border-radius:100px;font-size:.875rem;font-weight:500;transition:all .2s}.nav a:hover{color:var(--pink);background:var(--bg-3)}.nav a.active{color:var(--pink);font-weight:600}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:14px 32px;border-radius:100px;font-family:var(--font);font-size:.9rem;font-weight:600;cursor:pointer;transition:all .2s;border:none}.btn-pink{background:var(--pink);color:#fff}.btn-pink:hover{background:var(--pink-hover)}.btn-dark{background:var(--text);color:#fff}.btn-dark:hover{background:#374151}
+.hero{padding:120px 32px 60px;text-align:center;background:linear-gradient(180deg,var(--bg-3),var(--bg))}.hero h1{font-size:clamp(2.2rem,5vw,3.5rem);font-weight:900;letter-spacing:-1.5px;margin-bottom:16px}.hero p{font-size:1.1rem;color:var(--text-2);max-width:600px;margin:0 auto}
+.section{max-width:1320px;margin:0 auto;padding:64px 32px}.sc{text-align:center;margin-bottom:40px}.sc h2{font-size:1.5rem;font-weight:800;margin-bottom:8px}.sc p{color:var(--text-2);max-width:600px;margin:0 auto}
+.ship-table{width:100%;border-collapse:collapse;border-radius:var(--radius-lg);overflow:hidden;box-shadow:0 1px 3px rgba(0,0,0,.06);border:1px solid var(--border);margin-bottom:48px}
+.ship-table thead{background:var(--pink);color:#fff}.ship-table th{padding:16px 20px;text-align:left;font-size:.8rem;font-weight:600;text-transform:uppercase;letter-spacing:1px}.ship-table td{padding:16px 20px;border-top:1px solid var(--border);font-size:.9rem}.ship-table tbody tr:hover{background:var(--bg-3)}.ship-table .free{color:var(--success);font-weight:700}.ship-table .price{font-weight:600}
+.timeline{display:flex;justify-content:space-between;align-items:center;margin-bottom:48px;padding:32px;background:var(--bg-3);border-radius:var(--radius-xl);gap:0;overflow-x:auto}
+.tl-step{text-align:center;flex:1;position:relative}.tl-step::after{content:'';position:absolute;top:24px;right:-50%;width:100%;height:2px;background:var(--border-2)}.tl-step:last-child::after{display:none}.tl-dot{width:48px;height:48px;border-radius:50%;background:var(--pink);color:#fff;display:flex;align-items:center;justify-content:center;margin:0 auto 12px;font-size:1.2rem;position:relative;z-index:1}.tl-step h4{font-size:.85rem;font-weight:700;margin-bottom:2px}.tl-step p{font-size:.75rem;color:var(--text-3)}
+.tracking{text-align:center;padding:48px;background:var(--bg-3);border-radius:var(--radius-xl);margin-bottom:48px}.tracking h2{font-size:1.5rem;font-weight:800;margin-bottom:8px}.tracking p{color:var(--text-2);margin-bottom:24px}.track-form{display:flex;gap:12px;max-width:500px;margin:0 auto}.track-form input{flex:1;padding:14px 20px;border:1.5px solid var(--border-2);border-radius:100px;font-family:var(--font);font-size:.9rem;outline:none}.track-form input:focus{border-color:var(--pink)}
+.faq-list{max-width:800px;margin:0 auto 48px}.faq-item{border:1px solid var(--border);border-radius:var(--radius-md);margin-bottom:8px;overflow:hidden}.faq-q{padding:18px 24px;font-weight:600;font-size:.95rem;cursor:pointer;display:flex;justify-content:space-between;align-items:center;background:#fff;transition:all .15s}.faq-q:hover{background:var(--bg-3)}.faq-q .arrow{transition:transform .2s;font-size:.8rem;color:var(--text-3)}.faq-item.open .faq-q .arrow{transform:rotate(180deg)}.faq-a{padding:0 24px;max-height:0;overflow:hidden;transition:all .3s}.faq-item.open .faq-a{padding:0 24px 18px;max-height:300px}.faq-a p{color:var(--text-2);font-size:.9rem;line-height:1.7}
+.returns-box{background:var(--bg-3);border-radius:var(--radius-xl);padding:48px;text-align:center;margin-bottom:64px}.returns-box h2{font-size:1.5rem;font-weight:800;margin-bottom:8px}.returns-box p{color:var(--text-2);max-width:600px;margin:0 auto 20px;line-height:1.7}
+.footer{background:var(--bg-3);border-top:1px solid var(--border);padding:56px 32px 24px}.footer-inner{max-width:1320px;margin:0 auto;display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:48px;margin-bottom:48px}.footer-brand p{color:var(--text-2);font-size:.85rem;line-height:1.7;max-width:280px;margin-top:12px}.footer-col h4{font-size:.75rem;color:var(--text-3);text-transform:uppercase;letter-spacing:1.5px;font-weight:600;margin-bottom:14px}.footer-col a{display:block;color:var(--text-2);font-size:.875rem;padding:3px 0}.footer-col a:hover{color:var(--pink)}.footer-bottom{max-width:1320px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;padding-top:24px;border-top:1px solid var(--border);font-size:.8rem;color:var(--text-3)}
+@media(max-width:768px){.header-inner{padding:0 16px}.nav{display:none}.hero{padding:80px 16px 40px}.hero h1{font-size:1.8rem}.section{padding:40px 16px}.timeline{flex-direction:column;gap:20px}.tl-step::after{display:none}.track-form{flex-direction:column}.ship-table th,.ship-table td{padding:10px 12px;font-size:.8rem}.footer-inner{grid-template-columns:1fr;gap:28px}.footer-bottom{flex-direction:column;gap:12px}}
+</style>
+</head>
+<body>
+<header class="header"><div class="header-inner"><a href="pink-store.html" class="logo"><div class="logo-mark">P</div><span class="logo-text">PINK</span></a><nav class="nav"><a href="pink-store.html">Shop</a><a href="pink-about.html">About</a><a href="pink-blog.html">Blog</a><a href="pink-videos.html">PINK TV</a><a href="pink-reviews.html">Reviews</a><a href="pink-shipping.html" class="active">Shipping</a><a href="pink-history.html">Our Story</a></nav><a href="pink-store.html" class="btn btn-pink" style="padding:8px 20px;font-size:.825rem">Shop Now</a></div></header>
+
+<section class="hero"><h1>Shipping & Delivery</h1><p>Fast, reliable skincare delivery across Australia. Free express on orders over $79 AUD.</p></section>
+
+<div class="section">
+  <div class="sc"><h2>Shipping Zones & Rates</h2><p>All prices in AUD. No hidden fees.</p></div>
+  <table class="ship-table"><thead><tr><th>Zone</th><th>Areas</th><th>Rate</th><th>Free Threshold</th><th>Delivery</th></tr></thead><tbody>
+    <tr><td><strong>Metro AU</strong></td><td>Sydney, Melbourne, Brisbane, Adelaide, Perth</td><td class="price">$8.95</td><td class="free">FREE over $79</td><td>2-4 days</td></tr>
+    <tr><td><strong>Regional AU</strong></td><td>Geelong, Cairns, Toowoomba, etc.</td><td class="price">$12.95</td><td class="free">FREE over $129</td><td>4-7 days</td></tr>
+    <tr><td><strong>Remote AU</strong></td><td>NT outback, WA remote, islands</td><td class="price">$17.95</td><td>—</td><td>7-12 days</td></tr>
+    <tr><td><strong>New Zealand</strong></td><td>All NZ</td><td class="price">$19.95</td><td>—</td><td>7-14 days</td></tr>
+    <tr><td><strong>International</strong></td><td>Rest of World</td><td class="price">$29.95</td><td>—</td><td>14-21 days</td></tr>
+  </tbody></table>
+
+  <div class="sc"><h2>Order Processing</h2><p>From checkout to your bathroom shelf.</p></div>
+  <div class="timeline">
+    <div class="tl-step"><div class="tl-dot">🛒</div><h4>Ordered</h4><p>Confirmation sent</p></div>
+    <div class="tl-step"><div class="tl-dot">📦</div><h4>Packed</h4><p>1-2 business days</p></div>
+    <div class="tl-step"><div class="tl-dot">🚚</div><h4>Shipped</h4><p>Tracking emailed</p></div>
+    <div class="tl-step"><div class="tl-dot">✈️</div><h4>In Transit</h4><p>Live tracking</p></div>
+    <div class="tl-step"><div class="tl-dot">🏠</div><h4>Delivered</h4><p>At your door</p></div>
+  </div>
+
+  <div class="tracking"><h2>Track Your Order</h2><p>Enter your order number to check delivery status.</p><div class="track-form"><input type="text" placeholder="e.g. PK-1234567"><button class="btn btn-dark" onclick="alert('Tracking: In Transit — est. 2-4 business days')">Track</button></div></div>
+
+  <div class="sc"><h2>FAQ</h2><p>Common shipping questions answered.</p></div>
+  <div class="faq-list">
+    <div class="faq-item"><div class="faq-q" onclick="this.parentElement.classList.toggle('open')">When will my order ship?<span class="arrow">▼</span></div><div class="faq-a"><p>Orders placed before 2pm ACST Mon-Fri ship same day. Weekend orders ship Monday.</p></div></div>
+    <div class="faq-item"><div class="faq-q" onclick="this.parentElement.classList.toggle('open')">Are skincare products packaged safely?<span class="arrow">▼</span></div><div class="faq-a"><p>Yes — all products are wrapped in bubble wrap with temperature-safe packaging. Serums and glass bottles get extra protection.</p></div></div>
+    <div class="faq-item"><div class="faq-q" onclick="this.parentElement.classList.toggle('open')">Can I change my delivery address?<span class="arrow">▼</span></div><div class="faq-a"><p>Yes, if your order hasn't shipped yet. Email hello@pinkbeauty.store with your order number.</p></div></div>
+    <div class="faq-item"><div class="faq-q" onclick="this.parentElement.classList.toggle('open')">What if my product arrives damaged?<span class="arrow">▼</span></div><div class="faq-a"><p>Contact us within 7 days with photos. We'll send a replacement or full refund — no questions asked.</p></div></div>
+    <div class="faq-item"><div class="faq-q" onclick="this.parentElement.classList.toggle('open')">Do you ship internationally?<span class="arrow">▼</span></div><div class="faq-a"><p>Yes! We ship to NZ and worldwide. International customs duties are the buyer's responsibility.</p></div></div>
+  </div>
+
+  <div class="returns-box"><h2>Returns & Exchanges</h2><p>Changed your mind? PINK offers 30-day hassle-free returns on all unopened products in original condition. We cover return shipping for faulty or damaged items.</p><a href="pink-legal.html#returns" class="btn btn-dark">View Returns Policy</a></div>
+</div>
+
+<footer class="footer"><div class="footer-inner"><div class="footer-brand"><a href="pink-store.html" class="logo"><div class="logo-mark">P</div><span class="logo-text">PINK</span></a><p>Australia's destination for premium skincare. 100% authentic, always affordable.</p></div><div class="footer-col"><h4>Shop</h4><a href="pink-store.html">All Products</a><a href="pink-reviews.html">Reviews</a><a href="pink-shipping.html">Shipping</a><a href="pink-videos.html">PINK TV</a><a href="pink-blog.html">Blog</a></div><div class="footer-col"><h4>Company</h4><a href="pink-about.html">About</a><a href="pink-history.html">Our Story</a><a href="pink-about.html#contact">Contact</a></div><div class="footer-col"><h4>Legal</h4><a href="pink-legal.html#terms">Terms</a><a href="pink-legal.html#privacy">Privacy</a><a href="pink-legal.html#returns">Returns</a><a href="pink-legal.html#shipping">Shipping</a></div></div><div class="footer-bottom"><span>&copy; 2026 PINK. All rights reserved.</span><span>Glow Different. Powered by DevBot AI.</span></div></footer>
+</body>
+</html>
