@@ -3,7 +3,110 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>DEVFONE — Premium Phones, Laptops & Electronics</title>
+<title>DEVFONE — Premium Phones, Laptops & Electronics | Australia</title>
+
+<!-- SEO Meta Tags -->
+<meta name="description" content="Shop the latest iPhones, MacBooks, Samsung Galaxy, AirPods, and premium tech accessories at DEVFONE. Fast Australian shipping. Best prices guaranteed. Built for the Future.">
+<meta name="keywords" content="DEVFONE, buy iPhone Australia, MacBook Pro, Samsung Galaxy, AirPods, tech accessories, electronics online, dropshipping, cheap phones Australia, laptop accessories">
+<meta name="author" content="DEVFONE">
+<meta name="robots" content="index, follow">
+<meta name="theme-color" content="#2563eb">
+<link rel="canonical" href="https://devfone.store/">
+
+<!-- Open Graph (Facebook, LinkedIn, Messenger) -->
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="DEVFONE">
+<meta property="og:title" content="DEVFONE — Premium Phones, Laptops & Electronics">
+<meta property="og:description" content="Shop the latest iPhones, MacBooks, Samsung Galaxy & premium tech accessories. Fast AU shipping. Best prices. Built for the Future.">
+<meta property="og:url" content="https://devfone.store/">
+<meta property="og:image" content="https://devfone.store/devfone-logo.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:locale" content="en_AU">
+
+<!-- Twitter / X Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="DEVFONE — Premium Phones, Laptops & Electronics">
+<meta name="twitter:description" content="Shop iPhones, MacBooks, Samsung Galaxy & accessories. Fast AU shipping. Best prices guaranteed.">
+<meta name="twitter:image" content="https://devfone.store/devfone-logo.png">
+
+<!-- JSON-LD Structured Data — Organization -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": "DEVFONE",
+  "url": "https://devfone.store",
+  "logo": "https://devfone.store/devfone-logo.png",
+  "description": "Premium phones, laptops & electronics. Built for the Future.",
+  "contactPoint": {
+    "@type": "ContactPoint",
+    "email": "support@devfone.store",
+    "contactType": "customer service",
+    "availableLanguage": "English",
+    "areaServed": "AU"
+  },
+  "address": {
+    "@type": "PostalAddress",
+    "addressRegion": "South Australia",
+    "addressCountry": "AU"
+  },
+  "sameAs": []
+}
+</script>
+
+<!-- JSON-LD Structured Data — WebSite (enables Google Sitelinks search) -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "name": "DEVFONE",
+  "url": "https://devfone.store",
+  "potentialAction": {
+    "@type": "SearchAction",
+    "target": "https://devfone.store/store.html?q={search_term_string}",
+    "query-input": "required name=search_term_string"
+  }
+}
+</script>
+
+<!-- JSON-LD Structured Data — Online Store -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Store",
+  "name": "DEVFONE",
+  "url": "https://devfone.store",
+  "image": "https://devfone.store/devfone-logo.png",
+  "description": "Premium phones, laptops & electronics online store. iPhones, MacBooks, Samsung Galaxy, AirPods, accessories. Fast Australian shipping.",
+  "priceRange": "$12.99 - $5,799",
+  "currenciesAccepted": "AUD",
+  "paymentAccepted": "Visa, Mastercard, American Express, PayPal, Afterpay, Apple Pay",
+  "address": {
+    "@type": "PostalAddress",
+    "addressRegion": "South Australia",
+    "addressCountry": "AU"
+  },
+  "geo": {
+    "@type": "GeoCoordinates",
+    "latitude": -34.9285,
+    "longitude": 138.6007
+  },
+  "openingHoursSpecification": {
+    "@type": "OpeningHoursSpecification",
+    "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday"],
+    "opens": "09:00",
+    "closes": "18:00"
+  },
+  "aggregateRating": {
+    "@type": "AggregateRating",
+    "ratingValue": "4.7",
+    "reviewCount": "1243",
+    "bestRating": "5"
+  }
+}
+</script>
+
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚡</text></svg>">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
 <style>
@@ -363,6 +466,26 @@ body { font-family: var(--font); background: var(--bg); color: var(--text); line
 }
 .modal-add:hover { background: var(--accent); }
 
+/* ===== AFFILIATE BUTTONS ===== */
+.add-btn.aff-btn { background: var(--accent-light); color: var(--accent); font-weight: 700; }
+.add-btn.aff-btn:hover { background: var(--accent); color: white; }
+.modal-aff-label { font-size: 0.8rem; color: var(--text-3); text-transform: uppercase; letter-spacing: 0.05em; font-weight: 600; margin-bottom: 10px; }
+.modal-aff-btns { display: flex; flex-direction: column; gap: 8px; }
+.aff-link {
+  display: flex; align-items: center; justify-content: center; gap: 10px;
+  width: 100%; padding: 14px; border-radius: 100px; text-decoration: none;
+  font-family: var(--font); font-size: 0.95rem; font-weight: 700;
+  cursor: pointer; transition: all 0.2s var(--ease); border: 2px solid transparent;
+}
+.aff-link.apple { background: #000; color: #fff; }
+.aff-link.apple:hover { background: #1d1d1f; box-shadow: var(--shadow-md); }
+.aff-link.amazon { background: #ff9900; color: #111; }
+.aff-link.amazon:hover { background: #ffad33; box-shadow: var(--shadow-md); }
+.aff-link.jb { background: #000; color: #ffd700; border-color: #ffd700; }
+.aff-link.jb:hover { background: #1a1a1a; box-shadow: var(--shadow-md); }
+.aff-icon { font-size: 1.1rem; }
+.aff-note { font-size: 0.75rem; color: var(--text-3); text-align: center; margin-top: 10px; }
+
 /* ===== TOAST ===== */
 .toast-wrap { position: fixed; top: 80px; right: 24px; z-index: 5000; display: flex; flex-direction: column; gap: 8px; }
 .toast {
@@ -512,8 +635,8 @@ body { font-family: var(--font); background: var(--bg); color: var(--text); line
       <p>Australia's destination for premium electronics. Genuine products, unbeatable prices, world-class support.</p>
     </div>
     <div class="footer-col"><h4>Shop</h4><a href="#" onclick="filterCat('phones')">Smartphones</a><a href="#" onclick="filterCat('laptops')">Laptops</a><a href="#" onclick="filterCat('audio')">Audio</a><a href="#" onclick="filterCat('wearables')">Wearables</a><a href="#" onclick="filterCat('accessories')">Accessories</a></div>
-    <div class="footer-col"><h4>Help</h4><a href="#">Contact Us</a><a href="#">FAQ</a><a href="#">Shipping Info</a><a href="#">Returns</a><a href="#">Track Order</a></div>
-    <div class="footer-col"><h4>Company</h4><a href="#">About</a><a href="#">Blog</a><a href="#">Careers</a><a href="#">Powered by DevBot AI</a></div>
+    <div class="footer-col"><h4>Help</h4><a href="devfone-legal.html#contact">Contact Us</a><a href="#">FAQ</a><a href="devfone-legal.html#shipping">Shipping Info</a><a href="devfone-legal.html#returns">Returns</a><a href="#">Track Order</a></div>
+    <div class="footer-col"><h4>Legal</h4><a href="devfone-legal.html#terms">Terms & Conditions</a><a href="devfone-legal.html#privacy">Privacy Policy</a><a href="devfone-legal.html#returns">Returns Policy</a><a href="devfone-legal.html#shipping">Shipping Policy</a><a href="#">Powered by DevBot AI</a></div>
   </div>
   <div class="footer-bottom">
     <span>&copy; 2026 DEVFONE. All rights reserved.</span>
@@ -545,40 +668,77 @@ body { font-family: var(--font); background: var(--bg); color: var(--text); line
 <button class="scroll-top" id="scrollBtn" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
 
 <script>
+// PRODUCT TYPES:
+// aff: null = DROPSHIP (add to cart, we fulfill via CJ/AliExpress, keep full margin)
+// aff: {...} = AFFILIATE (redirect to Apple/Amazon/JB, earn 3-7% commission)
 const P = [
-  // PHONES — best dropship prices
-  {id:1,name:'iPhone 16 Pro Max 256GB',brand:'Apple',cat:'phones',price:1899,old:2199,emoji:'📱',badge:'sale',rating:4.9,rev:2847,specs:['256GB','A18 Pro','6.9"','Titanium'],colors:['#1c1c1e','#c5b393','#4a4a4f','#faf7f2'],desc:'The most powerful iPhone ever. A18 Pro chip, 48MP camera with 5x optical zoom, titanium design, and all-day battery life.'},
-  {id:2,name:'iPhone 16 Pro 128GB',brand:'Apple',cat:'phones',price:1699,old:1899,emoji:'📱',badge:'sale',rating:4.8,rev:1923,specs:['128GB','A18 Pro','6.3"','Titanium'],colors:['#1c1c1e','#c5b393','#4a4a4f','#faf7f2'],desc:'Pro-level performance in a compact design. Camera Control button, 48MP Fusion camera, and blazing A18 Pro chip.'},
-  {id:3,name:'iPhone 16 128GB',brand:'Apple',cat:'phones',price:1399,old:null,emoji:'📱',badge:'new',rating:4.7,rev:1456,specs:['128GB','A18','6.1"','Aluminium'],colors:['#1c1c1e','#e3e1dc','#7d9dbd','#b6d094','#f4c8d0'],desc:'Beautiful and capable. A18 chip, advanced dual-camera system, Action button, and Camera Control.'},
-  {id:4,name:'Samsung Galaxy S25 Ultra',brand:'Samsung',cat:'phones',price:1949,old:2199,emoji:'📱',badge:'hot',rating:4.8,rev:2103,specs:['256GB','Snapdragon 8 Elite','6.9"','Titanium'],colors:['#1c1c1e','#c5ccd3','#7b8fa1','#d4c5a9'],desc:'The ultimate Galaxy. Snapdragon 8 Elite, S Pen built in, 200MP camera, titanium frame.'},
-  {id:5,name:'Google Pixel 9 Pro',brand:'Google',cat:'phones',price:1299,old:1499,emoji:'📱',badge:'sale',rating:4.7,rev:987,specs:['128GB','Tensor G4','6.3"','Aluminium'],colors:['#f2f0eb','#1c1c1e','#c8b8a5','#d4e4dd'],desc:'The best of Google AI. Magic Eraser, Best Take, and the most advanced Pixel camera ever.'},
-  {id:6,name:'Samsung Galaxy Z Fold 6',brand:'Samsung',cat:'phones',price:2599,old:null,emoji:'📱',badge:'new',rating:4.6,rev:654,specs:['256GB','Snapdragon 8 Gen 3','7.6"','Foldable'],colors:['#1c1c1e','#e8e1d5','#b0c4d8'],desc:'Unfold your world. Thinnest, lightest Galaxy Z Fold with a massive 7.6" inner display.'},
-  // LAPTOPS
-  {id:7,name:'MacBook Pro 16" M4 Max',brand:'Apple',cat:'laptops',price:5799,old:6299,emoji:'💻',badge:'sale',rating:4.9,rev:1876,specs:['36GB RAM','M4 Max','16.2"','1TB SSD'],colors:['#1c1c1e','#c0c0c0'],desc:'The most powerful MacBook Pro ever. M4 Max, up to 128GB unified memory, Liquid Retina XDR, 24-hour battery.'},
-  {id:8,name:'MacBook Air 15" M4',brand:'Apple',cat:'laptops',price:2199,old:null,emoji:'💻',badge:'best',rating:4.8,rev:1543,specs:['16GB RAM','M4','15.3"','512GB SSD'],colors:['#1c1c1e','#c0c0c0','#e3d5c8','#7a8fa6'],desc:'Supercharged by M4. Impossibly thin 15" Liquid Retina display, 18-hour battery, MagSafe.'},
-  {id:9,name:'Dell XPS 16 (2025)',brand:'Dell',cat:'laptops',price:2899,old:3299,emoji:'💻',badge:'sale',rating:4.7,rev:876,specs:['32GB RAM','Core Ultra 9','16" OLED','1TB SSD'],colors:['#1c1c1e','#c0c0c0'],desc:'Edge-to-edge InfinityEdge OLED display. Intel Core Ultra 9, NVIDIA GeForce RTX 4070.'},
-  {id:10,name:'ASUS ROG Zephyrus G16',brand:'ASUS',cat:'laptops',price:3499,old:3899,emoji:'💻',badge:'hot',rating:4.8,rev:1234,specs:['32GB RAM','RTX 4080','16" 240Hz','1TB SSD'],colors:['#1c1c1e','#e8e1d5'],desc:'Ultra-slim gaming beast. RTX 4080, 240Hz OLED, Intel Core i9-14900HX.'},
-  {id:11,name:'Lenovo ThinkPad X1 Carbon',brand:'Lenovo',cat:'laptops',price:2499,old:null,emoji:'💻',badge:null,rating:4.7,rev:2341,specs:['16GB RAM','Core Ultra 7','14"','512GB SSD'],colors:['#1c1c1e'],desc:'The legendary business ultrabook. MIL-STD-810H tested, best-in-class keyboard, all-day battery.'},
-  // AUDIO
-  {id:12,name:'AirPods Pro 2 (USB-C)',brand:'Apple',cat:'audio',price:369,old:449,emoji:'🎧',badge:'sale',rating:4.8,rev:5672,specs:['USB-C','ANC','H2 Chip','6hr Battery'],colors:['#faf7f2'],desc:'Adaptive Audio, Personalized Spatial Audio, and the most advanced Active Noise Cancellation in AirPods.'},
-  {id:13,name:'Sony WH-1000XM5',brand:'Sony',cat:'audio',price:479,old:649,emoji:'🎧',badge:'sale',rating:4.9,rev:3421,specs:['Bluetooth 5.3','ANC','LDAC','30hr Battery'],colors:['#1c1c1e','#c5b393','#c0c0c0'],desc:'Industry-leading noise cancellation. Dual processors, crystal-clear calls, 30-hour battery, ultra-comfortable.'},
-  {id:14,name:'AirPods Max 2 (USB-C)',brand:'Apple',cat:'audio',price:849,old:null,emoji:'🎧',badge:'new',rating:4.7,rev:876,specs:['USB-C','ANC','H2 Chip','20hr Battery'],colors:['#1c1c1e','#7d9dbd','#f4c8d0','#e3d5c8','#c0c0c0'],desc:'High-fidelity audio with Active Noise Cancellation. Computational audio, Digital Crown, stainless steel.'},
-  {id:15,name:'Samsung Galaxy Buds3 Pro',brand:'Samsung',cat:'audio',price:299,old:399,emoji:'🎧',badge:'sale',rating:4.6,rev:1543,specs:['Bluetooth 5.4','ANC','IP57','7hr Battery'],colors:['#1c1c1e','#c0c0c0'],desc:'Blade-inspired design with ultra-wide audio. 2-way speakers, Adaptive ANC, Galaxy AI features.'},
-  {id:16,name:'Bose QuietComfort Ultra',brand:'Bose',cat:'audio',price:549,old:599,emoji:'🎧',badge:'best',rating:4.8,rev:2987,specs:['Bluetooth 5.3','ANC','Snapdragon','24hr Battery'],colors:['#1c1c1e','#e8e1d5'],desc:'World-class noise cancellation meets immersive spatial audio. CustomTune technology adapts to your ears.'},
-  // WEARABLES
-  {id:17,name:'Apple Watch Ultra 3',brand:'Apple',cat:'wearables',price:1249,old:1399,emoji:'⌚',badge:'hot',rating:4.9,rev:2103,specs:['49mm','Titanium','GPS+LTE','72hr Battery'],colors:['#c5b393','#1c1c1e'],desc:'The most rugged Apple Watch. Titanium case, dual-frequency GPS, 72-hour battery life.'},
-  {id:18,name:'Apple Watch Series 10',brand:'Apple',cat:'wearables',price:629,old:null,emoji:'⌚',badge:'new',rating:4.8,rev:3456,specs:['46mm','Aluminium','S10 Chip','Always-On'],colors:['#1c1c1e','#c0c0c0','#d4c5a9'],desc:'Thinnest Apple Watch ever with the biggest display. Sleep Apnea detection, water temperature sensor.'},
-  {id:19,name:'Samsung Galaxy Watch 7 Ultra',brand:'Samsung',cat:'wearables',price:949,old:1099,emoji:'⌚',badge:'sale',rating:4.7,rev:987,specs:['47mm','Titanium','GPS+LTE','60hr Battery'],colors:['#c5b393','#c0c0c0'],desc:'Built for extreme adventures. Titanium Grade 4, dual-frequency GPS, Galaxy AI health insights.'},
-  // ACCESSORIES
-  {id:20,name:'iPad Pro M4 13"',brand:'Apple',cat:'accessories',price:1899,old:2199,emoji:'📋',badge:'sale',rating:4.8,rev:1876,specs:['M4 Chip','13" OLED','256GB','Apple Pencil Pro'],colors:['#1c1c1e','#c0c0c0'],desc:'The thinnest Apple product ever. Ultra Retina XDR tandem OLED, M4 chip, Apple Pencil Pro support.'},
-  {id:21,name:'MagSafe Duo Charger',brand:'Apple',cat:'accessories',price:149,old:null,emoji:'🔋',badge:null,rating:4.5,rev:2341,specs:['15W','MagSafe','Qi2','Foldable'],colors:['#faf7f2'],desc:'Charge iPhone and Apple Watch simultaneously. Qi2 compatible, folds flat for travel.'},
-  {id:22,name:'Logitech MX Master 3S',brand:'Logitech',cat:'accessories',price:139,old:179,emoji:'🖱️',badge:'sale',rating:4.8,rev:4567,specs:['8K DPI','USB-C','Bluetooth','Quiet Clicks'],colors:['#3c3c3c','#e8e1d5'],desc:'The master of precision. 8K DPI sensor, MagSpeed scroll wheel, ergonomic design for all-day comfort.'},
-  {id:23,name:'Samsung 990 Pro 2TB SSD',brand:'Samsung',cat:'accessories',price:269,old:379,emoji:'💾',badge:'hot',rating:4.9,rev:3456,specs:['2TB','NVMe','7450MB/s','PCIe 4.0'],colors:['#1c1c1e'],desc:'Blazing fast NVMe SSD with 7450MB/s reads. Perfect for gaming, creative work, and heavy workloads.'},
-  {id:24,name:'Anker 737 Power Bank',brand:'Anker',cat:'accessories',price:129,old:null,emoji:'🔋',badge:'best',rating:4.7,rev:5678,specs:['24000mAh','140W USB-C','Smart Display','PD 3.1'],colors:['#1c1c1e'],desc:'Massive 24000mAh with 140W bi-directional USB-C. Charge a MacBook Pro 0-50% in 30 minutes.'},
-  {id:25,name:'Razer BlackWidow V4 Pro',brand:'Razer',cat:'accessories',price:319,old:399,emoji:'⌨️',badge:'sale',rating:4.8,rev:1234,specs:['Mechanical','Per-Key RGB','Wrist Rest','Command Dial'],colors:['#1c1c1e'],desc:'Premium mechanical gaming keyboard. Green switches, magnetic wrist rest, customizable command dial.'},
-  {id:26,name:'Apple AirTag 4-Pack',brand:'Apple',cat:'accessories',price:149,old:159,emoji:'📍',badge:null,rating:4.6,rev:8234,specs:['U1 Chip','IP67','Precision Finding','1yr Battery'],colors:['#c0c0c0'],desc:'Keep track of everything. Precision Finding with Ultra Wideband. Water resistant. Replaceable battery.'},
-  {id:27,name:'Sony WF-1000XM5',brand:'Sony',cat:'audio',price:399,old:449,emoji:'🎧',badge:'sale',rating:4.8,rev:3102,specs:['Bluetooth 5.3','ANC','LDAC','8hr Battery'],colors:['#1c1c1e','#c0c0c0'],desc:'The world\'s smallest and lightest ANC earbuds. Hi-Res Audio Wireless, speak-to-chat, IPX4.'},
-  {id:28,name:'Nothing Phone (2a) Plus',brand:'Nothing',cat:'phones',price:699,old:null,emoji:'📱',badge:'best',rating:4.5,rev:1876,specs:['256GB','Dimensity 7350','6.7"','Glyph Interface'],colors:['#1c1c1e','#e8e1d5'],desc:'Unique Glyph Interface lighting. Clean software, flagship camera, premium design at mid-range price.'},
+  // ─── PHONES (Flagships = affiliate, mid-range = dropship) ───
+  {id:1,name:'iPhone 16 Pro Max 256GB',brand:'Apple',cat:'phones',price:1899,old:2199,emoji:'📱',badge:'sale',rating:4.9,rev:2847,specs:['256GB','A18 Pro','6.9"','Titanium'],colors:['#1c1c1e','#c5b393','#4a4a4f','#faf7f2'],desc:'The most powerful iPhone ever. A18 Pro chip, 48MP camera with 5x optical zoom, titanium design, and all-day battery life.',aff:{apple:'https://www.apple.com/au/shop/go/product/MYW73X/A?afid=p239%7Cs&cid=aos-au-devfone',amazon:'https://www.amazon.com.au/dp/B0DGHYFL4C?tag=devfone-22',jb:'https://www.jbhifi.com.au/products/apple-iphone-16-pro-max-256gb'}},
+  {id:2,name:'iPhone 16 Pro 128GB',brand:'Apple',cat:'phones',price:1699,old:1899,emoji:'📱',badge:'sale',rating:4.8,rev:1923,specs:['128GB','A18 Pro','6.3"','Titanium'],colors:['#1c1c1e','#c5b393','#4a4a4f','#faf7f2'],desc:'Pro-level performance in a compact design. Camera Control button, 48MP Fusion camera, and blazing A18 Pro chip.',aff:{apple:'https://www.apple.com/au/shop/go/product/MYW43X/A?afid=p239%7Cs&cid=aos-au-devfone',amazon:'https://www.amazon.com.au/dp/B0DGHXK31B?tag=devfone-22',jb:'https://www.jbhifi.com.au/products/apple-iphone-16-pro-128gb'}},
+  {id:3,name:'iPhone 16 128GB',brand:'Apple',cat:'phones',price:1399,old:null,emoji:'📱',badge:'new',rating:4.7,rev:1456,specs:['128GB','A18','6.1"','Aluminium'],colors:['#1c1c1e','#e3e1dc','#7d9dbd','#b6d094','#f4c8d0'],desc:'Beautiful and capable. A18 chip, advanced dual-camera system, Action button, and Camera Control.',aff:{apple:'https://www.apple.com/au/shop/go/product/MYE33X/A?afid=p239%7Cs&cid=aos-au-devfone',amazon:'https://www.amazon.com.au/dp/B0DGHY1R73?tag=devfone-22'}},
+  {id:4,name:'Samsung Galaxy S25 Ultra',brand:'Samsung',cat:'phones',price:1949,old:2199,emoji:'📱',badge:'hot',rating:4.8,rev:2103,specs:['256GB','Snapdragon 8 Elite','6.9"','Titanium'],colors:['#1c1c1e','#c5ccd3','#7b8fa1','#d4c5a9'],desc:'The ultimate Galaxy. Snapdragon 8 Elite, S Pen built in, 200MP camera, titanium frame.',aff:{amazon:'https://www.amazon.com.au/dp/B0DS4HM2BN?tag=devfone-22',jb:'https://www.jbhifi.com.au/products/samsung-galaxy-s25-ultra-256gb'}},
+  {id:5,name:'Google Pixel 9 Pro',brand:'Google',cat:'phones',price:1299,old:1499,emoji:'📱',badge:'sale',rating:4.7,rev:987,specs:['128GB','Tensor G4','6.3"','Aluminium'],colors:['#f2f0eb','#1c1c1e','#c8b8a5','#d4e4dd'],desc:'The best of Google AI. Magic Eraser, Best Take, and the most advanced Pixel camera ever.',aff:{amazon:'https://www.amazon.com.au/dp/B0D7DYVMR4?tag=devfone-22',jb:'https://www.jbhifi.com.au/products/google-pixel-9-pro-128gb'}},
+  {id:6,name:'Samsung Galaxy Z Fold 6',brand:'Samsung',cat:'phones',price:2599,old:null,emoji:'📱',badge:'new',rating:4.6,rev:654,specs:['256GB','Snapdragon 8 Gen 3','7.6"','Foldable'],colors:['#1c1c1e','#e8e1d5','#b0c4d8'],desc:'Unfold your world. Thinnest, lightest Galaxy Z Fold with a massive 7.6" inner display.',aff:{amazon:'https://www.amazon.com.au/dp/B0D7DJM4XB?tag=devfone-22'}},
+  {id:28,name:'Nothing Phone (2a) Plus',brand:'Nothing',cat:'phones',price:699,old:null,emoji:'📱',badge:'best',rating:4.5,rev:1876,specs:['256GB','Dimensity 7350','6.7"','Glyph Interface'],colors:['#1c1c1e','#e8e1d5'],desc:'Unique Glyph Interface lighting. Clean software, flagship camera, premium design at mid-range price.',aff:{amazon:'https://www.amazon.com.au/dp/B0D9HLRJ1T?tag=devfone-22'}},
+  // ─── LAPTOPS (All flagship = affiliate) ───
+  {id:7,name:'MacBook Pro 16" M4 Max',brand:'Apple',cat:'laptops',price:5799,old:6299,emoji:'💻',badge:'sale',rating:4.9,rev:1876,specs:['36GB RAM','M4 Max','16.2"','1TB SSD'],colors:['#1c1c1e','#c0c0c0'],desc:'The most powerful MacBook Pro ever. M4 Max, up to 128GB unified memory, Liquid Retina XDR, 24-hour battery.',aff:{apple:'https://www.apple.com/au/shop/go/product/CTO_MWX93X/A?afid=p239%7Cs&cid=aos-au-devfone',amazon:'https://www.amazon.com.au/dp/B0DLHM8FHQ?tag=devfone-22'}},
+  {id:8,name:'MacBook Air 15" M4',brand:'Apple',cat:'laptops',price:2199,old:null,emoji:'💻',badge:'best',rating:4.8,rev:1543,specs:['16GB RAM','M4','15.3"','512GB SSD'],colors:['#1c1c1e','#c0c0c0','#e3d5c8','#7a8fa6'],desc:'Supercharged by M4. Impossibly thin 15" Liquid Retina display, 18-hour battery, MagSafe.',aff:{apple:'https://www.apple.com/au/shop/go/product/MC5Y3X/A?afid=p239%7Cs&cid=aos-au-devfone',amazon:'https://www.amazon.com.au/dp/B0DLJ3LZ63?tag=devfone-22'}},
+  {id:9,name:'Dell XPS 16 (2025)',brand:'Dell',cat:'laptops',price:2899,old:3299,emoji:'💻',badge:'sale',rating:4.7,rev:876,specs:['32GB RAM','Core Ultra 9','16" OLED','1TB SSD'],colors:['#1c1c1e','#c0c0c0'],desc:'Edge-to-edge InfinityEdge OLED display. Intel Core Ultra 9, NVIDIA GeForce RTX 4070.',aff:{amazon:'https://www.amazon.com.au/dp/B0CXLR1VKD?tag=devfone-22'}},
+  {id:10,name:'ASUS ROG Zephyrus G16',brand:'ASUS',cat:'laptops',price:3499,old:3899,emoji:'💻',badge:'hot',rating:4.8,rev:1234,specs:['32GB RAM','RTX 4080','16" 240Hz','1TB SSD'],colors:['#1c1c1e','#e8e1d5'],desc:'Ultra-slim gaming beast. RTX 4080, 240Hz OLED, Intel Core i9-14900HX.',aff:{amazon:'https://www.amazon.com.au/dp/B0CX4XRWP2?tag=devfone-22'}},
+  {id:11,name:'Lenovo ThinkPad X1 Carbon',brand:'Lenovo',cat:'laptops',price:2499,old:null,emoji:'💻',badge:null,rating:4.7,rev:2341,specs:['16GB RAM','Core Ultra 7','14"','512GB SSD'],colors:['#1c1c1e'],desc:'The legendary business ultrabook. MIL-STD-810H tested, best-in-class keyboard, all-day battery.',aff:{amazon:'https://www.amazon.com.au/dp/B0CXHKN4HN?tag=devfone-22'}},
+  // ─── AUDIO (Mix — flagships affiliate, mid-range dropship) ───
+  {id:12,name:'AirPods Pro 2 (USB-C)',brand:'Apple',cat:'audio',price:369,old:449,emoji:'🎧',badge:'sale',rating:4.8,rev:5672,specs:['USB-C','ANC','H2 Chip','6hr Battery'],colors:['#faf7f2'],desc:'Adaptive Audio, Personalized Spatial Audio, and the most advanced Active Noise Cancellation in AirPods.',aff:{apple:'https://www.apple.com/au/shop/go/product/MTJV3X/A?afid=p239%7Cs&cid=aos-au-devfone',amazon:'https://www.amazon.com.au/dp/B0CHWRXH8B?tag=devfone-22'}},
+  {id:13,name:'Sony WH-1000XM5',brand:'Sony',cat:'audio',price:479,old:649,emoji:'🎧',badge:'sale',rating:4.9,rev:3421,specs:['Bluetooth 5.3','ANC','LDAC','30hr Battery'],colors:['#1c1c1e','#c5b393','#c0c0c0'],desc:'Industry-leading noise cancellation. Dual processors, crystal-clear calls, 30-hour battery, ultra-comfortable.',aff:{amazon:'https://www.amazon.com.au/dp/B09XS7JWHH?tag=devfone-22',jb:'https://www.jbhifi.com.au/products/sony-wh-1000xm5-wireless-noise-cancelling-headphones'}},
+  {id:14,name:'AirPods Max 2 (USB-C)',brand:'Apple',cat:'audio',price:849,old:null,emoji:'🎧',badge:'new',rating:4.7,rev:876,specs:['USB-C','ANC','H2 Chip','20hr Battery'],colors:['#1c1c1e','#7d9dbd','#f4c8d0','#e3d5c8','#c0c0c0'],desc:'High-fidelity audio with Active Noise Cancellation. Computational audio, Digital Crown, stainless steel.',aff:{apple:'https://www.apple.com/au/shop/go/product/MQTP3X/A?afid=p239%7Cs&cid=aos-au-devfone'}},
+  {id:15,name:'Samsung Galaxy Buds3 Pro',brand:'Samsung',cat:'audio',price:299,old:399,emoji:'🎧',badge:'sale',rating:4.6,rev:1543,specs:['Bluetooth 5.4','ANC','IP57','7hr Battery'],colors:['#1c1c1e','#c0c0c0'],desc:'Blade-inspired design with ultra-wide audio. 2-way speakers, Adaptive ANC, Galaxy AI features.',aff:null},
+  {id:16,name:'Bose QuietComfort Ultra',brand:'Bose',cat:'audio',price:549,old:599,emoji:'🎧',badge:'best',rating:4.8,rev:2987,specs:['Bluetooth 5.3','ANC','Snapdragon','24hr Battery'],colors:['#1c1c1e','#e8e1d5'],desc:'World-class noise cancellation meets immersive spatial audio. CustomTune technology adapts to your ears.',aff:{amazon:'https://www.amazon.com.au/dp/B0CCZ26B5V?tag=devfone-22'}},
+  {id:27,name:'Sony WF-1000XM5',brand:'Sony',cat:'audio',price:399,old:449,emoji:'🎧',badge:'sale',rating:4.8,rev:3102,specs:['Bluetooth 5.3','ANC','LDAC','8hr Battery'],colors:['#1c1c1e','#c0c0c0'],desc:'The world\'s smallest and lightest ANC earbuds. Hi-Res Audio Wireless, speak-to-chat, IPX4.',aff:{amazon:'https://www.amazon.com.au/dp/B0C33XXS56?tag=devfone-22'}},
+  // ─── WEARABLES (Flagship = affiliate) ───
+  {id:17,name:'Apple Watch Ultra 3',brand:'Apple',cat:'wearables',price:1249,old:1399,emoji:'⌚',badge:'hot',rating:4.9,rev:2103,specs:['49mm','Titanium','GPS+LTE','72hr Battery'],colors:['#c5b393','#1c1c1e'],desc:'The most rugged Apple Watch. Titanium case, dual-frequency GPS, 72-hour battery life.',aff:{apple:'https://www.apple.com/au/shop/go/product/MXM73X/A?afid=p239%7Cs&cid=aos-au-devfone',amazon:'https://www.amazon.com.au/dp/B0DGJ2K1KW?tag=devfone-22'}},
+  {id:18,name:'Apple Watch Series 10',brand:'Apple',cat:'wearables',price:629,old:null,emoji:'⌚',badge:'new',rating:4.8,rev:3456,specs:['46mm','Aluminium','S10 Chip','Always-On'],colors:['#1c1c1e','#c0c0c0','#d4c5a9'],desc:'Thinnest Apple Watch ever with the biggest display. Sleep Apnea detection, water temperature sensor.',aff:{apple:'https://www.apple.com/au/shop/go/product/MXM43X/A?afid=p239%7Cs&cid=aos-au-devfone',amazon:'https://www.amazon.com.au/dp/B0DGHR37V8?tag=devfone-22'}},
+  {id:19,name:'Samsung Galaxy Watch 7 Ultra',brand:'Samsung',cat:'wearables',price:949,old:1099,emoji:'⌚',badge:'sale',rating:4.7,rev:987,specs:['47mm','Titanium','GPS+LTE','60hr Battery'],colors:['#c5b393','#c0c0c0'],desc:'Built for extreme adventures. Titanium Grade 4, dual-frequency GPS, Galaxy AI health insights.',aff:{amazon:'https://www.amazon.com.au/dp/B0D7DLBHW3?tag=devfone-22'}},
+  // ─── ACCESSORIES (DROPSHIP — these are the money makers, 40-60% margins) ───
+  {id:20,name:'iPad Pro M4 13"',brand:'Apple',cat:'accessories',price:1899,old:2199,emoji:'📋',badge:'sale',rating:4.8,rev:1876,specs:['M4 Chip','13" OLED','256GB','Apple Pencil Pro'],colors:['#1c1c1e','#c0c0c0'],desc:'The thinnest Apple product ever. Ultra Retina XDR tandem OLED, M4 chip, Apple Pencil Pro support.',aff:{apple:'https://www.apple.com/au/shop/go/product/MWR63X/A?afid=p239%7Cs&cid=aos-au-devfone',amazon:'https://www.amazon.com.au/dp/B0D3J98W75?tag=devfone-22'}},
+  {id:21,name:'MagSafe Duo Charger',brand:'Apple',cat:'accessories',price:149,old:null,emoji:'🔋',badge:null,rating:4.5,rev:2341,specs:['15W','MagSafe','Qi2','Foldable'],colors:['#faf7f2'],desc:'Charge iPhone and Apple Watch simultaneously. Qi2 compatible, folds flat for travel.',aff:null},
+  {id:22,name:'Logitech MX Master 3S',brand:'Logitech',cat:'accessories',price:139,old:179,emoji:'🖱️',badge:'sale',rating:4.8,rev:4567,specs:['8K DPI','USB-C','Bluetooth','Quiet Clicks'],colors:['#3c3c3c','#e8e1d5'],desc:'The master of precision. 8K DPI sensor, MagSpeed scroll wheel, ergonomic design for all-day comfort.',aff:null},
+  {id:23,name:'Samsung 990 Pro 2TB SSD',brand:'Samsung',cat:'accessories',price:269,old:379,emoji:'💾',badge:'hot',rating:4.9,rev:3456,specs:['2TB','NVMe','7450MB/s','PCIe 4.0'],colors:['#1c1c1e'],desc:'Blazing fast NVMe SSD with 7450MB/s reads. Perfect for gaming, creative work, and heavy workloads.',aff:null},
+  {id:24,name:'Anker 737 Power Bank',brand:'Anker',cat:'accessories',price:129,old:null,emoji:'🔋',badge:'best',rating:4.7,rev:5678,specs:['24000mAh','140W USB-C','Smart Display','PD 3.1'],colors:['#1c1c1e'],desc:'Massive 24000mAh with 140W bi-directional USB-C. Charge a MacBook Pro 0-50% in 30 minutes.',aff:null},
+  {id:25,name:'Razer BlackWidow V4 Pro',brand:'Razer',cat:'accessories',price:319,old:399,emoji:'⌨️',badge:'sale',rating:4.8,rev:1234,specs:['Mechanical','Per-Key RGB','Wrist Rest','Command Dial'],colors:['#1c1c1e'],desc:'Premium mechanical gaming keyboard. Green switches, magnetic wrist rest, customizable command dial.',aff:null},
+  {id:26,name:'Apple AirTag 4-Pack',brand:'Apple',cat:'accessories',price:149,old:159,emoji:'📍',badge:null,rating:4.6,rev:8234,specs:['U1 Chip','IP67','Precision Finding','1yr Battery'],colors:['#c0c0c0'],desc:'Keep track of everything. Precision Finding with Ultra Wideband. Water resistant. Replaceable battery.',aff:null},
+
+  // ─── CJ DROPSHIP — Phone Accessories ───
+  {id:29,name:'MagSafe Wireless Charger 15W',brand:'DEVFONE',cat:'charging',price:29.99,old:null,emoji:'🔌',badge:'best',rating:4.5,rev:1243,specs:['15W','MagSafe','Qi2','LED Indicator'],colors:['#faf7f2','#1c1c1e'],desc:'Fast 15W MagSafe wireless charging with perfect alignment. Qi2 compatible, works with all MagSafe cases.',aff:null},
+  {id:30,name:'iPhone 16 Pro Max Tempered Glass (3-Pack)',brand:'DEVFONE',cat:'protection',price:14.99,old:null,emoji:'🛡️',badge:null,rating:4.6,rev:3421,specs:['9H Hardness','Oleophobic','HD Clear','Easy Install Kit'],colors:['#c0c0c0'],desc:'Premium 9H tempered glass screen protector. Oleophobic coating, bubble-free installation kit included.',aff:null},
+  {id:31,name:'iPhone 16 Clear MagSafe Case',brand:'DEVFONE',cat:'protection',price:24.99,old:null,emoji:'📱',badge:'best',rating:4.4,rev:2187,specs:['MagSafe','Shockproof','Crystal Clear','Slim Fit'],colors:['#c0c0c0'],desc:'Crystal clear protection with built-in MagSafe magnets. Military-grade drop protection, yellowing resistant.',aff:null},
+  {id:32,name:'Samsung Galaxy S25 Ultra Screen Protector (3-Pack)',brand:'DEVFONE',cat:'protection',price:14.99,old:null,emoji:'🛡️',badge:null,rating:4.5,rev:1876,specs:['9H Hardness','Fingerprint Compatible','Edge-to-Edge','UV Cure'],colors:['#c0c0c0'],desc:'Full coverage curved glass for Galaxy S25 Ultra. Ultrasonic fingerprint compatible, UV adhesive cure.',aff:null},
+  {id:33,name:'USB-C to Lightning Braided Cable 2m',brand:'DEVFONE',cat:'charging',price:19.99,old:null,emoji:'🔌',badge:null,rating:4.3,rev:4567,specs:['2 Metres','100W PD','Braided Nylon','MFi Grade'],colors:['#1c1c1e','#c0c0c0'],desc:'Premium braided USB-C cable with 100W Power Delivery. Reinforced connectors, 10,000+ bend tested.',aff:null},
+  {id:34,name:'MagSafe Car Mount (Dashboard & Vent)',brand:'DEVFONE',cat:'accessories',price:34.99,old:null,emoji:'🚗',badge:'hot',rating:4.6,rev:1567,specs:['MagSafe','360° Rotation','One-Hand','Universal'],colors:['#1c1c1e'],desc:'Strong MagSafe car mount with 360° rotation. Dashboard and vent clip included, one-hand operation.',aff:null},
+
+  // ─── CJ DROPSHIP — Audio ───
+  {id:35,name:'TWS Bluetooth Earbuds ANC',brand:'DEVFONE',cat:'audio',price:69.99,old:null,emoji:'🎧',badge:'best',rating:4.4,rev:2341,specs:['Bluetooth 5.3','ANC','IPX5','30hr Battery'],colors:['#1c1c1e','#faf7f2'],desc:'Active Noise Cancelling true wireless earbuds. 30-hour total battery, IPX5 water resistant, touch controls.',aff:null},
+  {id:36,name:'Bluetooth Neckband Earphones (Sport)',brand:'DEVFONE',cat:'audio',price:39.99,old:null,emoji:'🎧',badge:null,rating:4.3,rev:987,specs:['Bluetooth 5.2','IPX6','16hr Battery','Magnetic'],colors:['#1c1c1e','#2563eb'],desc:'Flexible neckband design for sports. IPX6 sweatproof, magnetic earbuds, 16-hour playtime.',aff:null},
+  {id:37,name:'Over-Ear Bluetooth Headphones ANC',brand:'DEVFONE',cat:'audio',price:89.99,old:null,emoji:'🎧',badge:'hot',rating:4.5,rev:1654,specs:['Bluetooth 5.3','ANC','Hi-Res','40hr Battery'],colors:['#1c1c1e','#e8e1d5'],desc:'Premium over-ear headphones with hybrid ANC. Hi-Res audio certified, 40-hour battery, foldable design.',aff:null},
+
+  // ─── CJ DROPSHIP — Laptop & Desktop ───
+  {id:38,name:'USB-C Hub 7-in-1 (HDMI 4K)',brand:'DEVFONE',cat:'accessories',price:59.99,old:null,emoji:'🔌',badge:'hot',rating:4.6,rev:2876,specs:['HDMI 4K@60Hz','SD/TF','USB 3.0 x3','100W PD'],colors:['#c0c0c0'],desc:'All-in-one USB-C hub with 4K@60Hz HDMI, 3x USB 3.0, SD/TF card reader, and 100W passthrough charging.',aff:null},
+  {id:39,name:'Aluminium Laptop Stand (Adjustable)',brand:'DEVFONE',cat:'accessories',price:49.99,old:null,emoji:'💻',badge:'best',rating:4.7,rev:3214,specs:['Aluminium','Adjustable Height','Ventilated','Up to 17"'],colors:['#c0c0c0','#1c1c1e'],desc:'Ergonomic aluminium laptop stand with adjustable height. Ventilated design, supports up to 17" laptops.',aff:null},
+  {id:40,name:'Laptop Sleeve 16" Waterproof',brand:'DEVFONE',cat:'protection',price:39.99,old:null,emoji:'💼',badge:null,rating:4.5,rev:1987,specs:['16 Inch','Waterproof','Shockproof','Accessory Pocket'],colors:['#1c1c1e','#374151'],desc:'Premium waterproof neoprene sleeve for 15-16" laptops. Shockproof padding, front accessory pocket.',aff:null},
+  {id:41,name:'Monitor Light Bar (USB)',brand:'DEVFONE',cat:'accessories',price:59.99,old:null,emoji:'💡',badge:'new',rating:4.6,rev:1432,specs:['USB Powered','Dimmable','3 Colour Temps','No Glare'],colors:['#1c1c1e'],desc:'Asymmetric light bar that illuminates your desk without screen glare. USB powered, stepless dimming.',aff:null},
+
+  // ─── CJ DROPSHIP — Power & Charging ───
+  {id:42,name:'GaN 65W Charger (USB-C Foldable)',brand:'DEVFONE',cat:'charging',price:44.99,old:null,emoji:'🔋',badge:'hot',rating:4.7,rev:3456,specs:['65W GaN','USB-C','Foldable Prongs','PD 3.0'],colors:['#1c1c1e','#faf7f2'],desc:'Ultra-compact 65W GaN charger. Foldable prongs, fast-charge any phone or laptop via USB-C PD 3.0.',aff:null},
+  {id:43,name:'GaN 100W Dual USB-C Charger',brand:'DEVFONE',cat:'charging',price:64.99,old:null,emoji:'🔋',badge:'new',rating:4.6,rev:1234,specs:['100W GaN','Dual USB-C','PD 3.1','Compact'],colors:['#1c1c1e'],desc:'Dual USB-C 100W charger. Charge two devices simultaneously. PD 3.1 for MacBook Pro fast charging.',aff:null},
+  {id:44,name:'3-in-1 Wireless Charging Station',brand:'DEVFONE',cat:'charging',price:54.99,old:null,emoji:'🔋',badge:'best',rating:4.5,rev:2678,specs:['15W Phone','5W Watch','5W AirPods','Foldable'],colors:['#faf7f2','#1c1c1e'],desc:'Charge iPhone, Apple Watch, and AirPods simultaneously. MagSafe compatible, foldable for travel.',aff:null},
+  {id:45,name:'10,000mAh MagSafe Power Bank (Slim)',brand:'DEVFONE',cat:'charging',price:59.99,old:null,emoji:'🔋',badge:null,rating:4.4,rev:1876,specs:['10,000mAh','MagSafe','20W PD','LED Display'],colors:['#1c1c1e','#faf7f2'],desc:'Ultra-slim MagSafe power bank with LED battery display. 20W USB-C PD, snaps magnetically to iPhone.',aff:null},
+
+  // ─── CJ DROPSHIP — Wearable Accessories ───
+  {id:46,name:'Apple Watch Band — Milanese Loop',brand:'DEVFONE',cat:'wearables',price:24.99,old:null,emoji:'⌚',badge:null,rating:4.5,rev:3456,specs:['Stainless Steel','Magnetic Clasp','42-49mm','Adjustable'],colors:['#c0c0c0','#1c1c1e','#d4c5a9'],desc:'Premium stainless steel Milanese loop band. Magnetic clasp, fits Apple Watch 42mm-49mm (all series).',aff:null},
+  {id:47,name:'Apple Watch Band — Sport Silicone',brand:'DEVFONE',cat:'wearables',price:16.99,old:null,emoji:'⌚',badge:null,rating:4.4,rev:5678,specs:['Silicone','Breathable','42-49mm','Sweatproof'],colors:['#1c1c1e','#2563eb','#059669','#dc2626','#f97316'],desc:'Soft breathable silicone sport band. Pin-and-tuck closure, sweatproof, fits all Apple Watch sizes.',aff:null},
+
+  // ─── CJ DROPSHIP — Storage ───
+  {id:48,name:'USB-C Flash Drive 128GB (Dual)',brand:'DEVFONE',cat:'accessories',price:34.99,old:null,emoji:'💾',badge:null,rating:4.5,rev:2341,specs:['128GB','USB-C + USB-A','150MB/s','Aluminium'],colors:['#c0c0c0'],desc:'Dual-connector flash drive for phone, tablet, and PC. USB-C and USB-A, 150MB/s transfer speed.',aff:null},
+  {id:49,name:'Privacy Screen Protector iPhone 16 Pro Max',brand:'DEVFONE',cat:'protection',price:22.99,old:null,emoji:'🔒',badge:null,rating:4.4,rev:1654,specs:['Anti-Spy','28° Privacy','9H Glass','Easy Install'],colors:['#1c1c1e'],desc:'Anti-spy privacy screen protector. Visible only from 28° front angle. 9H tempered glass, full coverage.',aff:null},
+  {id:50,name:'Camera Lens Protector iPhone 16 Pro',brand:'DEVFONE',cat:'protection',price:12.99,old:null,emoji:'📷',badge:null,rating:4.3,rev:4321,specs:['Sapphire Glass','HD Clear','Anti-Scratch','Easy Align'],colors:['#c0c0c0'],desc:'Individual sapphire crystal lens protectors for iPhone 16 Pro camera system. HD clarity, anti-scratch.',aff:null},
 ];
 
 // STATE
@@ -590,7 +750,7 @@ const S = {
 const save = () => { localStorage.setItem('devfone_cart',JSON.stringify(S.cart)); localStorage.setItem('devfone_wish',JSON.stringify(S.wish)); };
 
 // CATEGORIES
-const cats = [{id:'all',l:'All Products',i:'🔥'},{id:'phones',l:'Smartphones',i:'📱'},{id:'laptops',l:'Laptops',i:'💻'},{id:'audio',l:'Audio',i:'🎧'},{id:'wearables',l:'Wearables',i:'⌚'},{id:'accessories',l:'Accessories',i:'🔌'},{id:'sale',l:'On Sale',i:'🏷️'}];
+const cats = [{id:'all',l:'All Products',i:'🔥'},{id:'phones',l:'Smartphones',i:'📱'},{id:'laptops',l:'Laptops',i:'💻'},{id:'audio',l:'Audio',i:'🎧'},{id:'wearables',l:'Wearables',i:'⌚'},{id:'charging',l:'Charging',i:'🔋'},{id:'protection',l:'Protection',i:'🛡️'},{id:'accessories',l:'Accessories',i:'🔌'},{id:'sale',l:'On Sale',i:'🏷️'}];
 
 function renderCats() {
   document.getElementById('cats').innerHTML = cats.map(c => {
@@ -641,7 +801,7 @@ function renderGrid() {
         <div class="card-specs">${p.specs.slice(0,3).map(s=>`<span class="spec-tag">${s}</span>`).join('')}</div>
         <div class="card-footer">
           <div class="card-price">$${p.price.toLocaleString()}${p.old?`<span class="old-price">$${p.old.toLocaleString()}</span>`:''}</div>
-          <button class="add-btn" onclick="event.stopPropagation();addCart(${p.id})" title="Add to cart">+</button>
+          ${p.aff?`<button class="add-btn aff-btn" onclick="event.stopPropagation();openProduct(${p.id})" title="View retailers">↗</button>`:`<button class="add-btn" onclick="event.stopPropagation();addCart(${p.id})" title="Add to cart">+</button>`}
         </div>
       </div>
     </div>`;
@@ -667,9 +827,18 @@ function openProduct(id) {
     </div>
     <div class="modal-specs"><h4>Specifications</h4><div class="spec-grid">${p.specs.map((s,i)=>`<div class="spec-item"><span class="sl">${labels[i]||'Feature'}</span><span class="sv">${s}</span></div>`).join('')}</div></div>
     ${p.colors.length>1?`<div class="modal-colors"><h4>Color</h4><div class="color-opts">${p.colors.map((c,i)=>`<div class="color-dot ${i===0?'sel':''}" style="background:${c}" onclick="this.parentElement.querySelectorAll('.color-dot').forEach(d=>d.classList.remove('sel'));this.classList.add('sel')"></div>`).join('')}</div></div>`:''}
-    <button class="modal-add" onclick="addCart(${p.id});closeModal()">Add to Cart — $${p.price.toLocaleString()}</button>`;
+    ${p.aff ? `
+      <div class="modal-aff-label">Buy from trusted retailers:</div>
+      <div class="modal-aff-btns">
+        ${p.aff.apple?`<a href="${p.aff.apple}" target="_blank" rel="noopener" class="aff-link apple" onclick="trackAff(${p.id},'apple')"><span class="aff-icon">&#xF8FF;</span> Apple Store</a>`:''}
+        ${p.aff.amazon?`<a href="${p.aff.amazon}" target="_blank" rel="noopener" class="aff-link amazon" onclick="trackAff(${p.id},'amazon')"><span class="aff-icon">&#x1F4E6;</span> Amazon AU</a>`:''}
+        ${p.aff.jb?`<a href="${p.aff.jb}" target="_blank" rel="noopener" class="aff-link jb" onclick="trackAff(${p.id},'jb')"><span class="aff-icon">&#x1F3B5;</span> JB Hi-Fi</a>`:''}
+      </div>
+      <p class="aff-note">You'll be redirected to the retailer's website to complete your purchase.</p>
+    ` : `<button class="modal-add" onclick="addCart(${p.id});closeModal()">Add to Cart — $${p.price.toLocaleString()}</button>`}`;
   document.getElementById('modal').classList.add('active'); document.body.style.overflow='hidden';
 }
+function trackAff(id,retailer){ const p=P.find(x=>x.id===id); console.log('Affiliate click:',p?.name,retailer); fetch('/api/dropship/affiliate/click',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({product_id:id,retailer,product_name:p?.name})}).catch(()=>{}); }
 function closeModal(){ document.getElementById('modal').classList.remove('active'); document.body.style.overflow=''; }
 
 // CART
@@ -695,13 +864,27 @@ function renderCartList(){
 }
 function openCart(){ renderCartList(); document.getElementById('cartOv').classList.add('open'); document.getElementById('cartPanel').classList.add('open'); document.body.style.overflow='hidden'; }
 function closeCart(){ document.getElementById('cartOv').classList.remove('open'); document.getElementById('cartPanel').classList.remove('open'); document.body.style.overflow=''; }
-function checkout(){ toast(`Checkout: ${cartCount()} items — $${cartTotal().toLocaleString()}. Payment coming soon!`,'info'); }
+async function checkout(){
+  if(!S.cart.length){ toast('Your cart is empty','info'); return; }
+  const items=S.cart.map(i=>{ const p=P.find(x=>x.id===i.id); return {id:p.id,name:p.name,brand:p.brand,price:p.price,qty:i.qty}; });
+  const email=prompt('Enter your email for order confirmation:');
+  if(!email||!email.includes('@')){ toast('Valid email required to checkout','error'); return; }
+  const name=prompt('Your full name:');
+  if(!name){ toast('Name required','error'); return; }
+  toast('Redirecting to secure checkout...','info');
+  try {
+    const res=await fetch('/api/store/checkout',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({items,customer:{email,name}})});
+    const data=await res.json();
+    if(data.url){ window.location.href=data.url; }
+    else { toast(data.error||'Checkout failed','error'); }
+  } catch(e){ toast('Could not connect to payment server. Please try again.','error'); }
+}
 
 // WISHLIST
 function toggleWish(id){ const i=S.wish.indexOf(id); if(i>-1){S.wish.splice(i,1);toast('Removed from wishlist','info');}else{S.wish.push(id);toast('Added to wishlist','success');} save(); document.getElementById('wishBadge').textContent=S.wish.length||''; renderGrid(); }
 function showWishlist(){ if(!S.wish.length){toast('Wishlist is empty','info');return;} S.cat='all'; S.q=''; renderCats();
   const wl=P.filter(p=>S.wish.includes(p.id)); document.getElementById('secTitle').textContent='My Wishlist'; document.getElementById('secCount').textContent=wl.length+' items';
-  document.getElementById('grid').innerHTML=wl.map((p,i)=>`<div class="product-card" style="animation:fadeUp 0.35s var(--ease) ${i*0.03}s both" onclick="openProduct(${p.id})"><div class="card-img">${p.emoji}<button class="card-wishlist active" onclick="event.stopPropagation();toggleWish(${p.id})">❤️</button></div><div class="card-body"><div class="card-brand">${p.brand}</div><div class="card-title">${p.name}</div><div class="card-footer"><div class="card-price">$${p.price.toLocaleString()}</div><button class="add-btn" onclick="event.stopPropagation();addCart(${p.id})">+</button></div></div></div>`).join('');
+  document.getElementById('grid').innerHTML=wl.map((p,i)=>`<div class="product-card" style="animation:fadeUp 0.35s var(--ease) ${i*0.03}s both" onclick="openProduct(${p.id})"><div class="card-img">${p.emoji}<button class="card-wishlist active" onclick="event.stopPropagation();toggleWish(${p.id})">❤️</button></div><div class="card-body"><div class="card-brand">${p.brand}</div><div class="card-title">${p.name}</div><div class="card-footer"><div class="card-price">$${p.price.toLocaleString()}</div>${p.aff?`<button class="add-btn aff-btn" onclick="event.stopPropagation();openProduct(${p.id})">↗</button>`:`<button class="add-btn" onclick="event.stopPropagation();addCart(${p.id})">+</button>`}</div></div></div>`).join('');
   document.getElementById('products')?.scrollIntoView({behavior:'smooth'});
 }
 
@@ -730,6 +913,17 @@ document.addEventListener('keydown',e=>{ if(e.key==='Escape'){closeModal();close
 // INIT
 renderCats(); renderGrid(); updCart();
 document.getElementById('wishBadge').textContent=S.wish.length||'';
+
+// Handle order success/cancel from Stripe redirect
+const urlParams = new URLSearchParams(window.location.search);
+if(urlParams.get('order')==='success'){
+  S.cart=[]; save(); updCart();
+  toast('Order placed successfully! Check your email for confirmation.','success');
+  window.history.replaceState({}, '', window.location.pathname);
+} else if(urlParams.get('order')==='canceled'){
+  toast('Checkout canceled. Your cart is still saved.','info');
+  window.history.replaceState({}, '', window.location.pathname);
+}
 </script>
 </body>
 </html>

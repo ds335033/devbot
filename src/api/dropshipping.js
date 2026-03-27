@@ -778,9 +778,198 @@ router.get('/store/products', (req, res) => {
 });
 
 // ============================================================
+// AFFILIATE LINKS — Flagship products (Apple, Samsung flagships)
+// ============================================================
+const AFFILIATE_CONFIG = {
+  // Apple affiliate program (Performance Partners)
+  apple: {
+    base_url: 'https://www.apple.com/au/shop/go/product',
+    tag: process.env.APPLE_AFFILIATE_TAG || 'devfone-au',
+    commission: 0.07, // 7%
+  },
+  // Amazon AU affiliate (Associates)
+  amazon: {
+    base_url: 'https://www.amazon.com.au/dp',
+    tag: process.env.AMAZON_AFFILIATE_TAG || 'devfone-22',
+    commission: 0.04, // 4%
+  },
+  // JB Hi-Fi (Commission Factory)
+  jbhifi: {
+    base_url: 'https://www.jbhifi.com.au/products',
+    tag: process.env.JBHIFI_AFFILIATE_TAG || '',
+    commission: 0.03, // 3%
+  },
+};
+
+// Flagship product → affiliate link mappings
+const FLAGSHIP_AFFILIATES = {
+  // iPhones
+  'iphone-16-pro-max':    { apple: 'MYW73X/A', amazon: 'B0DGHYFL4C', jbhifi: 'apple-iphone-16-pro-max-256gb' },
+  'iphone-16-pro':        { apple: 'MYW43X/A', amazon: 'B0DGHXK31B', jbhifi: 'apple-iphone-16-pro-128gb' },
+  'iphone-16':            { apple: 'MYE33X/A', amazon: 'B0DGHY1R73', jbhifi: 'apple-iphone-16-128gb' },
+  // MacBooks
+  'macbook-pro-m4-max':   { apple: 'CTO_MWX93X/A', amazon: 'B0DLHM8FHQ', jbhifi: 'apple-macbook-pro-16-m4-max' },
+  'macbook-air-m4':       { apple: 'MC5Y3X/A', amazon: 'B0DLJ3LZ63', jbhifi: 'apple-macbook-air-15-m4' },
+  // Samsung
+  'galaxy-s25-ultra':     { amazon: 'B0DS4HM2BN', jbhifi: 'samsung-galaxy-s25-ultra-256gb' },
+  'galaxy-z-fold-6':      { amazon: 'B0D7DJM4XB', jbhifi: 'samsung-galaxy-z-fold6-256gb' },
+  // iPads
+  'ipad-pro-m4':          { apple: 'MWR63X/A', amazon: 'B0D3J98W75', jbhifi: 'apple-ipad-pro-13-m4-256gb' },
+  // Watches
+  'apple-watch-ultra-3':  { apple: 'MXM73X/A', amazon: 'B0DGJ2K1KW', jbhifi: 'apple-watch-ultra-2' },
+  'apple-watch-series-10':{ apple: 'MXM43X/A', amazon: 'B0DGHR37V8', jbhifi: 'apple-watch-series-10' },
+  // Audio
+  'airpods-max-2':        { apple: 'MQTP3X/A', amazon: 'B0DGJ5TZW4', jbhifi: 'apple-airpods-max-usb-c' },
+};
+
+// Generate affiliate link for a product
+function getAffiliateLink(productSlug, retailer = 'amazon') {
+  const mapping = FLAGSHIP_AFFILIATES[productSlug];
+  if (!mapping || !mapping[retailer]) return null;
+
+  const config = AFFILIATE_CONFIG[retailer];
+  if (!config) return null;
+
+  const pid = mapping[retailer];
+  switch (retailer) {
+    case 'apple':
+      return `${config.base_url}/${pid}?afid=p239%7Cs&cid=aos-au-kwgo--slid---productid--Brand-Apple--${config.tag}`;
+    case 'amazon':
+      return `${config.base_url}/${pid}?tag=${config.tag}`;
+    case 'jbhifi':
+      return `${config.base_url}/${pid}`;
+    default:
+      return null;
+  }
+}
+
+// Get all affiliate links for a product
+function getAllAffiliateLinks(productSlug) {
+  const links = {};
+  for (const retailer of Object.keys(AFFILIATE_CONFIG)) {
+    const link = getAffiliateLink(productSlug, retailer);
+    if (link) {
+      links[retailer] = {
+        url: link,
+        commission: AFFILIATE_CONFIG[retailer].commission,
+        name: retailer === 'apple' ? 'Apple Store' : retailer === 'amazon' ? 'Amazon AU' : 'JB Hi-Fi',
+      };
+    }
+  }
+  return links;
+}
+
+// Get affiliate links for a product
+router.get('/affiliate/:slug', (req, res) => {
+  const { slug } = req.params;
+  const links = getAllAffiliateLinks(slug);
+  if (Object.keys(links).length === 0) {
+    return res.status(404).json({ error: 'No affiliate links for this product' });
+  }
+  res.json({ success: true, product: slug, links });
+});
+
+// Get all affiliate products
+router.get('/affiliate', (req, res) => {
+  const all = {};
+  for (const slug of Object.keys(FLAGSHIP_AFFILIATES)) {
+    all[slug] = getAllAffiliateLinks(slug);
+  }
+  res.json({ success: true, products: all, config: {
+    commission_rates: Object.fromEntries(
+      Object.entries(AFFILIATE_CONFIG).map(([k, v]) => [k, { rate: v.commission, name: k === 'apple' ? 'Apple Store' : k === 'amazon' ? 'Amazon AU' : 'JB Hi-Fi' }])
+    ),
+  }});
+});
+
+// Track affiliate click
+router.post('/affiliate/click', (req, res) => {
+  const { product_slug, retailer, user_agent } = req.body;
+  const clicks = loadJson(`${DATA_DIR}/affiliate_clicks.json`, []);
+  clicks.push({
+    product: product_slug,
+    retailer,
+    timestamp: new Date().toISOString(),
+    user_agent: user_agent || '',
+  });
+  saveJson(`${DATA_DIR}/affiliate_clicks.json`, clicks);
+
+  const link = getAffiliateLink(product_slug, retailer);
+  res.json({ success: true, redirect_url: link });
+});
+
+// Affiliate analytics
+router.get('/affiliate/analytics', (req, res) => {
+  const clicks = loadJson(`${DATA_DIR}/affiliate_clicks.json`, []);
+  const byProduct = {};
+  const byRetailer = {};
+
+  for (const c of clicks) {
+    byProduct[c.product] = (byProduct[c.product] || 0) + 1;
+    byRetailer[c.retailer] = (byRetailer[c.retailer] || 0) + 1;
+  }
+
+  // Estimate earnings based on average order value and commission
+  const avgOrderValues = { apple: 2000, amazon: 800, jbhifi: 1200 };
+  let estimatedEarnings = 0;
+  for (const [retailer, count] of Object.entries(byRetailer)) {
+    const config = AFFILIATE_CONFIG[retailer];
+    const aov = avgOrderValues[retailer] || 1000;
+    // Assume 3% click-to-purchase conversion rate
+    estimatedEarnings += count * 0.03 * aov * (config?.commission || 0.04);
+  }
+
+  res.json({
+    success: true,
+    total_clicks: clicks.length,
+    by_product: byProduct,
+    by_retailer: byRetailer,
+    estimated_earnings: Math.round(estimatedEarnings * 100) / 100,
+    last_7_days: clicks.filter(c => new Date(c.timestamp) > new Date(Date.now() - 7 * 86400000)).length,
+  });
+});
+
+// ============================================================
+// HYBRID PRODUCT CATALOG — dropship vs affiliate classification
+// ============================================================
+router.get('/catalog/hybrid', (req, res) => {
+  const products = loadJson(PRODUCTS_FILE, []);
+
+  // Classify products
+  const dropship = [];   // Direct dropship (accessories, mid-range)
+  const affiliate = [];  // Affiliate (flagships)
+
+  for (const p of products) {
+    const slug = p.name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/-+/g, '-');
+    const affiliateLinks = getAllAffiliateLinks(slug);
+
+    if (Object.keys(affiliateLinks).length > 0) {
+      affiliate.push({ ...p, type: 'affiliate', links: affiliateLinks });
+    } else {
+      dropship.push({ ...p, type: 'dropship' });
+    }
+  }
+
+  res.json({
+    success: true,
+    summary: {
+      total: products.length,
+      dropship: dropship.length,
+      affiliate: affiliate.length,
+      dropship_desc: 'Direct fulfillment via CJ/AliExpress — you keep the full margin',
+      affiliate_desc: 'Redirect to Apple/Amazon/JB — earn 3-7% commission per sale',
+    },
+    dropship,
+    affiliate,
+  });
+});
+
+// ============================================================
 // EXPORT
 // ============================================================
 export function registerDropshippingRoutes(app) {
   app.use('/api/dropship', router);
-  console.log('[DEVFONE] Dropshipping API loaded — CJ, AliExpress, Banggood');
+  console.log('[DEVFONE] Dropshipping + Affiliate hybrid API loaded');
+  console.log('[DEVFONE] Flagship affiliates:', Object.keys(FLAGSHIP_AFFILIATES).length, 'products');
+  console.log('[DEVFONE] Retailers: Apple Store, Amazon AU, JB Hi-Fi');
 }
