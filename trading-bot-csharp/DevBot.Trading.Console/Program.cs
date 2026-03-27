@@ -5,9 +5,12 @@ using Spectre.Console;
 using DevBot.Trading.CDP;
 using DevBot.Trading.CDP.Keys;
 using DevBot.Trading.CDP.Tokens;
+using DevBot.Trading.CDP.Wallets;
 using DevBot.Trading.Core.Config;
+using DevBot.Trading.Core.Actions;
 using DevBot.Trading.Core.Factories;
 using DevBot.Trading.Core.Interfaces;
+using DevBot.Trading.Core.Models;
 using DevBot.Trading.Core.Services;
 
 namespace DevBot.Trading.Console;
@@ -114,18 +117,41 @@ class Program
                 return 0;
         }
 
-        // Create trading engine
+        // Create trading engine + services
         var tokenGen = new JwtTokenGenerator(loggerFactory.CreateLogger<JwtTokenGenerator>());
         var apiClient = new CoinbaseApiClient(keyProvider, tokenGen,
             loggerFactory.CreateLogger<CoinbaseApiClient>());
         var tradeLogger = new JsonTradeLogger(tradingConfig, loggerFactory.CreateLogger<JsonTradeLogger>());
         var engine = new TradingEngine(tradingConfig, apiClient, tradeLogger, loggerFactory);
 
+        // Wallet service
+        var walletService = new WalletService(apiClient, loggerFactory.CreateLogger<WalletService>());
+
+        // Trade executor
+        var tradeExecutor = new TradeExecutor(apiClient, walletService, tradingConfig, tradeLogger,
+            loggerFactory.CreateLogger<TradeExecutor>());
+
+        // Risk manager
+        var riskManager = new RiskManager(tradingConfig, tradeLogger,
+            loggerFactory.CreateLogger<RiskManager>());
+
+        // Market data
+        var marketData = new MarketDataService(apiClient, loggerFactory.CreateLogger<MarketDataService>());
+
+        // Action registry (AgentKit pattern)
+        var actions = new ActionRegistry(loggerFactory.CreateLogger<ActionRegistry>());
+        actions.Register(new GetBalanceAction(walletService));
+        actions.Register(new TransferAction(walletService));
+        actions.Register(new SwapTokensAction(apiClient));
+
+        AnsiConsole.MarkupLine($"[green]✅ Actions loaded:[/] {string.Join(", ", actions.Actions.Keys)}");
+
         // Execute mode
         if (tradeOnce)
         {
             var trade = await engine.ExecuteStrategyAsync();
-            AnsiConsole.MarkupLine($"\n[bold]📊 Result:[/] {trade}");
+            var executed = await tradeExecutor.ExecuteAsync(trade);
+            AnsiConsole.MarkupLine($"\n[bold]Result:[/] {executed}");
             return 0;
         }
 
@@ -138,18 +164,24 @@ class Program
         }
 
         // Interactive mode
-        await RunInteractiveMode(engine);
+        await RunInteractiveMode(engine, walletService, tradeExecutor, riskManager, marketData, actions);
         return 0;
     }
 
-    static async Task RunInteractiveMode(TradingEngine engine)
+    static async Task RunInteractiveMode(
+        TradingEngine engine,
+        WalletService walletService,
+        TradeExecutor tradeExecutor,
+        RiskManager riskManager,
+        MarketDataService marketData,
+        ActionRegistry actions)
     {
         AnsiConsole.Write(new Rule("[cyan]Interactive Trading Mode[/]").RuleStyle("dim"));
-        AnsiConsole.MarkupLine("[dim]Commands: /trade /balance /portfolio /history /switch /status /quit[/]\n");
+        AnsiConsole.MarkupLine("[dim]Commands: /trade /balance /portfolio /wallets /risk /price /actions /history /switch /status /quit[/]\n");
 
         while (true)
         {
-            var input = AnsiConsole.Ask<string>("[cyan]You >[/]").Trim();
+            var input = AnsiConsole.Ask<string>("[cyan]DevBot >[/]").Trim();
 
             if (string.IsNullOrEmpty(input)) continue;
 
@@ -157,7 +189,7 @@ class Program
             {
                 case "/quit":
                 case "/exit":
-                    AnsiConsole.MarkupLine("[yellow]👋 Shutting down trading bot...[/]");
+                    AnsiConsole.MarkupLine("[yellow]Shutting down trading bot...[/]");
                     return;
 
                 case "/trade":
@@ -165,8 +197,25 @@ class Program
                         .Spinner(Spinner.Known.Dots)
                         .StartAsync($"Executing {engine.ActiveStrategy.Name} strategy...", async _ =>
                         {
-                            var trade = await engine.ExecuteStrategyAsync();
-                            AnsiConsole.MarkupLine($"\n[bold]📊 {trade}[/]");
+                            var signal = await engine.ExecuteStrategyAsync();
+                            if (signal.Action != TradeAction.Hold)
+                            {
+                                var portfolio = await engine.GetPortfolioAsync();
+                                var (approved, reason) = await riskManager.ValidateTradeAsync(signal, portfolio);
+                                if (approved)
+                                {
+                                    var executed = await tradeExecutor.ExecuteAsync(signal);
+                                    AnsiConsole.MarkupLine($"\n[bold green]EXECUTED:[/] {executed}");
+                                }
+                                else
+                                {
+                                    AnsiConsole.MarkupLine($"\n[bold yellow]BLOCKED:[/] {reason}");
+                                }
+                            }
+                            else
+                            {
+                                AnsiConsole.MarkupLine($"\n[bold]HOLD:[/] {signal.Notes}");
+                            }
                         });
                     break;
 
@@ -181,19 +230,22 @@ class Program
                                 .AddColumn("Balance")
                                 .AddColumn("Price (USD)")
                                 .AddColumn("Value (USD)")
-                                .AddColumn("Allocation");
+                                .AddColumn("Allocation")
+                                .AddColumn("P&L");
 
                             foreach (var pos in portfolio.Positions)
                             {
+                                var pnlColor = pos.PnlPercent >= 0 ? "green" : "red";
                                 table.AddRow(
                                     $"[bold]{pos.Symbol}[/]",
                                     pos.Balance.ToString("F6"),
                                     $"${pos.PriceUsd:F2}",
                                     $"[green]${pos.ValueUsd:F2}[/]",
-                                    $"{pos.AllocationPercent:F1}%");
+                                    $"{pos.AllocationPercent:F1}%",
+                                    $"[{pnlColor}]{pos.PnlPercent:+0.0;-0.0}%[/]");
                             }
 
-                            table.AddRow("[bold]TOTAL[/]", "", "", $"[bold green]${portfolio.TotalValueUsd:F2}[/]", "100%");
+                            table.AddRow("[bold]TOTAL[/]", "", "", $"[bold green]${portfolio.TotalValueUsd:F2}[/]", "100%", "");
                             AnsiConsole.Write(table);
                         });
                     break;
@@ -217,6 +269,93 @@ class Program
                         });
                     break;
 
+                case "/wallets":
+                    await AnsiConsole.Status()
+                        .Spinner(Spinner.Known.Dots)
+                        .StartAsync("Fetching wallets...", async _ =>
+                        {
+                            var wallets = await walletService.ListWalletsAsync();
+                            var table = new Table()
+                                .AddColumn("ID")
+                                .AddColumn("Name")
+                                .AddColumn("Currency")
+                                .AddColumn("Balance")
+                                .AddColumn("Active");
+
+                            foreach (var w in wallets)
+                            {
+                                var isActive = w.Id == walletService.ActiveWalletId;
+                                table.AddRow(
+                                    w.Id.Length > 12 ? w.Id[..12] + "..." : w.Id,
+                                    w.Name,
+                                    w.Currency,
+                                    w.Balance.ToString("F6"),
+                                    isActive ? "[green]<<<[/]" : "");
+                            }
+
+                            AnsiConsole.Write(table);
+                            if (!wallets.Any())
+                                AnsiConsole.MarkupLine("[yellow]No wallets found. Use /create-wallet to create one.[/]");
+                        });
+                    break;
+
+                case "/risk":
+                    await AnsiConsole.Status()
+                        .Spinner(Spinner.Known.Dots)
+                        .StartAsync("Loading risk summary...", async _ =>
+                        {
+                            var summary = await riskManager.GetDailySummaryAsync();
+                            var table = new Table().Title("[bold cyan]Risk Dashboard[/]");
+                            table.AddColumn("Metric");
+                            table.AddColumn("Value");
+
+                            table.AddRow("Trades Today", $"{summary.TotalTradesToday}/{summary.MaxTradesAllowed}");
+                            table.AddRow("Remaining", summary.AtDailyLimit
+                                ? "[red]LIMIT REACHED[/]"
+                                : $"[green]{summary.RemainingTrades} trades[/]");
+                            table.AddRow("Volume Today", $"${summary.VolumeToday:F2}");
+                            table.AddRow("Buys / Sells", $"{summary.BuysToday} / {summary.SellsToday}");
+                            table.AddRow("Failed", summary.FailedToday > 0
+                                ? $"[red]{summary.FailedToday}[/]"
+                                : "[green]0[/]");
+                            table.AddRow("Stop Loss", $"{summary.StopLossPercent}%");
+                            table.AddRow("Take Profit", $"{summary.TakeProfitPercent}%");
+
+                            AnsiConsole.Write(table);
+                        });
+                    break;
+
+                case "/price":
+                    await AnsiConsole.Status()
+                        .Spinner(Spinner.Known.Dots)
+                        .StartAsync("Fetching prices...", async _ =>
+                        {
+                            var pairs = new[] { "ETH-USD", "BTC-USD", "USDC-USD", "SOL-USD" };
+                            var table = new Table().Title("[bold cyan]Live Prices[/]");
+                            table.AddColumn("Pair");
+                            table.AddColumn("Price (USD)");
+
+                            foreach (var pair in pairs)
+                            {
+                                try
+                                {
+                                    var price = await marketData.GetPriceAsync(pair);
+                                    table.AddRow(pair, $"[bold green]${price:N2}[/]");
+                                }
+                                catch
+                                {
+                                    table.AddRow(pair, "[red]Error[/]");
+                                }
+                            }
+                            AnsiConsole.Write(table);
+                        });
+                    break;
+
+                case "/actions":
+                    var manifest = actions.GetActionManifest();
+                    AnsiConsole.MarkupLine($"[cyan]{manifest}[/]");
+                    break;
+
                 case "/history":
                     await ShowTradeHistory(engine);
                     break;
@@ -231,9 +370,9 @@ class Program
                     if (parts.Length > 1)
                     {
                         if (engine.SwitchStrategy(parts[1]))
-                            AnsiConsole.MarkupLine($"[green]✅ Switched to {parts[1]}[/]");
+                            AnsiConsole.MarkupLine($"[green]Switched to {parts[1]}[/]");
                         else
-                            AnsiConsole.MarkupLine($"[red]❌ Invalid strategy. Valid: {string.Join(", ", StrategyFactory.GetValidNames())}[/]");
+                            AnsiConsole.MarkupLine($"[red]Invalid strategy. Valid: {string.Join(", ", StrategyFactory.GetValidNames())}[/]");
                     }
                     else
                     {
@@ -242,8 +381,31 @@ class Program
                     }
                     break;
 
+                case var s when s.StartsWith("/create-wallet"):
+                    await AnsiConsole.Status()
+                        .Spinner(Spinner.Known.Dots)
+                        .StartAsync("Creating wallet...", async _ =>
+                        {
+                            var wallet = await walletService.CreateWalletAsync(engine.Config.NetworkId);
+                            AnsiConsole.MarkupLine($"[green]Wallet created: {wallet}[/]");
+                        });
+                    break;
+
+                case var s when s.StartsWith("/set-wallet"):
+                    var wParts = s.Split(' ', 2);
+                    if (wParts.Length > 1)
+                    {
+                        walletService.SetActiveWallet(wParts[1]);
+                        AnsiConsole.MarkupLine($"[green]Active wallet set: {wParts[1]}[/]");
+                    }
+                    else
+                    {
+                        AnsiConsole.MarkupLine("[dim]Usage: /set-wallet <wallet-id>[/]");
+                    }
+                    break;
+
                 default:
-                    AnsiConsole.MarkupLine($"[dim]Unknown command. Try: /trade /balance /portfolio /history /switch /status /quit[/]");
+                    AnsiConsole.MarkupLine($"[dim]Unknown command. Try: /trade /balance /portfolio /wallets /risk /price /actions /history /switch /status /quit[/]");
                     break;
             }
 

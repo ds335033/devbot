@@ -11,7 +11,7 @@ namespace DevBot.Trading.Core.Factories;
 public static class StrategyFactory
 {
     private static readonly string[] ValidStrategies =
-        { "momentum", "dca", "mean_reversion", "grid", "rebalance" };
+        { "momentum", "dca", "mean_reversion", "grid", "rebalance", "ai" };
 
     /// <summary>
     /// Create a strategy instance by name.
@@ -25,6 +25,7 @@ public static class StrategyFactory
             "mean_reversion" => new MeanReversionStrategy(config, loggerFactory?.CreateLogger<MeanReversionStrategy>()),
             "grid" => new GridStrategy(config, loggerFactory?.CreateLogger<GridStrategy>()),
             "rebalance" => new RebalanceStrategy(config, loggerFactory?.CreateLogger<RebalanceStrategy>()),
+            "ai" => new AiStrategy(config, loggerFactory?.CreateLogger<AiStrategy>()),
             _ => throw new ArgumentException(
                 $"Unknown strategy: '{strategyName}'. Valid: {string.Join(", ", ValidStrategies)}",
                 nameof(strategyName))
