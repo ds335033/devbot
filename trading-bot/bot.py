@@ -33,8 +33,8 @@ from pathlib import Path
 
 from dotenv import load_dotenv
 
-# Load environment
-load_dotenv(override=True)
+# Load environment — force override system env vars (Claude Code sets empty ANTHROPIC_API_KEY)
+load_dotenv(os.path.join(os.path.dirname(os.path.abspath(__file__)), ".env"), override=True)
 
 # ─── Configuration ────────────────────────────────────────────────────────────
 
@@ -62,7 +62,7 @@ def log(msg, level="INFO"):
     ts = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     line = f"[{ts}] [{level}] {msg}"
     print(line)
-    with open(LOG_FILE, "a") as f:
+    with open(LOG_FILE, "a", encoding="utf-8") as f:
         f.write(line + "\n")
 
 
@@ -125,9 +125,11 @@ def create_agent():
         from langgraph.prebuilt import create_react_agent
 
         # Configure CDP wallet
+        CDP_WALLET_SECRET = os.getenv("CDP_WALLET_SECRET", "")
         wallet_config = CdpEvmWalletProviderConfig(
-            api_key_name=CDP_API_KEY_NAME,
-            api_key_private_key=CDP_API_KEY_PRIVATE_KEY,
+            api_key_id=CDP_API_KEY_NAME,
+            api_key_secret=CDP_API_KEY_PRIVATE_KEY,
+            wallet_secret=CDP_WALLET_SECRET,
             network_id=NETWORK_ID,
         )
         wallet_provider = CdpEvmWalletProvider(wallet_config)
@@ -152,7 +154,7 @@ def create_agent():
 
         # Initialize Claude as the AI brain
         llm = ChatAnthropic(
-            model="claude-sonnet-4-20250514",
+            model="claude-haiku-4-5-20251001",
             api_key=ANTHROPIC_API_KEY,
             max_tokens=4096,
         )
