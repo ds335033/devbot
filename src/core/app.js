@@ -38,6 +38,8 @@ const { registerCreditsRoutes } = await import('../api/credits.js');
 const { registerZapierRoutes } = await import('../api/zapier.js');
 const { registerNewRevenueRoutes, NEW_REVENUE_STREAMS } = await import('../api/newrevenue.js');
 const { registerRevenue42_49Routes, REVENUE_42_49 } = await import('../api/revenue42_49.js');
+const { registerAgentKitRoutes } = await import('../trading/agentkit.js');
+const { registerSchedulerRoutes } = await import('../trading/scheduler.js');
 
 const app = express();
 
@@ -120,6 +122,12 @@ registerNewRevenueRoutes(app);
 
 // Revenue streams 42-49 (Crypto Trading Bot, Marketplace, Academy, Hosting, Chatbot, Pipeline, Mobile, Compliance)
 registerRevenue42_49Routes(app);
+
+// Coinbase AgentKit — live on-chain trading (swaps, transfers, wallets, strategies)
+registerAgentKitRoutes(app);
+
+// Auto-trading scheduler — recurring trades on interval
+registerSchedulerRoutes(app);
 
 // Health check
 app.get('/health', (req, res) => {
