@@ -143,6 +143,23 @@
         <button class="btn-sm btn-share" onclick="shareApp()">Share</button>
         <button class="btn-sm btn-download" onclick="downloadApp()">Download ZIP</button>
         <button class="btn-sm btn-deploy" onclick="showDeployModal()">Deploy</button>
+        <button class="btn-sm" style="background:var(--dark-600);color:var(--gray-300);border:1px solid var(--dark-500)" onclick="showSettings()" title="Settings">⚙️</button>
+    </div>
+    <!-- Settings Modal -->
+    <div id="settingsModal" style="display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.7);z-index:9999;justify-content:center;align-items:center">
+        <div style="background:var(--dark-700);border:1px solid var(--dark-500);border-radius:16px;padding:32px;max-width:500px;width:90%">
+            <h3 style="margin-bottom:8px">⚙️ Studio Settings</h3>
+            <p style="color:var(--gray-400);font-size:0.85rem;margin-bottom:20px">Optional: Add your own Anthropic API key for unlimited AI-powered generation. Without a key, Studio uses built-in demo templates.</p>
+            <label style="color:var(--gray-400);font-size:0.8rem;font-weight:600">Anthropic API Key (optional)</label>
+            <input type="password" id="userApiKey" placeholder="sk-ant-..." style="width:100%;padding:10px;border-radius:8px;border:1px solid var(--dark-500);background:var(--dark-800);color:var(--white);font-size:0.9rem;margin:8px 0 16px;outline:none">
+            <p style="color:var(--gray-400);font-size:0.75rem;margin-bottom:20px">Your key is stored locally in your browser and never sent to our servers. Get one at <a href="https://console.anthropic.com/settings/keys" target="_blank" style="color:var(--primary-light)">console.anthropic.com</a></p>
+            <div style="display:flex;gap:8px">
+                <button onclick="saveSettings()" style="flex:1;padding:10px;border-radius:8px;border:none;background:var(--primary);color:white;font-weight:600;cursor:pointer">Save</button>
+                <button onclick="clearSettings()" style="padding:10px 16px;border-radius:8px;border:1px solid var(--dark-500);background:transparent;color:var(--gray-400);cursor:pointer">Clear Key</button>
+                <button onclick="hideSettings()" style="padding:10px 16px;border-radius:8px;border:1px solid var(--dark-500);background:transparent;color:var(--gray-400);cursor:pointer">Cancel</button>
+            </div>
+            <div id="settingsStatus" style="margin-top:12px;font-size:0.8rem"></div>
+        </div>
     </div>
 </nav>
 
@@ -412,9 +429,23 @@ async function generateApp() {
             } catch {}
         }
 
-        // Method 3: No server available — use built-in demo generation
+        // Method 3: Direct Anthropic API (for users with their own key)
         if (!data || !data.success) {
-            data = { success: true, app: generateDemoApp(prompt, lang) };
+            const savedKey = localStorage.getItem('devbot_user_key');
+            if (savedKey) {
+                try {
+                    data = await callAnthropicDirect(prompt, lang, savedKey);
+                } catch (e) {
+                    console.warn('Direct API failed:', e.message);
+                }
+            }
+        }
+
+        // Method 4: Built-in smart demo generation (always works, no API needed)
+        if (!data || !data.success) {
+            // Simulate realistic generation time
+            await new Promise(r => setTimeout(r, 2000 + Math.random() * 3000));
+            data = { success: true, app: generateDemoApp(prompt, lang), meta: { mode: 'demo' } };
         }
 
         const elapsed = ((Date.now() - startTime) / 1000).toFixed(1);
@@ -629,6 +660,36 @@ function shareApp() {
 }
 
 // ===== DEMO APP GENERATOR (works without backend) =====
+// ===== DIRECT ANTHROPIC API (for users with their own key) =====
+async function callAnthropicDirect(prompt, lang, apiKey) {
+    const sysPrompt = `You are DevBot AI. Generate complete, beautiful web apps. Return ONLY valid JSON (no markdown fences). Put ALL CSS and JS inline in index.html. Dark theme (#0f172a), gradients, animations, responsive. JSON: {"name":"app-name","description":"desc","files":{"index.html":"FULL CODE","package.json":"{}","README.md":"docs"},"setup":["npx serve ."],"run":"npx serve ."}`;
+    const userMsg = `Build: ${prompt}${lang !== 'auto' ? '\\nLanguage: ' + lang : ''}\\nPut ALL code in one self-contained index.html. Beautiful dark UI. Return ONLY JSON.`;
+
+    const r = await fetch('https://api.anthropic.com/v1/messages', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'x-api-key': apiKey,
+            'anthropic-version': '2023-06-01',
+            'anthropic-dangerous-direct-browser-access': 'true',
+        },
+        body: JSON.stringify({
+            model: 'claude-sonnet-4-20250514',
+            max_tokens: 16384,
+            system: sysPrompt,
+            messages: [{ role: 'user', content: userMsg }],
+        }),
+    });
+
+    const apiData = await r.json();
+    if (apiData.content && apiData.content[0]) {
+        const parsed = parseJsonResponse(apiData.content[0].text);
+        return { success: true, app: parsed, meta: { mode: 'api', tokens: (apiData.usage?.input_tokens||0)+(apiData.usage?.output_tokens||0) } };
+    }
+    throw new Error(apiData.error?.message || 'API failed');
+}
+
+// ===== DEMO APP GENERATOR =====
 function generateDemoApp(prompt, lang) {
     const p = prompt.toLowerCase();
     const appName = prompt.split(' ').slice(0, 3).join('-').toLowerCase().replace(/[^a-z0-9-]/g, '') || 'my-app';
@@ -837,6 +898,51 @@ function parseJsonResponse(text) {
     // Fallback
     return { name: 'generated-app', description: 'Generated by DevBot AI', files: { 'output.md': text }, setup: ['Review output'], run: 'See output.md' };
 }
+
+// ===== SETTINGS =====
+function showSettings() {
+    const modal = document.getElementById('settingsModal');
+    modal.style.display = 'flex';
+    const saved = localStorage.getItem('devbot_user_key');
+    if (saved) document.getElementById('userApiKey').value = saved;
+    document.getElementById('settingsStatus').textContent = saved ? '✅ API key is set — full AI generation active' : '📋 No key set — using demo templates';
+    document.getElementById('settingsStatus').style.color = saved ? 'var(--success)' : 'var(--gray-400)';
+}
+function hideSettings() { document.getElementById('settingsModal').style.display = 'none'; }
+function saveSettings() {
+    const key = document.getElementById('userApiKey').value.trim();
+    if (key && key.startsWith('sk-ant-')) {
+        localStorage.setItem('devbot_user_key', key);
+        document.getElementById('settingsStatus').textContent = '✅ Saved! Full AI generation is now active.';
+        document.getElementById('settingsStatus').style.color = 'var(--success)';
+        setTimeout(hideSettings, 1500);
+    } else if (key) {
+        document.getElementById('settingsStatus').textContent = '❌ Invalid key. Must start with sk-ant-';
+        document.getElementById('settingsStatus').style.color = 'var(--danger)';
+    }
+}
+function clearSettings() {
+    localStorage.removeItem('devbot_user_key');
+    document.getElementById('userApiKey').value = '';
+    document.getElementById('settingsStatus').textContent = '🗑️ Key removed. Using demo templates.';
+    document.getElementById('settingsStatus').style.color = 'var(--accent)';
+}
+
+// Auto-load prompt from URL (for Gallery Remix links)
+const urlParams = new URLSearchParams(window.location.search);
+if (urlParams.get('prompt')) {
+    document.getElementById('promptInput').value = decodeURIComponent(urlParams.get('prompt'));
+    if (urlParams.get('auto') === 'true') {
+        setTimeout(generateApp, 500);
+    }
+}
+
+// Show mode indicator
+const hasKey = !!localStorage.getItem('devbot_user_key');
+const modeTag = document.createElement('div');
+modeTag.style.cssText = 'position:fixed;bottom:8px;right:8px;background:' + (hasKey ? 'var(--success)' : 'var(--accent)') + ';color:white;padding:4px 12px;border-radius:100px;font-size:0.7rem;font-weight:600;z-index:999;opacity:0.8';
+modeTag.textContent = hasKey ? '🟢 AI Mode' : '🟡 Demo Mode — Click ⚙️ for full AI';
+document.body.appendChild(modeTag);
 
 // Keyboard shortcut
 document.addEventListener('keydown', (e) => {
