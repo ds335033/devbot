@@ -208,8 +208,13 @@ export function registerCreditsRoutes(app) {
     }
   });
 
-  // POST /api/credits/add — add credits after successful payment (called by webhook or manually)
+  // POST /api/credits/add — add credits after successful payment (admin/webhook only)
+  // Requires ADMIN_SECRET header to prevent unauthorized credit injection
   app.post('/api/credits/add', (req, res) => {
+    const adminSecret = req.headers['x-admin-secret'];
+    if (!adminSecret || adminSecret !== process.env.ADMIN_SECRET) {
+      return res.status(401).json({ error: 'Unauthorized. Admin secret required.' });
+    }
     try {
       const { email, pack, transactionId } = req.body;
 

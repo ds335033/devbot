@@ -35,6 +35,9 @@ const { registerStripeRoutes } = await import('../api/stripe.js');
 const { registerAffiliateRoutes } = await import('../api/affiliates.js');
 const { whiteLabelRouter } = await import('../api/whitelabel.js');
 const { registerCreditsRoutes } = await import('../api/credits.js');
+const { registerZapierRoutes } = await import('../api/zapier.js');
+const { registerNewRevenueRoutes, NEW_REVENUE_STREAMS } = await import('../api/newrevenue.js');
+const { registerRevenue42_49Routes, REVENUE_42_49 } = await import('../api/revenue42_49.js');
 
 const app = express();
 
@@ -109,19 +112,33 @@ const engine = new DevBotEngine();
 const github = new GitHubClient();
 const slackBot = new SlackBot(engine, github);
 
+// Zapier automation routes (needs engine + github)
+registerZapierRoutes(app, engine, github);
+
+// New revenue stream routes (34-41)
+registerNewRevenueRoutes(app);
+
+// Revenue streams 42-49 (Crypto Trading Bot, Marketplace, Academy, Hosting, Chatbot, Pipeline, Mobile, Compliance)
+registerRevenue42_49Routes(app);
+
 // Health check
 app.get('/health', (req, res) => {
   res.json({
     status: 'online',
     name: 'DevBot AI',
-    version: '2.0.0',
-    model: 'claude-sonnet-4',
+    version: '4.0.0',
+    model: 'claude-opus-4-6',
     uptime: process.uptime(),
+    revenueStreams: 49,
+    streams_34_41: NEW_REVENUE_STREAMS,
+    streams_42_49: REVENUE_42_49,
     security: {
       helmet: true,
       rateLimiting: true,
       corsRestricted: true,
       inputValidation: true,
+      adminProtected: true,
+      zapierSecretRequired: true,
     },
   });
 });
@@ -202,7 +219,7 @@ app.post('/api/review', async (req, res) => {
 
 // 404 handler
 app.use((req, res) => {
-  res.status(404).json({ error: 'Not found. Available endpoints: /health, /api/generate, /api/review, /api/checkout' });
+  res.status(404).json({ error: 'Not found. Available endpoints: /health, /api/generate, /api/review, /api/checkout, /api/zapier/status' });
 });
 
 // Global error handler
@@ -221,6 +238,8 @@ async function start() {
     console.log(`[DevBot] Slack bot connected`);
     console.log(`[DevBot] Security: Helmet + Rate Limiting + CORS + Input Validation`);
     console.log(`[DevBot] Powered by Claude Opus 4.6 (1M context)`);
+    console.log(`[DevBot] 49 revenue streams active.`);
+    console.log(`[DevBot] Crypto Trading Bot with AES-256 Vault: ONLINE`);
     console.log(`[DevBot] Ready to create world-class apps.`);
   });
 }

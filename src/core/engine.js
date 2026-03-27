@@ -63,7 +63,7 @@ export class DevBotEngine {
     const key = process.env.ANTHROPIC_API_KEY;
     if (!key) throw new Error('ANTHROPIC_API_KEY not set in environment');
     this.client = new Anthropic({ apiKey: key });
-    this.model = 'claude-sonnet-4-20250514';
+    this.model = 'claude-opus-4-6';
   }
 
   async generateApp({ prompt, language = 'auto', framework = 'auto' }) {
