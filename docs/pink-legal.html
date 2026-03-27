@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PINK — Legal & Policies</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌸</text></svg>">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #ffffff; --bg-2: #fffbfd; --bg-3: #fdf2f8; --surface: #ffffff;
+  --border: #f3e8f0; --border-2: #e8d5e0;
+  --text: #111827; --text-2: #4b5563; --text-3: #9ca3af;
+  --pink: #ec4899; --pink-hover: #db2777; --pink-light: #fdf2f8;
+  --success: #059669; --warning: #d97706; --danger: #dc2626;
+  --shadow-sm: 0 1px 3px rgba(0,0,0,0.06); --shadow-md: 0 4px 12px rgba(236,72,153,0.08);
+  --radius-md: 12px; --radius-lg: 16px;
+  --font: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --ease: cubic-bezier(0.4, 0, 0.2, 1);
+}
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; -webkit-font-smoothing: antialiased; }
+body { font-family: var(--font); background: var(--bg); color: var(--text); line-height: 1.7; }
+::selection { background: var(--pink); color: white; }
+
+.header {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+  background: rgba(255,255,255,0.92); backdrop-filter: blur(20px) saturate(180%);
+  border-bottom: 1px solid var(--border);
+}
+.header-inner {
+  max-width: 1100px; margin: 0 auto; padding: 0 32px;
+  display: flex; align-items: center; justify-content: space-between; height: 64px;
+}
+.logo { display: flex; align-items: center; gap: 10px; text-decoration: none; color: var(--text); }
+.logo-icon { width: 36px; height: 36px; border-radius: 50%; background: linear-gradient(135deg,#ec4899,#f472b6); color: white; display: flex; align-items: center; justify-content: center; font-size: .9rem; font-weight: 800; }
+.logo-text { font-size: 1.4rem; font-weight: 900; letter-spacing: 2px; background: linear-gradient(135deg,#ec4899,#db2777); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+.back-link { color: var(--pink); text-decoration: none; font-size: 0.875rem; font-weight: 600; }
+.back-link:hover { text-decoration: underline; }
+
+.page { display: flex; max-width: 1100px; margin: 0 auto; padding: 96px 32px 64px; gap: 48px; }
+.sidebar { position: sticky; top: 96px; width: 240px; flex-shrink: 0; height: fit-content; }
+.sidebar-nav { display: flex; flex-direction: column; gap: 2px; }
+.sidebar-link {
+  display: flex; align-items: center; gap: 10px; padding: 10px 14px; border-radius: 10px;
+  text-decoration: none; color: var(--text-2); font-size: 0.875rem; font-weight: 500;
+  transition: all 0.2s var(--ease);
+}
+.sidebar-link:hover { background: var(--bg-3); color: var(--text); }
+.sidebar-link.active { background: var(--pink-light); color: var(--pink); font-weight: 600; }
+.sidebar-icon { font-size: 1.1rem; }
+.main { flex: 1; min-width: 0; }
+
+.legal-section { display: none; }
+.legal-section.active { display: block; }
+.legal-hero { margin-bottom: 40px; }
+.legal-hero h1 { font-size: 2rem; font-weight: 800; letter-spacing: -0.5px; margin-bottom: 8px; }
+.legal-hero p { color: var(--text-2); font-size: 0.95rem; }
+.legal-updated { display: inline-flex; align-items: center; gap: 6px; background: var(--bg-3); padding: 4px 12px; border-radius: 100px; font-size: 0.75rem; color: var(--text-3); font-weight: 500; margin-top: 12px; }
+
+.legal-card {
+  background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-lg);
+  padding: 28px; margin-bottom: 20px;
+}
+.legal-card h2 { font-size: 1.15rem; font-weight: 700; margin-bottom: 12px; display: flex; align-items: center; gap: 10px; }
+.legal-card h3 { font-size: 0.95rem; font-weight: 700; margin: 16px 0 8px; color: var(--text); }
+.legal-card p { color: var(--text-2); font-size: 0.875rem; margin-bottom: 10px; }
+.legal-card ul { color: var(--text-2); font-size: 0.875rem; padding-left: 20px; margin-bottom: 10px; }
+.legal-card li { margin-bottom: 6px; }
+.legal-card strong { color: var(--text); font-weight: 600; }
+
+.highlight-box {
+  background: var(--pink-light); border: 1px solid #fbcfe8; border-radius: var(--radius-md);
+  padding: 16px 20px; margin: 16px 0; font-size: 0.875rem; color: var(--pink);
+}
+.highlight-box.warning { background: #fef3c7; border-color: #fde68a; color: var(--warning); }
+.highlight-box.success { background: #ecfdf5; border-color: #a7f3d0; color: var(--success); }
+
+.contact-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px; margin-top: 12px; }
+.contact-card { background: var(--bg-3); border-radius: var(--radius-md); padding: 16px; text-align: center; }
+.contact-card .icon { font-size: 1.5rem; margin-bottom: 6px; }
+.contact-card .label { font-size: 0.75rem; color: var(--text-3); font-weight: 500; text-transform: uppercase; letter-spacing: 0.05em; }
+.contact-card .value { font-size: 0.875rem; font-weight: 600; color: var(--text); margin-top: 2px; }
+
+.footer { border-top: 1px solid var(--border); padding: 24px 32px; text-align: center; color: var(--text-3); font-size: 0.8rem; background: var(--bg-3); }
+
+@media (max-width: 768px) {
+  .page { flex-direction: column; padding: 80px 16px 40px; gap: 24px; }
+  .sidebar { position: static; width: 100%; }
+  .sidebar-nav { flex-direction: row; overflow-x: auto; gap: 4px; padding-bottom: 4px; }
+  .sidebar-link { white-space: nowrap; padding: 8px 12px; font-size: 0.8rem; }
+  .legal-hero h1 { font-size: 1.5rem; }
+  .legal-card { padding: 20px; }
+  .contact-grid { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+
+<header class="header">
+  <div class="header-inner">
+    <a href="pink-store.html" class="logo">
+      <div class="logo-icon">P</div>
+      <span class="logo-text">PINK</span>
+    </a>
+    <a href="pink-store.html" class="back-link">Back to Store</a>
+  </div>
+</header>
+
+<div class="page">
+  <aside class="sidebar">
+    <nav class="sidebar-nav">
+      <a href="#returns" class="sidebar-link active" onclick="showSection('returns')">
+        <span class="sidebar-icon">↩️</span> Returns & Refunds
+      </a>
+      <a href="#shipping" class="sidebar-link" onclick="showSection('shipping')">
+        <span class="sidebar-icon">📦</span> Shipping Policy
+      </a>
+      <a href="#privacy" class="sidebar-link" onclick="showSection('privacy')">
+        <span class="sidebar-icon">🔒</span> Privacy Policy
+      </a>
+      <a href="#terms" class="sidebar-link" onclick="showSection('terms')">
+        <span class="sidebar-icon">📋</span> Terms & Conditions
+      </a>
+      <a href="#contact" class="sidebar-link" onclick="showSection('contact')">
+        <span class="sidebar-icon">💬</span> Contact Us
+      </a>
+    </nav>
+  </aside>
+
+  <main class="main">
+
+    <!-- RETURNS & REFUNDS -->
+    <section id="returns" class="legal-section active">
+      <div class="legal-hero">
+        <h1>Returns & Refunds</h1>
+        <p>Your skin deserves the best. If something isn't right, we'll make it right.</p>
+        <div class="legal-updated">Updated: 28 March 2026</div>
+      </div>
+
+      <div class="legal-card">
+        <h2>↩️ Return Policy Overview</h2>
+        <div class="highlight-box success">
+          <strong>30-Day Satisfaction Guarantee</strong> — Return any unopened item within 30 days of delivery for a full refund or exchange.
+        </div>
+        <p>At PINK, we stand behind every product we sell. Our return policy covers all skincare products purchased directly through our store.</p>
+      </div>
+
+      <div class="legal-card">
+        <h2>📋 Return Conditions</h2>
+        <h3>Eligible for Return</h3>
+        <ul>
+          <li>Unopened, sealed items within 30 days of delivery date</li>
+          <li>Items in original packaging with all seals intact</li>
+          <li>Defective or damaged items (no time limit for manufacturer defects)</li>
+          <li>Items that caused an allergic reaction (with photo evidence)</li>
+        </ul>
+        <h3>Not Eligible for Return</h3>
+        <ul>
+          <li>Opened or used skincare products (hygiene reasons)</li>
+          <li>Products with broken seals or tampered packaging</li>
+          <li>Gift cards or promotional items</li>
+          <li>Items damaged through improper storage (e.g., heat exposure)</li>
+        </ul>
+        <div class="highlight-box">
+          <strong>Allergic Reaction?</strong> If you experience an adverse reaction, contact us immediately. We accept returns on opened products in cases of allergic reactions with a doctor's note or photo evidence.
+        </div>
+      </div>
+
+      <div class="legal-card">
+        <h2>💰 Refund Process</h2>
+        <p><strong>Step 1:</strong> Email <strong>returns@pinkbeauty.com.au</strong> with your order number and reason for return.</p>
+        <p><strong>Step 2:</strong> We'll email you a prepaid return shipping label within 24 hours.</p>
+        <p><strong>Step 3:</strong> Pack the item securely and drop it at your nearest post office.</p>
+        <p><strong>Step 4:</strong> Once received and inspected (1-2 business days), your refund is processed.</p>
+        <div class="highlight-box success">
+          <strong>Refund Timing:</strong> Refunds are issued to your original payment method within 5-10 business days after we receive the item.
+        </div>
+      </div>
+
+      <div class="legal-card">
+        <h2>🔄 Exchanges</h2>
+        <p>Want to swap for a different product or shade? We offer free exchanges on all eligible items. Email us at <strong>returns@pinkbeauty.com.au</strong> and we'll ship the replacement as soon as we receive your return.</p>
+      </div>
+
+      <div class="legal-card">
+        <h2>🇦🇺 Australian Consumer Law</h2>
+        <p>Our return policy operates alongside your rights under Australian Consumer Law. You are entitled to a replacement or refund for a major failure and compensation for any other reasonably foreseeable loss or damage. You are also entitled to have the goods repaired or replaced if goods fail to be of acceptable quality and the failure does not amount to a major failure.</p>
+      </div>
+    </section>
+
+    <!-- SHIPPING POLICY -->
+    <section id="shipping" class="legal-section">
+      <div class="legal-hero">
+        <h1>Shipping Policy</h1>
+        <p>Fast, careful shipping for your skincare essentials.</p>
+        <div class="legal-updated">Updated: 28 March 2026</div>
+      </div>
+
+      <div class="legal-card">
+        <h2>🇦🇺 Domestic Shipping (Australia)</h2>
+        <div class="highlight-box success">
+          <strong>FREE express shipping on all orders over $79 AUD!</strong>
+        </div>
+        <h3>Standard Shipping</h3>
+        <ul>
+          <li><strong>Metro areas:</strong> 2-5 business days — $9.95 (FREE over $79)</li>
+          <li><strong>Regional areas:</strong> 4-8 business days — $14.95 (FREE over $99)</li>
+          <li><strong>Remote areas:</strong> 7-12 business days — $19.95</li>
+        </ul>
+        <h3>Express Shipping</h3>
+        <ul>
+          <li><strong>Metro areas:</strong> 1-2 business days — $14.95</li>
+          <li><strong>Regional areas:</strong> 2-4 business days — $19.95</li>
+        </ul>
+      </div>
+
+      <div class="legal-card">
+        <h2>🌏 International Shipping</h2>
+        <ul>
+          <li><strong>New Zealand:</strong> 5-10 business days — $24.95 AUD</li>
+          <li><strong>Southeast Asia:</strong> 7-14 business days — $29.95 AUD</li>
+          <li><strong>USA, UK, Canada:</strong> 10-18 business days — $39.95 AUD</li>
+        </ul>
+        <div class="highlight-box warning">
+          <strong>Customs & Duties:</strong> International orders may be subject to local import duties and taxes. These charges are the buyer's responsibility and are not included in our shipping costs.
+        </div>
+      </div>
+
+      <div class="legal-card">
+        <h2>🧴 Skincare-Safe Packaging</h2>
+        <p>All skincare products are shipped in temperature-controlled packaging during summer months. Products are individually bubble-wrapped and packed in branded PINK boxes with protective materials. We use recyclable packaging wherever possible.</p>
+        <div class="highlight-box">
+          <strong>Heat-Sensitive Products:</strong> During extreme heat periods, we may hold orders for 1-2 days to ensure product integrity. We'll notify you if this affects your delivery.
+        </div>
+      </div>
+
+      <div class="legal-card">
+        <h2>📍 Order Tracking</h2>
+        <p>Every order receives a tracking number via email once shipped. Track via the link in your shipping confirmation email, or contact our support team with your order number.</p>
+      </div>
+
+      <div class="legal-card">
+        <h2>⚠️ Delivery Issues</h2>
+        <p>If your order arrives damaged, has leaking products, or doesn't arrive within the estimated timeframe, contact us immediately at <strong>support@pinkbeauty.com.au</strong>. We'll resolve the issue with a replacement or full refund.</p>
+      </div>
+    </section>
+
+    <!-- PRIVACY POLICY -->
+    <section id="privacy" class="legal-section">
+      <div class="legal-hero">
+        <h1>Privacy Policy</h1>
+        <p>How we collect, use, and protect your personal information.</p>
+        <div class="legal-updated">Updated: 28 March 2026</div>
+      </div>
+
+      <div class="legal-card">
+        <h2>🔒 Information We Collect</h2>
+        <h3>Information You Provide</h3>
+        <ul>
+          <li><strong>Account information:</strong> Name, email address, phone number</li>
+          <li><strong>Shipping information:</strong> Delivery address, postal code</li>
+          <li><strong>Payment information:</strong> Processed securely via Stripe — we never store your card details</li>
+          <li><strong>Skin profile:</strong> Skin type and concerns (if provided for personalised recommendations)</li>
+          <li><strong>Communications:</strong> Emails, support tickets, reviews</li>
+        </ul>
+        <h3>Information Collected Automatically</h3>
+        <ul>
+          <li>Device type, browser, operating system</li>
+          <li>IP address and general location (city/state level)</li>
+          <li>Pages visited, products viewed, time on site</li>
+          <li>Cookies and similar tracking technologies</li>
+        </ul>
+      </div>
+
+      <div class="legal-card">
+        <h2>📊 How We Use Your Information</h2>
+        <ul>
+          <li>Process and fulfill your orders</li>
+          <li>Send order confirmations and shipping updates</li>
+          <li>Provide personalised skincare recommendations</li>
+          <li>Provide customer support</li>
+          <li>Improve our products and website experience</li>
+          <li>Send marketing communications (only with your consent)</li>
+          <li>Prevent fraud and ensure security</li>
+        </ul>
+        <div class="highlight-box">
+          <strong>We never sell your personal information.</strong> Your data is yours. We only share information with service providers necessary to fulfill your order (shipping carriers, payment processors).
+        </div>
+      </div>
+
+      <div class="legal-card">
+        <h2>🍪 Cookies</h2>
+        <ul>
+          <li><strong>Essential:</strong> Keep your cart and session active</li>
+          <li><strong>Analytics:</strong> Understand how visitors use our site (Google Analytics)</li>
+          <li><strong>Marketing:</strong> Show relevant ads on other platforms (only with consent)</li>
+        </ul>
+        <p>You can disable cookies in your browser settings. Essential cookies are required for the store to function.</p>
+      </div>
+
+      <div class="legal-card">
+        <h2>🛡️ Data Security</h2>
+        <ul>
+          <li>SSL/TLS encryption on all pages</li>
+          <li>PCI-DSS compliant payment processing via Stripe</li>
+          <li>AES-256 encryption for stored data</li>
+          <li>Regular security audits and monitoring</li>
+          <li>Access controls and employee training</li>
+        </ul>
+      </div>
+
+      <div class="legal-card">
+        <h2>🇦🇺 Your Rights (Australian Privacy Act 1988)</h2>
+        <ul>
+          <li><strong>Access:</strong> Request a copy of your personal information</li>
+          <li><strong>Correction:</strong> Update or correct inaccurate data</li>
+          <li><strong>Deletion:</strong> Request deletion of your personal information</li>
+          <li><strong>Opt-out:</strong> Unsubscribe from marketing at any time</li>
+          <li><strong>Complaint:</strong> Lodge a complaint with the OAIC if unsatisfied</li>
+        </ul>
+        <p>To exercise your rights, email <strong>privacy@pinkbeauty.com.au</strong>. We'll respond within 30 days.</p>
+      </div>
+
+      <div class="legal-card">
+        <h2>🔗 Third-Party Services</h2>
+        <ul>
+          <li><strong>Stripe:</strong> Payment processing</li>
+          <li><strong>Google Analytics:</strong> Website analytics</li>
+          <li><strong>SendGrid:</strong> Email delivery</li>
+          <li><strong>CJDropshipping:</strong> Order fulfillment</li>
+        </ul>
+        <p>Each service operates under their own privacy policy.</p>
+      </div>
+    </section>
+
+    <!-- TERMS & CONDITIONS -->
+    <section id="terms" class="legal-section">
+      <div class="legal-hero">
+        <h1>Terms & Conditions</h1>
+        <p>Please read these terms carefully before using our store.</p>
+        <div class="legal-updated">Updated: 28 March 2026</div>
+      </div>
+
+      <div class="legal-card">
+        <h2>📋 Agreement to Terms</h2>
+        <p>By accessing or using the PINK website, you agree to be bound by these Terms & Conditions. If you do not agree, please do not use our website.</p>
+        <p>PINK is operated by Darren Smith ABN [registered ABN] based in South Australia, Australia.</p>
+      </div>
+
+      <div class="legal-card">
+        <h2>🛒 Products & Pricing</h2>
+        <ul>
+          <li>All prices are displayed in <strong>Australian Dollars (AUD)</strong> and include GST where applicable.</li>
+          <li>We reserve the right to change prices at any time without notice.</li>
+          <li>Product descriptions and images are as accurate as possible. Minor variations in packaging may occur as brands update their designs.</li>
+          <li>All products sold by PINK are 100% authentic and sourced from authorised distributors.</li>
+        </ul>
+      </div>
+
+      <div class="legal-card">
+        <h2>🧴 Product Authenticity</h2>
+        <p>PINK guarantees the authenticity of every skincare product we sell. All products are sourced through authorised distributors and CJDropshipping's verified supplier network. If you believe you've received a counterfeit product, contact us immediately for a full refund and investigation.</p>
+        <div class="highlight-box success">
+          <strong>100% Authenticity Guarantee</strong> — Every product verified. Every brand trusted. Your skin deserves nothing less.
+        </div>
+      </div>
+
+      <div class="legal-card">
+        <h2>💳 Orders & Payment</h2>
+        <ul>
+          <li>By placing an order, you warrant that you are at least 18 years old (or have parental consent).</li>
+          <li>All orders are subject to availability and acceptance.</li>
+          <li>We accept Visa, Mastercard, American Express, PayPal, and Afterpay.</li>
+          <li>Payment is processed securely via Stripe. We do not store your payment details.</li>
+          <li>We reserve the right to refuse or cancel any order for any reason, including suspected fraud.</li>
+        </ul>
+      </div>
+
+      <div class="legal-card">
+        <h2>⚠️ Skincare Disclaimer</h2>
+        <p>PINK provides skincare products and general skincare information. We are not medical professionals. Our product descriptions and blog content are for informational purposes only and should not be considered medical advice.</p>
+        <ul>
+          <li>Always patch-test new skincare products before full application</li>
+          <li>Consult a dermatologist if you have specific skin concerns or conditions</li>
+          <li>Discontinue use immediately if irritation occurs</li>
+          <li>Check product ingredients for known allergens before purchase</li>
+        </ul>
+      </div>
+
+      <div class="legal-card">
+        <h2>📦 Shipping & Delivery</h2>
+        <p>Please refer to our <a href="#shipping" onclick="showSection('shipping')" style="color:var(--pink)">Shipping Policy</a> for full details on delivery times, costs, and coverage areas.</p>
+      </div>
+
+      <div class="legal-card">
+        <h2>↩️ Returns & Refunds</h2>
+        <p>Please refer to our <a href="#returns" onclick="showSection('returns')" style="color:var(--pink)">Returns & Refunds Policy</a> for full details on our 30-day return policy.</p>
+      </div>
+
+      <div class="legal-card">
+        <h2>⚖️ Limitation of Liability</h2>
+        <ul>
+          <li>PINK is not liable for any adverse skin reactions from proper use of products sold through our store. Users should always perform patch tests.</li>
+          <li>Our total liability for any claim shall not exceed the purchase price of the product in question.</li>
+          <li>Nothing in these terms excludes or limits your rights under Australian Consumer Law.</li>
+        </ul>
+      </div>
+
+      <div class="legal-card">
+        <h2>🌐 Intellectual Property</h2>
+        <p>All content on the PINK website — including logos, text, images, and design — is the property of PINK and is protected by Australian and international copyright law. Product images and brand names remain the property of their respective owners.</p>
+      </div>
+
+      <div class="legal-card">
+        <h2>⚖️ Governing Law</h2>
+        <p>These terms are governed by the laws of <strong>South Australia, Australia</strong>. Any disputes will be resolved in the courts of South Australia.</p>
+      </div>
+    </section>
+
+    <!-- CONTACT US -->
+    <section id="contact" class="legal-section">
+      <div class="legal-hero">
+        <h1>Contact Us</h1>
+        <p>We're here to help with your skincare journey.</p>
+        <div class="legal-updated">Response time: within 24 hours</div>
+      </div>
+
+      <div class="legal-card">
+        <h2>📬 Get in Touch</h2>
+        <div class="contact-grid">
+          <div class="contact-card">
+            <div class="icon">📧</div>
+            <div class="label">General</div>
+            <div class="value">hello@pinkbeauty.com.au</div>
+          </div>
+          <div class="contact-card">
+            <div class="icon">🛒</div>
+            <div class="label">Orders & Support</div>
+            <div class="value">support@pinkbeauty.com.au</div>
+          </div>
+          <div class="contact-card">
+            <div class="icon">↩️</div>
+            <div class="label">Returns</div>
+            <div class="value">returns@pinkbeauty.com.au</div>
+          </div>
+          <div class="contact-card">
+            <div class="icon">🔒</div>
+            <div class="label">Privacy</div>
+            <div class="value">privacy@pinkbeauty.com.au</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="legal-card">
+        <h2>📍 Business Details</h2>
+        <ul>
+          <li><strong>Business Name:</strong> PINK</li>
+          <li><strong>Owner:</strong> Darren Smith</li>
+          <li><strong>Location:</strong> South Australia, Australia</li>
+          <li><strong>Website:</strong> pinkbeauty.com.au</li>
+        </ul>
+      </div>
+
+      <div class="legal-card">
+        <h2>⏰ Support Hours</h2>
+        <p><strong>Monday - Friday:</strong> 9:00 AM - 6:00 PM ACST</p>
+        <p><strong>Saturday:</strong> 10:00 AM - 2:00 PM ACST</p>
+        <p><strong>Sunday & Public Holidays:</strong> Closed (email monitored)</p>
+        <div class="highlight-box">
+          We aim to respond to all enquiries within <strong>24 hours</strong>. For urgent order issues, include your order number in the subject line for faster processing.
+        </div>
+      </div>
+    </section>
+
+  </main>
+</div>
+
+<footer class="footer">
+  PINK &copy; 2026 — Glow Different. All rights reserved.
+</footer>
+
+<script>
+function showSection(id) {
+  document.querySelectorAll('.legal-section').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.sidebar-link').forEach(l => l.classList.remove('active'));
+  document.getElementById(id)?.classList.add('active');
+  document.querySelector(`[onclick="showSection('${id}')"]`)?.classList.add('active');
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+if (window.location.hash) {
+  const id = window.location.hash.replace('#', '');
+  if (document.getElementById(id)) showSection(id);
+}
+</script>
+</body>
+</html>
