@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>App Gallery — See What DevBot AI Can Build | devbotai.store</title>
+    <meta name="description" content="Browse real apps built with DevBot AI in seconds. Todo apps, dashboards, games, portfolios, calculators and more. Remix any app with one click.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        :root{--primary:#6366f1;--primary-light:#818cf8;--secondary:#06b6d4;--success:#10b981;--accent:#f59e0b;--danger:#ef4444;--pink:#ec4899;--dark-900:#030712;--dark-800:#0a0f1e;--dark-700:#111827;--dark-600:#1e293b;--dark-500:#334155;--gray-400:#94a3b8;--gray-300:#cbd5e1;--white:#f8fafc}
+        *{margin:0;padding:0;box-sizing:border-box}body{font-family:'Inter',sans-serif;background:var(--dark-900);color:var(--white);line-height:1.6}
+        .bg-grid{position:fixed;top:0;left:0;right:0;bottom:0;background-image:linear-gradient(rgba(99,102,241,0.02) 1px,transparent 1px),linear-gradient(90deg,rgba(99,102,241,0.02) 1px,transparent 1px);background-size:60px 60px;z-index:-2}
+
+        nav{position:fixed;top:0;left:0;right:0;padding:14px 0;background:rgba(3,7,18,0.92);backdrop-filter:blur(20px);border-bottom:1px solid rgba(99,102,241,0.1);z-index:1000}
+        .nav-inner{max-width:1200px;margin:0 auto;padding:0 24px;display:flex;justify-content:space-between;align-items:center}
+        .logo{font-size:1.3rem;font-weight:900;text-decoration:none}.logo-dev{color:var(--white)}.logo-bot{background:linear-gradient(135deg,var(--primary),var(--secondary));-webkit-background-clip:text;-webkit-text-fill-color:transparent}.logo-ai{font-size:0.6rem;background:var(--primary);color:white;padding:2px 6px;border-radius:3px;margin-left:6px;vertical-align:middle}
+        .nav-links a{color:var(--gray-400);text-decoration:none;font-size:0.85rem;margin-left:20px;transition:color 0.2s}.nav-links a:hover{color:var(--white)}
+        .nav-cta{background:linear-gradient(135deg,var(--primary),#4f46e5)!important;color:white!important;padding:8px 20px;border-radius:8px;font-weight:600}
+
+        .container{max-width:1200px;margin:0 auto;padding:0 24px}
+
+        .hero{padding:120px 0 60px;text-align:center}
+        .hero h1{font-size:clamp(2rem,4vw,3rem);font-weight:900;letter-spacing:-0.02em;margin-bottom:12px}
+        .gradient-text{background:linear-gradient(135deg,var(--primary-light),var(--secondary));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+        .hero p{color:var(--gray-400);font-size:1.1rem;max-width:600px;margin:0 auto 32px}
+        .hero-stats{display:flex;gap:32px;justify-content:center;flex-wrap:wrap}
+        .stat{text-align:center}.stat-num{font-size:2rem;font-weight:900;color:var(--primary-light)}.stat-label{color:var(--gray-400);font-size:0.85rem}
+
+        .filters{display:flex;gap:8px;justify-content:center;margin-bottom:48px;flex-wrap:wrap}
+        .filter-btn{padding:8px 20px;border-radius:100px;border:1px solid var(--dark-500);background:transparent;color:var(--gray-400);font-size:0.85rem;font-weight:600;cursor:pointer;transition:all 0.2s;font-family:inherit}
+        .filter-btn:hover,.filter-btn.active{border-color:var(--primary);color:var(--white);background:rgba(99,102,241,0.1)}
+
+        .gallery{display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:24px;padding-bottom:80px}
+        .app-card{background:var(--dark-700);border:1px solid var(--dark-500);border-radius:16px;overflow:hidden;transition:all 0.4s;position:relative}
+        .app-card:hover{transform:translateY(-8px);box-shadow:0 20px 60px rgba(0,0,0,0.3);border-color:var(--primary)}
+        .app-preview{height:220px;background:var(--dark-800);position:relative;overflow:hidden;border-bottom:1px solid var(--dark-500)}
+        .app-preview iframe{width:100%;height:100%;border:none;pointer-events:none;transform:scale(0.5);transform-origin:top left;width:200%;height:200%}
+        .app-preview-overlay{position:absolute;top:0;left:0;right:0;bottom:0;background:linear-gradient(transparent 60%,var(--dark-700));pointer-events:none}
+        .app-badge{position:absolute;top:12px;right:12px;background:rgba(99,102,241,0.9);color:white;padding:4px 12px;border-radius:100px;font-size:0.7rem;font-weight:700;text-transform:uppercase;letter-spacing:0.05em;z-index:2}
+        .app-info{padding:20px}
+        .app-category{font-size:0.75rem;color:var(--primary-light);font-weight:600;text-transform:uppercase;letter-spacing:0.08em;margin-bottom:6px}
+        .app-name{font-size:1.15rem;font-weight:800;margin-bottom:6px}
+        .app-desc{color:var(--gray-400);font-size:0.88rem;margin-bottom:16px;line-height:1.5}
+        .app-tags{display:flex;gap:6px;margin-bottom:16px;flex-wrap:wrap}
+        .tag{background:var(--dark-600);color:var(--gray-300);padding:4px 10px;border-radius:6px;font-size:0.75rem;font-weight:500}
+        .app-actions{display:flex;gap:8px}
+        .btn{padding:10px 20px;border-radius:8px;border:none;font-size:0.85rem;font-weight:600;cursor:pointer;transition:all 0.2s;text-decoration:none;display:inline-flex;align-items:center;gap:6px;font-family:inherit}
+        .btn-remix{background:linear-gradient(135deg,var(--primary),#4f46e5);color:white;flex:1;justify-content:center}.btn-remix:hover{transform:translateY(-2px);box-shadow:0 4px 20px rgba(99,102,241,0.3)}
+        .btn-preview{background:var(--dark-600);color:var(--gray-300);border:1px solid var(--dark-500)}.btn-preview:hover{border-color:var(--primary);color:white}
+        .btn-deploy{background:var(--success);color:white}.btn-deploy:hover{background:#059669}
+
+        .cta-section{padding:80px 0;text-align:center;border-top:1px solid var(--dark-500)}
+        .cta-section h2{font-size:2rem;font-weight:800;margin-bottom:12px}
+        .cta-section p{color:var(--gray-400);margin-bottom:32px;font-size:1.05rem}
+        .btn-lg{padding:16px 36px;font-size:1rem;border-radius:12px}
+
+        footer{padding:32px 0;border-top:1px solid var(--dark-500);text-align:center}
+        footer p{color:var(--gray-400);font-size:0.8rem}
+        footer a{color:var(--primary-light);text-decoration:none}
+
+        @media(max-width:768px){.gallery{grid-template-columns:1fr}.hero-stats{gap:20px}}
+
+        .reveal{opacity:0;transform:translateY(30px);transition:all 0.6s ease}.reveal.visible{opacity:1;transform:translateY(0)}
+    </style>
+</head>
+<body>
+<div class="bg-grid"></div>
+
+<nav>
+    <div class="nav-inner">
+        <a href="index.html" class="logo"><span class="logo-dev">Dev</span><span class="logo-bot">Bot</span><span class="logo-ai">AI</span></a>
+        <div class="nav-links">
+            <a href="index.html">Home</a>
+            <a href="studio.html">Studio</a>
+            <a href="blog.html">Blog</a>
+            <a href="index.html#pricing">Pricing</a>
+            <a href="studio.html" class="nav-cta">Build an App</a>
+        </div>
+    </div>
+</nav>
+
+<section class="hero">
+    <div class="container">
+        <h1>App <span class="gradient-text">Gallery</span></h1>
+        <p>Real apps built with DevBot AI in under 60 seconds. Browse, remix, and deploy any app with one click.</p>
+        <div class="hero-stats">
+            <div class="stat"><div class="stat-num">50+</div><div class="stat-label">Apps Built</div></div>
+            <div class="stat"><div class="stat-num">&lt;60s</div><div class="stat-label">Build Time</div></div>
+            <div class="stat"><div class="stat-num">100%</div><div class="stat-label">Working Code</div></div>
+        </div>
+    </div>
+</section>
+
+<div class="container">
+    <div class="filters">
+        <button class="filter-btn active" onclick="filterApps('all')">All Apps</button>
+        <button class="filter-btn" onclick="filterApps('productivity')">Productivity</button>
+        <button class="filter-btn" onclick="filterApps('dashboard')">Dashboards</button>
+        <button class="filter-btn" onclick="filterApps('game')">Games</button>
+        <button class="filter-btn" onclick="filterApps('tool')">Tools</button>
+        <button class="filter-btn" onclick="filterApps('portfolio')">Portfolio</button>
+    </div>
+
+    <div class="gallery" id="gallery"></div>
+</div>
+
+<section class="cta-section">
+    <div class="container">
+        <h2>Build Your Own App in Seconds</h2>
+        <p>Describe what you want. DevBot builds it. No coding required.</p>
+        <a href="studio.html" class="btn btn-remix btn-lg">Open DevBot Studio &rarr;</a>
+    </div>
+</section>
+
+<footer>
+    <p>&copy; 2026 DevBot AI &bull; <a href="index.html">Home</a> &bull; <a href="studio.html">Studio</a> &bull; <a href="blog.html">Blog</a> &bull; <a href="affiliates.html">Affiliates</a> &bull; <a href="https://github.com/ds335033/devbot" target="_blank">GitHub</a></p>
+</footer>
+
+<script>
+const apps = [
+    { id: 'todo', name: 'Purple Todo', category: 'productivity', desc: 'Beautiful task manager with add, delete, complete, and filter by status. Dark theme with purple accents and smooth animations.', tags: ['JavaScript','LocalStorage','Responsive'], prompt: 'a beautiful todo list app with add, delete, complete tasks, filter by status, dark theme with purple accents and smooth animations', badge: 'Popular' },
+    { id: 'dashboard', name: 'Analytics Dashboard', category: 'dashboard', desc: 'Real-time analytics dashboard with revenue, users, orders, and conversion stats. Activity feed and trend indicators.', tags: ['Charts','Real-time','KPIs'], prompt: 'an analytics dashboard with revenue, users, orders, conversion stats, activity feed, dark theme with multiple accent colors', badge: 'Featured' },
+    { id: 'calculator', name: 'Smart Calculator', category: 'tool', desc: 'Full-featured calculator with standard operations, percentage, sign toggle, and backspace. Clean grid layout with purple keys.', tags: ['Math','Grid Layout','Keyboard'], prompt: 'a beautiful calculator app with all standard operations, percentage, backspace, clean grid layout, dark theme with purple accent keys', badge: null },
+    { id: 'quiz', name: 'Tech Quiz', category: 'game', desc: 'Interactive quiz game with 5 coding questions, multiple choice, score tracking, and play-again functionality.', tags: ['Game','Quiz','Score'], prompt: 'a quiz game about programming and web development with multiple choice questions, score tracking, animations, dark purple theme', badge: null },
+    { id: 'weather', name: 'Weather App', category: 'tool', desc: 'Sleek weather dashboard showing temperature, humidity, wind, UV index, and 5-day forecast with emoji weather icons.', tags: ['API Ready','Forecast','Icons'], prompt: 'a beautiful weather dashboard app with current temperature, humidity, wind, UV index, and 5-day forecast, dark theme with cyan accents', badge: null },
+    { id: 'portfolio', name: 'Dev Portfolio', category: 'portfolio', desc: 'Professional developer portfolio with project cards, skills badges, avatar, and social links. Perfect for freelancers.', tags: ['Portfolio','Cards','Responsive'], prompt: 'a professional developer portfolio with avatar, bio, skills badges, project cards with tech stack labels, dark theme with pink accents', badge: null },
+    { id: 'expense', name: 'Expense Tracker', category: 'productivity', desc: 'Personal finance tracker with income/expense entries, running balance, categories, and transaction history with localStorage.', tags: ['Finance','LocalStorage','Categories'], prompt: 'a personal finance tracker with income and expense entries, running balance, categories dropdown, transaction history, dark purple theme', badge: 'New' },
+    { id: 'pomodoro', name: 'Pomodoro Timer', category: 'productivity', desc: 'Focus timer with 25-min work sessions, 5-min breaks, session counter, audio alerts, and beautiful circular progress ring.', tags: ['Timer','Focus','Audio'], prompt: 'a pomodoro timer app with 25 min work and 5 min break cycles, circular progress ring animation, session counter, audio alert, dark theme', badge: null },
+    { id: 'notes', name: 'Markdown Notes', category: 'productivity', desc: 'Note-taking app with markdown support, live preview, multiple notes, search, and auto-save to localStorage.', tags: ['Markdown','Preview','Search'], prompt: 'a note-taking app with markdown editing, live preview side by side, multiple notes list, search, auto-save to localStorage, dark theme', badge: null },
+    { id: 'password', name: 'Password Generator', category: 'tool', desc: 'Secure password generator with length slider, character type toggles, strength meter, and one-click copy to clipboard.', tags: ['Security','Clipboard','Slider'], prompt: 'a password generator with length slider, toggles for uppercase lowercase numbers symbols, strength meter bar, copy to clipboard button, dark theme', badge: null },
+    { id: 'kanban', name: 'Kanban Board', category: 'productivity', desc: 'Project management board with To Do, In Progress, and Done columns. Drag-style cards with add and delete functionality.', tags: ['Project','Columns','Cards'], prompt: 'a kanban board with three columns todo in-progress done, add cards with title and description, move between columns, delete cards, dark purple theme', badge: 'Hot' },
+    { id: 'chat', name: 'Chat Interface', category: 'tool', desc: 'Beautiful chat UI with message bubbles, timestamps, typing indicator, emoji support, and auto-scroll to latest message.', tags: ['Chat','Bubbles','Animations'], prompt: 'a chat interface with message bubbles, user and bot messages, typing indicator animation, timestamps, emoji reactions, dark theme with indigo accents', badge: null },
+];
+
+function renderGallery(filter = 'all') {
+    const gallery = document.getElementById('gallery');
+    const filtered = filter === 'all' ? apps : apps.filter(a => a.category === filter);
+
+    gallery.innerHTML = filtered.map((app, i) => `
+        <div class="app-card reveal" data-category="${app.category}" style="animation-delay: ${i * 0.05}s">
+            <div class="app-preview">
+                <div style="display:flex;align-items:center;justify-content:center;height:100%;background:linear-gradient(135deg,${getColor(app.category)}11,var(--dark-800));padding:24px;text-align:center">
+                    <div>
+                        <div style="font-size:3rem;margin-bottom:12px">${getEmoji(app.category)}</div>
+                        <div style="color:var(--gray-400);font-size:0.85rem">${app.name}</div>
+                    </div>
+                </div>
+                ${app.badge ? `<div class="app-badge">${app.badge}</div>` : ''}
+                <div class="app-preview-overlay"></div>
+            </div>
+            <div class="app-info">
+                <div class="app-category">${app.category}</div>
+                <div class="app-name">${app.name}</div>
+                <div class="app-desc">${app.desc}</div>
+                <div class="app-tags">${app.tags.map(t => `<span class="tag">${t}</span>`).join('')}</div>
+                <div class="app-actions">
+                    <a href="studio.html?prompt=${encodeURIComponent(app.prompt)}" class="btn btn-remix">&#9889; Remix This</a>
+                    <button class="btn btn-preview" onclick="previewApp('${app.id}')">&#128065; Preview</button>
+                </div>
+            </div>
+        </div>
+    `).join('');
+
+    // Trigger animations
+    requestAnimationFrame(() => {
+        document.querySelectorAll('.reveal').forEach((el, i) => {
+            setTimeout(() => el.classList.add('visible'), i * 60);
+        });
+    });
+}
+
+function getColor(cat) {
+    const colors = { productivity: '#6366f1', dashboard: '#06b6d4', game: '#ef4444', tool: '#f59e0b', portfolio: '#ec4899' };
+    return colors[cat] || '#6366f1';
+}
+
+function getEmoji(cat) {
+    const emojis = { productivity: '📋', dashboard: '📊', game: '🎮', tool: '🔧', portfolio: '💼' };
+    return emojis[cat] || '🚀';
+}
+
+function filterApps(category) {
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    event.target.classList.add('active');
+    renderGallery(category);
+}
+
+function previewApp(id) {
+    const app = apps.find(a => a.id === id);
+    if (app) {
+        window.open(`studio.html?prompt=${encodeURIComponent(app.prompt)}&auto=true`, '_blank');
+    }
+}
+
+renderGallery();
+</script>
+</body>
+</html>
