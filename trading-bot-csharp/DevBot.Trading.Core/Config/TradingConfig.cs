@@ -8,7 +8,7 @@ public class TradingConfig
 {
     public string NetworkId { get; set; } = "base-sepolia";
     public string Strategy { get; set; } = "momentum";
-    public decimal TradeAmountUsd { get; set; } = 90m;
+    public decimal TradeAmountUsd { get; set; } = 25m;
     public int MaxDailyTrades { get; set; } = 10;
     public decimal StopLossPercent { get; set; } = 5m;
     public decimal TakeProfitPercent { get; set; } = 10m;
