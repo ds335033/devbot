@@ -12,3 +12,7 @@ data/dropshipping/
 *.pem
 *.key
 credentials.json
+
+# Trading bot sensitive files
+trading-bot/.env
+trading-bot/data/

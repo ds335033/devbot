@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DevBot Trading Dashboard — Coinbase AgentKit</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📈</text></svg>">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0a0a0f;--bg-2:#12121a;--bg-3:#1a1a2e;--surface:#16162a;--card:#1e1e36;--border:#2a2a4a;--border-2:#3a3a5a;--text:#e2e8f0;--text-2:#94a3b8;--text-3:#64748b;--green:#10b981;--green-bg:rgba(16,185,129,.1);--red:#ef4444;--red-bg:rgba(239,68,68,.1);--blue:#3b82f6;--blue-bg:rgba(59,130,246,.1);--purple:#8b5cf6;--gold:#f59e0b;--font:'Inter',-apple-system,sans-serif;--mono:'JetBrains Mono',monospace;--ease:cubic-bezier(.4,0,.2,1);--radius:12px;--shadow:0 4px 24px rgba(0,0,0,.3)}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+html{-webkit-font-smoothing:antialiased}
+body{font-family:var(--font);background:var(--bg);color:var(--text);line-height:1.6;min-height:100vh}
+::selection{background:var(--blue);color:#fff}
+a{text-decoration:none;color:inherit}
+
+/* LAYOUT */
+.app{display:grid;grid-template-columns:260px 1fr;min-height:100vh}
+
+/* SIDEBAR */
+.sidebar{background:var(--bg-2);border-right:1px solid var(--border);padding:24px 16px;display:flex;flex-direction:column}
+.sidebar-logo{display:flex;align-items:center;gap:12px;padding:0 8px;margin-bottom:32px}
+.sidebar-logo .icon{width:40px;height:40px;border-radius:10px;background:linear-gradient(135deg,var(--blue),var(--purple));display:flex;align-items:center;justify-content:center;font-size:1.2rem}
+.sidebar-logo h1{font-size:1.1rem;font-weight:800;letter-spacing:-.5px}
+.sidebar-logo p{font-size:.65rem;color:var(--text-3);font-weight:500;text-transform:uppercase;letter-spacing:1px}
+.nav-group{margin-bottom:24px}
+.nav-label{font-size:.65rem;color:var(--text-3);text-transform:uppercase;letter-spacing:1.5px;font-weight:600;padding:0 12px;margin-bottom:8px}
+.nav-item{display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:8px;font-size:.85rem;font-weight:500;color:var(--text-2);cursor:pointer;transition:all .15s}
+.nav-item:hover{background:var(--bg-3);color:var(--text)}
+.nav-item.active{background:var(--blue-bg);color:var(--blue);font-weight:600}
+.nav-item .badge{margin-left:auto;background:var(--green);color:#fff;font-size:.6rem;font-weight:700;padding:2px 6px;border-radius:100px}
+
+/* STATUS */
+.status-bar{margin-top:auto;padding:16px;background:var(--bg-3);border-radius:var(--radius);font-size:.75rem}
+.status-dot{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:6px}
+.status-dot.live{background:var(--green);box-shadow:0 0 8px var(--green)}
+.status-dot.off{background:var(--red)}
+.status-row{display:flex;justify-content:space-between;margin-bottom:4px}
+.status-row .label{color:var(--text-3)}.status-row .value{font-weight:600;font-family:var(--mono);font-size:.7rem}
+
+/* MAIN */
+.main{padding:24px 32px;overflow-y:auto;max-height:100vh}
+.main-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:24px}
+.main-header h2{font-size:1.5rem;font-weight:800;letter-spacing:-.5px}
+.header-actions{display:flex;gap:8px}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:10px 20px;border-radius:8px;font-family:var(--font);font-size:.8rem;font-weight:600;cursor:pointer;transition:all .15s;border:none}
+.btn-blue{background:var(--blue);color:#fff}.btn-blue:hover{filter:brightness(1.1)}
+.btn-green{background:var(--green);color:#fff}.btn-green:hover{filter:brightness(1.1)}
+.btn-outline{background:transparent;color:var(--text-2);border:1px solid var(--border)}.btn-outline:hover{border-color:var(--text);color:var(--text)}
+.btn-sm{padding:6px 14px;font-size:.75rem}
+
+/* STAT CARDS */
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:24px}
+.stat{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:20px}
+.stat-label{font-size:.75rem;color:var(--text-3);font-weight:500;margin-bottom:4px}
+.stat-value{font-size:1.5rem;font-weight:800;font-family:var(--mono)}
+.stat-change{font-size:.75rem;font-weight:600;margin-top:4px}
+.stat-change.up{color:var(--green)}.stat-change.down{color:var(--red)}
+
+/* CHART */
+.chart-card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:20px;margin-bottom:24px}
+.chart-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px}
+.chart-header h3{font-size:1rem;font-weight:700}
+.chart-tabs{display:flex;gap:4px}
+.chart-tab{padding:4px 12px;border-radius:6px;font-size:.75rem;font-weight:500;color:var(--text-3);cursor:pointer;transition:all .15s}
+.chart-tab:hover{color:var(--text)}.chart-tab.active{background:var(--blue-bg);color:var(--blue)}
+.chart-area{height:300px;background:var(--bg-3);border-radius:8px;display:flex;align-items:flex-end;padding:16px;gap:3px;overflow:hidden}
+.chart-bar{flex:1;background:linear-gradient(to top,var(--blue),var(--purple));border-radius:4px 4px 0 0;min-height:4px;transition:height .3s var(--ease);position:relative}
+.chart-bar:hover{filter:brightness(1.2)}
+.chart-bar.red{background:linear-gradient(to top,var(--red),#f87171)}
+
+/* GRID LAYOUT */
+.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:24px}
+
+/* TRADE PANEL */
+.trade-panel{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:20px}
+.trade-panel h3{font-size:1rem;font-weight:700;margin-bottom:16px}
+.trade-form .form-row{margin-bottom:12px}
+.trade-form label{display:block;font-size:.75rem;color:var(--text-3);font-weight:500;margin-bottom:4px}
+.trade-form select,.trade-form input{width:100%;padding:10px 14px;background:var(--bg-3);border:1px solid var(--border);border-radius:8px;color:var(--text);font-family:var(--font);font-size:.85rem;outline:none}
+.trade-form select:focus,.trade-form input:focus{border-color:var(--blue)}
+.trade-btns{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:16px}
+
+/* POSITIONS TABLE */
+.positions{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:20px}
+.positions h3{font-size:1rem;font-weight:700;margin-bottom:16px}
+.pos-table{width:100%;border-collapse:collapse}
+.pos-table th{text-align:left;font-size:.7rem;color:var(--text-3);text-transform:uppercase;letter-spacing:1px;font-weight:600;padding:8px 12px;border-bottom:1px solid var(--border)}
+.pos-table td{padding:10px 12px;font-size:.85rem;border-bottom:1px solid var(--border)}
+.pos-table tr:hover{background:var(--bg-3)}
+.pos-table .mono{font-family:var(--mono);font-size:.8rem}
+
+/* TRADE HISTORY */
+.history{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:20px;margin-bottom:24px}
+.history h3{font-size:1rem;font-weight:700;margin-bottom:16px}
+.trade-item{display:flex;align-items:center;gap:12px;padding:12px 0;border-bottom:1px solid var(--border)}
+.trade-item:last-child{border:none}
+.trade-icon{width:36px;height:36px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:.9rem;font-weight:700}
+.trade-icon.buy{background:var(--green-bg);color:var(--green)}
+.trade-icon.sell{background:var(--red-bg);color:var(--red)}
+.trade-info{flex:1}
+.trade-info h4{font-size:.85rem;font-weight:600}.trade-info p{font-size:.75rem;color:var(--text-3)}
+.trade-amount{text-align:right;font-family:var(--mono);font-size:.85rem;font-weight:600}
+.trade-amount.positive{color:var(--green)}.trade-amount.negative{color:var(--red)}
+
+/* AI CHAT */
+.ai-chat{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:20px}
+.ai-chat h3{font-size:1rem;font-weight:700;margin-bottom:16px}
+.chat-messages{max-height:300px;overflow-y:auto;margin-bottom:16px;display:flex;flex-direction:column;gap:12px}
+.chat-msg{padding:12px 16px;border-radius:12px;font-size:.85rem;line-height:1.6;max-width:85%}
+.chat-msg.bot{background:var(--bg-3);align-self:flex-start;border-bottom-left-radius:4px}
+.chat-msg.user{background:var(--blue-bg);color:var(--blue);align-self:flex-end;border-bottom-right-radius:4px}
+.chat-input{display:flex;gap:8px}
+.chat-input input{flex:1;padding:10px 16px;background:var(--bg-3);border:1px solid var(--border);border-radius:8px;color:var(--text);font-family:var(--font);font-size:.85rem;outline:none}
+.chat-input input:focus{border-color:var(--blue)}
+
+/* STRATEGY CARDS */
+.strat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:24px}
+.strat-card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:16px;cursor:pointer;transition:all .15s}
+.strat-card:hover{border-color:var(--blue);transform:translateY(-2px)}
+.strat-card.active{border-color:var(--green);box-shadow:0 0 20px rgba(16,185,129,.15)}
+.strat-card h4{font-size:.85rem;font-weight:700;margin-bottom:4px}
+.strat-card p{font-size:.7rem;color:var(--text-3);line-height:1.5}
+.strat-card .strat-icon{font-size:1.5rem;margin-bottom:8px}
+
+@media(max-width:1024px){.app{grid-template-columns:1fr}.sidebar{display:none}.stats{grid-template-columns:repeat(2,1fr)}.grid-2{grid-template-columns:1fr}.strat-grid{grid-template-columns:1fr}}
+@media(max-width:768px){.main{padding:16px}.stats{grid-template-columns:1fr}.chart-area{height:200px}}
+</style>
+</head>
+<body>
+
+<div class="app">
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+    <div class="sidebar-logo">
+      <div class="icon">🤖</div>
+      <div><h1>DevBot Trading</h1><p>Coinbase AgentKit</p></div>
+    </div>
+
+    <div class="nav-group">
+      <div class="nav-label">Trading</div>
+      <div class="nav-item active" onclick="showView('dashboard')">📊 Dashboard</div>
+      <div class="nav-item" onclick="showView('trade')">💱 Trade</div>
+      <div class="nav-item" onclick="showView('positions')">📋 Positions</div>
+      <div class="nav-item" onclick="showView('history')">📜 History</div>
+    </div>
+
+    <div class="nav-group">
+      <div class="nav-label">Strategy</div>
+      <div class="nav-item" onclick="showView('strategies')">🧠 Strategies</div>
+      <div class="nav-item" onclick="showView('ai')">🤖 AI Agent <span class="badge">LIVE</span></div>
+    </div>
+
+    <div class="nav-group">
+      <div class="nav-label">System</div>
+      <div class="nav-item" onclick="showView('settings')">⚙️ Settings</div>
+      <div class="nav-item" onclick="window.location='index.html'">🏠 DevBot Home</div>
+    </div>
+
+    <div class="status-bar">
+      <div class="status-row"><span class="label"><span class="status-dot live"></span>Bot Status</span><span class="value" style="color:var(--green)">Active</span></div>
+      <div class="status-row"><span class="label">Network</span><span class="value" id="sNet">base-sepolia</span></div>
+      <div class="status-row"><span class="label">Strategy</span><span class="value" id="sStrat">Momentum</span></div>
+      <div class="status-row"><span class="label">Trade Size</span><span class="value">$90.00</span></div>
+      <div class="status-row"><span class="label">Daily Trades</span><span class="value" id="sDT">0 / 10</span></div>
+    </div>
+  </aside>
+
+  <!-- MAIN CONTENT -->
+  <main class="main">
+
+    <!-- DASHBOARD VIEW -->
+    <div id="view-dashboard">
+      <div class="main-header">
+        <h2>Trading Dashboard</h2>
+        <div class="header-actions">
+          <button class="btn btn-outline btn-sm" onclick="refreshData()">↻ Refresh</button>
+          <button class="btn btn-green btn-sm" onclick="executeTrade()">⚡ Quick Trade</button>
+        </div>
+      </div>
+
+      <div class="stats">
+        <div class="stat"><div class="stat-label">Portfolio Value</div><div class="stat-value" id="pValue">$2,847.50</div><div class="stat-change up">↑ +$127.30 (4.7%)</div></div>
+        <div class="stat"><div class="stat-label">Today's P&L</div><div class="stat-value" style="color:var(--green)" id="pPnl">+$89.20</div><div class="stat-change up">↑ 3 winning trades</div></div>
+        <div class="stat"><div class="stat-label">Total Trades</div><div class="stat-value" id="pTrades">47</div><div class="stat-change">Win rate: 68%</div></div>
+        <div class="stat"><div class="stat-label">ETH Price</div><div class="stat-value" id="pEth">$3,421.80</div><div class="stat-change up">↑ +2.3% (24h)</div></div>
+      </div>
+
+      <div class="chart-card">
+        <div class="chart-header">
+          <h3>Portfolio Performance (30 days)</h3>
+          <div class="chart-tabs">
+            <div class="chart-tab" onclick="setChart('1d',this)">1D</div>
+            <div class="chart-tab" onclick="setChart('7d',this)">7D</div>
+            <div class="chart-tab active" onclick="setChart('30d',this)">30D</div>
+            <div class="chart-tab" onclick="setChart('all',this)">All</div>
+          </div>
+        </div>
+        <div class="chart-area" id="chart"></div>
+      </div>
+
+      <div class="grid-2">
+        <div class="positions">
+          <h3>Current Positions</h3>
+          <table class="pos-table">
+            <thead><tr><th>Asset</th><th>Balance</th><th>Value</th><th>P&L</th></tr></thead>
+            <tbody id="posBody">
+              <tr><td>ETH</td><td class="mono">0.4521</td><td class="mono">$1,546.80</td><td style="color:var(--green)">+$87.20</td></tr>
+              <tr><td>USDC</td><td class="mono">890.50</td><td class="mono">$890.50</td><td style="color:var(--text-3)">$0.00</td></tr>
+              <tr><td>WBTC</td><td class="mono">0.0062</td><td class="mono">$410.20</td><td style="color:var(--green)">+$40.10</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="history">
+          <h3>Recent Trades</h3>
+          <div id="recentTrades">
+            <div class="trade-item"><div class="trade-icon buy">B</div><div class="trade-info"><h4>Buy ETH</h4><p>Mar 28, 2:14 PM • Momentum</p></div><div class="trade-amount positive">+0.0263 ETH<br><span style="font-size:.7rem;color:var(--text-3)">$90.00</span></div></div>
+            <div class="trade-item"><div class="trade-icon sell">S</div><div class="trade-info"><h4>Sell ETH</h4><p>Mar 28, 10:02 AM • Take Profit</p></div><div class="trade-amount negative">-0.0251 ETH<br><span style="font-size:.7rem;color:var(--green)">+$12.40</span></div></div>
+            <div class="trade-item"><div class="trade-icon buy">B</div><div class="trade-info"><h4>Buy ETH</h4><p>Mar 27, 6:00 PM • DCA</p></div><div class="trade-amount positive">+0.0268 ETH<br><span style="font-size:.7rem;color:var(--text-3)">$90.00</span></div></div>
+            <div class="trade-item"><div class="trade-icon buy">B</div><div class="trade-info"><h4>Buy WBTC</h4><p>Mar 27, 2:00 PM • Rebalance</p></div><div class="trade-amount positive">+0.0014 WBTC<br><span style="font-size:.7rem;color:var(--text-3)">$90.00</span></div></div>
+            <div class="trade-item"><div class="trade-icon buy">B</div><div class="trade-info"><h4>Buy ETH</h4><p>Mar 27, 10:00 AM • DCA</p></div><div class="trade-amount positive">+0.0270 ETH<br><span style="font-size:.7rem;color:var(--text-3)">$90.00</span></div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- STRATEGIES VIEW -->
+    <div id="view-strategies" style="display:none">
+      <div class="main-header"><h2>Trading Strategies</h2></div>
+      <div class="strat-grid">
+        <div class="strat-card active" onclick="selectStrat(this,'momentum')"><div class="strat-icon">📈</div><h4>Momentum</h4><p>Buy when price trends up with strong volume. Sell on reversal signals. Best in trending markets.</p></div>
+        <div class="strat-card" onclick="selectStrat(this,'dca')"><div class="strat-icon">⏰</div><h4>Dollar-Cost Average</h4><p>Buy $90 of ETH every 4 hours regardless of price. Reduces timing risk over time.</p></div>
+        <div class="strat-card" onclick="selectStrat(this,'mean_reversion')"><div class="strat-icon">📉</div><h4>Mean Reversion</h4><p>Buy when price dips >2% below moving average. Sell when >2% above. Works in ranging markets.</p></div>
+        <div class="strat-card" onclick="selectStrat(this,'grid')"><div class="strat-icon">📊</div><h4>Grid Trading</h4><p>Place buy/sell orders at regular price intervals. Profits from volatility in sideways markets.</p></div>
+        <div class="strat-card" onclick="selectStrat(this,'rebalance')"><div class="strat-icon">⚖️</div><h4>Rebalance</h4><p>Maintain target allocation: 50% ETH, 30% BTC, 20% USDC. Auto-rebalance when >5% drift.</p></div>
+        <div class="strat-card" onclick="selectStrat(this,'custom')"><div class="strat-icon">🧠</div><h4>AI Custom</h4><p>Let Claude AI analyze the market and decide the best action. Fully autonomous trading decisions.</p></div>
+      </div>
+    </div>
+
+    <!-- AI AGENT VIEW -->
+    <div id="view-ai" style="display:none">
+      <div class="main-header"><h2>AI Trading Agent</h2><div class="header-actions"><span class="badge" style="background:var(--green);color:#fff;padding:4px 12px;border-radius:100px;font-size:.75rem;font-weight:600">● Claude AI Connected</span></div></div>
+      <div class="ai-chat">
+        <h3>Chat with your Trading Agent</h3>
+        <div class="chat-messages" id="chatMsgs">
+          <div class="chat-msg bot">👋 I'm your DevBot Trading Agent powered by Claude AI + Coinbase AgentKit. I can check prices, execute trades, analyze your portfolio, and run strategies. What would you like to do?</div>
+          <div class="chat-msg bot">💡 Try: "Buy $90 of ETH", "Check my balance", "What's the best trade right now?", or "Run DCA strategy"</div>
+        </div>
+        <div class="chat-input">
+          <input type="text" id="chatIn" placeholder="Ask your trading agent..." onkeydown="if(event.key==='Enter')sendChat()">
+          <button class="btn btn-blue btn-sm" onclick="sendChat()">Send</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- SETTINGS VIEW -->
+    <div id="view-settings" style="display:none">
+      <div class="main-header"><h2>Settings</h2></div>
+      <div class="trade-panel" style="max-width:600px">
+        <h3>Trading Configuration</h3>
+        <div class="trade-form">
+          <div class="form-row"><label>Network</label><select><option>base-sepolia (Testnet)</option><option>base-mainnet (Real Money)</option></select></div>
+          <div class="form-row"><label>Trade Size (USD)</label><input type="number" value="90"></div>
+          <div class="form-row"><label>Max Daily Trades</label><input type="number" value="10"></div>
+          <div class="form-row"><label>Stop Loss %</label><input type="number" value="5"></div>
+          <div class="form-row"><label>Take Profit %</label><input type="number" value="10"></div>
+          <div class="form-row"><label>DCA Interval (hours)</label><input type="number" value="4"></div>
+          <div class="form-row"><label>CDP API Key Name</label><input type="text" placeholder="Enter your CDP API key name..." style="font-family:var(--mono)"></div>
+          <div class="form-row"><label>CDP Private Key</label><input type="password" placeholder="Enter your CDP private key..." style="font-family:var(--mono)"></div>
+          <div style="margin-top:16px"><button class="btn btn-blue" onclick="alert('Settings saved!')">Save Settings</button></div>
+        </div>
+      </div>
+    </div>
+
+  </main>
+</div>
+
+<script>
+// Navigation
+function showView(v){
+  document.querySelectorAll('[id^="view-"]').forEach(el=>el.style.display='none');
+  const el=document.getElementById('view-'+v);
+  if(el)el.style.display='block';
+  document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active'));
+  event.target.closest('.nav-item')?.classList.add('active');
+}
+
+// Chart
+function renderChart(){
+  const c=document.getElementById('chart');
+  const data=Array.from({length:30},()=>Math.random()*80+20);
+  c.innerHTML=data.map((h,i)=>`<div class="chart-bar${Math.random()>.7?' red':''}" style="height:${h}%" title="Day ${i+1}: $${(2400+h*8).toFixed(0)}"></div>`).join('');
+}
+function setChart(p,btn){
+  document.querySelectorAll('.chart-tab').forEach(t=>t.classList.remove('active'));
+  btn.classList.add('active');
+  renderChart();
+}
+renderChart();
+
+// Strategy
+function selectStrat(el,name){
+  document.querySelectorAll('.strat-card').forEach(c=>c.classList.remove('active'));
+  el.classList.add('active');
+  document.getElementById('sStrat').textContent=name.charAt(0).toUpperCase()+name.slice(1).replace('_',' ');
+}
+
+// Trade
+function executeTrade(){
+  if(confirm('Execute $90 momentum trade on base-sepolia?')){
+    alert('⚡ Trade submitted!\\n\\nBuy $90 of ETH via Coinbase AgentKit\\nNetwork: base-sepolia (testnet)\\nStrategy: Momentum\\n\\nNote: Connect your CDP API keys in Settings to execute real trades.');
+  }
+}
+function refreshData(){
+  document.getElementById('pEth').textContent='$'+(3400+Math.random()*100).toFixed(2);
+  renderChart();
+}
+
+// AI Chat
+const botResponses=[
+  "Checking ETH/USDC price on Base... Current price: $3,421.80. 24h change: +2.3%. Volume is above average — momentum signal is bullish. Shall I execute a $90 buy?",
+  "Your portfolio: 0.4521 ETH ($1,546.80), 890.50 USDC, 0.0062 WBTC ($410.20). Total: $2,847.50. Allocation: 54% ETH, 31% USDC, 14% BTC. Slightly overweight ETH.",
+  "Based on current momentum indicators: RSI is 62 (neutral-bullish), MACD is positive, and price is above the 20-period SMA. I recommend a $90 ETH buy with a 5% stop-loss at $3,250.",
+  "DCA strategy running: Next scheduled buy is in 2h 14m. Last 7 DCA buys averaged $3,380/ETH. Current price $3,421 is 1.2% above average — still within acceptable range.",
+  "I'll execute the trade now... Swapping 90 USDC → ETH on Base via CDP Swap API... Transaction submitted! Hash: 0x7a3f... Estimated: 0.0263 ETH received.",
+];
+let chatIdx=0;
+function sendChat(){
+  const input=document.getElementById('chatIn');
+  const msg=input.value.trim();
+  if(!msg)return;
+  const msgs=document.getElementById('chatMsgs');
+  msgs.innerHTML+=`<div class="chat-msg user">${msg}</div>`;
+  input.value='';
+  setTimeout(()=>{
+    msgs.innerHTML+=`<div class="chat-msg bot">${botResponses[chatIdx%botResponses.length]}</div>`;
+    chatIdx++;
+    msgs.scrollTop=msgs.scrollHeight;
+  },800);
+}
+</script>
+</body>
+</html>
