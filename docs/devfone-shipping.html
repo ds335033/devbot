@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Shipping & Delivery — DEVFONE</title>
+<meta name="description" content="DEVFONE shipping rates, delivery times, and tracking. Free express shipping on orders over $99 AUD Australia-wide.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚡</text></svg>">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#fff;--bg-2:#fafafa;--bg-3:#f5f5f7;--text:#111827;--text-2:#4b5563;--text-3:#9ca3af;--accent:#2563eb;--accent-hover:#1d4ed8;--border:#e5e7eb;--border-2:#d1d5db;--success:#059669;--shadow-sm:0 1px 3px rgba(0,0,0,.06);--shadow-md:0 4px 12px rgba(0,0,0,.06);--shadow-lg:0 8px 30px rgba(0,0,0,.08);--radius-sm:8px;--radius-md:12px;--radius-lg:16px;--radius-xl:20px;--font:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;--ease:cubic-bezier(.4,0,.2,1)}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}html{scroll-behavior:smooth;-webkit-font-smoothing:antialiased}body{font-family:var(--font);background:var(--bg);color:var(--text);line-height:1.6}::selection{background:var(--accent);color:#fff}a{text-decoration:none;color:inherit}
+.header{position:fixed;top:0;left:0;right:0;z-index:1000;background:rgba(255,255,255,.92);backdrop-filter:blur(20px) saturate(180%);border-bottom:1px solid var(--border)}
+.header-inner{max-width:1320px;margin:0 auto;padding:0 32px;display:flex;align-items:center;justify-content:space-between;height:64px}
+.logo{display:flex;align-items:center;gap:10px}.logo-img{width:36px;height:36px;border-radius:8px;object-fit:cover}.logo-icon{width:36px;height:36px;border-radius:8px;background:var(--text);color:#fff;display:flex;align-items:center;justify-content:center;font-size:1rem;font-weight:800}.logo-text{font-size:1.25rem;font-weight:800;letter-spacing:-.5px}
+.nav{display:flex;gap:4px}.nav a{color:var(--text-2);padding:6px 14px;border-radius:100px;font-size:.875rem;font-weight:500;transition:all .2s var(--ease)}.nav a:hover{color:var(--text);background:var(--bg-3)}.nav a.active{color:var(--text);font-weight:600}
+.hero{padding:120px 32px 60px;text-align:center;background:linear-gradient(180deg,var(--bg-3) 0%,var(--bg) 100%)}.hero h1{font-size:clamp(2.2rem,5vw,3.5rem);font-weight:900;letter-spacing:-1.5px;line-height:1.1;margin-bottom:16px}.hero p{font-size:1.1rem;color:var(--text-2);max-width:600px;margin:0 auto;line-height:1.7}
+.section{max-width:1320px;margin:0 auto;padding:64px 32px}
+.section-title{font-size:1.5rem;font-weight:800;letter-spacing:-.5px;margin-bottom:8px;text-align:center}
+.section-sub{color:var(--text-2);font-size:1rem;margin:0 auto 40px;max-width:600px;text-align:center}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:14px 32px;border-radius:100px;font-family:var(--font);font-size:.9rem;font-weight:600;cursor:pointer;transition:all .2s var(--ease);border:none}
+.btn-accent{background:var(--accent);color:#fff}.btn-accent:hover{background:var(--accent-hover);transform:translateY(-1px)}
+.btn-dark{background:var(--text);color:#fff}.btn-dark:hover{background:#374151;transform:translateY(-1px)}
+
+/* SHIPPING TABLE */
+.ship-table{width:100%;border-collapse:collapse;border-radius:var(--radius-lg);overflow:hidden;box-shadow:var(--shadow-sm);border:1px solid var(--border);margin-bottom:48px}
+.ship-table thead{background:var(--text);color:#fff}
+.ship-table th{padding:16px 20px;text-align:left;font-size:.8rem;font-weight:600;text-transform:uppercase;letter-spacing:1px}
+.ship-table td{padding:16px 20px;border-top:1px solid var(--border);font-size:.9rem}
+.ship-table tbody tr:hover{background:var(--bg-3)}
+.ship-table .free{color:var(--success);font-weight:700}
+.ship-table .price{font-weight:600}
+
+/* PARTNERS */
+.partners{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;margin-bottom:64px}
+.partner-card{text-align:center;padding:32px 20px;background:var(--bg);border:1px solid var(--border);border-radius:var(--radius-lg);transition:all .2s var(--ease)}
+.partner-card:hover{box-shadow:var(--shadow-md);transform:translateY(-2px)}
+.partner-card .icon{font-size:2.5rem;margin-bottom:12px}
+.partner-card h3{font-size:1rem;font-weight:700;margin-bottom:4px}
+.partner-card p{font-size:.8rem;color:var(--text-2)}
+
+/* TIMELINE */
+.timeline{display:flex;justify-content:space-between;align-items:center;margin-bottom:64px;padding:32px;background:var(--bg-3);border-radius:var(--radius-xl);overflow-x:auto;gap:0}
+.timeline-step{text-align:center;flex:1;position:relative}
+.timeline-step::after{content:'';position:absolute;top:24px;right:-50%;width:100%;height:2px;background:var(--border-2)}
+.timeline-step:last-child::after{display:none}
+.timeline-dot{width:48px;height:48px;border-radius:50%;background:var(--accent);color:#fff;display:flex;align-items:center;justify-content:center;margin:0 auto 12px;font-size:1.2rem;position:relative;z-index:1}
+.timeline-step h4{font-size:.85rem;font-weight:700;margin-bottom:2px}
+.timeline-step p{font-size:.75rem;color:var(--text-3)}
+
+/* TRACKING */
+.tracking{text-align:center;padding:48px;background:var(--bg-3);border-radius:var(--radius-xl);margin-bottom:64px}
+.tracking h2{font-size:1.5rem;font-weight:800;margin-bottom:8px}
+.tracking p{color:var(--text-2);margin-bottom:24px}
+.track-form{display:flex;gap:12px;max-width:500px;margin:0 auto}
+.track-form input{flex:1;padding:14px 20px;border:1.5px solid var(--border-2);border-radius:100px;font-family:var(--font);font-size:.9rem;outline:none;transition:border .2s}
+.track-form input:focus{border-color:var(--accent)}
+
+/* EXPRESS */
+.express-cards{display:grid;grid-template-columns:repeat(2,1fr);gap:24px;margin-bottom:64px}
+.express-card{padding:32px;border:2px solid var(--border);border-radius:var(--radius-lg);transition:all .2s var(--ease);position:relative;overflow:hidden}
+.express-card:hover{border-color:var(--accent);box-shadow:var(--shadow-md)}
+.express-card.popular{border-color:var(--accent)}
+.express-badge{position:absolute;top:16px;right:16px;background:var(--accent);color:#fff;padding:4px 12px;border-radius:100px;font-size:.7rem;font-weight:700;text-transform:uppercase}
+.express-card h3{font-size:1.1rem;font-weight:700;margin-bottom:4px}
+.express-card .price-tag{font-size:1.8rem;font-weight:900;color:var(--accent);margin:12px 0}
+.express-card ul{list-style:none;margin-top:12px}
+.express-card li{padding:6px 0;font-size:.85rem;color:var(--text-2)}
+.express-card li::before{content:'✓ ';color:var(--success);font-weight:700}
+
+/* FAQ */
+.faq-list{max-width:800px;margin:0 auto 64px}
+.faq-item{border:1px solid var(--border);border-radius:var(--radius-md);margin-bottom:8px;overflow:hidden}
+.faq-q{padding:18px 24px;font-weight:600;font-size:.95rem;cursor:pointer;display:flex;justify-content:space-between;align-items:center;background:var(--bg);transition:all .15s}
+.faq-q:hover{background:var(--bg-3)}
+.faq-q .arrow{transition:transform .2s;font-size:.8rem;color:var(--text-3)}
+.faq-item.open .faq-q .arrow{transform:rotate(180deg)}
+.faq-a{padding:0 24px;max-height:0;overflow:hidden;transition:all .3s var(--ease)}
+.faq-item.open .faq-a{padding:0 24px 18px;max-height:300px}
+.faq-a p{color:var(--text-2);font-size:.9rem;line-height:1.7}
+
+/* RETURNS BOX */
+.returns-box{background:var(--bg-3);border-radius:var(--radius-xl);padding:48px;text-align:center;margin-bottom:64px}
+.returns-box h2{font-size:1.5rem;font-weight:800;margin-bottom:8px}
+.returns-box p{color:var(--text-2);max-width:600px;margin:0 auto 20px;line-height:1.7}
+
+/* FOOTER */
+.footer{background:var(--bg-3);border-top:1px solid var(--border);padding:56px 32px 24px}
+.footer-inner{max-width:1320px;margin:0 auto;display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:48px;margin-bottom:48px}
+.footer-brand p{color:var(--text-2);font-size:.85rem;line-height:1.7;max-width:280px;margin-top:12px}
+.footer-col h4{font-size:.75rem;color:var(--text-3);text-transform:uppercase;letter-spacing:1.5px;font-weight:600;margin-bottom:14px}
+.footer-col a{display:block;color:var(--text-2);font-size:.875rem;padding:3px 0;transition:color .15s}.footer-col a:hover{color:var(--text)}
+.footer-bottom{max-width:1320px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;padding-top:24px;border-top:1px solid var(--border);font-size:.8rem;color:var(--text-3)}
+
+@media(max-width:1024px){.partners{grid-template-columns:repeat(2,1fr)}.express-cards{grid-template-columns:1fr}.footer-inner{grid-template-columns:1fr 1fr}}
+@media(max-width:768px){.header-inner{padding:0 16px}.nav{display:none}.hero{padding:80px 16px 40px}.hero h1{font-size:1.8rem}.section{padding:40px 16px}.ship-table{font-size:.8rem}.ship-table th,.ship-table td{padding:10px 12px}.partners{grid-template-columns:1fr 1fr}.timeline{flex-direction:column;gap:20px}.timeline-step::after{display:none}.track-form{flex-direction:column}.footer-inner{grid-template-columns:1fr;gap:28px}.footer-bottom{flex-direction:column;gap:12px}}
+</style>
+</head>
+<body>
+
+<header class="header">
+  <div class="header-inner">
+    <a href="store.html" class="logo"><img src="devfone-logo.png" alt="DEVFONE" class="logo-img" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="logo-icon" style="display:none">D</div><span class="logo-text">DEVFONE</span></a>
+    <nav class="nav">
+      <a href="store.html">Shop</a>
+      <a href="devfone-about.html">About</a>
+      <a href="devfone-blog.html">Blog</a>
+      <a href="devfone-videos.html">Videos</a>
+      <a href="devfone-reviews.html">Reviews</a>
+      <a href="devfone-shipping.html" class="active">Shipping</a>
+      <a href="devfone-history.html">Our Story</a>
+    </nav>
+    <a href="store.html" class="btn btn-accent" style="padding:8px 20px;font-size:.825rem">Shop Now</a>
+  </div>
+</header>
+
+<section class="hero">
+  <h1>Shipping & Delivery</h1>
+  <p>Fast, reliable shipping across Australia and beyond. Free express on orders over $99 AUD.</p>
+</section>
+
+<div class="section">
+
+  <h2 class="section-title">Shipping Zones & Rates</h2>
+  <p class="section-sub">Transparent pricing, no hidden fees. All prices in AUD.</p>
+
+  <table class="ship-table">
+    <thead>
+      <tr><th>Zone</th><th>Areas</th><th>Standard</th><th>Free Threshold</th><th>Delivery Time</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><strong>Metro Australia</strong></td><td>Sydney, Melbourne, Brisbane, Adelaide, Perth</td><td class="price">$9.95</td><td class="free">FREE over $99</td><td>2-4 business days</td></tr>
+      <tr><td><strong>Regional Australia</strong></td><td>Geelong, Ballarat, Cairns, Toowoomba, etc.</td><td class="price">$14.95</td><td class="free">FREE over $149</td><td>4-7 business days</td></tr>
+      <tr><td><strong>Remote / Rural</strong></td><td>NT outback, WA remote, island communities</td><td class="price">$19.95</td><td>—</td><td>7-12 business days</td></tr>
+      <tr><td><strong>New Zealand</strong></td><td>All NZ addresses</td><td class="price">$24.95</td><td>—</td><td>7-14 business days</td></tr>
+      <tr><td><strong>International</strong></td><td>Rest of World</td><td class="price">$39.95</td><td>—</td><td>14-21 business days</td></tr>
+    </tbody>
+  </table>
+
+  <h2 class="section-title">Our Shipping Partners</h2>
+  <p class="section-sub">We work with Australia's most trusted carriers.</p>
+
+  <div class="partners">
+    <div class="partner-card"><div class="icon">📮</div><h3>Australia Post</h3><p>Standard & Express nationwide coverage</p></div>
+    <div class="partner-card"><div class="icon">⚡</div><h3>StarTrack</h3><p>Premium express for metro deliveries</p></div>
+    <div class="partner-card"><div class="icon">🌍</div><h3>DHL Express</h3><p>International & priority shipments</p></div>
+    <div class="partner-card"><div class="icon">📦</div><h3>FedEx</h3><p>Bulk & high-value insured delivery</p></div>
+  </div>
+
+  <h2 class="section-title">Order Processing</h2>
+  <p class="section-sub">From checkout to your doorstep — here's the journey.</p>
+
+  <div class="timeline">
+    <div class="timeline-step"><div class="timeline-dot">🛒</div><h4>Order Placed</h4><p>Confirmation email sent</p></div>
+    <div class="timeline-step"><div class="timeline-dot">⚙️</div><h4>Processing</h4><p>1-2 business days</p></div>
+    <div class="timeline-step"><div class="timeline-dot">📦</div><h4>Shipped</h4><p>Tracking number emailed</p></div>
+    <div class="timeline-step"><div class="timeline-dot">🚚</div><h4>In Transit</h4><p>Live tracking available</p></div>
+    <div class="timeline-step"><div class="timeline-dot">🏠</div><h4>Delivered</h4><p>Safe & signed for</p></div>
+  </div>
+
+  <div class="tracking">
+    <h2>Track Your Order</h2>
+    <p>Enter your order number or tracking ID to check your delivery status.</p>
+    <div class="track-form">
+      <input type="text" id="trackInput" placeholder="e.g. DF-1234567 or AP12345678">
+      <button class="btn btn-dark" onclick="trackOrder()">Track Order</button>
+    </div>
+  </div>
+
+  <h2 class="section-title">Shipping Options</h2>
+  <p class="section-sub">Choose the speed that suits you.</p>
+
+  <div class="express-cards">
+    <div class="express-card">
+      <h3>Standard Shipping</h3>
+      <div class="price-tag">$9.95</div>
+      <p style="color:var(--text-2);font-size:.9rem">Reliable delivery at an affordable price.</p>
+      <ul>
+        <li>Metro: 2-4 business days</li>
+        <li>Regional: 4-7 business days</li>
+        <li>Full tracking included</li>
+        <li>FREE on orders over $99 (metro)</li>
+      </ul>
+    </div>
+    <div class="express-card popular">
+      <div class="express-badge">Most Popular</div>
+      <h3>Express Shipping</h3>
+      <div class="price-tag">$14.95</div>
+      <p style="color:var(--text-2);font-size:.9rem">Priority handling with next-day metro delivery.</p>
+      <ul>
+        <li>Metro: 1-2 business days</li>
+        <li>Regional: 2-4 business days</li>
+        <li>Priority handling & insurance</li>
+        <li>Signature on delivery</li>
+        <li>FREE on orders over $199</li>
+      </ul>
+    </div>
+  </div>
+
+  <h2 class="section-title">Frequently Asked Questions</h2>
+  <p class="section-sub">Everything you need to know about DEVFONE shipping.</p>
+
+  <div class="faq-list">
+    <div class="faq-item"><div class="faq-q" onclick="this.parentElement.classList.toggle('open')">When will my order ship?<span class="arrow">▼</span></div><div class="faq-a"><p>Orders placed before 2pm ACST Monday-Friday are processed same day. Weekend orders ship on Monday. You'll receive a tracking number by email as soon as your order is dispatched.</p></div></div>
+    <div class="faq-item"><div class="faq-q" onclick="this.parentElement.classList.toggle('open')">Can I change my delivery address after ordering?<span class="arrow">▼</span></div><div class="faq-a"><p>Yes — as long as your order hasn't shipped yet. Email support@devfone.store with your order number and new address. Once shipped, address changes are not possible.</p></div></div>
+    <div class="faq-item"><div class="faq-q" onclick="this.parentElement.classList.toggle('open')">What if my package is lost or damaged?<span class="arrow">▼</span></div><div class="faq-a"><p>All shipments are insured. If your package is lost or arrives damaged, contact us within 7 days. We'll arrange a full replacement or refund — no questions asked.</p></div></div>
+    <div class="faq-item"><div class="faq-q" onclick="this.parentElement.classList.toggle('open')">Do you ship to PO boxes?<span class="arrow">▼</span></div><div class="faq-a"><p>Yes, we ship to PO boxes via Australia Post for standard-size items. Oversized items (laptops, monitors) require a street address for courier delivery.</p></div></div>
+    <div class="faq-item"><div class="faq-q" onclick="this.parentElement.classList.toggle('open')">Are there customs or duties on international orders?<span class="arrow">▼</span></div><div class="faq-a"><p>International orders may be subject to local customs duties and import taxes. These are the responsibility of the recipient and vary by country. DEVFONE does not collect international duties at checkout.</p></div></div>
+    <div class="faq-item"><div class="faq-q" onclick="this.parentElement.classList.toggle('open')">Can I pick up my order in-store?<span class="arrow">▼</span></div><div class="faq-a"><p>We're currently online-only based in South Australia. Click & collect may be available in the future as we expand.</p></div></div>
+  </div>
+
+  <div class="returns-box">
+    <h2>Returns & Exchanges</h2>
+    <p>Changed your mind? No worries. DEVFONE offers a 30-day hassle-free return policy on all products. Items must be in original condition with packaging. We'll cover the return shipping for faulty items.</p>
+    <a href="devfone-legal.html#returns" class="btn btn-dark">View Returns Policy</a>
+  </div>
+
+</div>
+
+<footer class="footer">
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <a href="store.html" class="logo"><img src="devfone-logo.png" alt="DEVFONE" class="logo-img" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="logo-icon" style="display:none">D</div><span class="logo-text">DEVFONE</span></a>
+      <p>Australia's destination for premium electronics. Genuine products, unbeatable prices, world-class support.</p>
+    </div>
+    <div class="footer-col"><h4>Shop</h4><a href="store.html">All Products</a><a href="devfone-reviews.html">Customer Reviews</a><a href="devfone-shipping.html">Shipping & Delivery</a><a href="devfone-videos.html">DEVFONE TV</a><a href="devfone-blog.html">Blog</a></div>
+    <div class="footer-col"><h4>Company</h4><a href="devfone-about.html">About Us</a><a href="devfone-history.html">Our Story</a><a href="devfone-about.html#contact">Contact Us</a><a href="devfone-about.html#map">Find Us</a></div>
+    <div class="footer-col"><h4>Legal</h4><a href="devfone-legal.html#terms">Terms & Conditions</a><a href="devfone-legal.html#privacy">Privacy Policy</a><a href="devfone-legal.html#returns">Returns Policy</a><a href="devfone-legal.html#shipping">Shipping Policy</a></div>
+  </div>
+  <div class="footer-bottom"><span>&copy; 2026 DEVFONE. All rights reserved.</span><span>Built for the Future. Powered by DevBot AI.</span></div>
+</footer>
+
+<script>
+function trackOrder(){const v=document.getElementById('trackInput').value.trim();if(!v){alert('Please enter an order or tracking number.');return}alert('Tracking '+v+'\\n\\nStatus: In Transit\\nEstimated Delivery: 2-4 business days\\n\\nFor real-time updates, check your email for the tracking link.')}
+</script>
+</body>
+</html>

@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>About DEVFONE — Built for the Future</title>
+<meta name="description" content="Learn about DEVFONE — Australia's destination for premium phones, laptops & electronics. Our mission, team, and story.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚡</text></svg>">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#ffffff;--bg-2:#fafafa;--bg-3:#f5f5f7;--text:#111827;--text-2:#4b5563;--text-3:#9ca3af;--accent:#2563eb;--accent-hover:#1d4ed8;--border:#e5e7eb;--border-2:#d1d5db;--success:#059669;--shadow-sm:0 1px 3px rgba(0,0,0,.06);--shadow-md:0 4px 12px rgba(0,0,0,.06);--shadow-lg:0 8px 30px rgba(0,0,0,.08);--shadow-xl:0 20px 50px rgba(0,0,0,.1);--radius-sm:8px;--radius-md:12px;--radius-lg:16px;--radius-xl:20px;--font:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;--ease:cubic-bezier(.4,0,.2,1)}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth;-webkit-font-smoothing:antialiased}
+body{font-family:var(--font);background:var(--bg);color:var(--text);line-height:1.6}
+::selection{background:var(--accent);color:#fff}
+a{text-decoration:none;color:inherit}
+
+/* HEADER */
+.header{position:fixed;top:0;left:0;right:0;z-index:1000;background:rgba(255,255,255,.92);backdrop-filter:blur(20px) saturate(180%);border-bottom:1px solid var(--border)}
+.header-inner{max-width:1320px;margin:0 auto;padding:0 32px;display:flex;align-items:center;justify-content:space-between;height:64px}
+.logo{display:flex;align-items:center;gap:10px}
+.logo-img{width:36px;height:36px;border-radius:8px;object-fit:cover}
+.logo-icon{width:36px;height:36px;border-radius:8px;background:var(--text);color:#fff;display:flex;align-items:center;justify-content:center;font-size:1rem;font-weight:800}
+.logo-text{font-size:1.25rem;font-weight:800;letter-spacing:-.5px}
+.nav{display:flex;gap:4px}
+.nav a{color:var(--text-2);padding:6px 14px;border-radius:100px;font-size:.875rem;font-weight:500;transition:all .2s var(--ease)}
+.nav a:hover{color:var(--text);background:var(--bg-3)}
+.nav a.active{color:var(--text);font-weight:600}
+
+/* HERO */
+.hero{padding:120px 32px 60px;text-align:center;background:linear-gradient(180deg,var(--bg-3) 0%,var(--bg) 100%)}
+.hero h1{font-size:clamp(2.2rem,5vw,3.5rem);font-weight:900;letter-spacing:-1.5px;line-height:1.1;margin-bottom:16px}
+.hero p{font-size:1.1rem;color:var(--text-2);max-width:600px;margin:0 auto;line-height:1.7}
+
+/* SECTIONS */
+.section{max-width:1320px;margin:0 auto;padding:64px 32px}
+.section-title{font-size:1.5rem;font-weight:800;letter-spacing:-.5px;margin-bottom:8px}
+.section-sub{color:var(--text-2);font-size:1rem;margin-bottom:40px;max-width:600px}
+.section-center{text-align:center}.section-center .section-sub{margin:0 auto 40px}
+
+/* MISSION */
+.mission{background:var(--bg-3);border-radius:var(--radius-xl);padding:48px;text-align:center;margin-bottom:64px}
+.mission h2{font-size:1.8rem;font-weight:800;letter-spacing:-.5px;margin-bottom:16px}
+.mission p{font-size:1.1rem;color:var(--text-2);max-width:700px;margin:0 auto;line-height:1.8}
+
+/* STATS */
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:24px;margin-bottom:64px}
+.stat-card{text-align:center;padding:32px 20px;background:var(--bg);border:1px solid var(--border);border-radius:var(--radius-lg);transition:all .2s var(--ease)}
+.stat-card:hover{transform:translateY(-2px);box-shadow:var(--shadow-md)}
+.stat-num{font-size:2.2rem;font-weight:900;color:var(--accent);margin-bottom:4px}
+.stat-label{font-size:.875rem;color:var(--text-2);font-weight:500}
+
+/* VALUES */
+.values{display:grid;grid-template-columns:repeat(2,1fr);gap:24px;margin-bottom:64px}
+.value-card{padding:32px;background:var(--bg);border:1px solid var(--border);border-radius:var(--radius-lg);transition:all .2s var(--ease)}
+.value-card:hover{box-shadow:var(--shadow-md);transform:translateY(-2px)}
+.value-icon{font-size:2rem;margin-bottom:12px}
+.value-card h3{font-size:1.1rem;font-weight:700;margin-bottom:8px}
+.value-card p{color:var(--text-2);font-size:.9rem;line-height:1.7}
+
+/* TEAM */
+.team{display:grid;grid-template-columns:repeat(2,1fr);gap:32px;margin-bottom:64px}
+.team-card{display:flex;gap:24px;padding:32px;background:var(--bg);border:1px solid var(--border);border-radius:var(--radius-lg);transition:all .2s var(--ease)}
+.team-card:hover{box-shadow:var(--shadow-md)}
+.team-avatar{width:80px;height:80px;border-radius:50%;background:var(--bg-3);display:flex;align-items:center;justify-content:center;font-size:2rem;flex-shrink:0}
+.team-info h3{font-size:1.1rem;font-weight:700;margin-bottom:2px}
+.team-role{font-size:.8rem;color:var(--accent);font-weight:600;text-transform:uppercase;letter-spacing:.5px;margin-bottom:8px}
+.team-info p{color:var(--text-2);font-size:.875rem;line-height:1.7}
+
+/* MAP */
+.map-section{margin-bottom:64px}
+.map-wrap{border-radius:var(--radius-xl);overflow:hidden;box-shadow:var(--shadow-lg);border:1px solid var(--border)}
+.map-wrap iframe{width:100%;height:400px;border:0}
+.map-info{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:24px}
+.map-card{padding:24px;background:var(--bg-3);border-radius:var(--radius-md);text-align:center}
+.map-card .icon{font-size:1.5rem;margin-bottom:8px}
+.map-card h4{font-size:.9rem;font-weight:700;margin-bottom:4px}
+.map-card p{font-size:.85rem;color:var(--text-2)}
+
+/* CTA */
+.cta-section{text-align:center;padding:64px 32px;background:var(--text);border-radius:var(--radius-xl);margin-bottom:64px}
+.cta-section h2{color:#fff;font-size:2rem;font-weight:800;margin-bottom:12px}
+.cta-section p{color:rgba(255,255,255,.7);margin-bottom:24px;font-size:1rem}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:14px 32px;border-radius:100px;font-family:var(--font);font-size:.9rem;font-weight:600;cursor:pointer;transition:all .2s var(--ease);border:none}
+.btn-accent{background:var(--accent);color:#fff}
+.btn-accent:hover{background:var(--accent-hover);transform:translateY(-1px);box-shadow:0 4px 16px rgba(37,99,235,.25)}
+.btn-white{background:#fff;color:var(--text)}
+.btn-white:hover{transform:translateY(-1px);box-shadow:var(--shadow-md)}
+
+/* FOOTER */
+.footer{background:var(--bg-3);border-top:1px solid var(--border);padding:56px 32px 24px}
+.footer-inner{max-width:1320px;margin:0 auto;display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:48px;margin-bottom:48px}
+.footer-brand p{color:var(--text-2);font-size:.85rem;line-height:1.7;max-width:280px;margin-top:12px}
+.footer-col h4{font-size:.75rem;color:var(--text-3);text-transform:uppercase;letter-spacing:1.5px;font-weight:600;margin-bottom:14px}
+.footer-col a{display:block;color:var(--text-2);font-size:.875rem;padding:3px 0;transition:color .15s}
+.footer-col a:hover{color:var(--text)}
+.footer-bottom{max-width:1320px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;padding-top:24px;border-top:1px solid var(--border);font-size:.8rem;color:var(--text-3)}
+
+@media(max-width:1024px){.stats{grid-template-columns:repeat(2,1fr)}.team{grid-template-columns:1fr}.footer-inner{grid-template-columns:1fr 1fr}}
+@media(max-width:768px){.header-inner{padding:0 16px}.nav{display:none}.hero{padding:80px 16px 40px}.hero h1{font-size:1.8rem}.section{padding:40px 16px}.stats{grid-template-columns:1fr 1fr}.values{grid-template-columns:1fr}.map-info{grid-template-columns:1fr}.footer-inner{grid-template-columns:1fr;gap:28px}.footer-bottom{flex-direction:column;gap:12px}}
+</style>
+</head>
+<body>
+
+<header class="header">
+  <div class="header-inner">
+    <a href="store.html" class="logo">
+      <img src="devfone-logo.png" alt="DEVFONE" class="logo-img" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+      <div class="logo-icon" style="display:none">D</div>
+      <span class="logo-text">DEVFONE</span>
+    </a>
+    <nav class="nav">
+      <a href="store.html">Shop</a>
+      <a href="devfone-about.html" class="active">About</a>
+      <a href="devfone-blog.html">Blog</a>
+      <a href="devfone-videos.html">Videos</a>
+      <a href="devfone-reviews.html">Reviews</a>
+      <a href="devfone-shipping.html">Shipping</a>
+      <a href="devfone-history.html">Our Story</a>
+    </nav>
+    <a href="store.html" class="btn btn-accent" style="padding:8px 20px;font-size:.825rem">Shop Now</a>
+  </div>
+</header>
+
+<section class="hero">
+  <h1>About DEVFONE</h1>
+  <p>We believe everyone deserves premium technology at fair prices. That's why we built DEVFONE — Australia's home for the world's best electronics.</p>
+</section>
+
+<div class="section">
+  <div class="mission">
+    <h2>Our Mission</h2>
+    <p>To connect every Australian with the world's best technology — at prices that make sense. No middlemen, no markup madness. Just genuine products, fast shipping, and real support from people who care about tech as much as you do.</p>
+  </div>
+
+  <div class="section-center">
+    <h2 class="section-title">Our Story</h2>
+    <p class="section-sub">Founded in 2026 in South Australia by tech enthusiasts who were tired of Australians paying too much for electronics. We partnered directly with global suppliers and top retailers to bring premium products to your door — at prices that finally make sense.</p>
+  </div>
+
+  <div class="stats">
+    <div class="stat-card"><div class="stat-num">50+</div><div class="stat-label">Premium Products</div></div>
+    <div class="stat-card"><div class="stat-num">1,200+</div><div class="stat-label">Happy Customers</div></div>
+    <div class="stat-card"><div class="stat-num">4.7★</div><div class="stat-label">Average Rating</div></div>
+    <div class="stat-card"><div class="stat-num">24/7</div><div class="stat-label">Customer Support</div></div>
+  </div>
+
+  <div class="section-center">
+    <h2 class="section-title">Our Values</h2>
+    <p class="section-sub">Four pillars that drive everything we do at DEVFONE.</p>
+  </div>
+
+  <div class="values">
+    <div class="value-card">
+      <div class="value-icon">✅</div>
+      <h3>Quality First</h3>
+      <p>Every product is 100% genuine and tested. We partner with authorised distributors and global suppliers — no fakes, no refurbs unless clearly labelled. Your trust is our foundation.</p>
+    </div>
+    <div class="value-card">
+      <div class="value-icon">💰</div>
+      <h3>Best Prices</h3>
+      <p>Direct supplier relationships mean lower costs passed straight to you. We constantly benchmark against major AU retailers so you always get a fair deal. Price match guarantee on all flagship products.</p>
+    </div>
+    <div class="value-card">
+      <div class="value-icon">🚀</div>
+      <h3>Fast Shipping</h3>
+      <p>Free express shipping on all orders over $99 AUD. Metro orders arrive in 2-4 business days. Real tracking, real updates — you'll know exactly where your order is every step of the way.</p>
+    </div>
+    <div class="value-card">
+      <div class="value-icon">💙</div>
+      <h3>Customer Care</h3>
+      <p>30-day hassle-free returns on everything. Real human support backed by AI-powered DevBot for instant answers. We're here before, during, and after your purchase — always.</p>
+    </div>
+  </div>
+
+  <div class="section-center">
+    <h2 class="section-title">Meet the Team</h2>
+    <p class="section-sub">The people (and AI) behind DEVFONE.</p>
+  </div>
+
+  <div class="team">
+    <div class="team-card">
+      <div class="team-avatar">👨‍💻</div>
+      <div class="team-info">
+        <h3>Darren Smith</h3>
+        <div class="team-role">Founder & CEO</div>
+        <p>Tech enthusiast and visionary from South Australia. Darren built DEVFONE with a simple goal: give Australians access to the world's best technology without the premium price tag. When he's not scaling the business, he's testing the latest gear.</p>
+      </div>
+    </div>
+    <div class="team-card">
+      <div class="team-avatar">🤖</div>
+      <div class="team-info">
+        <h3>DevBot AI</h3>
+        <div class="team-role">Technology Partner</div>
+        <p>AI-powered operations engine that manages inventory, automates pricing, handles customer support, and keeps everything running 24/7. DevBot is the backbone that lets DEVFONE deliver big-store performance with small-team agility.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-center" id="map">
+    <h2 class="section-title">Where to Find Us</h2>
+    <p class="section-sub">Based in South Australia, shipping nationwide and beyond.</p>
+  </div>
+
+  <div class="map-section">
+    <div class="map-wrap">
+      <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d26124.8!2d138.72!3d-34.82!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x6ab0b5e5f5a5a5a5%3A0x0!2sRedwood+Park+SA+5097!5e0!3m2!1sen!2sau!4v1" allowfullscreen loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+    </div>
+    <div class="map-info">
+      <div class="map-card">
+        <div class="icon">📍</div>
+        <h4>Location</h4>
+        <p>Redwood Park<br>South Australia 5097<br>Australia</p>
+      </div>
+      <div class="map-card" id="contact">
+        <div class="icon">✉️</div>
+        <h4>Email</h4>
+        <p>support@devfone.store<br>Mon - Fri 9am - 6pm ACST<br>24/7 AI Support Available</p>
+      </div>
+      <div class="map-card">
+        <div class="icon">🌏</div>
+        <h4>Shipping</h4>
+        <p>All of Australia<br>New Zealand<br>International Available</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="cta-section">
+    <h2>Ready to Shop?</h2>
+    <p>Browse 50+ premium products with free express shipping over $99.</p>
+    <a href="store.html" class="btn btn-white">Shop DEVFONE →</a>
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <a href="store.html" class="logo"><img src="devfone-logo.png" alt="DEVFONE" class="logo-img" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="logo-icon" style="display:none">D</div><span class="logo-text">DEVFONE</span></a>
+      <p>Australia's destination for premium electronics. Genuine products, unbeatable prices, world-class support.</p>
+    </div>
+    <div class="footer-col"><h4>Shop</h4><a href="store.html">All Products</a><a href="devfone-reviews.html">Customer Reviews</a><a href="devfone-shipping.html">Shipping & Delivery</a><a href="devfone-videos.html">DEVFONE TV</a><a href="devfone-blog.html">Blog</a></div>
+    <div class="footer-col"><h4>Company</h4><a href="devfone-about.html">About Us</a><a href="devfone-history.html">Our Story</a><a href="#contact">Contact Us</a><a href="#map">Find Us</a></div>
+    <div class="footer-col"><h4>Legal</h4><a href="devfone-legal.html#terms">Terms & Conditions</a><a href="devfone-legal.html#privacy">Privacy Policy</a><a href="devfone-legal.html#returns">Returns Policy</a><a href="devfone-legal.html#shipping">Shipping Policy</a></div>
+  </div>
+  <div class="footer-bottom">
+    <span>&copy; 2026 DEVFONE. All rights reserved.</span>
+    <span>Built for the Future. Powered by DevBot AI.</span>
+  </div>
+</footer>
+
+</body>
+</html>

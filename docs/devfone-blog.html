@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DEVFONE Blog — Tech News, Guides & Product Insights</title>
+<meta name="description" content="Stay up to date with the latest tech news, buying guides, product comparisons and tips from the DEVFONE team.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚡</text></svg>">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#fff;--bg-2:#fafafa;--bg-3:#f5f5f7;--text:#111827;--text-2:#4b5563;--text-3:#9ca3af;--accent:#2563eb;--accent-hover:#1d4ed8;--border:#e5e7eb;--border-2:#d1d5db;--success:#059669;--shadow-sm:0 1px 3px rgba(0,0,0,.06);--shadow-md:0 4px 12px rgba(0,0,0,.06);--shadow-lg:0 8px 30px rgba(0,0,0,.08);--radius-sm:8px;--radius-md:12px;--radius-lg:16px;--radius-xl:20px;--font:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;--ease:cubic-bezier(.4,0,.2,1)}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}html{scroll-behavior:smooth;-webkit-font-smoothing:antialiased}body{font-family:var(--font);background:var(--bg);color:var(--text);line-height:1.6}::selection{background:var(--accent);color:#fff}a{text-decoration:none;color:inherit}
+.header{position:fixed;top:0;left:0;right:0;z-index:1000;background:rgba(255,255,255,.92);backdrop-filter:blur(20px) saturate(180%);border-bottom:1px solid var(--border)}
+.header-inner{max-width:1320px;margin:0 auto;padding:0 32px;display:flex;align-items:center;justify-content:space-between;height:64px}
+.logo{display:flex;align-items:center;gap:10px}.logo-img{width:36px;height:36px;border-radius:8px;object-fit:cover}.logo-icon{width:36px;height:36px;border-radius:8px;background:var(--text);color:#fff;display:flex;align-items:center;justify-content:center;font-size:1rem;font-weight:800}.logo-text{font-size:1.25rem;font-weight:800;letter-spacing:-.5px}
+.nav{display:flex;gap:4px}.nav a{color:var(--text-2);padding:6px 14px;border-radius:100px;font-size:.875rem;font-weight:500;transition:all .2s var(--ease)}.nav a:hover{color:var(--text);background:var(--bg-3)}.nav a.active{color:var(--text);font-weight:600}
+.hero{padding:120px 32px 60px;text-align:center;background:linear-gradient(180deg,var(--bg-3) 0%,var(--bg) 100%)}.hero h1{font-size:clamp(2.2rem,5vw,3.5rem);font-weight:900;letter-spacing:-1.5px;line-height:1.1;margin-bottom:16px}.hero p{font-size:1.1rem;color:var(--text-2);max-width:600px;margin:0 auto;line-height:1.7}
+.section{max-width:1320px;margin:0 auto;padding:64px 32px}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:14px 32px;border-radius:100px;font-family:var(--font);font-size:.9rem;font-weight:600;cursor:pointer;transition:all .2s var(--ease);border:none}
+.btn-accent{background:var(--accent);color:#fff}.btn-accent:hover{background:var(--accent-hover);transform:translateY(-1px)}
+.btn-dark{background:var(--text);color:#fff}.btn-dark:hover{background:#374151;transform:translateY(-1px)}
+
+/* FILTERS */
+.filters{display:flex;gap:8px;justify-content:center;margin-bottom:40px;flex-wrap:wrap}
+.filter-btn{padding:8px 20px;border:1.5px solid var(--border);border-radius:100px;background:#fff;font-family:var(--font);font-size:.85rem;font-weight:500;color:var(--text-2);cursor:pointer;transition:all .2s var(--ease)}
+.filter-btn:hover{border-color:var(--text);color:var(--text)}.filter-btn.active{background:var(--text);color:#fff;border-color:var(--text)}
+
+/* FEATURED POST */
+.featured-post{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:center;margin-bottom:64px;padding:40px;background:var(--bg-3);border-radius:var(--radius-xl)}
+.featured-img{width:100%;aspect-ratio:16/10;background:linear-gradient(135deg,#2563eb,#7c3aed);border-radius:var(--radius-lg);display:flex;align-items:center;justify-content:center;font-size:4rem}
+.featured-content .tag{display:inline-block;background:var(--accent);color:#fff;padding:3px 12px;border-radius:100px;font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:.5px;margin-bottom:12px}
+.featured-content h2{font-size:1.8rem;font-weight:800;letter-spacing:-.5px;margin-bottom:12px;line-height:1.2}
+.featured-content .meta{font-size:.8rem;color:var(--text-3);margin-bottom:16px;display:flex;gap:16px}
+.featured-content p{color:var(--text-2);font-size:.95rem;line-height:1.7;margin-bottom:20px}
+.read-more{color:var(--accent);font-weight:600;font-size:.9rem;display:inline-flex;align-items:center;gap:6px;transition:gap .2s}.read-more:hover{gap:10px}
+
+/* BLOG GRID */
+.blog-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:28px;margin-bottom:48px}
+.blog-card{border:1px solid var(--border);border-radius:var(--radius-lg);overflow:hidden;transition:all .2s var(--ease);background:#fff;cursor:pointer}
+.blog-card:hover{box-shadow:var(--shadow-lg);transform:translateY(-3px)}
+.blog-thumb{width:100%;aspect-ratio:16/9;display:flex;align-items:center;justify-content:center;font-size:3rem}
+.blog-body{padding:20px 24px 24px}
+.blog-body .tag{display:inline-block;background:var(--bg-3);color:var(--accent);padding:2px 10px;border-radius:100px;font-size:.7rem;font-weight:600;text-transform:uppercase;letter-spacing:.5px;margin-bottom:10px}
+.blog-body h3{font-size:1.05rem;font-weight:700;margin-bottom:8px;line-height:1.3}
+.blog-body .meta{font-size:.75rem;color:var(--text-3);margin-bottom:10px;display:flex;gap:12px}
+.blog-body p{color:var(--text-2);font-size:.85rem;line-height:1.6;margin-bottom:12px;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+
+/* SIDEBAR */
+.sidebar-section{display:grid;grid-template-columns:1fr 340px;gap:40px;margin-bottom:64px}
+.popular h3{font-size:1.1rem;font-weight:800;margin-bottom:20px}
+.pop-item{display:flex;gap:12px;padding:12px 0;border-bottom:1px solid var(--border);cursor:pointer;transition:all .15s}
+.pop-item:hover{padding-left:8px}
+.pop-num{width:32px;height:32px;border-radius:50%;background:var(--bg-3);display:flex;align-items:center;justify-content:center;font-size:.8rem;font-weight:800;color:var(--accent);flex-shrink:0}
+.pop-item h4{font-size:.85rem;font-weight:600;margin-bottom:2px}
+.pop-item p{font-size:.75rem;color:var(--text-3)}
+
+/* NEWSLETTER */
+.newsletter{padding:48px;background:var(--text);border-radius:var(--radius-xl);text-align:center;margin-bottom:64px}
+.newsletter h3{color:#fff;font-size:1.5rem;font-weight:800;margin-bottom:8px}
+.newsletter p{color:rgba(255,255,255,.7);margin-bottom:20px}
+.nl-form{display:flex;gap:12px;max-width:450px;margin:0 auto}
+.nl-form input{flex:1;padding:12px 20px;border:none;border-radius:100px;font-family:var(--font);font-size:.875rem;outline:none}
+.nl-form button{padding:12px 24px;border-radius:100px;background:var(--accent);color:#fff;border:none;font-family:var(--font);font-weight:600;font-size:.875rem;cursor:pointer;transition:all .2s}
+.nl-form button:hover{background:var(--accent-hover)}
+
+/* PAGINATION */
+.pagination{display:flex;justify-content:center;gap:8px;margin-bottom:64px}
+.page-btn{width:40px;height:40px;border-radius:50%;border:1.5px solid var(--border);background:#fff;display:flex;align-items:center;justify-content:center;font-size:.85rem;font-weight:600;cursor:pointer;transition:all .15s}
+.page-btn.active{background:var(--text);color:#fff;border-color:var(--text)}
+.page-btn:hover{border-color:var(--text)}
+
+/* FOOTER */
+.footer{background:var(--bg-3);border-top:1px solid var(--border);padding:56px 32px 24px}
+.footer-inner{max-width:1320px;margin:0 auto;display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:48px;margin-bottom:48px}
+.footer-brand p{color:var(--text-2);font-size:.85rem;line-height:1.7;max-width:280px;margin-top:12px}
+.footer-col h4{font-size:.75rem;color:var(--text-3);text-transform:uppercase;letter-spacing:1.5px;font-weight:600;margin-bottom:14px}
+.footer-col a{display:block;color:var(--text-2);font-size:.875rem;padding:3px 0;transition:color .15s}.footer-col a:hover{color:var(--text)}
+.footer-bottom{max-width:1320px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;padding-top:24px;border-top:1px solid var(--border);font-size:.8rem;color:var(--text-3)}
+
+@media(max-width:1024px){.featured-post{grid-template-columns:1fr}.sidebar-section{grid-template-columns:1fr}.footer-inner{grid-template-columns:1fr 1fr}}
+@media(max-width:768px){.header-inner{padding:0 16px}.nav{display:none}.hero{padding:80px 16px 40px}.hero h1{font-size:1.8rem}.section{padding:40px 16px}.blog-grid{grid-template-columns:1fr}.nl-form{flex-direction:column}.footer-inner{grid-template-columns:1fr;gap:28px}.footer-bottom{flex-direction:column;gap:12px}}
+</style>
+</head>
+<body>
+
+<header class="header">
+  <div class="header-inner">
+    <a href="store.html" class="logo"><img src="devfone-logo.png" alt="DEVFONE" class="logo-img" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="logo-icon" style="display:none">D</div><span class="logo-text">DEVFONE</span></a>
+    <nav class="nav">
+      <a href="store.html">Shop</a>
+      <a href="devfone-about.html">About</a>
+      <a href="devfone-blog.html" class="active">Blog</a>
+      <a href="devfone-videos.html">Videos</a>
+      <a href="devfone-reviews.html">Reviews</a>
+      <a href="devfone-shipping.html">Shipping</a>
+      <a href="devfone-history.html">Our Story</a>
+    </nav>
+    <a href="store.html" class="btn btn-accent" style="padding:8px 20px;font-size:.825rem">Shop Now</a>
+  </div>
+</header>
+
+<section class="hero">
+  <h1>DEVFONE Blog</h1>
+  <p>Tech news, buying guides, product comparisons, and insights from the DEVFONE team.</p>
+</section>
+
+<div class="section">
+
+  <!-- FEATURED POST -->
+  <div class="featured-post">
+    <div class="featured-img">🚀</div>
+    <div class="featured-content">
+      <span class="tag">News</span>
+      <h2>The Future of Mobile Technology in 2026</h2>
+      <div class="meta"><span>📅 March 28, 2026</span><span>👤 Darren Smith</span><span>⏱ 8 min read</span></div>
+      <p>AI integration, foldable displays, and satellite connectivity are reshaping the mobile landscape. We look at the trends defining 2026 and what they mean for consumers, developers, and the industry. From Apple's AI-powered iOS features to Samsung's next-gen foldables.</p>
+      <a href="#" class="read-more">Read Full Article →</a>
+    </div>
+  </div>
+
+  <!-- FILTERS -->
+  <div class="filters">
+    <button class="filter-btn active" onclick="filterPosts('all',this)">All Posts</button>
+    <button class="filter-btn" onclick="filterPosts('review',this)">Reviews</button>
+    <button class="filter-btn" onclick="filterPosts('guide',this)">Guides</button>
+    <button class="filter-btn" onclick="filterPosts('news',this)">News</button>
+    <button class="filter-btn" onclick="filterPosts('company',this)">Company</button>
+  </div>
+
+  <!-- BLOG GRID -->
+  <div class="blog-grid" id="blogGrid"></div>
+
+  <!-- POPULAR + NEWSLETTER SIDEBAR -->
+  <div class="sidebar-section">
+    <div>
+      <h2 style="font-size:1.3rem;font-weight:800;margin-bottom:24px">More from DEVFONE</h2>
+      <p style="color:var(--text-2);line-height:1.7;margin-bottom:20px">We publish weekly articles covering the latest in tech, honest product reviews, buying guides to help you make smarter purchases, and company updates as DEVFONE grows. Whether you're a tech enthusiast or just looking for your next phone, we've got you covered.</p>
+      <a href="devfone-videos.html" class="btn btn-dark" style="padding:10px 24px;font-size:.85rem">Watch DEVFONE TV →</a>
+    </div>
+    <div class="popular">
+      <h3>Popular Posts</h3>
+      <div class="pop-item"><div class="pop-num">1</div><div><h4>iPhone 16 Pro vs Samsung Galaxy S25 Ultra</h4><p>Mar 25 &bull; 6 min read</p></div></div>
+      <div class="pop-item"><div class="pop-num">2</div><div><h4>MacBook Pro M4 Max Review</h4><p>Mar 15 &bull; 10 min read</p></div></div>
+      <div class="pop-item"><div class="pop-num">3</div><div><h4>Best Budget Wireless Earbuds Under $70</h4><p>Mar 12 &bull; 5 min read</p></div></div>
+      <div class="pop-item"><div class="pop-num">4</div><div><h4>Why MagSafe Changed Everything</h4><p>Mar 18 &bull; 7 min read</p></div></div>
+      <div class="pop-item"><div class="pop-num">5</div><div><h4>DEVFONE Launch: Our Story</h4><p>Mar 1 &bull; 4 min read</p></div></div>
+    </div>
+  </div>
+
+  <div class="newsletter">
+    <h3>Subscribe to the DEVFONE Blog</h3>
+    <p>Get the latest articles, deals, and tech news delivered to your inbox every week.</p>
+    <div class="nl-form">
+      <input type="email" placeholder="your@email.com">
+      <button onclick="alert('Subscribed! Welcome to the DEVFONE blog.')">Subscribe</button>
+    </div>
+  </div>
+
+  <div class="pagination">
+    <div class="page-btn active">1</div>
+    <div class="page-btn">2</div>
+    <div class="page-btn">3</div>
+    <div class="page-btn">→</div>
+  </div>
+
+</div>
+
+<footer class="footer">
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <a href="store.html" class="logo"><img src="devfone-logo.png" alt="DEVFONE" class="logo-img" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="logo-icon" style="display:none">D</div><span class="logo-text">DEVFONE</span></a>
+      <p>Australia's destination for premium electronics. Genuine products, unbeatable prices, world-class support.</p>
+    </div>
+    <div class="footer-col"><h4>Shop</h4><a href="store.html">All Products</a><a href="devfone-reviews.html">Customer Reviews</a><a href="devfone-shipping.html">Shipping & Delivery</a><a href="devfone-videos.html">DEVFONE TV</a><a href="devfone-blog.html">Blog</a></div>
+    <div class="footer-col"><h4>Company</h4><a href="devfone-about.html">About Us</a><a href="devfone-history.html">Our Story</a><a href="devfone-about.html#contact">Contact Us</a><a href="devfone-about.html#map">Find Us</a></div>
+    <div class="footer-col"><h4>Legal</h4><a href="devfone-legal.html#terms">Terms & Conditions</a><a href="devfone-legal.html#privacy">Privacy Policy</a><a href="devfone-legal.html#returns">Returns Policy</a><a href="devfone-legal.html#shipping">Shipping Policy</a></div>
+  </div>
+  <div class="footer-bottom"><span>&copy; 2026 DEVFONE. All rights reserved.</span><span>Built for the Future. Powered by DevBot AI.</span></div>
+</footer>
+
+<script>
+const posts=[
+  {icon:'📱',cat:'review',tag:'Reviews',title:'iPhone 16 Pro vs Samsung Galaxy S25 Ultra: Which Should You Buy?',date:'Mar 25, 2026',author:'Darren Smith',time:'6 min',desc:'We compare camera quality, performance, battery life, and value to help you pick the right flagship for 2026.'},
+  {icon:'💻',cat:'guide',tag:'Guides',title:'5 Must-Have Laptop Accessories for Remote Workers',date:'Mar 22, 2026',author:'DEVFONE Team',time:'5 min',desc:'From USB-C hubs to ergonomic stands — the accessories that turn any laptop into a productivity powerhouse.'},
+  {icon:'🧲',cat:'guide',tag:'Guides',title:'Why MagSafe Changed Everything: A Complete Guide',date:'Mar 18, 2026',author:'Darren Smith',time:'7 min',desc:'How Apple\'s magnetic ecosystem went from gimmick to essential. Plus our top MagSafe accessories picks.'},
+  {icon:'⚡',cat:'review',tag:'Reviews',title:'MacBook Pro M4 Max Review: The Laptop That Does It All',date:'Mar 15, 2026',author:'Darren Smith',time:'10 min',desc:'36GB unified memory, insane GPU performance, and all-day battery. Is the M4 Max worth the price tag?'},
+  {icon:'🎧',cat:'review',tag:'Reviews',title:'Best Budget Wireless Earbuds Under $70 AUD',date:'Mar 12, 2026',author:'DEVFONE Team',time:'5 min',desc:'You don\'t need to spend hundreds for great sound. We test 6 affordable earbuds to find the best value.'},
+  {icon:'🛡️',cat:'guide',tag:'Guides',title:'How to Protect Your Phone: Cases, Screen Protectors & More',date:'Mar 8, 2026',author:'DEVFONE Team',time:'4 min',desc:'A practical guide to keeping your expensive phone safe from drops, scratches, and everyday wear.'},
+  {icon:'🔌',cat:'news',tag:'News',title:'The Rise of USB-C: Why One Cable Rules Them All',date:'Mar 4, 2026',author:'Darren Smith',time:'6 min',desc:'The EU mandate, Apple\'s switch, and what universal USB-C means for your gadgets and your wallet.'},
+  {icon:'🎉',cat:'company',tag:'Company',title:'DEVFONE Launch: Our Story and What\'s Next',date:'Mar 1, 2026',author:'Darren Smith',time:'4 min',desc:'From a bold idea in South Australia to a live store with 50+ products. Here\'s how DEVFONE was born and where we\'re headed.'},
+];
+const colors={review:'#eff6ff',guide:'#ecfdf5',news:'#fef3c7',company:'#f5f3ff'};
+function renderPosts(filter){
+  const g=document.getElementById('blogGrid');
+  const f=filter==='all'?posts:posts.filter(p=>p.cat===filter);
+  g.innerHTML=f.map(p=>`
+    <div class="blog-card" data-cat="${p.cat}" onclick="alert('Full article coming soon!')">
+      <div class="blog-thumb" style="background:${colors[p.cat]||'var(--bg-3)'}">${p.icon}</div>
+      <div class="blog-body">
+        <span class="tag">${p.tag}</span>
+        <h3>${p.title}</h3>
+        <div class="meta"><span>📅 ${p.date}</span><span>👤 ${p.author}</span><span>⏱ ${p.time}</span></div>
+        <p>${p.desc}</p>
+        <span class="read-more" style="color:var(--accent);font-weight:600;font-size:.85rem">Read More →</span>
+      </div>
+    </div>
+  `).join('');
+}
+function filterPosts(cat,btn){
+  document.querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  renderPosts(cat);
+}
+renderPosts('all');
+</script>
+</body>
+</html>
