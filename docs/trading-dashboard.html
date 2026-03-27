@@ -161,7 +161,7 @@ a{text-decoration:none;color:inherit}
       <div class="status-row"><span class="label"><span class="status-dot live"></span>Bot Status</span><span class="value" style="color:var(--green)">Active</span></div>
       <div class="status-row"><span class="label">Network</span><span class="value" id="sNet">base-sepolia</span></div>
       <div class="status-row"><span class="label">Strategy</span><span class="value" id="sStrat">Momentum</span></div>
-      <div class="status-row"><span class="label">Trade Size</span><span class="value">$90.00</span></div>
+      <div class="status-row"><span class="label">Trade Size</span><span class="value">$25.00</span></div>
       <div class="status-row"><span class="label">Daily Trades</span><span class="value" id="sDT">0 / 10</span></div>
     </div>
   </aside>
@@ -215,11 +215,11 @@ a{text-decoration:none;color:inherit}
         <div class="history">
           <h3>Recent Trades</h3>
           <div id="recentTrades">
-            <div class="trade-item"><div class="trade-icon buy">B</div><div class="trade-info"><h4>Buy ETH</h4><p>Mar 28, 2:14 PM • Momentum</p></div><div class="trade-amount positive">+0.0263 ETH<br><span style="font-size:.7rem;color:var(--text-3)">$90.00</span></div></div>
+            <div class="trade-item"><div class="trade-icon buy">B</div><div class="trade-info"><h4>Buy ETH</h4><p>Mar 28, 2:14 PM • Momentum</p></div><div class="trade-amount positive">+0.0263 ETH<br><span style="font-size:.7rem;color:var(--text-3)">$25.00</span></div></div>
             <div class="trade-item"><div class="trade-icon sell">S</div><div class="trade-info"><h4>Sell ETH</h4><p>Mar 28, 10:02 AM • Take Profit</p></div><div class="trade-amount negative">-0.0251 ETH<br><span style="font-size:.7rem;color:var(--green)">+$12.40</span></div></div>
-            <div class="trade-item"><div class="trade-icon buy">B</div><div class="trade-info"><h4>Buy ETH</h4><p>Mar 27, 6:00 PM • DCA</p></div><div class="trade-amount positive">+0.0268 ETH<br><span style="font-size:.7rem;color:var(--text-3)">$90.00</span></div></div>
-            <div class="trade-item"><div class="trade-icon buy">B</div><div class="trade-info"><h4>Buy WBTC</h4><p>Mar 27, 2:00 PM • Rebalance</p></div><div class="trade-amount positive">+0.0014 WBTC<br><span style="font-size:.7rem;color:var(--text-3)">$90.00</span></div></div>
-            <div class="trade-item"><div class="trade-icon buy">B</div><div class="trade-info"><h4>Buy ETH</h4><p>Mar 27, 10:00 AM • DCA</p></div><div class="trade-amount positive">+0.0270 ETH<br><span style="font-size:.7rem;color:var(--text-3)">$90.00</span></div></div>
+            <div class="trade-item"><div class="trade-icon buy">B</div><div class="trade-info"><h4>Buy ETH</h4><p>Mar 27, 6:00 PM • DCA</p></div><div class="trade-amount positive">+0.0268 ETH<br><span style="font-size:.7rem;color:var(--text-3)">$25.00</span></div></div>
+            <div class="trade-item"><div class="trade-icon buy">B</div><div class="trade-info"><h4>Buy WBTC</h4><p>Mar 27, 2:00 PM • Rebalance</p></div><div class="trade-amount positive">+0.0014 WBTC<br><span style="font-size:.7rem;color:var(--text-3)">$25.00</span></div></div>
+            <div class="trade-item"><div class="trade-icon buy">B</div><div class="trade-info"><h4>Buy ETH</h4><p>Mar 27, 10:00 AM • DCA</p></div><div class="trade-amount positive">+0.0270 ETH<br><span style="font-size:.7rem;color:var(--text-3)">$25.00</span></div></div>
           </div>
         </div>
       </div>
@@ -230,7 +230,7 @@ a{text-decoration:none;color:inherit}
       <div class="main-header"><h2>Trading Strategies</h2></div>
       <div class="strat-grid">
         <div class="strat-card active" onclick="selectStrat(this,'momentum')"><div class="strat-icon">📈</div><h4>Momentum</h4><p>Buy when price trends up with strong volume. Sell on reversal signals. Best in trending markets.</p></div>
-        <div class="strat-card" onclick="selectStrat(this,'dca')"><div class="strat-icon">⏰</div><h4>Dollar-Cost Average</h4><p>Buy $90 of ETH every 4 hours regardless of price. Reduces timing risk over time.</p></div>
+        <div class="strat-card" onclick="selectStrat(this,'dca')"><div class="strat-icon">⏰</div><h4>Dollar-Cost Average</h4><p>Buy $25 of ETH every 4 hours regardless of price. Reduces timing risk over time.</p></div>
         <div class="strat-card" onclick="selectStrat(this,'mean_reversion')"><div class="strat-icon">📉</div><h4>Mean Reversion</h4><p>Buy when price dips >2% below moving average. Sell when >2% above. Works in ranging markets.</p></div>
         <div class="strat-card" onclick="selectStrat(this,'grid')"><div class="strat-icon">📊</div><h4>Grid Trading</h4><p>Place buy/sell orders at regular price intervals. Profits from volatility in sideways markets.</p></div>
         <div class="strat-card" onclick="selectStrat(this,'rebalance')"><div class="strat-icon">⚖️</div><h4>Rebalance</h4><p>Maintain target allocation: 50% ETH, 30% BTC, 20% USDC. Auto-rebalance when >5% drift.</p></div>
@@ -245,7 +245,7 @@ a{text-decoration:none;color:inherit}
         <h3>Chat with your Trading Agent</h3>
         <div class="chat-messages" id="chatMsgs">
           <div class="chat-msg bot">👋 I'm your DevBot Trading Agent powered by Claude AI + Coinbase AgentKit. I can check prices, execute trades, analyze your portfolio, and run strategies. What would you like to do?</div>
-          <div class="chat-msg bot">💡 Try: "Buy $90 of ETH", "Check my balance", "What's the best trade right now?", or "Run DCA strategy"</div>
+          <div class="chat-msg bot">💡 Try: "Buy $25 of ETH", "Check my balance", "What's the best trade right now?", or "Run DCA strategy"</div>
         </div>
         <div class="chat-input">
           <input type="text" id="chatIn" placeholder="Ask your trading agent..." onkeydown="if(event.key==='Enter')sendChat()">
@@ -261,7 +261,7 @@ a{text-decoration:none;color:inherit}
         <h3>Trading Configuration</h3>
         <div class="trade-form">
           <div class="form-row"><label>Network</label><select><option>base-sepolia (Testnet)</option><option>base-mainnet (Real Money)</option></select></div>
-          <div class="form-row"><label>Trade Size (USD)</label><input type="number" value="90"></div>
+          <div class="form-row"><label>Trade Size (USD)</label><input type="number" value="25"></div>
           <div class="form-row"><label>Max Daily Trades</label><input type="number" value="10"></div>
           <div class="form-row"><label>Stop Loss %</label><input type="number" value="5"></div>
           <div class="form-row"><label>Take Profit %</label><input type="number" value="10"></div>
@@ -308,8 +308,8 @@ function selectStrat(el,name){
 
 // Trade
 function executeTrade(){
-  if(confirm('Execute $90 momentum trade on base-sepolia?')){
-    alert('⚡ Trade submitted!\\n\\nBuy $90 of ETH via Coinbase AgentKit\\nNetwork: base-sepolia (testnet)\\nStrategy: Momentum\\n\\nNote: Connect your CDP API keys in Settings to execute real trades.');
+  if(confirm('Execute $25 momentum trade on base-sepolia?')){
+    alert('⚡ Trade submitted!\\n\\nBuy $25 of ETH via Coinbase AgentKit\\nNetwork: base-sepolia (testnet)\\nStrategy: Momentum\\n\\nNote: Connect your CDP API keys in Settings to execute real trades.');
   }
 }
 function refreshData(){
@@ -319,11 +319,11 @@ function refreshData(){
 
 // AI Chat
 const botResponses=[
-  "Checking ETH/USDC price on Base... Current price: $3,421.80. 24h change: +2.3%. Volume is above average — momentum signal is bullish. Shall I execute a $90 buy?",
+  "Checking ETH/USDC price on Base... Current price: $3,421.80. 24h change: +2.3%. Volume is above average — momentum signal is bullish. Shall I execute a $25 buy?",
   "Your portfolio: 0.4521 ETH ($1,546.80), 890.50 USDC, 0.0062 WBTC ($410.20). Total: $2,847.50. Allocation: 54% ETH, 31% USDC, 14% BTC. Slightly overweight ETH.",
-  "Based on current momentum indicators: RSI is 62 (neutral-bullish), MACD is positive, and price is above the 20-period SMA. I recommend a $90 ETH buy with a 5% stop-loss at $3,250.",
+  "Based on current momentum indicators: RSI is 62 (neutral-bullish), MACD is positive, and price is above the 20-period SMA. I recommend a $25 ETH buy with a 5% stop-loss at $3,250.",
   "DCA strategy running: Next scheduled buy is in 2h 14m. Last 7 DCA buys averaged $3,380/ETH. Current price $3,421 is 1.2% above average — still within acceptable range.",
-  "I'll execute the trade now... Swapping 90 USDC → ETH on Base via CDP Swap API... Transaction submitted! Hash: 0x7a3f... Estimated: 0.0263 ETH received.",
+  "I'll execute the trade now... Swapping 25 USDC → ETH on Base via CDP Swap API... Transaction submitted! Hash: 0x7a3f... Estimated: 0.0263 ETH received.",
 ];
 let chatIdx=0;
 function sendChat(){

@@ -2,7 +2,7 @@
  * DevBot AI — Automated Trading Scheduler
  *
  * Executes trading strategies on a fixed interval.
- * Default: $90 DCA trades every 8 minutes.
+ * Default: $25 DCA trades every 8 minutes.
  *
  * Usage:
  *   import { startScheduler, stopScheduler } from './scheduler.js';
@@ -40,7 +40,7 @@ const activeSchedulers = new Map();
  * @param {object} config
  * @param {string} config.email - User email
  * @param {string} config.pair - Trading pair (e.g. 'ETH/USDC')
- * @param {number} config.amountCents - Amount per trade in cents (e.g. 9000 = $90)
+ * @param {number} config.amountCents - Amount per trade in cents (e.g. 2500 = $25)
  * @param {number} config.intervalMs - Interval in milliseconds (e.g. 480000 = 8 minutes)
  * @param {string} config.strategy - Strategy: 'dca', 'momentum', 'grid'
  * @param {string} config.network - Network: 'base', 'base-sepolia'
@@ -49,7 +49,7 @@ export function startScheduler(config) {
   const {
     email,
     pair = 'ETH/USDC',
-    amountCents = 9000,       // $90 in cents
+    amountCents = 2500,       // $25 in cents
     intervalMs = 8 * 60 * 1000, // 8 minutes
     strategy = 'dca',
     network = 'base-sepolia',
@@ -252,7 +252,7 @@ export function registerSchedulerRoutes(app) {
     const scheduler = startScheduler({
       email,
       pair: pair || 'ETH/USDC',
-      amountCents: amount || 9000, // Default $90
+      amountCents: amount || 2500, // Default $25
       intervalMs: (intervalMinutes || 8) * 60 * 1000, // Default 8 minutes
       strategy: strategy || 'dca',
       network: network || 'base-sepolia',
