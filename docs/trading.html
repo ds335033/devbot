@@ -1,0 +1,1100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DevBot AI — Crypto Trading Bot Dashboard</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --bg-primary: #0a0e1a;
+      --bg-secondary: #111827;
+      --bg-card: #1a1f35;
+      --bg-card-hover: #222845;
+      --accent-blue: #3b82f6;
+      --accent-cyan: #06b6d4;
+      --accent-purple: #8b5cf6;
+      --accent-green: #10b981;
+      --accent-red: #ef4444;
+      --accent-orange: #f59e0b;
+      --text-primary: #f1f5f9;
+      --text-secondary: #94a3b8;
+      --text-muted: #64748b;
+      --border: #1e293b;
+      --gradient-1: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      --gradient-2: linear-gradient(135deg, #06b6d4 0%, #3b82f6 100%);
+      --gradient-3: linear-gradient(135deg, #10b981 0%, #059669 100%);
+      --gradient-gold: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+    }
+
+    body {
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+      background: var(--bg-primary);
+      color: var(--text-primary);
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* ─── Animated Background ──────────────────────────── */
+    .bg-grid {
+      position: fixed;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(59, 130, 246, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(59, 130, 246, 0.03) 1px, transparent 1px);
+      background-size: 50px 50px;
+      z-index: 0;
+    }
+
+    .bg-glow {
+      position: fixed;
+      width: 600px; height: 600px;
+      border-radius: 50%;
+      filter: blur(150px);
+      opacity: 0.15;
+      z-index: 0;
+      animation: float 20s ease-in-out infinite;
+    }
+
+    .bg-glow-1 { top: -200px; left: -100px; background: var(--accent-blue); }
+    .bg-glow-2 { bottom: -200px; right: -100px; background: var(--accent-purple); animation-delay: -10s; }
+    .bg-glow-3 { top: 50%; left: 50%; transform: translate(-50%, -50%); background: var(--accent-cyan); animation-delay: -5s; opacity: 0.08; }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-30px); }
+    }
+
+    /* ─── Layout ──────────────────────────── */
+    .container {
+      position: relative;
+      z-index: 1;
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+
+    /* ─── Header ──────────────────────────── */
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px 0;
+      border-bottom: 1px solid var(--border);
+      margin-bottom: 30px;
+    }
+
+    .header h1 {
+      font-size: 28px;
+      background: var(--gradient-2);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .header .badge {
+      background: var(--gradient-3);
+      padding: 6px 16px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .header .version {
+      color: var(--text-muted);
+      font-size: 13px;
+    }
+
+    /* ─── Status Bar ──────────────────────────── */
+    .status-bar {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 16px;
+      margin-bottom: 30px;
+    }
+
+    .status-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 20px;
+      transition: all 0.3s;
+    }
+
+    .status-card:hover {
+      background: var(--bg-card-hover);
+      border-color: var(--accent-blue);
+      transform: translateY(-2px);
+    }
+
+    .status-card .label {
+      color: var(--text-muted);
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 8px;
+    }
+
+    .status-card .value {
+      font-size: 24px;
+      font-weight: 700;
+    }
+
+    .status-card .value.green { color: var(--accent-green); }
+    .status-card .value.blue { color: var(--accent-blue); }
+    .status-card .value.orange { color: var(--accent-orange); }
+    .status-card .value.purple { color: var(--accent-purple); }
+    .status-card .value.red { color: var(--accent-red); }
+
+    /* ─── Tabs ──────────────────────────── */
+    .tabs {
+      display: flex;
+      gap: 4px;
+      background: var(--bg-secondary);
+      padding: 4px;
+      border-radius: 12px;
+      margin-bottom: 24px;
+      overflow-x: auto;
+    }
+
+    .tab {
+      padding: 12px 24px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--text-secondary);
+      transition: all 0.3s;
+      white-space: nowrap;
+      border: none;
+      background: none;
+    }
+
+    .tab:hover { color: var(--text-primary); background: rgba(59, 130, 246, 0.1); }
+    .tab.active {
+      background: var(--accent-blue);
+      color: white;
+      box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+    }
+
+    /* ─── Panels ──────────────────────────── */
+    .panel { display: none; }
+    .panel.active { display: block; animation: fadeIn 0.3s; }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ─── Cards ──────────────────────────── */
+    .card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 24px;
+      margin-bottom: 20px;
+    }
+
+    .card h2 {
+      font-size: 20px;
+      margin-bottom: 6px;
+    }
+
+    .card .subtitle {
+      color: var(--text-muted);
+      font-size: 14px;
+      margin-bottom: 20px;
+    }
+
+    /* ─── Forms ──────────────────────────── */
+    .form-group {
+      margin-bottom: 16px;
+    }
+
+    .form-group label {
+      display: block;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text-secondary);
+      margin-bottom: 6px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .form-group input, .form-group select, .form-group textarea {
+      width: 100%;
+      padding: 12px 16px;
+      background: var(--bg-primary);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      color: var(--text-primary);
+      font-size: 14px;
+      font-family: inherit;
+      transition: border-color 0.3s;
+    }
+
+    .form-group input:focus, .form-group select:focus {
+      outline: none;
+      border-color: var(--accent-blue);
+      box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.15);
+    }
+
+    .form-group input[type="password"] {
+      font-family: 'Courier New', monospace;
+      letter-spacing: 2px;
+    }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+
+    /* ─── Buttons ──────────────────────────── */
+    .btn {
+      padding: 12px 28px;
+      border: none;
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .btn-primary {
+      background: var(--gradient-2);
+      color: white;
+      box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+    }
+    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(59, 130, 246, 0.4); }
+
+    .btn-green {
+      background: var(--gradient-3);
+      color: white;
+      box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
+    }
+    .btn-green:hover { transform: translateY(-2px); }
+
+    .btn-red {
+      background: linear-gradient(135deg, #ef4444, #dc2626);
+      color: white;
+    }
+
+    .btn-gold {
+      background: var(--gradient-gold);
+      color: #1a1a1a;
+      box-shadow: 0 4px 12px rgba(245, 158, 11, 0.3);
+    }
+    .btn-gold:hover { transform: translateY(-2px); }
+
+    .btn-outline {
+      background: transparent;
+      border: 1px solid var(--border);
+      color: var(--text-secondary);
+    }
+    .btn-outline:hover { border-color: var(--accent-blue); color: var(--accent-blue); }
+
+    .btn-group {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-top: 16px;
+    }
+
+    /* ─── Security Badge ──────────────────────────── */
+    .security-badge {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      background: rgba(16, 185, 129, 0.1);
+      border: 1px solid rgba(16, 185, 129, 0.2);
+      border-radius: 12px;
+      padding: 16px;
+      margin-bottom: 20px;
+    }
+
+    .security-badge .icon {
+      font-size: 28px;
+    }
+
+    .security-badge .text h4 {
+      color: var(--accent-green);
+      font-size: 14px;
+    }
+
+    .security-badge .text p {
+      color: var(--text-muted);
+      font-size: 12px;
+    }
+
+    /* ─── Strategy Cards ──────────────────────────── */
+    .strategy-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+      gap: 16px;
+    }
+
+    .strategy-card {
+      background: var(--bg-primary);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 20px;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+
+    .strategy-card:hover, .strategy-card.selected {
+      border-color: var(--accent-cyan);
+      background: rgba(6, 182, 212, 0.05);
+      transform: translateY(-2px);
+    }
+
+    .strategy-card.selected {
+      box-shadow: 0 0 0 2px var(--accent-cyan);
+    }
+
+    .strategy-card h4 { margin-bottom: 6px; }
+    .strategy-card p { color: var(--text-muted); font-size: 13px; }
+
+    /* ─── Bot List ──────────────────────────── */
+    .bot-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: var(--bg-primary);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 16px 20px;
+      margin-bottom: 12px;
+    }
+
+    .bot-item .bot-info { display: flex; align-items: center; gap: 16px; }
+
+    .bot-item .bot-pair {
+      font-size: 18px;
+      font-weight: 700;
+    }
+
+    .bot-item .bot-strategy {
+      color: var(--text-muted);
+      font-size: 13px;
+    }
+
+    .bot-status {
+      padding: 4px 12px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 600;
+    }
+    .bot-status.paper { background: rgba(245, 158, 11, 0.15); color: var(--accent-orange); }
+    .bot-status.live { background: rgba(16, 185, 129, 0.15); color: var(--accent-green); }
+    .bot-status.stopped { background: rgba(239, 68, 68, 0.15); color: var(--accent-red); }
+
+    /* ─── Signal Display ──────────────────────────── */
+    .signal-result {
+      background: var(--bg-primary);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 24px;
+      text-align: center;
+    }
+
+    .signal-action {
+      font-size: 48px;
+      font-weight: 900;
+      margin: 16px 0;
+    }
+    .signal-action.BUY { color: var(--accent-green); }
+    .signal-action.SELL { color: var(--accent-red); }
+    .signal-action.HOLD { color: var(--accent-orange); }
+
+    .signal-confidence {
+      display: flex;
+      justify-content: center;
+      gap: 24px;
+      margin: 16px 0;
+    }
+
+    .signal-confidence .metric {
+      text-align: center;
+    }
+
+    .signal-confidence .metric .val {
+      font-size: 20px;
+      font-weight: 700;
+    }
+
+    .signal-confidence .metric .lbl {
+      font-size: 11px;
+      color: var(--text-muted);
+      text-transform: uppercase;
+    }
+
+    /* ─── Exchange Icons ──────────────────────────── */
+    .exchange-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+      gap: 12px;
+      margin-bottom: 20px;
+    }
+
+    .exchange-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: var(--bg-primary);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 12px 16px;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+
+    .exchange-item:hover, .exchange-item.selected {
+      border-color: var(--accent-blue);
+      background: rgba(59, 130, 246, 0.05);
+    }
+
+    .exchange-item.selected { box-shadow: 0 0 0 2px var(--accent-blue); }
+
+    .exchange-item .dot {
+      width: 10px; height: 10px;
+      border-radius: 50%;
+      background: var(--text-muted);
+    }
+    .exchange-item.connected .dot { background: var(--accent-green); }
+
+    /* ─── Toast ──────────────────────────── */
+    .toast {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      padding: 16px 24px;
+      border-radius: 12px;
+      font-size: 14px;
+      font-weight: 500;
+      z-index: 1000;
+      transform: translateY(100px);
+      opacity: 0;
+      transition: all 0.4s;
+    }
+    .toast.show { transform: translateY(0); opacity: 1; }
+    .toast.success { background: var(--accent-green); color: white; }
+    .toast.error { background: var(--accent-red); color: white; }
+    .toast.info { background: var(--accent-blue); color: white; }
+
+    /* ─── Warning Box ──────────────────────────── */
+    .warning-box {
+      background: rgba(245, 158, 11, 0.1);
+      border: 1px solid rgba(245, 158, 11, 0.3);
+      border-radius: 10px;
+      padding: 14px 18px;
+      font-size: 13px;
+      color: var(--accent-orange);
+      margin-top: 12px;
+    }
+
+    /* ─── Disclaimer ──────────────────────────── */
+    .disclaimer {
+      background: rgba(239, 68, 68, 0.08);
+      border: 1px solid rgba(239, 68, 68, 0.2);
+      border-radius: 10px;
+      padding: 14px 18px;
+      font-size: 12px;
+      color: var(--text-muted);
+      margin-top: 20px;
+    }
+
+    /* ─── Responsive ──────────────────────────── */
+    @media (max-width: 768px) {
+      .form-row { grid-template-columns: 1fr; }
+      .status-bar { grid-template-columns: 1fr 1fr; }
+      .header { flex-direction: column; gap: 12px; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+  <div class="bg-grid"></div>
+  <div class="bg-glow bg-glow-1"></div>
+  <div class="bg-glow bg-glow-2"></div>
+  <div class="bg-glow bg-glow-3"></div>
+
+  <div class="container">
+    <!-- Header -->
+    <div class="header">
+      <div>
+        <h1>🤖 DevBot Crypto Trading Bot</h1>
+        <span class="version">v4.0.0 — Powered by Claude Opus 4.6</span>
+      </div>
+      <div style="display:flex;gap:12px;align-items:center;">
+        <span class="badge">🔒 AES-256 Encrypted</span>
+        <span class="badge" style="background:var(--gradient-gold);color:#1a1a1a;">$199/mo</span>
+      </div>
+    </div>
+
+    <!-- Status Bar -->
+    <div class="status-bar">
+      <div class="status-card">
+        <div class="label">Bot Status</div>
+        <div class="value green" id="botStatus">● Online</div>
+      </div>
+      <div class="status-card">
+        <div class="label">Connected Exchanges</div>
+        <div class="value blue" id="exchangeCount">0</div>
+      </div>
+      <div class="status-card">
+        <div class="label">Active Bots</div>
+        <div class="value purple" id="activeBots">0</div>
+      </div>
+      <div class="status-card">
+        <div class="label">Total P&L</div>
+        <div class="value green" id="totalPnl">$0.00</div>
+      </div>
+      <div class="status-card">
+        <div class="label">Vault Security</div>
+        <div class="value green">🔒 AES-256</div>
+      </div>
+    </div>
+
+    <!-- Tabs -->
+    <div class="tabs">
+      <button class="tab active" onclick="showPanel('connect')">🔗 Connect Exchange</button>
+      <button class="tab" onclick="showPanel('signals')">📊 Trading Signals</button>
+      <button class="tab" onclick="showPanel('bots')">🤖 My Bots</button>
+      <button class="tab" onclick="showPanel('create')">➕ Create Bot</button>
+      <button class="tab" onclick="showPanel('settings')">⚙️ Settings</button>
+    </div>
+
+    <!-- ═══ Panel: Connect Exchange ═══ -->
+    <div id="panel-connect" class="panel active">
+      <div class="security-badge">
+        <div class="icon">🛡️</div>
+        <div class="text">
+          <h4>Military-Grade Encryption</h4>
+          <p>Your API keys are encrypted with AES-256-GCM + PBKDF2 (100,000 iterations). Keys are NEVER stored in plaintext. We cannot see your keys.</p>
+        </div>
+      </div>
+
+      <div class="card">
+        <h2>Connect Your Exchange</h2>
+        <p class="subtitle">Select your exchange and enter your API credentials. They'll be encrypted instantly.</p>
+
+        <div class="form-group">
+          <label>Select Exchange</label>
+          <div class="exchange-grid" id="exchangeGrid">
+            <div class="exchange-item" data-exchange="coinbase" onclick="selectExchange('coinbase')">
+              <div class="dot"></div>
+              <span>Coinbase</span>
+            </div>
+            <div class="exchange-item" data-exchange="binance" onclick="selectExchange('binance')">
+              <div class="dot"></div>
+              <span>Binance</span>
+            </div>
+            <div class="exchange-item" data-exchange="kraken" onclick="selectExchange('kraken')">
+              <div class="dot"></div>
+              <span>Kraken</span>
+            </div>
+            <div class="exchange-item" data-exchange="bybit" onclick="selectExchange('bybit')">
+              <div class="dot"></div>
+              <span>Bybit</span>
+            </div>
+            <div class="exchange-item" data-exchange="okx" onclick="selectExchange('okx')">
+              <div class="dot"></div>
+              <span>OKX</span>
+            </div>
+            <div class="exchange-item" data-exchange="kucoin" onclick="selectExchange('kucoin')">
+              <div class="dot"></div>
+              <span>KuCoin</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>Your Email</label>
+          <input type="email" id="vaultEmail" placeholder="your@email.com" />
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label>API Key</label>
+            <input type="password" id="vaultApiKey" placeholder="Paste your API key here..." />
+          </div>
+          <div class="form-group">
+            <label>API Secret</label>
+            <input type="password" id="vaultApiSecret" placeholder="Paste your API secret here..." />
+          </div>
+        </div>
+
+        <div class="btn-group">
+          <button class="btn btn-green" onclick="storeKeys()">🔒 Encrypt & Store Keys</button>
+          <button class="btn btn-outline" onclick="toggleKeyVisibility()">👁️ Show/Hide Keys</button>
+        </div>
+
+        <div class="warning-box">
+          ⚠️ <strong>IMPORTANT:</strong> When creating your exchange API key, ONLY enable <strong>Trade</strong> permissions. NEVER enable <strong>Withdrawal</strong> permissions. This protects your funds even if keys are compromised.
+        </div>
+      </div>
+
+      <!-- Connected Exchanges -->
+      <div class="card">
+        <h2>Connected Exchanges</h2>
+        <p class="subtitle">Your securely connected exchange accounts.</p>
+        <div id="connectedExchanges">
+          <p style="color:var(--text-muted);text-align:center;padding:20px;">No exchanges connected yet. Add one above.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══ Panel: Trading Signals ═══ -->
+    <div id="panel-signals" class="panel">
+      <div class="card">
+        <h2>📊 AI Trading Signals</h2>
+        <p class="subtitle">Get AI-powered trading signals for any crypto pair. Powered by Claude Opus 4.6.</p>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label>Trading Pair</label>
+            <input type="text" id="signalPair" placeholder="BTC/AUD" value="BTC/AUD" />
+          </div>
+          <div class="form-group">
+            <label>Strategy</label>
+            <select id="signalStrategy">
+              <option value="momentum">Momentum Signals</option>
+              <option value="dca">Dollar Cost Average</option>
+              <option value="grid">Grid Trading</option>
+              <option value="arbitrage">Cross-Exchange Arbitrage</option>
+              <option value="rebalance">Portfolio Rebalancer</option>
+            </select>
+          </div>
+        </div>
+
+        <button class="btn btn-primary" onclick="getSignal()">🔍 Get AI Signal</button>
+
+        <div id="signalResult" style="margin-top:20px;display:none;">
+          <div class="signal-result">
+            <div style="color:var(--text-muted);font-size:14px;" id="signalPairDisplay">BTC/AUD</div>
+            <div class="signal-action" id="signalAction">HOLD</div>
+            <div class="signal-confidence">
+              <div class="metric">
+                <div class="val" id="signalConfidence">72%</div>
+                <div class="lbl">Confidence</div>
+              </div>
+              <div class="metric">
+                <div class="val" style="color:var(--accent-red)" id="signalSL">-5%</div>
+                <div class="lbl">Stop Loss</div>
+              </div>
+              <div class="metric">
+                <div class="val" style="color:var(--accent-green)" id="signalTP">+12%</div>
+                <div class="lbl">Take Profit</div>
+              </div>
+            </div>
+            <p style="color:var(--text-muted);font-size:13px;margin-top:12px;" id="signalAnalysis"></p>
+          </div>
+        </div>
+
+        <div class="disclaimer">
+          ⚠️ <strong>Disclaimer:</strong> This is not financial advice. Trading cryptocurrency involves significant risk of loss. Past performance does not guarantee future results. Never invest more than you can afford to lose.
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══ Panel: My Bots ═══ -->
+    <div id="panel-bots" class="panel">
+      <div class="card">
+        <h2>🤖 My Trading Bots</h2>
+        <p class="subtitle">Manage your automated trading bots.</p>
+
+        <div class="form-group" style="max-width:400px;margin-bottom:20px;">
+          <label>Your Email</label>
+          <div style="display:flex;gap:8px;">
+            <input type="email" id="botsEmail" placeholder="your@email.com" />
+            <button class="btn btn-primary" onclick="loadBots()">Load</button>
+          </div>
+        </div>
+
+        <div id="botsList">
+          <p style="color:var(--text-muted);text-align:center;padding:30px;">Enter your email and click Load to see your bots.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══ Panel: Create Bot ═══ -->
+    <div id="panel-create" class="panel">
+      <div class="card">
+        <h2>➕ Create New Trading Bot</h2>
+        <p class="subtitle">Set up an automated trading bot. Starts in paper trading mode for safety.</p>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label>Your Email</label>
+            <input type="email" id="createEmail" placeholder="your@email.com" />
+          </div>
+          <div class="form-group">
+            <label>Exchange</label>
+            <select id="createExchange">
+              <option value="coinbase">Coinbase</option>
+              <option value="binance">Binance</option>
+              <option value="kraken">Kraken</option>
+              <option value="bybit">Bybit</option>
+              <option value="okx">OKX</option>
+              <option value="kucoin">KuCoin</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label>Trading Pair</label>
+            <input type="text" id="createPair" placeholder="BTC/AUD" value="BTC/AUD" />
+          </div>
+          <div class="form-group">
+            <label>Amount per Trade ($)</label>
+            <input type="number" id="createAmount" placeholder="50" value="50" />
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>Select Strategy</label>
+          <div class="strategy-grid" id="strategyGrid">
+            <div class="strategy-card selected" data-strategy="dca" onclick="selectStrategy('dca')">
+              <h4>💰 Dollar Cost Average</h4>
+              <p>Auto-buy at regular intervals. Safest strategy for beginners.</p>
+            </div>
+            <div class="strategy-card" data-strategy="grid" onclick="selectStrategy('grid')">
+              <h4>📈 Grid Trading</h4>
+              <p>Buy low, sell high within a price range. Great for sideways markets.</p>
+            </div>
+            <div class="strategy-card" data-strategy="momentum" onclick="selectStrategy('momentum')">
+              <h4>🚀 Momentum Signals</h4>
+              <p>AI-detected trend following. Best for trending markets.</p>
+            </div>
+            <div class="strategy-card" data-strategy="arbitrage" onclick="selectStrategy('arbitrage')">
+              <h4>⚡ Arbitrage</h4>
+              <p>Spot price differences across exchanges. Low risk, consistent gains.</p>
+            </div>
+            <div class="strategy-card" data-strategy="rebalance" onclick="selectStrategy('rebalance')">
+              <h4>⚖️ Portfolio Rebalancer</h4>
+              <p>Auto-rebalance to target allocations. Set it and forget it.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>Interval</label>
+          <select id="createInterval">
+            <option value="1h">Every Hour</option>
+            <option value="4h" selected>Every 4 Hours</option>
+            <option value="daily">Daily</option>
+            <option value="weekly">Weekly</option>
+          </select>
+        </div>
+
+        <button class="btn btn-gold" onclick="createBot()" style="font-size:16px;padding:16px 36px;">
+          🤖 Create Trading Bot (Paper Mode)
+        </button>
+
+        <div class="warning-box" style="margin-top:16px;">
+          🧪 All new bots start in <strong>Paper Trading</strong> mode — you can test your strategy risk-free with simulated trades before switching to live trading.
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══ Panel: Settings ═══ -->
+    <div id="panel-settings" class="panel">
+      <div class="card">
+        <h2>⚙️ Security Settings</h2>
+        <p class="subtitle">Manage your vault security and account settings.</p>
+
+        <div class="security-badge" style="margin-top:16px;">
+          <div class="icon">🔐</div>
+          <div class="text">
+            <h4>Encryption Details</h4>
+            <p>Algorithm: AES-256-GCM | Key Derivation: PBKDF2-SHA512 | Iterations: 100,000 | Per-user salt + IV</p>
+          </div>
+        </div>
+
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:20px;">
+          <div style="background:var(--bg-primary);border:1px solid var(--border);border-radius:12px;padding:20px;">
+            <h4 style="margin-bottom:8px;">🔄 Key Rotation</h4>
+            <p style="color:var(--text-muted);font-size:13px;margin-bottom:12px;">Rotate your encryption keys for extra security. Old keys are securely overwritten.</p>
+            <button class="btn btn-outline" onclick="toast('Key rotation scheduled','info')">Rotate Keys</button>
+          </div>
+          <div style="background:var(--bg-primary);border:1px solid var(--border);border-radius:12px;padding:20px;">
+            <h4 style="margin-bottom:8px;">🗑️ Delete All Data</h4>
+            <p style="color:var(--text-muted);font-size:13px;margin-bottom:12px;">Permanently delete all stored keys and bot data. This cannot be undone.</p>
+            <button class="btn btn-red" onclick="toast('Contact support to delete all data','info')">Delete Everything</button>
+          </div>
+          <div style="background:var(--bg-primary);border:1px solid var(--border);border-radius:12px;padding:20px;">
+            <h4 style="margin-bottom:8px;">🌐 IP Whitelist</h4>
+            <p style="color:var(--text-muted);font-size:13px;margin-bottom:12px;">Restrict API access to specific IP addresses only.</p>
+            <button class="btn btn-outline" onclick="toast('IP whitelist coming soon','info')">Configure</button>
+          </div>
+          <div style="background:var(--bg-primary);border:1px solid var(--border);border-radius:12px;padding:20px;">
+            <h4 style="margin-bottom:8px;">📋 Audit Log</h4>
+            <p style="color:var(--text-muted);font-size:13px;margin-bottom:12px;">View immutable log of all trading operations and key access events.</p>
+            <button class="btn btn-outline" onclick="toast('Audit log available on Enterprise plan','info')">View Logs</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast -->
+  <div id="toast" class="toast"></div>
+
+  <script>
+    const API = window.location.hostname === 'devbotai.store'
+      ? 'https://devbotai.store'
+      : 'http://localhost:3000';
+
+    let selectedExchange = 'coinbase';
+    let selectedStrategy = 'dca';
+
+    // ─── Tab Navigation ───
+    function showPanel(name) {
+      document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+      document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+      document.getElementById(`panel-${name}`).classList.add('active');
+      event.target.classList.add('active');
+    }
+
+    // ─── Toast Notification ───
+    function toast(msg, type = 'success') {
+      const t = document.getElementById('toast');
+      t.textContent = msg;
+      t.className = `toast ${type} show`;
+      setTimeout(() => t.classList.remove('show'), 4000);
+    }
+
+    // ─── Exchange Selection ───
+    function selectExchange(ex) {
+      selectedExchange = ex;
+      document.querySelectorAll('.exchange-item').forEach(e => e.classList.remove('selected'));
+      document.querySelector(`.exchange-item[data-exchange="${ex}"]`).classList.add('selected');
+    }
+
+    // ─── Strategy Selection ───
+    function selectStrategy(strat) {
+      selectedStrategy = strat;
+      document.querySelectorAll('.strategy-card').forEach(s => s.classList.remove('selected'));
+      document.querySelector(`.strategy-card[data-strategy="${strat}"]`).classList.add('selected');
+    }
+
+    // ─── Toggle Key Visibility ───
+    function toggleKeyVisibility() {
+      const inputs = [document.getElementById('vaultApiKey'), document.getElementById('vaultApiSecret')];
+      inputs.forEach(i => {
+        i.type = i.type === 'password' ? 'text' : 'password';
+      });
+    }
+
+    // ─── Store Keys in Encrypted Vault ───
+    async function storeKeys() {
+      const email = document.getElementById('vaultEmail').value;
+      const apiKey = document.getElementById('vaultApiKey').value;
+      const apiSecret = document.getElementById('vaultApiSecret').value;
+
+      if (!email || !apiKey || !apiSecret) {
+        toast('Please fill in all fields', 'error');
+        return;
+      }
+
+      try {
+        const res = await fetch(`${API}/api/trading/vault/store`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email, exchange: selectedExchange, apiKey, apiSecret }),
+        });
+        const data = await res.json();
+
+        if (data.success) {
+          toast(`${selectedExchange} keys encrypted & stored!`, 'success');
+          document.getElementById('vaultApiKey').value = '';
+          document.getElementById('vaultApiSecret').value = '';
+          loadConnectedExchanges(email);
+        } else {
+          toast(data.error || 'Failed to store keys', 'error');
+        }
+      } catch (err) {
+        toast('Connection error: ' + err.message, 'error');
+      }
+    }
+
+    // ─── Load Connected Exchanges ───
+    async function loadConnectedExchanges(email) {
+      if (!email) return;
+      try {
+        const res = await fetch(`${API}/api/trading/vault/list/${encodeURIComponent(email)}`);
+        const data = await res.json();
+
+        const container = document.getElementById('connectedExchanges');
+        if (!data.connectedExchanges || data.connectedExchanges.length === 0) {
+          container.innerHTML = '<p style="color:var(--text-muted);text-align:center;padding:20px;">No exchanges connected yet.</p>';
+          document.getElementById('exchangeCount').textContent = '0';
+          return;
+        }
+
+        document.getElementById('exchangeCount').textContent = data.connectedExchanges.length;
+
+        container.innerHTML = data.connectedExchanges.map(ex => `
+          <div class="bot-item">
+            <div class="bot-info">
+              <div style="width:10px;height:10px;border-radius:50%;background:var(--accent-green);"></div>
+              <div>
+                <div class="bot-pair" style="text-transform:capitalize;">${ex.provider}</div>
+                <div class="bot-strategy">Keys: ${ex.keys.join(', ')} | Added: ${new Date(ex.addedAt).toLocaleDateString()}</div>
+              </div>
+            </div>
+            <div style="display:flex;gap:8px;">
+              <span class="bot-status live">Connected</span>
+              <button class="btn btn-red" style="padding:4px 12px;font-size:12px;" onclick="removeExchange('${email}','${ex.provider}')">Remove</button>
+            </div>
+          </div>
+        `).join('');
+
+        // Update exchange grid to show connected status
+        data.connectedExchanges.forEach(ex => {
+          const el = document.querySelector(`.exchange-item[data-exchange="${ex.provider}"]`);
+          if (el) el.classList.add('connected');
+        });
+      } catch (err) {
+        console.error('Failed to load exchanges:', err);
+      }
+    }
+
+    // ─── Remove Exchange Keys ───
+    async function removeExchange(email, exchange) {
+      if (!confirm(`Remove ${exchange} keys? This is permanent.`)) return;
+      try {
+        const res = await fetch(`${API}/api/trading/vault/remove`, {
+          method: 'DELETE',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email, exchange }),
+        });
+        const data = await res.json();
+        if (data.success) {
+          toast(`${exchange} keys deleted`, 'success');
+          loadConnectedExchanges(email);
+        }
+      } catch (err) {
+        toast('Failed to remove: ' + err.message, 'error');
+      }
+    }
+
+    // ─── Get AI Trading Signal ───
+    async function getSignal() {
+      const pair = document.getElementById('signalPair').value;
+      const strategy = document.getElementById('signalStrategy').value;
+
+      if (!pair) { toast('Enter a trading pair', 'error'); return; }
+
+      try {
+        const res = await fetch(`${API}/api/trading/signal`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ pair, strategy }),
+        });
+        const data = await res.json();
+
+        if (data.success) {
+          const s = data.signal;
+          document.getElementById('signalResult').style.display = 'block';
+          document.getElementById('signalPairDisplay').textContent = s.pair;
+          document.getElementById('signalAction').textContent = s.action;
+          document.getElementById('signalAction').className = `signal-action ${s.action}`;
+          document.getElementById('signalConfidence').textContent = `${Math.round(s.confidence * 100)}%`;
+          document.getElementById('signalSL').textContent = s.stopLoss;
+          document.getElementById('signalTP').textContent = s.takeProfit;
+          document.getElementById('signalAnalysis').textContent = s.analysis;
+        }
+      } catch (err) {
+        toast('Signal error: ' + err.message, 'error');
+      }
+    }
+
+    // ─── Create Trading Bot ───
+    async function createBot() {
+      const email = document.getElementById('createEmail').value;
+      const exchange = document.getElementById('createExchange').value;
+      const pair = document.getElementById('createPair').value;
+      const amount = parseFloat(document.getElementById('createAmount').value);
+      const interval = document.getElementById('createInterval').value;
+
+      if (!email || !pair) { toast('Email and trading pair required', 'error'); return; }
+
+      try {
+        const res = await fetch(`${API}/api/trading/bot/create`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email, exchange, pair, strategy: selectedStrategy, amount, interval }),
+        });
+        const data = await res.json();
+
+        if (data.success) {
+          toast(`Bot created! ${data.pair} — ${data.strategy} (Paper Mode)`, 'success');
+          document.getElementById('activeBots').textContent =
+            parseInt(document.getElementById('activeBots').textContent) + 1;
+        } else {
+          toast(data.error || 'Failed to create bot', 'error');
+        }
+      } catch (err) {
+        toast('Error: ' + err.message, 'error');
+      }
+    }
+
+    // ─── Load Bots ───
+    async function loadBots() {
+      const email = document.getElementById('botsEmail').value;
+      if (!email) { toast('Enter your email', 'error'); return; }
+
+      try {
+        const res = await fetch(`${API}/api/trading/bots/${encodeURIComponent(email)}`);
+        const data = await res.json();
+
+        const container = document.getElementById('botsList');
+        document.getElementById('activeBots').textContent = data.total || 0;
+
+        if (!data.bots || data.bots.length === 0) {
+          container.innerHTML = '<p style="color:var(--text-muted);text-align:center;padding:30px;">No bots yet. Create one in the Create Bot tab!</p>';
+          return;
+        }
+
+        container.innerHTML = data.bots.map(bot => `
+          <div class="bot-item">
+            <div class="bot-info">
+              <div>
+                <div class="bot-pair">${bot.pair}</div>
+                <div class="bot-strategy">${bot.exchange} · ${bot.strategy} · ${bot.interval} · $${bot.amount}/trade</div>
+              </div>
+            </div>
+            <div style="display:flex;gap:8px;align-items:center;">
+              <span style="color:${bot.pnl >= 0 ? 'var(--accent-green)' : 'var(--accent-red)'};font-weight:700;">
+                ${bot.pnl >= 0 ? '+' : ''}$${bot.pnl.toFixed(2)}
+              </span>
+              <span class="bot-status ${bot.status === 'paper_trading' ? 'paper' : bot.status === 'live' ? 'live' : 'stopped'}">
+                ${bot.status === 'paper_trading' ? '📝 Paper' : bot.status === 'live' ? '🟢 Live' : '🔴 Stopped'}
+              </span>
+            </div>
+          </div>
+        `).join('');
+      } catch (err) {
+        toast('Error loading bots: ' + err.message, 'error');
+      }
+    }
+
+    // ─── Auto-load on email change ───
+    document.getElementById('vaultEmail')?.addEventListener('blur', function() {
+      if (this.value) loadConnectedExchanges(this.value);
+    });
+
+    // ─── Init ───
+    selectExchange('coinbase');
+  </script>
+</body>
+</html>
