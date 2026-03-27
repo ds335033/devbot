@@ -406,46 +406,43 @@ async function generateApp() {
 
     try {
         let data = null;
+        let generatedViaServer = false;
 
-        // Method 1: Try local Python server
-        try {
-            const r = await fetch('http://localhost:8000/api/generate', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ prompt, language: lang }),
-            });
-            data = await r.json();
-        } catch {}
-
-        // Method 2: Try local Node server
-        if (!data || !data.success) {
+        // Method 1: Try local servers (only if likely available)
+        if (location.hostname === 'localhost' || location.hostname === '127.0.0.1') {
             try {
                 const r = await fetch('http://localhost:3000/api/generate', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ prompt, language: lang }),
+                    signal: AbortSignal.timeout(90000),
                 });
-                data = await r.json();
-            } catch {}
+                const json = await r.json();
+                if (json && json.success && (json.result || json.app)) {
+                    data = json;
+                    generatedViaServer = true;
+                }
+            } catch (e) { console.log('Local server not available:', e.message); }
         }
 
-        // Method 3: Direct Anthropic API (for users with their own key)
-        if (!data || !data.success) {
+        // Method 2: Direct Anthropic API (for users with their own key)
+        if (!generatedViaServer) {
             const savedKey = localStorage.getItem('devbot_user_key');
             if (savedKey) {
                 try {
                     data = await callAnthropicDirect(prompt, lang, savedKey);
+                    if (data && data.success) generatedViaServer = true;
                 } catch (e) {
                     console.warn('Direct API failed:', e.message);
                 }
             }
         }
 
-        // Method 4: Built-in smart demo generation (always works, no API needed)
-        if (!data || !data.success) {
-            // Simulate realistic generation time
-            await new Promise(r => setTimeout(r, 2000 + Math.random() * 3000));
-            data = { success: true, app: generateDemoApp(prompt, lang), meta: { mode: 'demo' } };
+        // Method 3: Built-in smart demo generation (always works, no API needed)
+        if (!generatedViaServer) {
+            await new Promise(r => setTimeout(r, 1500 + Math.random() * 2000));
+            const demoApp = generateDemoApp(prompt, lang);
+            data = { success: true, app: demoApp, meta: { mode: 'demo' } };
         }
 
         const elapsed = ((Date.now() - startTime) / 1000).toFixed(1);
