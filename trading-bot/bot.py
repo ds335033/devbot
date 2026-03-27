@@ -1,3 +1,9 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+import sys, os
+sys.stdout.reconfigure(encoding='utf-8') if hasattr(sys.stdout, 'reconfigure') else None
+os.environ.setdefault("PYTHONIOENCODING", "utf-8")
+
 """
 DevBot AI Trading Bot — Coinbase AgentKit + Claude AI
 =====================================================
@@ -28,7 +34,7 @@ from pathlib import Path
 from dotenv import load_dotenv
 
 # Load environment
-load_dotenv()
+load_dotenv(override=True)
 
 # ─── Configuration ────────────────────────────────────────────────────────────
 
@@ -265,6 +271,7 @@ def run_strategy(agent, strategy):
 
 def interactive_mode(agent):
     """Run the bot in interactive chat mode with Claude AI."""
+    global STRATEGY
     print("\n" + "=" * 60)
     print("  🤖 DevBot Trading Agent — Interactive Mode")
     print(f"  📊 Strategy: {STRATEGY} | 💰 Trade Size: ${TRADE_AMOUNT}")
@@ -316,7 +323,6 @@ def interactive_mode(agent):
                 new_strat = parts[1]
                 valid = ["momentum", "dca", "mean_reversion", "grid", "rebalance"]
                 if new_strat in valid:
-                    global STRATEGY
                     STRATEGY = new_strat
                     print(f"✅ Switched to {new_strat} strategy.\n")
                 else:
@@ -387,13 +393,13 @@ def main():
     parser.add_argument("--trade-once", action="store_true", help="Execute one trade and exit")
     args = parser.parse_args()
 
-    print("""
-    ╔══════════════════════════════════════╗
-    ║   🤖 DevBot AI Trading Bot v1.0     ║
-    ║   Powered by Coinbase AgentKit      ║
-    ║   + Claude AI                       ║
-    ╚══════════════════════════════════════╝
-    """)
+    print("")
+    print("  ======================================")
+    print("    DevBot AI Trading Bot v1.0")
+    print("    Powered by Coinbase AgentKit")
+    print("    + Claude AI")
+    print("  ======================================")
+    print("")
 
     if args.status:
         show_status()
