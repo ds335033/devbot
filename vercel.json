@@ -1,9 +1,8 @@
 {
   "version": 2,
-  "name": "dwvbotai-store",
   "builds": [
     {
-      "src": "src/core/app.js",
+      "src": "api/index.js",
       "use": "@vercel/node"
     },
     {
@@ -12,13 +11,11 @@
     }
   ],
   "routes": [
+    { "src": "/api/(.*)", "dest": "/api/index.js" },
+    { "src": "/health", "dest": "/api/index.js" },
     { "src": "/store/(.*)", "dest": "/storefront/$1" },
     { "src": "/store", "dest": "/storefront/index.html" },
-    { "src": "/api/(.*)", "dest": "/src/core/app.js" },
-    { "src": "/health", "dest": "/src/core/app.js" },
-    { "src": "/(.*)", "dest": "/storefront/$1" }
-  ],
-  "env": {
-    "NODE_ENV": "production"
-  }
+    { "src": "/(.*\\.(html|css|js|ico|png|jpg|svg|woff2?))", "dest": "/storefront/$1" },
+    { "src": "/(.*)", "dest": "/storefront/index.html" }
+  ]
 }
