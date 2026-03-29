@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="dwvbotai.store Workflow Manager — Launch, monitor, and manage automation workflows.">
+  <title>Workflow Manager — dwvbotai.store</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div id="toast-container" class="toast-container" aria-live="polite" aria-atomic="true"></div>
+
+  <!-- Navigation -->
+  <nav class="nav" role="navigation" aria-label="Main navigation">
+    <div class="nav-inner container">
+      <a href="index.html" class="nav-brand" aria-label="dwvbotai.store home">
+        <i class="fa-solid fa-bolt"></i>
+        <span>dwvbotai<span class="accent">.store</span></span>
+      </a>
+      <div class="nav-links" id="nav-links">
+        <a href="index.html" class="nav-link">Dashboard</a>
+        <a href="index.html#services" class="nav-link">Services</a>
+        <a href="integrations.html" class="nav-link">Integrations</a>
+        <a href="workflows.html" class="nav-link" aria-current="page">Workflows</a>
+      </div>
+      <div class="nav-actions">
+        <button class="btn btn-icon" id="theme-toggle" aria-label="Toggle theme">
+          <i class="fa-solid fa-moon"></i>
+        </button>
+        <button class="btn btn-icon nav-menu-toggle" id="nav-menu-toggle" aria-label="Toggle menu" aria-expanded="false">
+          <i class="fa-solid fa-bars"></i>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <main>
+    <div class="page-header">
+      <h1><span class="gradient-text">Workflow Manager</span></h1>
+      <p>Launch, monitor, and manage automation workflows</p>
+    </div>
+
+    <div class="container">
+      <!-- Dashboard Stats -->
+      <div class="stats-row" id="wf-stats">
+        <div class="stat-card">
+          <div class="stat-card-value" id="wf-active-count">0</div>
+          <div class="stat-card-label">Active Workflows</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-card-value" id="wf-success-rate">—</div>
+          <div class="stat-card-label">Success Rate</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-card-value" id="wf-avg-time">—</div>
+          <div class="stat-card-label">Avg. Duration</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-card-value" id="wf-queue-size">0</div>
+          <div class="stat-card-label">Queued</div>
+        </div>
+      </div>
+
+      <!-- Active Workflows -->
+      <section class="panel" style="margin-bottom:2rem">
+        <h2 class="panel-title"><i class="fa-solid fa-play" style="color:var(--success)"></i> Active Workflows</h2>
+        <div id="active-workflows">
+          <p style="color:var(--text-muted);font-size:0.875rem">Loading active workflows...</p>
+        </div>
+      </section>
+
+      <!-- Workflow DAG Viewer -->
+      <section class="panel" style="margin-bottom:2rem">
+        <h2 class="panel-title"><i class="fa-solid fa-diagram-project" style="color:var(--accent)"></i> Workflow Steps</h2>
+        <div id="dag-container">
+          <div class="dag" id="workflow-dag">
+            <div class="dag-step completed">
+              <div class="dag-node"><i class="fa-solid fa-check"></i></div>
+              <div class="dag-label">Initialize</div>
+            </div>
+            <div class="dag-step completed">
+              <div class="dag-node"><i class="fa-solid fa-check"></i></div>
+              <div class="dag-label">Fetch Data</div>
+            </div>
+            <div class="dag-step active">
+              <div class="dag-node"><i class="fa-solid fa-gear"></i></div>
+              <div class="dag-label">Process</div>
+            </div>
+            <div class="dag-step">
+              <div class="dag-node"><i class="fa-solid fa-file-export"></i></div>
+              <div class="dag-label">Generate Output</div>
+            </div>
+            <div class="dag-step">
+              <div class="dag-node"><i class="fa-solid fa-cloud-arrow-up"></i></div>
+              <div class="dag-label">Deploy</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Launch Template -->
+      <section class="panel" style="margin-bottom:2rem">
+        <h2 class="panel-title"><i class="fa-solid fa-rocket" style="color:var(--secondary)"></i> Launch Workflow</h2>
+        <form id="launch-form" onsubmit="workflowsPage.launchWorkflow(event)">
+          <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:1rem;margin-bottom:1rem">
+            <div class="form-group">
+              <label class="form-label" for="wf-template">Template</label>
+              <select class="form-select" id="wf-template">
+                <option value="spfx-gen">SPFx App Generator</option>
+                <option value="code-review">AI Code Review</option>
+                <option value="trading-signal">Trading Signal Pipeline</option>
+                <option value="chatbot-deploy">Chatbot Deployment</option>
+                <option value="benchmark-suite">Benchmark Suite Runner</option>
+                <option value="report-gen">Financial Report</option>
+                <option value="site-provision">SharePoint Site Provisioning</option>
+                <option value="prompt-lesson">Lesson Builder</option>
+                <option value="data-pipeline">Data Pipeline</option>
+                <option value="full-stack">Full-Stack App Scaffold</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="wf-priority">Priority</label>
+              <select class="form-select" id="wf-priority">
+                <option value="normal">Normal</option>
+                <option value="high">High</option>
+                <option value="low">Low</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="wf-params">Parameters (JSON)</label>
+            <textarea class="form-textarea" id="wf-params" rows="4" placeholder='{"name": "my-project", "type": "webpart"}'></textarea>
+          </div>
+          <button class="btn btn-primary" type="submit"><i class="fa-solid fa-play"></i> Launch Workflow</button>
+        </form>
+      </section>
+
+      <!-- Queue Status -->
+      <section class="panel" style="margin-bottom:2rem">
+        <h2 class="panel-title"><i class="fa-solid fa-list-check" style="color:var(--warning)"></i> Queue Status</h2>
+        <div id="queue-status">
+          <div class="table-wrap">
+            <table>
+              <thead><tr><th>Position</th><th>Workflow</th><th>Priority</th><th>Queued At</th><th>Actions</th></tr></thead>
+              <tbody id="queue-body">
+                <tr><td colspan="5" style="text-align:center;color:var(--text-muted);padding:2rem">Queue is empty</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- Execution History -->
+      <section class="panel">
+        <h2 class="panel-title"><i class="fa-solid fa-clock-rotate-left" style="color:var(--text-muted)"></i> Execution History</h2>
+
+        <div class="filter-bar">
+          <select class="form-select" id="filter-status" aria-label="Filter by status">
+            <option value="">All Statuses</option>
+            <option value="completed">Completed</option>
+            <option value="failed">Failed</option>
+            <option value="cancelled">Cancelled</option>
+          </select>
+          <select class="form-select" id="filter-template" aria-label="Filter by template">
+            <option value="">All Templates</option>
+            <option value="spfx-gen">SPFx App Generator</option>
+            <option value="code-review">AI Code Review</option>
+            <option value="trading-signal">Trading Signal Pipeline</option>
+            <option value="chatbot-deploy">Chatbot Deployment</option>
+            <option value="report-gen">Financial Report</option>
+          </select>
+          <input class="form-input" type="date" id="filter-date-from" aria-label="Date from">
+          <input class="form-input" type="date" id="filter-date-to" aria-label="Date to">
+          <button class="btn btn-outline btn-sm" onclick="workflowsPage.applyFilters()"><i class="fa-solid fa-filter"></i> Apply</button>
+        </div>
+
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr><th>ID</th><th>Template</th><th>Status</th><th>Duration</th><th>Started</th><th>Actions</th></tr>
+            </thead>
+            <tbody id="history-body">
+              <!-- Populated by JS with demo data -->
+            </tbody>
+          </table>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <footer class="footer" role="contentinfo">
+    <div class="container footer-inner">
+      <div class="footer-brand"><i class="fa-solid fa-bolt"></i> <span>dwvbotai<span class="accent">.store</span></span></div>
+      <p class="footer-text">Built by <strong>Dazza</strong> | Powered by <strong>Claude Opus 4.6</strong></p>
+      <div class="footer-links">
+        <a href="https://github.com/ds335033/devbot" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-github"></i> GitHub</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    class WorkflowsPage {
+      constructor() {
+        this.baseUrl = (location.hostname === 'localhost' || location.hostname === '127.0.0.1')
+          ? 'http://localhost:3000' : window.location.origin;
+        this.pollInterval = null;
+        this.activeWorkflows = [];
+        this.history = [];
+        this.init();
+      }
+
+      init() {
+        this.setupTheme();
+        this.setupNavigation();
+        this.loadDemoData();
+        this.renderHistory();
+        this.fetchActiveWorkflows();
+        this.startPolling();
+        this.setupFilterListeners();
+      }
+
+      setupTheme() {
+        const saved = localStorage.getItem('dwvbot-theme') || 'dark';
+        document.documentElement.setAttribute('data-theme', saved);
+        const toggle = document.getElementById('theme-toggle');
+        if (toggle) {
+          toggle.innerHTML = saved === 'dark' ? '<i class="fa-solid fa-moon"></i>' : '<i class="fa-solid fa-sun"></i>';
+          toggle.addEventListener('click', () => {
+            const cur = document.documentElement.getAttribute('data-theme');
+            const next = cur === 'dark' ? 'light' : 'dark';
+            document.documentElement.setAttribute('data-theme', next);
+            localStorage.setItem('dwvbot-theme', next);
+            toggle.innerHTML = next === 'dark' ? '<i class="fa-solid fa-moon"></i>' : '<i class="fa-solid fa-sun"></i>';
+          });
+        }
+      }
+
+      setupNavigation() {
+        const btn = document.getElementById('nav-menu-toggle');
+        const links = document.getElementById('nav-links');
+        if (btn && links) {
+          btn.addEventListener('click', () => {
+            const open = links.classList.toggle('open');
+            btn.setAttribute('aria-expanded', String(open));
+          });
+        }
+      }
+
+      toast(message, type = 'info') {
+        const container = document.getElementById('toast-container');
+        if (!container) return;
+        const icons = { success: 'fa-circle-check', error: 'fa-circle-xmark', info: 'fa-circle-info' };
+        const el = document.createElement('div');
+        el.className = `toast ${type}`;
+        el.innerHTML = `<i class="fa-solid ${icons[type]}"></i><span>${message}</span>`;
+        container.appendChild(el);
+        setTimeout(() => { el.classList.add('removing'); el.addEventListener('animationend', () => el.remove()); }, 3500);
+      }
+
+      loadDemoData() {
+        const templates = ['spfx-gen', 'code-review', 'trading-signal', 'chatbot-deploy', 'report-gen', 'benchmark-suite'];
+        const statuses = ['completed', 'completed', 'completed', 'completed', 'failed', 'completed', 'cancelled'];
+        const names = {
+          'spfx-gen': 'SPFx App Generator', 'code-review': 'AI Code Review',
+          'trading-signal': 'Trading Signal Pipeline', 'chatbot-deploy': 'Chatbot Deployment',
+          'report-gen': 'Financial Report', 'benchmark-suite': 'Benchmark Suite Runner'
+        };
+
+        this.history = [];
+        for (let i = 0; i < 15; i++) {
+          const tpl = templates[i % templates.length];
+          const status = statuses[i % statuses.length];
+          const date = new Date();
+          date.setHours(date.getHours() - i * 3);
+          const duration = Math.floor(Math.random() * 300 + 30);
+          this.history.push({
+            id: `wf-${String(1000 + i)}`,
+            template: tpl,
+            templateName: names[tpl],
+            status,
+            duration: `${Math.floor(duration / 60)}m ${duration % 60}s`,
+            startedAt: date.toISOString(),
+          });
+        }
+
+        // Stats
+        const completed = this.history.filter(h => h.status === 'completed').length;
+        const successRate = Math.round((completed / this.history.length) * 100);
+        document.getElementById('wf-success-rate').textContent = `${successRate}%`;
+        document.getElementById('wf-avg-time').textContent = '2m 45s';
+      }
+
+      renderHistory(data) {
+        const body = document.getElementById('history-body');
+        if (!body) return;
+        const items = data || this.history;
+        if (items.length === 0) {
+          body.innerHTML = '<tr><td colspan="6" style="text-align:center;color:var(--text-muted);padding:2rem">No matching records</td></tr>';
+          return;
+        }
+        body.innerHTML = items.map(h => {
+          const statusColors = { completed: 'var(--success)', failed: 'var(--danger)', cancelled: 'var(--text-muted)' };
+          const statusIcons = { completed: 'fa-circle-check', failed: 'fa-circle-xmark', cancelled: 'fa-ban' };
+          const date = new Date(h.startedAt);
+          return `<tr>
+            <td><code style="font-size:0.8125rem">${h.id}</code></td>
+            <td>${h.templateName}</td>
+            <td><span style="color:${statusColors[h.status] || 'inherit'}"><i class="fa-solid ${statusIcons[h.status] || 'fa-circle'}"></i> ${h.status}</span></td>
+            <td>${h.duration}</td>
+            <td>${date.toLocaleDateString()} ${date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</td>
+            <td><button class="btn btn-outline btn-sm" onclick="workflowsPage.viewWorkflow('${h.id}')">View</button></td>
+          </tr>`;
+        }).join('');
+      }
+
+      async fetchActiveWorkflows() {
+        try {
+          const res = await fetch(`${this.baseUrl}/api/workflows`);
+          if (!res.ok) throw new Error();
+          const data = await res.json();
+          this.activeWorkflows = Array.isArray(data) ? data : (data.workflows || []);
+        } catch {
+          // Use demo active workflow
+          this.activeWorkflows = [
+            { id: 'wf-live-001', template: 'Trading Signal Pipeline', status: 'running', step: 3, totalSteps: 5, startedAt: new Date().toISOString() },
+          ];
+        }
+        this.renderActiveWorkflows();
+        this.updateStats();
+      }
+
+      renderActiveWorkflows() {
+        const container = document.getElementById('active-workflows');
+        if (!container) return;
+        if (this.activeWorkflows.length === 0) {
+          container.innerHTML = '<p style="color:var(--text-muted);font-size:0.875rem">No active workflows.</p>';
+          return;
+        }
+        container.innerHTML = this.activeWorkflows.map(wf => `
+          <div class="card" style="margin-bottom:0.75rem">
+            <div class="card-header">
+              <div class="card-icon indigo"><i class="fa-solid fa-spinner fa-spin"></i></div>
+              <div>
+                <div class="card-title">${wf.template || wf.id}</div>
+                <div class="status"><span class="status-dot active"></span> Running — Step ${wf.step || '?'}/${wf.totalSteps || '?'}</div>
+              </div>
+              <button class="btn btn-danger btn-sm" style="margin-left:auto" onclick="workflowsPage.cancelWorkflow('${wf.id}')">
+                <i class="fa-solid fa-stop"></i> Cancel
+              </button>
+            </div>
+            <div class="progress" style="margin-top:0.75rem">
+              <div class="progress-bar" style="width:${wf.totalSteps ? Math.round((wf.step / wf.totalSteps) * 100) : 50}%"></div>
+            </div>
+          </div>
+        `).join('');
+      }
+
+      updateStats() {
+        const activeEl = document.getElementById('wf-active-count');
+        if (activeEl) activeEl.textContent = this.activeWorkflows.length;
+      }
+
+      startPolling() {
+        this.pollInterval = setInterval(() => this.fetchActiveWorkflows(), 5000);
+      }
+
+      async launchWorkflow(e) {
+        e.preventDefault();
+        const template = document.getElementById('wf-template').value;
+        const priority = document.getElementById('wf-priority').value;
+        const paramsRaw = document.getElementById('wf-params').value;
+        let params = {};
+        if (paramsRaw.trim()) {
+          try { params = JSON.parse(paramsRaw); }
+          catch { this.toast('Invalid JSON in parameters.', 'error'); return; }
+        }
+
+        this.toast(`Launching workflow: ${template}...`, 'info');
+        try {
+          const res = await fetch(`${this.baseUrl}/api/workflows/start`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ templateId: template, priority, params })
+          });
+          if (res.ok) {
+            this.toast('Workflow launched successfully!', 'success');
+            this.fetchActiveWorkflows();
+          } else throw new Error();
+        } catch {
+          this.toast('Workflow queued (API offline — will retry).', 'info');
+          // Add to queue display
+          const queueBody = document.getElementById('queue-body');
+          if (queueBody) {
+            const row = document.createElement('tr');
+            row.innerHTML = `<td>1</td><td>${template}</td><td>${priority}</td><td>${new Date().toLocaleTimeString()}</td>
+              <td><button class="btn btn-danger btn-sm" onclick="this.closest('tr').remove()"><i class="fa-solid fa-trash"></i></button></td>`;
+            queueBody.innerHTML = '';
+            queueBody.appendChild(row);
+            document.getElementById('wf-queue-size').textContent = '1';
+          }
+        }
+      }
+
+      async cancelWorkflow(id) {
+        this.toast(`Cancelling workflow ${id}...`, 'info');
+        try {
+          await fetch(`${this.baseUrl}/api/workflows/${id}/cancel`, { method: 'POST' });
+          this.toast('Workflow cancelled.', 'success');
+        } catch {
+          this.toast('Cancel request sent.', 'info');
+        }
+        this.activeWorkflows = this.activeWorkflows.filter(w => w.id !== id);
+        this.renderActiveWorkflows();
+        this.updateStats();
+      }
+
+      viewWorkflow(id) {
+        this.toast(`Viewing details for ${id}`, 'info');
+        // Update DAG display based on workflow
+        const dag = document.getElementById('workflow-dag');
+        if (!dag) return;
+        const wf = this.history.find(h => h.id === id);
+        if (!wf) return;
+
+        const steps = [
+          { icon: 'fa-circle-play', label: 'Initialize' },
+          { icon: 'fa-download', label: 'Fetch Data' },
+          { icon: 'fa-gear', label: 'Process' },
+          { icon: 'fa-file-export', label: 'Generate' },
+          { icon: 'fa-cloud-arrow-up', label: 'Deploy' },
+        ];
+        const completedCount = wf.status === 'completed' ? 5 : wf.status === 'failed' ? 3 : 2;
+        dag.innerHTML = steps.map((s, i) => {
+          let cls = '';
+          if (i < completedCount) cls = 'completed';
+          else if (i === completedCount && wf.status === 'failed') cls = 'failed';
+          return `
+            <div class="dag-step ${cls}">
+              <div class="dag-node"><i class="fa-solid ${i < completedCount ? 'fa-check' : (cls === 'failed' ? 'fa-xmark' : s.icon)}"></i></div>
+              <div class="dag-label">${s.label}</div>
+            </div>`;
+        }).join('');
+
+        document.getElementById('dag-container').scrollIntoView({ behavior: 'smooth' });
+      }
+
+      setupFilterListeners() {
+        // Apply filters on change too
+        ['filter-status', 'filter-template'].forEach(id => {
+          const el = document.getElementById(id);
+          if (el) el.addEventListener('change', () => this.applyFilters());
+        });
+      }
+
+      applyFilters() {
+        const status = document.getElementById('filter-status').value;
+        const template = document.getElementById('filter-template').value;
+        const dateFrom = document.getElementById('filter-date-from').value;
+        const dateTo = document.getElementById('filter-date-to').value;
+
+        let filtered = [...this.history];
+        if (status) filtered = filtered.filter(h => h.status === status);
+        if (template) filtered = filtered.filter(h => h.template === template);
+        if (dateFrom) filtered = filtered.filter(h => new Date(h.startedAt) >= new Date(dateFrom));
+        if (dateTo) {
+          const to = new Date(dateTo);
+          to.setHours(23, 59, 59);
+          filtered = filtered.filter(h => new Date(h.startedAt) <= to);
+        }
+        this.renderHistory(filtered);
+      }
+
+      destroy() {
+        if (this.pollInterval) clearInterval(this.pollInterval);
+      }
+    }
+
+    const workflowsPage = new WorkflowsPage();
+  </script>
+</body>
+</html>

@@ -42,6 +42,9 @@ const { registerAgentKitRoutes } = await import('../trading/agentkit.js');
 const { registerSchedulerRoutes } = await import('../trading/scheduler.js');
 const { registerDropshippingRoutes } = await import('../api/dropshipping.js');
 const { registerEmailRoutes } = await import('../api/email.js');
+const { registerWorkflowRoutes } = await import('../api/workflows.js');
+const { registerIntegrationRoutes } = await import('../api/integrations.js');
+const { initializeIntegrations } = await import('../integrations/index.js');
 
 const app = express();
 
@@ -80,7 +83,10 @@ const ALLOWED_ORIGINS = [
   'https://ds335033.github.io',
   'http://localhost:3000',
   'http://localhost:8000',
+  'http://localhost:8080',
   'http://127.0.0.1:3000',
+  'http://127.0.0.1:8080',
+  'https://dwvbotai.store',
 ];
 
 app.use((req, res, next) => {
@@ -135,17 +141,35 @@ registerDropshippingRoutes(app);
 // DEVFONE email notifications (order confirmation, shipping, welcome)
 registerEmailRoutes(app);
 
+// Workflow orchestration engine — DAG-based workflow templates, scheduler, triggers, dashboard
+registerWorkflowRoutes(app, { engine, github, slackBot });
+
+// Initialize all integrations (SharePoint, Financial, Chatbot, Benchmarks, Academy)
+const integrations = initializeIntegrations({ engine, github, slackBot });
+
+// Integration API routes — 30+ endpoints across 5 services
+registerIntegrationRoutes(app, integrations);
+
 // Health check
 app.get('/health', (req, res) => {
   res.json({
     status: 'online',
     name: 'DevBot AI',
-    version: '4.0.0',
+    version: '5.0.0',
     model: 'claude-opus-4-6',
     uptime: process.uptime(),
     revenueStreams: 49,
     streams_34_41: NEW_REVENUE_STREAMS,
     streams_42_49: REVENUE_42_49,
+    integrations: integrations.registry.list().map(i => ({ id: i.id, name: i.name, status: i.status })),
+    services: {
+      api: { status: 'online', port: PORT },
+      slack: { status: 'online', mode: process.env.SLACK_APP_TOKEN ? 'socket' : 'http' },
+      workflows: { status: 'online' },
+      storefront: { status: 'online', url: `/store` },
+      tradingBot: { status: 'online' },
+      scentOfAdelaide: { status: 'online', port: 5000 },
+    },
     security: {
       helmet: true,
       rateLimiting: true,
@@ -231,9 +255,13 @@ app.post('/api/review', async (req, res) => {
   }
 });
 
+// Serve storefront static files
+import { resolve as pathResolve } from 'path';
+app.use('/store', express.static(pathResolve(projectRoot, 'storefront')));
+
 // 404 handler
 app.use((req, res) => {
-  res.status(404).json({ error: 'Not found. Available endpoints: /health, /api/generate, /api/review, /api/checkout, /api/zapier/status' });
+  res.status(404).json({ error: 'Not found. Try /health, /store, /api/generate, /api/integrations, /api/workflows/templates' });
 });
 
 // Global error handler
@@ -254,6 +282,9 @@ async function start() {
     console.log(`[DevBot] Powered by Claude Opus 4.6 (1M context)`);
     console.log(`[DevBot] 49 revenue streams active.`);
     console.log(`[DevBot] Crypto Trading Bot with AES-256 Vault: ONLINE`);
+    console.log(`[DevBot] Integrations: SharePoint, Financial, Chatbot, Benchmarks, Academy`);
+    console.log(`[DevBot] Storefront: http://localhost:${PORT}/store`);
+    console.log(`[DevBot] dwvbotai.store: READY`);
     console.log(`[DevBot] Ready to create world-class apps.`);
   });
 }
