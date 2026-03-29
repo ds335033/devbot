@@ -45,6 +45,8 @@ const { registerEmailRoutes } = await import('../api/email.js');
 const { registerWorkflowRoutes } = await import('../api/workflows.js');
 const { registerIntegrationRoutes } = await import('../api/integrations.js');
 const { initializeIntegrations } = await import('../integrations/index.js');
+const { initializeWave2Integrations } = await import('../integrations/wave2-index.js');
+const { registerWave2Routes } = await import('../api/wave2-routes.js');
 
 const app = express();
 
@@ -150,15 +152,26 @@ const integrations = initializeIntegrations({ engine, github, slackBot });
 // Integration API routes — 30+ endpoints across 5 services
 registerIntegrationRoutes(app, integrations);
 
+// Wave 2+3 integrations — 16 new services (RAG, ImageGen, Voice, Commerce, CMS, etc.)
+let wave2Services = null;
+try {
+  wave2Services = initializeWave2Integrations({ engine, github, slackBot }, integrations.registry);
+  registerWave2Routes(app, wave2Services);
+  console.log('[DevBot] Wave 2+3 integrations loaded: 16 services, 100+ API endpoints');
+} catch (e) {
+  console.error('[DevBot] Wave 2+3 integration error:', e.message);
+}
+
 // Health check
 app.get('/health', (req, res) => {
   res.json({
     status: 'online',
     name: 'DevBot AI',
-    version: '5.0.0',
+    version: '6.0.0',
     model: 'claude-opus-4-6',
     uptime: process.uptime(),
     revenueStreams: 49,
+    totalIntegrations: (integrations?.registry?.list()?.length || 0),
     streams_34_41: NEW_REVENUE_STREAMS,
     streams_42_49: REVENUE_42_49,
     integrations: integrations.registry.list().map(i => ({ id: i.id, name: i.name, status: i.status })),
@@ -282,7 +295,8 @@ async function start() {
     console.log(`[DevBot] Powered by Claude Opus 4.6 (1M context)`);
     console.log(`[DevBot] 49 revenue streams active.`);
     console.log(`[DevBot] Crypto Trading Bot with AES-256 Vault: ONLINE`);
-    console.log(`[DevBot] Integrations: SharePoint, Financial, Chatbot, Benchmarks, Academy`);
+    console.log(`[DevBot] Wave 1 Integrations: SharePoint, Financial, Chatbot, Benchmarks, Academy`);
+    console.log(`[DevBot] Wave 2+3: RAG, ImageGen, Voice, Dify, LlamaIndex, Commerce, CMS, Billing, Shopify, Automation, Notifications, WhatsApp, Auth, Email Templates, LowCode, Analytics`);
     console.log(`[DevBot] Storefront: http://localhost:${PORT}/store`);
     console.log(`[DevBot] dwvbotai.store: READY`);
     console.log(`[DevBot] Ready to create world-class apps.`);

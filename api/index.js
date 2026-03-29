@@ -213,17 +213,60 @@ if (!integrations) {
   app.get('/api/sharepoint/topics', (req, res) => res.json({ success: true, topics: ['webparts','extensions','library','provisioning','search','lists','permissions','sites','flows','teams','graph','auth','spfx','deployment','migration'] }));
 }
 
+// Wave 2+3 fallback endpoints for Vercel serverless
+const wave2Integrations = [
+  { id: 'langchain-rag', name: 'LangChain RAG', repo_url: 'https://github.com/langchain-ai/langchain', type: 'sdk', status: 'available', capabilities: ['knowledge_bases', 'document_query', 'semantic_search'] },
+  { id: 'image-gen', name: 'AI Image Generation', repo_url: 'https://github.com/comfyanonymous/ComfyUI', type: 'sdk', status: 'available', capabilities: ['generate_image', 'upscale', 'remove_bg', 'variations'] },
+  { id: 'voice-ai', name: 'Voice AI Pipeline', repo_url: 'https://github.com/openai/whisper', type: 'sdk', status: 'available', capabilities: ['transcribe', 'tts', 'voice_clone', 'voice_agent'] },
+  { id: 'dify-builder', name: 'Dify No-Code AI Builder', repo_url: 'https://github.com/langgenius/dify', type: 'app', status: 'available', capabilities: ['create_app', 'publish', 'test', 'analytics'] },
+  { id: 'llama-index', name: 'LlamaIndex Enterprise RAG', repo_url: 'https://github.com/run-llama/llama_index', type: 'sdk', status: 'available', capabilities: ['vector_index', 'sql_index', 'multi_modal', 'knowledge_graph'] },
+  { id: 'commerce', name: 'Headless Commerce', repo_url: 'https://github.com/medusajs/medusa', type: 'app', status: 'available', capabilities: ['stores', 'products', 'orders', 'ai_descriptions'] },
+  { id: 'cms', name: 'Unified CMS', repo_url: 'https://github.com/strapi/strapi', type: 'app', status: 'available', capabilities: ['sites', 'content', 'ai_generation', 'seo'] },
+  { id: 'billing', name: 'Billing & Invoicing', repo_url: 'https://github.com/crater-invoice-inc/crater', type: 'app', status: 'available', capabilities: ['invoices', 'subscriptions', 'quotes', 'revenue_dashboard'] },
+  { id: 'shopify-sync', name: 'Shopify Deep Sync', repo_url: 'https://github.com/Shopify/shopify-api-js', type: 'sdk', status: 'available', capabilities: ['product_sync', 'order_sync', 'discounts', 'themes'] },
+  { id: 'workflow-automation', name: 'Visual Workflow Automation', repo_url: 'https://github.com/n8n-io/n8n', type: 'app', status: 'available', capabilities: ['automations', 'triggers', 'templates', 'execution'] },
+  { id: 'notifications', name: 'Unified Notifications', repo_url: 'https://github.com/novuhq/novu', type: 'sdk', status: 'available', capabilities: ['email', 'sms', 'push', 'slack', 'whatsapp', 'in_app'] },
+  { id: 'whatsapp', name: 'WhatsApp Business Bot', repo_url: 'https://github.com/wwebjs/whatsapp-web.js', type: 'app', status: 'available', capabilities: ['bots', 'messages', 'menus', 'templates'] },
+  { id: 'auth', name: 'Multi-Tenant Auth', repo_url: 'https://github.com/better-auth/better-auth', type: 'sdk', status: 'available', capabilities: ['tenants', 'users', '2fa', 'api_keys', 'roles', 'sso'] },
+  { id: 'email-templates', name: 'Email Template Engine', repo_url: 'https://github.com/resend/react-email', type: 'sdk', status: 'available', capabilities: ['templates', 'render', 'ai_generate', 'analytics'] },
+  { id: 'low-code', name: 'Low-Code App Builder', repo_url: 'https://github.com/appsmithorg/appsmith', type: 'app', status: 'available', capabilities: ['apps', 'widgets', 'datasources', 'ai_generate'] },
+  { id: 'analytics', name: 'Analytics & Dashboards', repo_url: 'https://github.com/grafana/grafana', type: 'app', status: 'available', capabilities: ['dashboards', 'widgets', 'reports', 'metrics'] },
+];
+
+// Merge all integrations for the listing endpoint
+const allIntegrations = [
+  ...(integrationData || []),
+  ...wave2Integrations,
+];
+
+app.get('/api/integrations/all', (req, res) => res.json({ success: true, count: allIntegrations.length, integrations: allIntegrations }));
+
+// Wave 2 service info endpoints
+app.get('/api/rag/models', (req, res) => res.json({ success: true, models: ['langchain-chroma', 'llama-index-vector', 'llama-index-kg'] }));
+app.get('/api/images/models', (req, res) => res.json({ success: true, models: ['sdxl', 'flux-dev', 'flux-schnell', 'stable-diffusion-3', 'dall-e-style'] }));
+app.get('/api/images/styles', (req, res) => res.json({ success: true, styles: ['photorealistic', 'anime', 'oil-painting', 'watercolor', 'digital-art', 'pixel-art', '3d-render', 'comic-book', 'minimalist', 'cyberpunk'] }));
+app.get('/api/voice/voices', (req, res) => res.json({ success: true, voices: ['alloy', 'echo', 'fable', 'onyx', 'nova', 'shimmer', 'custom'] }));
+app.get('/api/dify/tools', (req, res) => res.json({ success: true, tools: ['web-search', 'calculator', 'code-interpreter', 'image-gen', 'file-reader', 'api-call', 'database-query'] }));
+app.get('/api/commerce/currencies', (req, res) => res.json({ success: true, currencies: ['AUD', 'USD', 'EUR', 'GBP', 'CAD', 'JPY'] }));
+app.get('/api/cms/templates', (req, res) => res.json({ success: true, templates: ['blog', 'docs', 'portfolio', 'landing', 'academy', 'wiki', 'knowledge-base'] }));
+app.get('/api/automation/templates', (req, res) => res.json({ success: true, templates: ['lead-capture-to-crm', 'order-notification-flow', 'content-publish-pipeline', 'customer-onboarding-sequence', 'invoice-payment-reminder', 'social-media-scheduler', 'bug-report-to-github', 'meeting-summary-to-slack', 'price-alert-trading', 'review-response-automation'] }));
+app.get('/api/notifications/channels', (req, res) => res.json({ success: true, channels: ['email', 'sms', 'push', 'slack', 'whatsapp', 'in-app', 'webhook'] }));
+app.get('/api/lowcode/widgets', (req, res) => res.json({ success: true, widgets: ['table', 'chart', 'form', 'text', 'image', 'button', 'input', 'select', 'date-picker', 'file-upload', 'map', 'calendar', 'kanban', 'timeline', 'metric-card', 'progress-bar'] }));
+app.get('/api/analytics/prebuilt', (req, res) => res.json({ success: true, dashboards: ['revenue-overview', 'trading-performance', 'chatbot-usage', 'api-usage', 'customer-growth', 'workflow-efficiency'] }));
+app.get('/api/auth/providers', (req, res) => res.json({ success: true, providers: ['google', 'github', 'microsoft', 'apple', 'facebook', 'twitter', 'linkedin', 'discord', 'slack'] }));
+
 // Health
 app.get('/health', (req, res) => {
   res.json({
     status: 'online',
     name: 'DevBot AI',
-    version: '5.0.0',
+    version: '6.0.0',
     platform: 'vercel',
     model: 'claude-opus-4-6',
     uptime: process.uptime(),
     revenueStreams: 49,
-    integrations: integrations?.registry?.list()?.map(i => ({ id: i.id, name: i.name, status: i.status })) || [],
+    totalIntegrations: allIntegrations.length,
+    integrations: allIntegrations.map(i => ({ id: i.id, name: i.name, status: i.status })),
     services: {
       api: { status: 'online' },
       workflows: { status: registerWorkflowRoutes ? 'online' : 'degraded' },

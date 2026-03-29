@@ -1,7 +1,7 @@
 /**
  * DevBot AI — Integration System Entry Point
  *
- * Imports all 5 integration services plus the Registry,
+ * Imports all 14 integration services plus the Registry,
  * initializes them with shared DevBot engine/GitHub client,
  * and registers each in the central registry.
  */
@@ -12,6 +12,15 @@ import { FinancialDataService } from './financial.js';
 import { ChatbotBuilderService } from './chatbot-builder.js';
 import { AgentBenchmarkService } from './agent-benchmarks.js';
 import { PromptAcademyService } from './prompt-academy.js';
+import { RagService } from './langchain-rag.js';
+import { ImageGenService } from './image-gen.js';
+import { VoiceAIService } from './voice-ai.js';
+import { DifyBuilderService } from './dify-builder.js';
+import { LlamaIndexService } from './llama-index.js';
+import { CommerceService } from './commerce.js';
+import { CMSService } from './cms.js';
+import { BillingService } from './billing.js';
+import { ShopifySyncService } from './shopify-sync.js';
 
 /**
  * Initialize all integration services.
@@ -35,6 +44,15 @@ export function initializeIntegrations(services = {}) {
   const chatbotBuilder = new ChatbotBuilderService({ engine });
   const agentBenchmarks = new AgentBenchmarkService({ engine });
   const promptAcademy = new PromptAcademyService({ engine });
+  const rag = new RagService({ engine });
+  const imageGen = new ImageGenService({ engine });
+  const voiceAI = new VoiceAIService({ engine });
+  const difyBuilder = new DifyBuilderService({ engine });
+  const llamaIndex = new LlamaIndexService({ engine });
+  const commerce = new CommerceService({ engine });
+  const cms = new CMSService({ engine });
+  const billing = new BillingService({ engine });
+  const shopifySync = new ShopifySyncService({ engine });
 
   // Register all integrations
   registry.register(SharePointDocsService.registryEntry);
@@ -42,6 +60,15 @@ export function initializeIntegrations(services = {}) {
   registry.register(ChatbotBuilderService.registryEntry);
   registry.register(AgentBenchmarkService.registryEntry);
   registry.register(PromptAcademyService.registryEntry);
+  registry.register(RagService.registryEntry);
+  registry.register(ImageGenService.registryEntry);
+  registry.register(VoiceAIService.registryEntry);
+  registry.register(DifyBuilderService.registryEntry);
+  registry.register(LlamaIndexService.registryEntry);
+  registry.register(CommerceService.registryEntry);
+  registry.register(CMSService.registryEntry);
+  registry.register(BillingService.registryEntry);
+  registry.register(ShopifySyncService.registryEntry);
 
   console.log(`[DevBot][Integrations] All ${registry.list().length} integrations initialized and registered`);
 
@@ -52,6 +79,15 @@ export function initializeIntegrations(services = {}) {
     chatbotBuilder,
     agentBenchmarks,
     promptAcademy,
+    rag,
+    imageGen,
+    voiceAI,
+    difyBuilder,
+    llamaIndex,
+    commerce,
+    cms,
+    billing,
+    shopifySync,
   };
 }
 
@@ -62,6 +98,15 @@ export {
   ChatbotBuilderService,
   AgentBenchmarkService,
   PromptAcademyService,
+  RagService,
+  ImageGenService,
+  VoiceAIService,
+  DifyBuilderService,
+  LlamaIndexService,
+  CommerceService,
+  CMSService,
+  BillingService,
+  ShopifySyncService,
 };
 
 export default initializeIntegrations;

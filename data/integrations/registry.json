@@ -1,0 +1,398 @@
+[
+  {
+    "id": "sharepoint",
+    "name": "SharePoint Dev Docs",
+    "repo_url": "https://github.com/SharePoint/sp-dev-docs",
+    "type": "docs",
+    "status": "active",
+    "capabilities": [
+      "search_docs",
+      "get_guide",
+      "generate_spfx_app",
+      "generate_webpart",
+      "list_topics",
+      "workflow_step"
+    ],
+    "config": {
+      "topicCount": 15
+    },
+    "registeredAt": "2026-03-29T22:43:04.304Z",
+    "updatedAt": "2026-03-29T22:43:04.304Z"
+  },
+  {
+    "id": "financial",
+    "name": "Financial Modeling Prep SDK",
+    "repo_url": "https://github.com/daxm/fmpsdk",
+    "type": "sdk",
+    "status": "active",
+    "capabilities": [
+      "stock_quotes",
+      "company_profiles",
+      "financial_statements",
+      "market_movers",
+      "crypto_quotes",
+      "forex_rates",
+      "stock_screener",
+      "economic_calendar",
+      "ai_financial_report",
+      "ai_trading_signal"
+    ],
+    "config": {
+      "requiresApiKey": true,
+      "envVar": "FINANCIAL_MODELING_PREP_API_KEY"
+    },
+    "registeredAt": "2026-03-29T22:43:04.305Z",
+    "updatedAt": "2026-03-29T22:43:04.305Z"
+  },
+  {
+    "id": "chatbot-builder",
+    "name": "Chatbot Generator",
+    "repo_url": "https://github.com/MainakVerse/receptionist-chatbot-generator-consultancy",
+    "type": "app",
+    "status": "active",
+    "capabilities": [
+      "create_chatbot",
+      "generate_ui",
+      "generate_api",
+      "deployment_config",
+      "test_conversation",
+      "industry_templates"
+    ],
+    "config": {
+      "revenue": "$79/mo per chatbot",
+      "revenueStream": "#46",
+      "templates": [
+        "healthcare",
+        "legal",
+        "realestate",
+        "restaurant",
+        "ecommerce",
+        "saas",
+        "fitness",
+        "education"
+      ]
+    },
+    "registeredAt": "2026-03-29T22:43:04.306Z",
+    "updatedAt": "2026-03-29T22:43:04.306Z"
+  },
+  {
+    "id": "agent-benchmarks",
+    "name": "AI Agent Benchmarks",
+    "repo_url": "https://github.com/The-Focus-AI/june-2025-coding-agent-report",
+    "type": "data",
+    "status": "active",
+    "capabilities": [
+      "agent_report",
+      "compare_agents",
+      "best_for_task",
+      "overall_ranking",
+      "ai_recommendation"
+    ],
+    "config": {
+      "agentCount": 15,
+      "revenueStream": "#44"
+    },
+    "registeredAt": "2026-03-29T22:43:04.307Z",
+    "updatedAt": "2026-03-29T22:43:04.307Z"
+  },
+  {
+    "id": "prompt-academy",
+    "name": "Prompt Engineering Academy",
+    "repo_url": "https://github.com/anthropics/prompt-eng-interactive-tutorial",
+    "type": "tutorial",
+    "status": "active",
+    "capabilities": [
+      "lessons",
+      "exercises",
+      "prompt_evaluation",
+      "progress_tracking",
+      "certification",
+      "ai_exercise_generation"
+    ],
+    "config": {
+      "lessonCount": 13,
+      "revenue": "$29/mo DevBot Academy",
+      "revenueStream": "#44"
+    },
+    "registeredAt": "2026-03-29T22:43:04.308Z",
+    "updatedAt": "2026-03-29T22:43:04.308Z"
+  },
+  {
+    "id": "langchain-rag",
+    "name": "LangChain RAG",
+    "repo_url": "https://github.com/ds335033/devbot",
+    "type": "ai",
+    "status": "active",
+    "capabilities": [
+      "knowledge-bases",
+      "document-chunking",
+      "vector-search",
+      "retrieval-augmented-generation"
+    ],
+    "config": {},
+    "registeredAt": "2026-03-29T22:43:04.359Z",
+    "updatedAt": "2026-03-29T22:43:04.359Z"
+  },
+  {
+    "id": "image-gen",
+    "name": "AI Image Generation",
+    "repo_url": "https://github.com/ds335033/devbot",
+    "type": "ai",
+    "status": "active",
+    "capabilities": [
+      "image-generation",
+      "upscaling",
+      "background-removal",
+      "style-transfer",
+      "multi-model"
+    ],
+    "config": {},
+    "registeredAt": "2026-03-29T22:43:04.360Z",
+    "updatedAt": "2026-03-29T22:43:04.360Z"
+  },
+  {
+    "id": "voice-ai",
+    "name": "Voice AI",
+    "repo_url": "https://github.com/ds335033/devbot",
+    "type": "ai",
+    "status": "active",
+    "capabilities": [
+      "speech-to-text",
+      "text-to-speech",
+      "voice-cloning",
+      "voice-agents",
+      "real-time-transcription"
+    ],
+    "config": {},
+    "registeredAt": "2026-03-29T22:43:04.361Z",
+    "updatedAt": "2026-03-29T22:43:04.361Z"
+  },
+  {
+    "id": "dify-builder",
+    "name": "Dify App Builder",
+    "repo_url": "https://github.com/ds335033/devbot",
+    "type": "ai",
+    "status": "active",
+    "capabilities": [
+      "app-builder",
+      "workflow-designer",
+      "prompt-engineering",
+      "app-publishing",
+      "analytics"
+    ],
+    "config": {},
+    "registeredAt": "2026-03-29T22:43:04.362Z",
+    "updatedAt": "2026-03-29T22:43:04.362Z"
+  },
+  {
+    "id": "llama-index",
+    "name": "LlamaIndex",
+    "repo_url": "https://github.com/ds335033/devbot",
+    "type": "ai",
+    "status": "active",
+    "capabilities": [
+      "index-creation",
+      "natural-language-query",
+      "sql-generation",
+      "document-indexing"
+    ],
+    "config": {},
+    "registeredAt": "2026-03-29T22:43:04.363Z",
+    "updatedAt": "2026-03-29T22:43:04.363Z"
+  },
+  {
+    "id": "commerce",
+    "name": "Commerce Platform",
+    "repo_url": "https://github.com/ds335033/devbot",
+    "type": "commerce",
+    "status": "active",
+    "capabilities": [
+      "store-management",
+      "products",
+      "orders",
+      "ai-descriptions",
+      "analytics"
+    ],
+    "config": {},
+    "registeredAt": "2026-03-29T22:43:04.368Z",
+    "updatedAt": "2026-03-29T22:43:04.368Z"
+  },
+  {
+    "id": "cms",
+    "name": "CMS Platform",
+    "repo_url": "https://github.com/ds335033/devbot",
+    "type": "content",
+    "status": "active",
+    "capabilities": [
+      "site-builder",
+      "content-management",
+      "ai-content-generation",
+      "seo-optimization",
+      "templates"
+    ],
+    "config": {},
+    "registeredAt": "2026-03-29T22:43:04.369Z",
+    "updatedAt": "2026-03-29T22:43:04.369Z"
+  },
+  {
+    "id": "billing",
+    "name": "Billing & Invoicing",
+    "repo_url": "https://github.com/ds335033/devbot",
+    "type": "finance",
+    "status": "active",
+    "capabilities": [
+      "invoices",
+      "subscriptions",
+      "quotes",
+      "revenue-dashboard",
+      "payment-processing"
+    ],
+    "config": {},
+    "registeredAt": "2026-03-29T22:43:04.372Z",
+    "updatedAt": "2026-03-29T22:43:04.372Z"
+  },
+  {
+    "id": "shopify-sync",
+    "name": "Shopify Sync",
+    "repo_url": "https://github.com/ds335033/devbot",
+    "type": "commerce",
+    "status": "active",
+    "capabilities": [
+      "shopify-connect",
+      "product-sync",
+      "order-sync",
+      "discounts",
+      "analytics"
+    ],
+    "config": {},
+    "registeredAt": "2026-03-29T22:43:04.374Z",
+    "updatedAt": "2026-03-29T22:43:04.374Z"
+  },
+  {
+    "id": "workflow-automation",
+    "name": "Workflow Automation",
+    "repo_url": "https://github.com/ds335033/devbot",
+    "type": "automation",
+    "status": "active",
+    "capabilities": [
+      "workflow-builder",
+      "triggers",
+      "actions",
+      "templates",
+      "scheduling",
+      "execution-history"
+    ],
+    "config": {},
+    "registeredAt": "2026-03-29T22:43:04.375Z",
+    "updatedAt": "2026-03-29T22:43:04.375Z"
+  },
+  {
+    "id": "notifications",
+    "name": "Notification Service",
+    "repo_url": "https://github.com/ds335033/devbot",
+    "type": "communication",
+    "status": "active",
+    "capabilities": [
+      "push-notifications",
+      "email",
+      "sms",
+      "bulk-send",
+      "templates",
+      "analytics"
+    ],
+    "config": {},
+    "registeredAt": "2026-03-29T22:43:04.376Z",
+    "updatedAt": "2026-03-29T22:43:04.376Z"
+  },
+  {
+    "id": "whatsapp",
+    "name": "WhatsApp Business",
+    "repo_url": "https://github.com/ds335033/devbot",
+    "type": "communication",
+    "status": "active",
+    "capabilities": [
+      "whatsapp-bots",
+      "messaging",
+      "menus",
+      "conversations",
+      "analytics"
+    ],
+    "config": {},
+    "registeredAt": "2026-03-29T22:43:04.377Z",
+    "updatedAt": "2026-03-29T22:43:04.377Z"
+  },
+  {
+    "id": "auth",
+    "name": "Auth & Multi-tenancy",
+    "repo_url": "https://github.com/ds335033/devbot",
+    "type": "security",
+    "status": "active",
+    "capabilities": [
+      "authentication",
+      "multi-tenancy",
+      "2fa",
+      "api-keys",
+      "rbac",
+      "audit-log"
+    ],
+    "config": {},
+    "registeredAt": "2026-03-29T22:43:04.377Z",
+    "updatedAt": "2026-03-29T22:43:04.377Z"
+  },
+  {
+    "id": "email-templates",
+    "name": "Email Templates",
+    "repo_url": "https://github.com/ds335033/devbot",
+    "type": "communication",
+    "status": "active",
+    "capabilities": [
+      "email-builder",
+      "templates",
+      "ai-generation",
+      "rendering",
+      "sending",
+      "analytics"
+    ],
+    "config": {},
+    "registeredAt": "2026-03-29T22:43:04.378Z",
+    "updatedAt": "2026-03-29T22:43:04.378Z"
+  },
+  {
+    "id": "low-code",
+    "name": "Low-Code Platform",
+    "repo_url": "https://github.com/ds335033/devbot",
+    "type": "development",
+    "status": "active",
+    "capabilities": [
+      "app-builder",
+      "widgets",
+      "deployment",
+      "ai-generation",
+      "data-sources",
+      "drag-and-drop"
+    ],
+    "config": {},
+    "registeredAt": "2026-03-29T22:43:04.379Z",
+    "updatedAt": "2026-03-29T22:43:04.379Z"
+  },
+  {
+    "id": "analytics",
+    "name": "Analytics Platform",
+    "repo_url": "https://github.com/ds335033/devbot",
+    "type": "analytics",
+    "status": "active",
+    "capabilities": [
+      "dashboards",
+      "widgets",
+      "metrics",
+      "reports",
+      "sharing",
+      "grafana",
+      "superset",
+      "chartjs"
+    ],
+    "config": {},
+    "registeredAt": "2026-03-29T22:43:04.380Z",
+    "updatedAt": "2026-03-29T22:43:04.380Z"
+  }
+]

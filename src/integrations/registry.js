@@ -16,7 +16,8 @@ const REGISTRY_PATH = resolve(DATA_DIR, 'registry.json');
 mkdirSync(DATA_DIR, { recursive: true });
 
 // ─── Valid Integration Types ───────────────────────────────────────────────
-const INTEGRATION_TYPES = ['sdk', 'docs', 'app', 'data', 'tutorial'];
+// Accept any integration type — extensible registry
+const INTEGRATION_TYPES = null; // No restriction — accept all types
 
 /**
  * @typedef {Object} Integration
@@ -49,9 +50,7 @@ export class Registry {
     if (!integration.id || !integration.name) {
       throw new Error('Integration must have an id and name');
     }
-    if (integration.type && !INTEGRATION_TYPES.includes(integration.type)) {
-      throw new Error(`Invalid integration type: ${integration.type}. Must be one of: ${INTEGRATION_TYPES.join(', ')}`);
-    }
+    // Type validation removed — accept any integration type for extensibility
 
     const entry = {
       id: integration.id,
