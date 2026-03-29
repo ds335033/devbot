@@ -1,0 +1,24 @@
+services:
+  - type: worker
+    name: devbot-trading-bot
+    runtime: python
+    repo: https://github.com/ds335033/devbot
+    rootDir: trading-bot
+    buildCommand: pip install -r requirements.txt
+    startCommand: python trade_now.py
+    plan: free
+    envVars:
+      - key: CDP_API_KEY_NAME
+        sync: false
+      - key: CDP_API_KEY_PRIVATE_KEY
+        sync: false
+      - key: ANTHROPIC_API_KEY
+        sync: false
+      - key: NETWORK_ID
+        value: base-sepolia
+      - key: TRADE_AMOUNT_USD
+        value: "25"
+      - key: STRATEGY
+        value: dca
+      - key: PYTHONUNBUFFERED
+        value: "1"

@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Scent of Adelaide | Premium Perfume E-Commerce</title>
+    <!-- SEO & Metadata -->
+    <meta name="description" content="Discover The Scent of Adelaide - your destination for luxury, top-trending mens and female perfumes. Premium quality, Australian heritage.">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Outfit:wght@300;400;600&display=swap" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Top Bar -->
+    <div class="top-bar">
+        FREE SHIPPING ON AUD ORDERS OVER $150 | USE CODE: PROPERFUME FOR 10% OFF
+    </div>
+
+    <!-- Header / Navigation -->
+    <header>
+        <div class="container container-header">
+            <div class="logo">
+                <img src="assets/logo.png" alt="The Scent of Adelaide Logo" id="site-logo" style="height: 40px; margin-right: 10px;">
+                <span class="brand-name">The Scent <span>of Adelaide</span></span>
+            </div>
+            <nav id="main-nav">
+                <ul>
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#products">Store</a></li>
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#founders">Founders</a></li>
+                    <li><a href="#blog">Blog</a></li>
+                    <li><a href="#location">Location</a></li>
+                </ul>
+            </nav>
+            <div class="header-actions">
+                <a href="#"><i class="fa-solid fa-magnifying-glass"></i></a>
+                <a href="#"><i class="fa-solid fa-user"></i></a>
+                <a href="#" class="cart-icon"><i class="fa-solid fa-bag-shopping"></i><span id="cart-count">0</span></a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="hero-image-container">
+            <img src="assets/hero.png" alt="Luxury Perfume Collection" class="hero-image">
+            <div class="hero-overlay"></div>
+        </div>
+        <div class="container hero-content">
+            <h1>The Essence of <br>Pure Elegance</h1>
+            <p>Curated fragrance excellence from Adelaide to the world. <br>Premium Top-Shelf Scents for Him & Her.</p>
+            <div class="cta-buttons">
+                <a href="#products" class="btn btn-primary btn-shop-men">Shop For Him</a>
+                <a href="#products" class="btn btn-secondary btn-shop-women">Shop For Her</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- YouTube Feature -->
+    <section class="video-feature">
+        <div class="container">
+            <h2 class="section-title">A Message From Our Boutique</h2>
+            <div class="video-wrapper">
+                <!-- High-quality perfume review/cinematic placeholder -->
+                <iframe width="100%" height="560" src="https://www.youtube.com/embed/dQw4w9WgXcQ" title="Luxury Perfume Review" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            </div>
+        </div>
+    </section>
+
+    <!-- Trending Products Section -->
+    <section id="products" class="products-grid-section">
+        <div class="container">
+            <h2 class="section-title">Our Top Shelf Collection</h2>
+            <p class="section-subtitle">Trending & Top-Selling Global Brands</p>
+            
+            <div class="product-tabs">
+                <button class="tab-btn active" data-category="mens">Men's Top 12</button>
+                <button class="tab-btn" data-category="womens">Women's Top 18</button>
+            </div>
+
+            <div class="products-container" id="products-catalog">
+                <!-- Products will be injected via JS -->
+            </div>
+        </div>
+    </section>
+
+    <!-- About & Foundations -->
+    <section id="about" class="about-section">
+        <div class="container about-grid">
+            <div class="about-text">
+                <h2 class="section-title">The Beginnings</h2>
+                <p>Born in the heart of South Australia, **The Scent of Adelaide** started as a shared passion among fragrance connoisseurs. We believe that a scent is more than just a fragrance; it's an identity, a signature that lingers in the memory of those you encounter.</p>
+                <p>Our journey began with a simple mission: to curate the world's most trending and elite perfumes under one roof, providing a seamless boutique experience for our community.</p>
+                <a href="#" class="btn btn-outline" id="read-beginnings">The Full Story</a>
+            </div>
+            <div class="about-stats">
+                <div class="stat-card">
+                    <h3>30+</h3>
+                    <p>Exclusive Brands</p>
+                </div>
+                <div class="stat-card">
+                    <h3>5000+</h3>
+                    <p>Happy Customers</p>
+                </div>
+                <div class="stat-card">
+                    <h3>AUD</h3>
+                    <p>Proudly Australian</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Founder Section -->
+    <section id="founders" class="founders-section">
+        <div class="container">
+            <h2 class="section-title">Meet the Founders</h2>
+            <p class="section-subtitle">The Visionaries Behind The Scent of Adelaide</p>
+            <div class="founders-grid" id="founder-list">
+                <!-- Founders list injected via JS -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section class="testimonials">
+        <div class="container">
+            <h2 class="section-title">What Our Community Says</h2>
+            <div class="testimonial-carousel" id="testimonial-container">
+                <div class="testimonial-card">
+                    <p>"The fastest shipping in Australia! My Dior Sauvage arrived in perfect packaging."</p>
+                    <span>- Michael R.</span>
+                </div>
+                <div class="testimonial-card">
+                    <p>"The Scent of Adelaide is my new go-to. Their curations are top-shelf."</p>
+                    <span>- Sarah K.</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Newsletter / Opt-In -->
+    <section class="newsletter-optin">
+        <div class="container newsletter-content">
+            <h2>Join the Inner Circle</h2>
+            <p>Subscribe to our Monthly Newsletter for exclusive discounts, new arrivals, and perfume guides.</p>
+            <form id="newsletter-form" class="optin-form">
+                <input type="email" id="newsletter-email" placeholder="Your best email" required>
+                <button type="submit" class="btn btn-primary">Subscribe Now</button>
+            </form>
+            <p class="form-disclaimer">Privacy Policy: We never share your data. <a href="#privacy">View Legal.</a></p>
+        </div>
+    </section>
+
+    <!-- Blog & Location -->
+    <section id="blog" class="blog-preview">
+        <div class="container">
+            <h2 class="section-title">Scent Secrets Blog</h2>
+            <div class="blog-grid">
+                <article class="blog-card">
+                    <div class="blog-img" style="background: #eee; height: 15vw;"></div>
+                    <div class="blog-body">
+                        <h3>How to Choose Your Signature Scent</h3>
+                        <p>Finding the perfect note for your skin chemistry...</p>
+                        <a href="#">Read More</a>
+                    </div>
+                </article>
+                <article class="blog-card">
+                    <div class="blog-img" style="background: #eee; height: 15vw;"></div>
+                    <div class="blog-body">
+                        <h3>Summer 2026 Perfume Trends</h3>
+                        <p>Why citrus and sea salt are dominating this season...</p>
+                        <a href="#">Read More</a>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <section id="location" class="location-section">
+        <div class="container">
+            <h2 class="section-title">Find Us</h2>
+            <p>Our Flagship Showroom in Adelaide coming soon.</p>
+            <div class="map-placeholder">
+                <i class="fa-solid fa-location-dot"></i>
+                <p>Adelaide, South Australia</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container footer-grid">
+            <div class="footer-info">
+                <img src="assets/logo.png" alt="The Scent of Adelaide" class="footer-logo" style="height: 60px;">
+                <p>ABN: 82 697 448 668 (No GST)</p>
+                <p>&copy; 2026 The Scent of Adelaide. All Rights Reserved.</p>
+            </div>
+            <div class="footer-links">
+                <h4>Customer Care</h4>
+                <ul>
+                    <li><a href="#" class="legal-trigger" data-page="shipping">Shipping Policy</a></li>
+                    <li><a href="#" class="legal-trigger" data-page="refunds">Refunds & Returns (AUD)</a></li>
+                    <li><a href="#" class="legal-trigger" data-page="privacy">Privacy Page</a></li>
+                    <li><a href="#" class="legal-trigger" data-page="legal">Legal & Disclaimer</a></li>
+                </ul>
+            </div>
+            <div class="footer-social">
+                <h4>Connect With Us</h4>
+                <div class="social-icons">
+                    <a href="#"><i class="fa-brands fa-instagram"></i></a>
+                    <a href="#"><i class="fa-brands fa-facebook"></i></a>
+                    <a href="#"><i class="fa-brands fa-tiktok"></i></a>
+                    <a href="#"><i class="fa-brands fa-youtube"></i></a>
+                </div>
+                <div class="payment-icons">
+                    <i class="fa-brands fa-cc-stripe"></i>
+                    <i class="fa-brands fa-cc-visa"></i>
+                    <i class="fa-brands fa-cc-mastercard"></i>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Modals (Legal/Policies) -->
+    <div id="policy-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <div id="policy-body"></div>
+        </div>
+    </div>
+
+    <!-- Floating Chatbot UI -->
+    <div id="ai-chat-widget">
+        <div id="chat-header">
+            <span><i class="fa-solid fa-robot"></i> Adelaide AI Support</span>
+            <button id="close-chat">&times;</button>
+        </div>
+        <div id="chat-messages">
+            <div class="ai-msg">Hello! I am the automated support for **The Scent of Adelaide**. How can I help you today? I can assist with shipping info, orders, or choosing a scent!</div>
+        </div>
+        <div id="chat-input-area">
+            <input type="text" id="user-chat-input" placeholder="Type a message...">
+            <button id="send-chat"><i class="fa-solid fa-paper-plane"></i></button>
+        </div>
+    </div>
+    <button id="chat-trigger"><i class="fa-solid fa-comment-dots"></i></button>
+
+    <!-- Main JS -->
+    <script src="main.js"></script>
+    <script src="/storefront/nav.js"></script>
+</body>
+</html>

@@ -1,0 +1,15 @@
+app = "devbot-trading-bot"
+primary_region = "iad"
+
+[build]
+  dockerfile = "Dockerfile.tradingbot"
+
+[env]
+  NETWORK_ID = "base-sepolia"
+  TRADE_AMOUNT_USD = "25"
+  STRATEGY = "dca"
+  PYTHONUNBUFFERED = "1"
+
+[[vm]]
+  size = "shared-cpu-1x"
+  memory = "256mb"

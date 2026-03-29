@@ -8,11 +8,23 @@
     {
       "src": "storefront/**",
       "use": "@vercel/static"
+    },
+    {
+      "src": "scent-of-adelaide/**",
+      "use": "@vercel/static"
+    },
+    {
+      "src": "docs/**",
+      "use": "@vercel/static"
     }
   ],
   "routes": [
     { "src": "/api/(.*)", "dest": "/api/index.js" },
     { "src": "/health", "dest": "/api/index.js" },
+    { "src": "/scent-of-adelaide/(.*)", "dest": "/scent-of-adelaide/$1" },
+    { "src": "/scent-of-adelaide", "dest": "/scent-of-adelaide/index.html" },
+    { "src": "/docs/(.*)", "dest": "/docs/$1" },
+    { "src": "/docs", "dest": "/docs/index.html" },
     { "src": "/store/(.*)", "dest": "/storefront/$1" },
     { "src": "/store", "dest": "/storefront/index.html" },
     { "src": "/(.*\\.(html|css|js|ico|png|jpg|svg|woff2?))", "dest": "/storefront/$1" },
