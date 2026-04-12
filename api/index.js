@@ -44,6 +44,9 @@ let registerRevenue42_49Routes, REVENUE_42_49;
 let registerAgentKitRoutes, registerSchedulerRoutes;
 let registerDropshippingRoutes, registerEmailRoutes;
 let registerWorkflowRoutes, registerIntegrationRoutes, initializeIntegrations;
+let registerAlertRoutes, registerBundleRoutes;
+let registerCloakRoutes, applySecurityHardening, registerEmailSegmentRoutes;
+let registerTierRoutes;
 
 try { ({ SlackBot } = await import('../src/slack/bot.js')); } catch(e) { console.log('[Vercel] Slack bot skipped:', e.message); }
 try { ({ GitHubClient } = await import('../src/github/client.js')); } catch(e) { console.log('[Vercel] GitHub client skipped:', e.message); }
@@ -62,11 +65,18 @@ try { ({ registerEmailRoutes } = await import('../src/api/email.js')); } catch(e
 try { ({ registerWorkflowRoutes } = await import('../src/api/workflows.js')); } catch(e) { console.log('[Vercel] Workflows skipped:', e.message); }
 try { ({ registerIntegrationRoutes } = await import('../src/api/integrations.js')); } catch(e) { console.log('[Vercel] Integrations skipped:', e.message); }
 try { ({ initializeIntegrations } = await import('../src/integrations/index.js')); } catch(e) { console.log('[Vercel] Integration init skipped:', e.message); }
+try { ({ registerAlertRoutes } = await import('../src/api/alerts.js')); } catch(e) { console.log('[Vercel] Alerts skipped:', e.message); }
+try { ({ registerBundleRoutes } = await import('../src/api/bundle.js')); } catch(e) { console.log('[Vercel] Bundle skipped:', e.message); }
+try { ({ registerCloakRoutes } = await import('../src/api/cloak.js')); } catch(e) { console.log('[Vercel] Cloak skipped:', e.message); }
+try { ({ applySecurityHardening } = await import('../src/security/hardening.js')); } catch(e) { console.log('[Vercel] Security skipped:', e.message); }
+try { ({ registerEmailSegmentRoutes } = await import('../src/api/email-segments.js')); } catch(e) { console.log('[Vercel] Email segments skipped:', e.message); }
+try { ({ registerTierRoutes } = await import('../src/api/tiers.js')); } catch(e) { console.log('[Vercel] Tiers skipped:', e.message); }
 
 const app = express();
 
-// Security
+// Security hardening
 app.use(helmet({ contentSecurityPolicy: false, crossOriginEmbedderPolicy: false }));
+if (applySecurityHardening) try { applySecurityHardening(app); } catch(e) { console.log('[Vercel] Security hardening error:', e.message); }
 
 const apiLimiter = rateLimit({
   windowMs: 15 * 60 * 1000,
@@ -89,6 +99,7 @@ app.use(express.json({ limit: '1mb' }));
 const ALLOWED_ORIGINS = [
   'https://devbotai.store',
   'https://dwvbotai.store',
+  'https://devbotai.shop',
   'https://devbot-pearl.vercel.app',
   'https://ds335033.github.io',
   'http://localhost:3000',
@@ -126,6 +137,11 @@ if (registerAgentKitRoutes) try { registerAgentKitRoutes(app); } catch(e) {}
 if (registerSchedulerRoutes) try { registerSchedulerRoutes(app); } catch(e) {}
 if (registerDropshippingRoutes) try { registerDropshippingRoutes(app); } catch(e) {}
 if (registerEmailRoutes) try { registerEmailRoutes(app); } catch(e) {}
+if (registerAlertRoutes) try { registerAlertRoutes(app); } catch(e) { console.log('[Vercel] Alerts error:', e.message); }
+if (registerBundleRoutes) try { registerBundleRoutes(app); } catch(e) { console.log('[Vercel] Bundle error:', e.message); }
+if (registerCloakRoutes) try { registerCloakRoutes(app); } catch(e) { console.log('[Vercel] Cloak error:', e.message); }
+if (registerEmailSegmentRoutes) try { registerEmailSegmentRoutes(app); } catch(e) { console.log('[Vercel] Email segments error:', e.message); }
+if (registerTierRoutes) try { registerTierRoutes(app); } catch(e) { console.log('[Vercel] Tiers error:', e.message); }
 if (registerWorkflowRoutes) try { registerWorkflowRoutes(app, { engine, github, slackBot }); } catch(e) { console.log('[Vercel] Workflow routes error:', e.message); }
 
 // Integrations — register independently so they work even if workflows fail

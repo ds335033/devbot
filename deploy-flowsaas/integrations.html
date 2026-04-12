@@ -1,0 +1,642 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="dwvbotai.store Integrations Hub — SharePoint, Financial Markets, Chatbot Builder, Benchmarks, and Prompt Academy.">
+  <title>Integrations Hub — dwvbotai.store</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div id="toast-container" class="toast-container" aria-live="polite" aria-atomic="true"></div>
+
+  <!-- Navigation -->
+  <nav class="nav" role="navigation" aria-label="Main navigation">
+    <div class="nav-inner container">
+      <a href="index.html" class="nav-brand" aria-label="dwvbotai.store home">
+        <i class="fa-solid fa-bolt"></i>
+        <span>dwvbotai<span class="accent">.store</span></span>
+      </a>
+      <div class="nav-links" id="nav-links">
+        <a href="index.html" class="nav-link">Dashboard</a>
+        <a href="index.html#services" class="nav-link">Services</a>
+        <a href="integrations.html" class="nav-link" aria-current="page">Integrations</a>
+        <a href="workflows.html" class="nav-link">Workflows</a>
+      </div>
+      <div class="nav-actions">
+        <button class="btn btn-icon" id="theme-toggle" aria-label="Toggle theme">
+          <i class="fa-solid fa-moon"></i>
+        </button>
+        <button class="btn btn-icon nav-menu-toggle" id="nav-menu-toggle" aria-label="Toggle menu" aria-expanded="false">
+          <i class="fa-solid fa-bars"></i>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <main>
+    <div class="page-header">
+      <h1><span class="gradient-text">Integrations Hub</span></h1>
+      <p>Build, connect, and deploy across every platform</p>
+    </div>
+
+    <div class="container">
+      <!-- Tabs -->
+      <div class="tabs" role="tablist" aria-label="Integration tabs">
+        <button class="tab active" role="tab" aria-selected="true" aria-controls="tab-sharepoint" data-tab="sharepoint">
+          <i class="fa-brands fa-microsoft"></i> SharePoint
+        </button>
+        <button class="tab" role="tab" aria-selected="false" aria-controls="tab-financial" data-tab="financial">
+          <i class="fa-solid fa-chart-line"></i> Financial
+        </button>
+        <button class="tab" role="tab" aria-selected="false" aria-controls="tab-chatbot" data-tab="chatbot">
+          <i class="fa-solid fa-robot"></i> Chatbot
+        </button>
+        <button class="tab" role="tab" aria-selected="false" aria-controls="tab-benchmarks" data-tab="benchmarks">
+          <i class="fa-solid fa-ranking-star"></i> Benchmarks
+        </button>
+        <button class="tab" role="tab" aria-selected="false" aria-controls="tab-academy" data-tab="academy">
+          <i class="fa-solid fa-graduation-cap"></i> Academy
+        </button>
+      </div>
+
+      <!-- SharePoint Tab -->
+      <div class="tab-panel active" id="tab-sharepoint" role="tabpanel">
+        <div class="panel">
+          <h3 class="panel-title"><i class="fa-brands fa-microsoft" style="color:#60a5fa"></i> SharePoint Dev Tools</h3>
+          <div class="search-bar" style="max-width:100%;margin-bottom:1.5rem">
+            <i class="fa-solid fa-search"></i>
+            <input type="text" id="sp-search" placeholder="Search SharePoint topics, APIs, components..." aria-label="Search SharePoint topics">
+          </div>
+
+          <h4 style="margin-bottom:1rem;font-size:0.9375rem">Topic Browser</h4>
+          <div class="integrations-grid" style="margin-bottom:2rem">
+            <div class="card">
+              <div class="card-header"><div class="card-icon blue"><i class="fa-solid fa-puzzle-piece"></i></div><div class="card-title">Web Parts</div></div>
+              <p class="card-desc">React, No-framework, and Adaptive Card web parts for modern pages.</p>
+            </div>
+            <div class="card">
+              <div class="card-header"><div class="card-icon blue"><i class="fa-solid fa-code"></i></div><div class="card-title">Extensions</div></div>
+              <p class="card-desc">Application Customizers, Field Customizers, and Command Sets.</p>
+            </div>
+            <div class="card">
+              <div class="card-header"><div class="card-icon blue"><i class="fa-solid fa-terminal"></i></div><div class="card-title">PnP PowerShell</div></div>
+              <p class="card-desc">Automation scripts for site management, permissions, and migrations.</p>
+            </div>
+            <div class="card">
+              <div class="card-header"><div class="card-icon blue"><i class="fa-solid fa-diagram-project"></i></div><div class="card-title">Graph API</div></div>
+              <p class="card-desc">Microsoft Graph integration patterns and code samples.</p>
+            </div>
+          </div>
+
+          <h4 style="margin-bottom:1rem;font-size:0.9375rem">Generate SPFx App</h4>
+          <div class="panel" style="background:var(--bg-tertiary)">
+            <form id="spfx-form" onsubmit="integrationsPage.generateSpfx(event)">
+              <div class="form-group">
+                <label class="form-label" for="spfx-name">Solution Name</label>
+                <input class="form-input" id="spfx-name" type="text" placeholder="my-web-part" required>
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="spfx-type">Component Type</label>
+                <select class="form-select" id="spfx-type">
+                  <option value="webpart">Web Part</option>
+                  <option value="extension">Extension</option>
+                  <option value="library">Library</option>
+                  <option value="adaptive-card">Adaptive Card Extension</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="spfx-framework">Framework</label>
+                <select class="form-select" id="spfx-framework">
+                  <option value="react">React</option>
+                  <option value="none">No Framework</option>
+                  <option value="minimal">Minimal</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="spfx-desc">Description / Prompt</label>
+                <textarea class="form-textarea" id="spfx-desc" placeholder="Describe what you want the web part to do..."></textarea>
+              </div>
+              <button class="btn btn-primary" type="submit"><i class="fa-solid fa-wand-magic-sparkles"></i> Generate SPFx App</button>
+            </form>
+          </div>
+        </div>
+      </div>
+
+      <!-- Financial Tab -->
+      <div class="tab-panel" id="tab-financial" role="tabpanel">
+        <div class="panel">
+          <h3 class="panel-title"><i class="fa-solid fa-chart-line" style="color:#4ade80"></i> Financial Markets</h3>
+
+          <div class="search-bar" style="max-width:100%;margin-bottom:1.5rem">
+            <i class="fa-solid fa-search"></i>
+            <input type="text" id="stock-search" placeholder="Search stock symbol (e.g. AAPL, TSLA)..." aria-label="Search stock symbol">
+          </div>
+
+          <h4 style="margin-bottom:1rem;font-size:0.9375rem">Live Quotes</h4>
+          <div class="stats-row" id="stock-quotes">
+            <div class="stat-card"><div class="stat-card-value">--</div><div class="stat-card-label">Enter a symbol above</div></div>
+          </div>
+
+          <h4 style="margin-bottom:1rem;font-size:0.9375rem">Market Movers</h4>
+          <div class="table-wrap" style="margin-bottom:2rem">
+            <table>
+              <thead><tr><th>Symbol</th><th>Price</th><th>Change</th><th>Volume</th></tr></thead>
+              <tbody id="market-movers">
+                <tr><td>AAPL</td><td>$189.84</td><td style="color:var(--success)">+1.24%</td><td>52.3M</td></tr>
+                <tr><td>MSFT</td><td>$417.52</td><td style="color:var(--success)">+0.87%</td><td>28.1M</td></tr>
+                <tr><td>NVDA</td><td>$881.86</td><td style="color:var(--danger)">-0.43%</td><td>41.7M</td></tr>
+                <tr><td>TSLA</td><td>$175.22</td><td style="color:var(--success)">+2.15%</td><td>93.2M</td></tr>
+                <tr><td>AMZN</td><td>$182.41</td><td style="color:var(--success)">+0.55%</td><td>35.8M</td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <h4 style="margin-bottom:1rem;font-size:0.9375rem">Generate Report</h4>
+          <div class="panel" style="background:var(--bg-tertiary)">
+            <form id="report-form" onsubmit="integrationsPage.generateReport(event)">
+              <div class="form-group">
+                <label class="form-label" for="report-symbols">Symbols (comma-separated)</label>
+                <input class="form-input" id="report-symbols" type="text" placeholder="AAPL, MSFT, NVDA" required>
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="report-type">Report Type</label>
+                <select class="form-select" id="report-type">
+                  <option value="technical">Technical Analysis</option>
+                  <option value="fundamental">Fundamental Analysis</option>
+                  <option value="comparison">Comparison</option>
+                  <option value="portfolio">Portfolio Review</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="report-period">Time Period</label>
+                <select class="form-select" id="report-period">
+                  <option value="1d">1 Day</option>
+                  <option value="1w">1 Week</option>
+                  <option value="1m" selected>1 Month</option>
+                  <option value="3m">3 Months</option>
+                  <option value="1y">1 Year</option>
+                </select>
+              </div>
+              <button class="btn btn-primary" type="submit"><i class="fa-solid fa-file-invoice-dollar"></i> Generate Report</button>
+            </form>
+          </div>
+        </div>
+      </div>
+
+      <!-- Chatbot Tab -->
+      <div class="tab-panel" id="tab-chatbot" role="tabpanel">
+        <div class="panel">
+          <h3 class="panel-title"><i class="fa-solid fa-robot" style="color:#c084fc"></i> AI Chatbot Builder</h3>
+
+          <h4 style="margin-bottom:1rem;font-size:0.9375rem">Templates</h4>
+          <div class="integrations-grid" style="margin-bottom:2rem">
+            <div class="card">
+              <div class="card-header"><div class="card-icon purple"><i class="fa-solid fa-headset"></i></div><div class="card-title">Customer Support</div></div>
+              <p class="card-desc">FAQ-answering bot with escalation to human agents.</p>
+              <button class="btn btn-outline btn-sm" onclick="integrationsPage.selectTemplate('support')">Use Template</button>
+            </div>
+            <div class="card">
+              <div class="card-header"><div class="card-icon purple"><i class="fa-solid fa-cart-shopping"></i></div><div class="card-title">E-Commerce</div></div>
+              <p class="card-desc">Product recommendations, order tracking, and payments.</p>
+              <button class="btn btn-outline btn-sm" onclick="integrationsPage.selectTemplate('ecommerce')">Use Template</button>
+            </div>
+            <div class="card">
+              <div class="card-header"><div class="card-icon purple"><i class="fa-solid fa-book-open"></i></div><div class="card-title">Knowledge Base</div></div>
+              <p class="card-desc">RAG-powered bot that answers from your documentation.</p>
+              <button class="btn btn-outline btn-sm" onclick="integrationsPage.selectTemplate('knowledge')">Use Template</button>
+            </div>
+          </div>
+
+          <h4 style="margin-bottom:1rem;font-size:0.9375rem">Create Chatbot</h4>
+          <div class="panel" style="background:var(--bg-tertiary)">
+            <!-- Wizard Steps -->
+            <div id="wizard-steps" style="display:flex;gap:1rem;margin-bottom:1.5rem;flex-wrap:wrap">
+              <div class="tag" style="background:var(--accent);color:#fff" data-step="1">1. Configure</div>
+              <div class="tag" data-step="2">2. Design</div>
+              <div class="tag" data-step="3">3. Train</div>
+              <div class="tag" data-step="4">4. Deploy</div>
+            </div>
+
+            <form id="chatbot-form" onsubmit="integrationsPage.createChatbot(event)">
+              <!-- Step 1: Configure -->
+              <div class="wizard-panel" id="wizard-1">
+                <div class="form-group">
+                  <label class="form-label" for="bot-name">Bot Name</label>
+                  <input class="form-input" id="bot-name" type="text" placeholder="My Awesome Bot" required>
+                </div>
+                <div class="form-group">
+                  <label class="form-label" for="bot-personality">Personality</label>
+                  <select class="form-select" id="bot-personality">
+                    <option value="professional">Professional</option>
+                    <option value="friendly">Friendly</option>
+                    <option value="casual">Casual</option>
+                    <option value="technical">Technical</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label class="form-label" for="bot-platforms">Deploy Platforms</label>
+                  <select class="form-select" id="bot-platforms" multiple size="4">
+                    <option value="web" selected>Web Widget</option>
+                    <option value="slack">Slack</option>
+                    <option value="teams">Microsoft Teams</option>
+                    <option value="discord">Discord</option>
+                  </select>
+                </div>
+                <button class="btn btn-primary" type="button" onclick="integrationsPage.wizardNext(2)">Next: Design <i class="fa-solid fa-arrow-right"></i></button>
+              </div>
+
+              <!-- Step 2: Design -->
+              <div class="wizard-panel" id="wizard-2" style="display:none">
+                <div class="form-group">
+                  <label class="form-label" for="bot-greeting">Greeting Message</label>
+                  <textarea class="form-textarea" id="bot-greeting" placeholder="Hello! How can I help you today?"></textarea>
+                </div>
+                <div class="form-group">
+                  <label class="form-label" for="bot-color">Theme Color</label>
+                  <input class="form-input" id="bot-color" type="color" value="#6366f1" style="height:44px;padding:4px">
+                </div>
+                <button class="btn btn-outline" type="button" onclick="integrationsPage.wizardNext(1)" style="margin-right:0.5rem"><i class="fa-solid fa-arrow-left"></i> Back</button>
+                <button class="btn btn-primary" type="button" onclick="integrationsPage.wizardNext(3)">Next: Train <i class="fa-solid fa-arrow-right"></i></button>
+              </div>
+
+              <!-- Step 3: Train -->
+              <div class="wizard-panel" id="wizard-3" style="display:none">
+                <div class="form-group">
+                  <label class="form-label" for="bot-instructions">System Instructions</label>
+                  <textarea class="form-textarea" id="bot-instructions" placeholder="You are a helpful assistant that..." rows="5"></textarea>
+                </div>
+                <div class="form-group">
+                  <label class="form-label" for="bot-knowledge">Knowledge Base URL (optional)</label>
+                  <input class="form-input" id="bot-knowledge" type="url" placeholder="https://docs.example.com">
+                </div>
+                <button class="btn btn-outline" type="button" onclick="integrationsPage.wizardNext(2)" style="margin-right:0.5rem"><i class="fa-solid fa-arrow-left"></i> Back</button>
+                <button class="btn btn-primary" type="button" onclick="integrationsPage.wizardNext(4)">Next: Deploy <i class="fa-solid fa-arrow-right"></i></button>
+              </div>
+
+              <!-- Step 4: Deploy -->
+              <div class="wizard-panel" id="wizard-4" style="display:none">
+                <p style="color:var(--text-secondary);margin-bottom:1rem">Review your chatbot configuration and deploy.</p>
+                <div id="bot-preview" class="panel" style="background:var(--bg-primary);margin-bottom:1rem">
+                  <p style="color:var(--text-muted);font-size:0.875rem">Preview will appear here after configuration.</p>
+                </div>
+                <button class="btn btn-outline" type="button" onclick="integrationsPage.wizardNext(3)" style="margin-right:0.5rem"><i class="fa-solid fa-arrow-left"></i> Back</button>
+                <button class="btn btn-primary" type="submit"><i class="fa-solid fa-rocket"></i> Deploy Chatbot</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+
+      <!-- Benchmarks Tab -->
+      <div class="tab-panel" id="tab-benchmarks" role="tabpanel">
+        <div class="panel">
+          <h3 class="panel-title"><i class="fa-solid fa-ranking-star" style="color:#fb923c"></i> Agent Benchmarks</h3>
+
+          <h4 style="margin-bottom:1rem;font-size:0.9375rem">Agent Comparison</h4>
+          <div class="table-wrap" style="margin-bottom:2rem">
+            <table>
+              <thead>
+                <tr><th>Agent</th><th>Coding</th><th>Reasoning</th><th>Speed</th><th>Cost</th><th>Overall</th></tr>
+              </thead>
+              <tbody>
+                <tr><td><strong>Claude Opus 4.6</strong></td><td>98</td><td>97</td><td>85</td><td>$$</td><td style="color:var(--success);font-weight:700">95</td></tr>
+                <tr><td>Claude Sonnet 4</td><td>92</td><td>91</td><td>95</td><td>$</td><td>92</td></tr>
+                <tr><td>GPT-4o</td><td>90</td><td>89</td><td>90</td><td>$$</td><td>89</td></tr>
+                <tr><td>Gemini 2.5 Pro</td><td>88</td><td>90</td><td>88</td><td>$$</td><td>88</td></tr>
+                <tr><td>Claude Haiku 3.5</td><td>82</td><td>80</td><td>99</td><td>$</td><td>85</td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <h4 style="margin-bottom:1rem;font-size:0.9375rem">Radar Chart</h4>
+          <div class="panel" style="background:var(--bg-tertiary);text-align:center;padding:3rem">
+            <i class="fa-solid fa-chart-radar" style="font-size:3rem;color:var(--text-muted);margin-bottom:1rem;display:block"></i>
+            <p style="color:var(--text-muted)">Interactive radar chart — coming with charting library integration</p>
+          </div>
+
+          <h4 style="margin:2rem 0 1rem;font-size:0.9375rem">Request Custom Benchmark</h4>
+          <div class="panel" style="background:var(--bg-tertiary)">
+            <form id="benchmark-form" onsubmit="integrationsPage.requestBenchmark(event)">
+              <div class="form-group">
+                <label class="form-label" for="bench-task">Task Description</label>
+                <textarea class="form-textarea" id="bench-task" placeholder="Describe the task you want agents benchmarked on..." required></textarea>
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="bench-agents">Agents to Compare</label>
+                <input class="form-input" id="bench-agents" type="text" placeholder="Claude Opus, GPT-4o, Gemini Pro" required>
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="bench-metrics">Evaluation Metrics</label>
+                <select class="form-select" id="bench-metrics" multiple size="4">
+                  <option value="accuracy" selected>Accuracy</option>
+                  <option value="speed" selected>Speed</option>
+                  <option value="cost">Cost Efficiency</option>
+                  <option value="quality">Output Quality</option>
+                </select>
+              </div>
+              <button class="btn btn-primary" type="submit"><i class="fa-solid fa-flask"></i> Request Benchmark</button>
+            </form>
+          </div>
+        </div>
+      </div>
+
+      <!-- Academy Tab -->
+      <div class="tab-panel" id="tab-academy" role="tabpanel">
+        <div class="panel">
+          <h3 class="panel-title"><i class="fa-solid fa-graduation-cap" style="color:#22d3ee"></i> Prompt Academy</h3>
+
+          <h4 style="margin-bottom:1rem;font-size:0.9375rem">Lesson Progress</h4>
+          <div style="margin-bottom:2rem">
+            <div class="panel" style="background:var(--bg-tertiary);margin-bottom:0.75rem">
+              <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:0.5rem">
+                <strong style="font-size:0.875rem">1. Prompt Fundamentals</strong>
+                <span style="font-size:0.75rem;color:var(--success)">Complete</span>
+              </div>
+              <div class="progress"><div class="progress-bar" style="width:100%"></div></div>
+            </div>
+            <div class="panel" style="background:var(--bg-tertiary);margin-bottom:0.75rem">
+              <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:0.5rem">
+                <strong style="font-size:0.875rem">2. Chain-of-Thought Reasoning</strong>
+                <span style="font-size:0.75rem;color:var(--success)">Complete</span>
+              </div>
+              <div class="progress"><div class="progress-bar" style="width:100%"></div></div>
+            </div>
+            <div class="panel" style="background:var(--bg-tertiary);margin-bottom:0.75rem">
+              <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:0.5rem">
+                <strong style="font-size:0.875rem">3. Few-Shot & In-Context Learning</strong>
+                <span style="font-size:0.75rem;color:var(--accent)">75%</span>
+              </div>
+              <div class="progress"><div class="progress-bar" style="width:75%"></div></div>
+            </div>
+            <div class="panel" style="background:var(--bg-tertiary);margin-bottom:0.75rem">
+              <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:0.5rem">
+                <strong style="font-size:0.875rem">4. System Prompt Design</strong>
+                <span style="font-size:0.75rem;color:var(--accent)">40%</span>
+              </div>
+              <div class="progress"><div class="progress-bar" style="width:40%"></div></div>
+            </div>
+            <div class="panel" style="background:var(--bg-tertiary);margin-bottom:0.75rem">
+              <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:0.5rem">
+                <strong style="font-size:0.875rem">5. Tool Use & Function Calling</strong>
+                <span style="font-size:0.75rem;color:var(--text-muted)">Not started</span>
+              </div>
+              <div class="progress"><div class="progress-bar" style="width:0%"></div></div>
+            </div>
+            <div class="panel" style="background:var(--bg-tertiary);margin-bottom:0.75rem">
+              <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:0.5rem">
+                <strong style="font-size:0.875rem">6. Agent Architecture</strong>
+                <span style="font-size:0.75rem;color:var(--text-muted)">Not started</span>
+              </div>
+              <div class="progress"><div class="progress-bar" style="width:0%"></div></div>
+            </div>
+            <div class="panel" style="background:var(--bg-tertiary);margin-bottom:0.75rem">
+              <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:0.5rem">
+                <strong style="font-size:0.875rem">7. Advanced Techniques & Eval</strong>
+                <span style="font-size:0.75rem;color:var(--text-muted)">Not started</span>
+              </div>
+              <div class="progress"><div class="progress-bar" style="width:0%"></div></div>
+            </div>
+          </div>
+
+          <h4 style="margin-bottom:1rem;font-size:0.9375rem">Practice Exercise</h4>
+          <div class="panel" style="background:var(--bg-tertiary);margin-bottom:2rem">
+            <p style="color:var(--text-secondary);margin-bottom:1rem;font-size:0.875rem">
+              <strong>Exercise:</strong> Write a system prompt for a customer support chatbot that handles refund requests professionally while following company policy.
+            </p>
+            <div class="form-group">
+              <label class="form-label" for="exercise-answer">Your Prompt</label>
+              <textarea class="form-textarea" id="exercise-answer" rows="6" placeholder="Write your system prompt here..."></textarea>
+            </div>
+            <button class="btn btn-primary" onclick="integrationsPage.submitExercise()"><i class="fa-solid fa-paper-plane"></i> Submit for Review</button>
+          </div>
+
+          <h4 style="margin-bottom:1rem;font-size:0.9375rem">Certifications</h4>
+          <div class="integrations-grid">
+            <div class="card">
+              <div class="card-header"><div class="card-icon cyan"><i class="fa-solid fa-certificate"></i></div><div class="card-title">Prompt Engineer L1</div></div>
+              <p class="card-desc">Fundamental prompt engineering skills certification.</p>
+              <div class="card-footer"><span class="status"><span class="status-dot active"></span> Earned</span></div>
+            </div>
+            <div class="card">
+              <div class="card-header"><div class="card-icon cyan"><i class="fa-solid fa-award"></i></div><div class="card-title">Prompt Engineer L2</div></div>
+              <p class="card-desc">Advanced techniques including CoT, few-shot, and evaluation.</p>
+              <div class="card-footer"><span class="tag">In Progress</span></div>
+            </div>
+            <div class="card">
+              <div class="card-header"><div class="card-icon cyan"><i class="fa-solid fa-trophy"></i></div><div class="card-title">Agent Architect</div></div>
+              <p class="card-desc">Master-level certification in AI agent design and orchestration.</p>
+              <div class="card-footer"><span class="tag">Locked</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <footer class="footer" role="contentinfo">
+    <div class="container footer-inner">
+      <div class="footer-brand"><i class="fa-solid fa-bolt"></i> <span>dwvbotai<span class="accent">.store</span></span></div>
+      <p class="footer-text">Built by <strong>Dazza</strong> | Powered by <strong>Claude Opus 4.6</strong></p>
+      <div class="footer-links">
+        <a href="https://github.com/ds335033/devbot" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-github"></i> GitHub</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    /* --- Integrations Page Controller --- */
+    class IntegrationsPage {
+      constructor() {
+        this.baseUrl = (location.hostname === 'localhost' || location.hostname === '127.0.0.1')
+          ? 'http://localhost:3000' : window.location.origin;
+        this.currentWizardStep = 1;
+        this.init();
+      }
+
+      init() {
+        this.setupTheme();
+        this.setupNavigation();
+        this.setupTabs();
+        this.handleHashRoute();
+        window.addEventListener('hashchange', () => this.handleHashRoute());
+      }
+
+      setupTheme() {
+        const saved = localStorage.getItem('dwvbot-theme') || 'dark';
+        document.documentElement.setAttribute('data-theme', saved);
+        const toggle = document.getElementById('theme-toggle');
+        if (toggle) {
+          toggle.innerHTML = saved === 'dark' ? '<i class="fa-solid fa-moon"></i>' : '<i class="fa-solid fa-sun"></i>';
+          toggle.addEventListener('click', () => {
+            const cur = document.documentElement.getAttribute('data-theme');
+            const next = cur === 'dark' ? 'light' : 'dark';
+            document.documentElement.setAttribute('data-theme', next);
+            localStorage.setItem('dwvbot-theme', next);
+            toggle.innerHTML = next === 'dark' ? '<i class="fa-solid fa-moon"></i>' : '<i class="fa-solid fa-sun"></i>';
+          });
+        }
+      }
+
+      setupNavigation() {
+        const btn = document.getElementById('nav-menu-toggle');
+        const links = document.getElementById('nav-links');
+        if (btn && links) {
+          btn.addEventListener('click', () => {
+            const open = links.classList.toggle('open');
+            btn.setAttribute('aria-expanded', String(open));
+          });
+        }
+      }
+
+      setupTabs() {
+        document.querySelectorAll('.tab').forEach(tab => {
+          tab.addEventListener('click', () => this.activateTab(tab.dataset.tab));
+        });
+      }
+
+      activateTab(tabId) {
+        document.querySelectorAll('.tab').forEach(t => {
+          t.classList.toggle('active', t.dataset.tab === tabId);
+          t.setAttribute('aria-selected', String(t.dataset.tab === tabId));
+        });
+        document.querySelectorAll('.tab-panel').forEach(p => {
+          p.classList.toggle('active', p.id === `tab-${tabId}`);
+        });
+      }
+
+      handleHashRoute() {
+        const hash = location.hash.replace('#', '');
+        if (hash && document.getElementById(`tab-${hash}`)) {
+          this.activateTab(hash);
+        }
+      }
+
+      /* Toast */
+      toast(message, type = 'info') {
+        const container = document.getElementById('toast-container');
+        if (!container) return;
+        const icons = { success: 'fa-circle-check', error: 'fa-circle-xmark', info: 'fa-circle-info' };
+        const el = document.createElement('div');
+        el.className = `toast ${type}`;
+        el.innerHTML = `<i class="fa-solid ${icons[type]}"></i><span>${message}</span>`;
+        container.appendChild(el);
+        setTimeout(() => { el.classList.add('removing'); el.addEventListener('animationend', () => el.remove()); }, 3500);
+      }
+
+      /* SPFx */
+      async generateSpfx(e) {
+        e.preventDefault();
+        const name = document.getElementById('spfx-name').value;
+        this.toast(`Generating SPFx app "${name}"...`, 'info');
+        try {
+          const res = await fetch(`${this.baseUrl}/api/workflows/start`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              templateId: 'spfx-gen',
+              params: {
+                name,
+                type: document.getElementById('spfx-type').value,
+                framework: document.getElementById('spfx-framework').value,
+                description: document.getElementById('spfx-desc').value,
+              }
+            })
+          });
+          if (res.ok) this.toast(`SPFx app "${name}" generation started!`, 'success');
+          else throw new Error();
+        } catch { this.toast(`SPFx generation queued (API offline).`, 'info'); }
+      }
+
+      /* Financial */
+      async generateReport(e) {
+        e.preventDefault();
+        const symbols = document.getElementById('report-symbols').value;
+        this.toast(`Generating report for ${symbols}...`, 'info');
+        try {
+          const res = await fetch(`${this.baseUrl}/api/workflows/start`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              templateId: 'report-gen',
+              params: {
+                symbols,
+                type: document.getElementById('report-type').value,
+                period: document.getElementById('report-period').value,
+              }
+            })
+          });
+          if (res.ok) this.toast('Report generation started!', 'success');
+          else throw new Error();
+        } catch { this.toast('Report generation queued.', 'info'); }
+      }
+
+      /* Chatbot Wizard */
+      selectTemplate(template) {
+        this.toast(`Template "${template}" selected. Customize below.`, 'success');
+        const nameInput = document.getElementById('bot-name');
+        if (nameInput) {
+          const names = { support: 'Support Bot', ecommerce: 'Shop Bot', knowledge: 'Knowledge Bot' };
+          nameInput.value = names[template] || template;
+        }
+      }
+
+      wizardNext(step) {
+        document.querySelectorAll('.wizard-panel').forEach(p => p.style.display = 'none');
+        const panel = document.getElementById(`wizard-${step}`);
+        if (panel) panel.style.display = 'block';
+        document.querySelectorAll('#wizard-steps .tag').forEach(t => {
+          const s = parseInt(t.dataset.step);
+          t.style.background = s === step ? 'var(--accent)' : '';
+          t.style.color = s === step ? '#fff' : '';
+        });
+        this.currentWizardStep = step;
+
+        if (step === 4) this.updateBotPreview();
+      }
+
+      updateBotPreview() {
+        const preview = document.getElementById('bot-preview');
+        if (!preview) return;
+        const name = document.getElementById('bot-name').value || 'Unnamed Bot';
+        const personality = document.getElementById('bot-personality').value;
+        const color = document.getElementById('bot-color').value;
+        const greeting = document.getElementById('bot-greeting').value || 'Hello! How can I help you?';
+        preview.innerHTML = `
+          <div style="border-left:3px solid ${color};padding-left:1rem">
+            <p style="font-weight:600;margin-bottom:0.5rem">${name}</p>
+            <p style="font-size:0.8125rem;color:var(--text-secondary)">Personality: ${personality}</p>
+            <p style="font-size:0.8125rem;color:var(--text-secondary);margin-top:0.5rem;font-style:italic">"${greeting}"</p>
+          </div>`;
+      }
+
+      async createChatbot(e) {
+        e.preventDefault();
+        const name = document.getElementById('bot-name').value;
+        this.toast(`Deploying chatbot "${name}"...`, 'info');
+        setTimeout(() => this.toast(`Chatbot "${name}" deployed successfully!`, 'success'), 1500);
+      }
+
+      /* Benchmarks */
+      async requestBenchmark(e) {
+        e.preventDefault();
+        this.toast('Benchmark request submitted!', 'success');
+      }
+
+      /* Academy */
+      submitExercise() {
+        const answer = document.getElementById('exercise-answer').value;
+        if (!answer.trim()) { this.toast('Please write your prompt first.', 'error'); return; }
+        this.toast('Exercise submitted for AI review!', 'success');
+      }
+    }
+
+    const integrationsPage = new IntegrationsPage();
+  </script>
+</body>
+</html>

@@ -27,3 +27,11 @@ trading-bot-csharp/**/data/
 
 # Reference repos (cloned for study)
 reference/
+
+.vercel
+
+# Large binaries
+youtube-tools/ffmpeg-master-latest-win64-gpl/bin/
+flowsaas-deploy.zip
+*.tgz
+docs/__pycache__/

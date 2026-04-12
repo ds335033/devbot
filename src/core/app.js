@@ -42,6 +42,12 @@ const { registerAgentKitRoutes } = await import('../trading/agentkit.js');
 const { registerSchedulerRoutes } = await import('../trading/scheduler.js');
 const { registerDropshippingRoutes } = await import('../api/dropshipping.js');
 const { registerEmailRoutes } = await import('../api/email.js');
+const { registerAlertRoutes } = await import('../api/alerts.js');
+const { registerBundleRoutes } = await import('../api/bundle.js');
+const { registerCloakRoutes } = await import('../api/cloak.js');
+const { applySecurityHardening } = await import('../security/hardening.js');
+const { registerEmailSegmentRoutes } = await import('../api/email-segments.js');
+const { registerTierRoutes } = await import('../api/tiers.js');
 const { registerWorkflowRoutes } = await import('../api/workflows.js');
 const { registerIntegrationRoutes } = await import('../api/integrations.js');
 const { initializeIntegrations } = await import('../integrations/index.js');
@@ -82,13 +88,14 @@ app.use(express.json({ limit: '1mb' }));
 // CORS — restrict to known origins
 const ALLOWED_ORIGINS = [
   'https://devbotai.store',
+  'https://dwvbotai.store',
+  'https://devbotai.shop',
   'https://ds335033.github.io',
   'http://localhost:3000',
   'http://localhost:8000',
   'http://localhost:8080',
   'http://127.0.0.1:3000',
   'http://127.0.0.1:8080',
-  'https://dwvbotai.store',
 ];
 
 app.use((req, res, next) => {
@@ -143,8 +150,60 @@ registerDropshippingRoutes(app);
 // DEVFONE email notifications (order confirmation, shipping, welcome)
 registerEmailRoutes(app);
 
+// Affiliate alert system — Slack notifications + Zapier webhooks
+registerAlertRoutes(app);
+
+// Bundle checkout — $497 automation kit
+registerBundleRoutes(app);
+
+// Link cloaking — masked affiliate URLs at /go/:slug
+registerCloakRoutes(app);
+
+// Segmented email marketing
+registerEmailSegmentRoutes(app);
+
+// Tiered membership system
+registerTierRoutes(app);
+
+// Security hardening — CORS, bot detection, input sanitization
+applySecurityHardening(app);
+
 // Workflow orchestration engine — DAG-based workflow templates, scheduler, triggers, dashboard
-registerWorkflowRoutes(app, { engine, github, slackBot });
+const workflowServices = registerWorkflowRoutes(app, { engine, github, slackBot });
+
+// ── Auto-configure revenue triggers + cron jobs ──
+if (workflowServices) {
+  const { triggerManager, scheduler } = workflowServices;
+  try {
+    // Only create triggers if none exist yet (idempotent)
+    const existing = triggerManager.listTriggers();
+    if (existing.length === 0) {
+      // 1. Stripe payment → Customer Onboarding
+      triggerManager.createTrigger({ name: 'Stripe Payment → Onboarding', type: 'stripe_event', filter: { eventType: 'payment_intent.succeeded' }, actions: [{ templateId: 'customer-onboarding', paramMapping: { email: 'event.receipt_email', customerId: 'event.customer' }, priority: 0 }] });
+      // 2. GitHub push → Full App Pipeline review
+      triggerManager.createTrigger({ name: 'GitHub Push → App Pipeline', type: 'github_event', filter: { action: 'push', branch: 'main' }, actions: [{ templateId: 'full-app-pipeline', paramMapping: { prompt: 'event.head_commit.message' }, priority: 1 }] });
+      // 3. Slack command → AI Chatbot Deploy
+      triggerManager.createTrigger({ name: 'Slack /devbot → Chatbot Deploy', type: 'slack_command', filter: { command: '/devbot' }, actions: [{ templateId: 'ai-chatbot-deploy', paramMapping: { persona: 'event.text', businessName: 'DevBotAI' }, priority: 1 }] });
+      // 4. Webhook → Marketplace Publish
+      triggerManager.createTrigger({ name: 'Webhook → Marketplace Publish', type: 'webhook_received', filter: { path: '/marketplace/order' }, actions: [{ templateId: 'marketplace-publish', paramMapping: { prompt: 'event.appDescription', sellerEmail: 'event.sellerEmail' }, priority: 2 }] });
+      // 5. Manual trigger for any workflow
+      triggerManager.createTrigger({ name: 'Manual → Any Workflow', type: 'manual', filter: {}, actions: [{ templateId: 'customer-onboarding', paramMapping: {}, priority: 2 }] });
+      console.log('[DevBot Workflow] 5 revenue triggers auto-configured');
+    }
+
+    // Cron jobs — only create if none exist
+    const queueStatus = scheduler.getStatus();
+    if (!queueStatus.cronJobs || queueStatus.cronJobs.length === 0) {
+      scheduler.addCronJob('0 0 * * *', 'affiliate-payout', { affiliateId: 'batch', affiliateEmail: 'admin@devbot.ai' }, 2);       // Daily midnight
+      scheduler.addCronJob('0 */6 * * *', 'marketplace-publish', { prompt: 'Generate trending app for marketplace', sellerEmail: 'admin@devbot.ai' }, 3); // Every 6 hours
+      scheduler.addCronJob('0 9 * * 1-5', 'full-app-pipeline', { prompt: 'Daily status report app' }, 3);                           // Weekdays 9AM
+      scheduler.addCronJob('0 10 * * *', 'customer-onboarding', { customerId: 'followup', email: 'admin@devbot.ai', plan: 'Pro', amount: 0 }, 3); // Daily 10AM
+      console.log('[DevBot Workflow] 4 cron jobs auto-configured (affiliate payouts, marketplace, pipeline, onboarding)');
+    }
+  } catch (e) {
+    console.error('[DevBot Workflow] Auto-trigger setup error:', e.message);
+  }
+}
 
 // Initialize all integrations (SharePoint, Financial, Chatbot, Benchmarks, Academy)
 const integrations = initializeIntegrations({ engine, github, slackBot });

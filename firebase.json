@@ -1,0 +1,19 @@
+{
+  "hosting": {
+    "site": "devbotai-shop",
+    "public": "storefront",
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**"
+    ],
+    "headers": [
+      {
+        "source": "**/*.@(js|css|html)",
+        "headers": [
+          { "key": "Cache-Control", "value": "max-age=3600" }
+        ]
+      }
+    ]
+  }
+}

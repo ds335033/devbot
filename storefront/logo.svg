@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 48" fill="none">
+  <defs>
+    <linearGradient id="bolt" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#6366f1"/>
+      <stop offset="100%" stop-color="#8b5cf6"/>
+    </linearGradient>
+    <linearGradient id="text-grad" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#e2e8f0"/>
+      <stop offset="70%" stop-color="#e2e8f0"/>
+      <stop offset="70%" stop-color="#6366f1"/>
+      <stop offset="100%" stop-color="#8b5cf6"/>
+    </linearGradient>
+  </defs>
+  <!-- Bolt icon circle -->
+  <circle cx="24" cy="24" r="22" fill="url(#bolt)" opacity="0.15"/>
+  <path d="M28 10L16 26h8l-4 12 12-16h-8l4-12z" fill="url(#bolt)"/>
+  <!-- DevBot text -->
+  <text x="56" y="33" font-family="'Space Grotesk', 'Inter', system-ui, sans-serif" font-size="28" font-weight="700" fill="#e2e8f0" letter-spacing="-0.5">DevBot</text>
+  <!-- AI text with gradient -->
+  <text x="160" y="33" font-family="'Space Grotesk', 'Inter', system-ui, sans-serif" font-size="28" font-weight="800" fill="url(#bolt)" letter-spacing="-0.5">AI</text>
+</svg>

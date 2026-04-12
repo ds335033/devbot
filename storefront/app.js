@@ -1,5 +1,5 @@
 /* ============================================================
-   dwvbotai.store — Main Application
+   DevBotAI — Main Application
    ============================================================ */
 
 class DevBotStore {
@@ -49,7 +49,7 @@ class DevBotStore {
 
   /* --- Theme --- */
   setupTheme() {
-    const saved = localStorage.getItem('dwvbot-theme') || 'dark';
+    const saved = localStorage.getItem('devbotai-theme') || 'dark';
     document.documentElement.setAttribute('data-theme', saved);
     this.updateThemeIcon(saved);
 
@@ -59,7 +59,7 @@ class DevBotStore {
         const current = document.documentElement.getAttribute('data-theme');
         const next = current === 'dark' ? 'light' : 'dark';
         document.documentElement.setAttribute('data-theme', next);
-        localStorage.setItem('dwvbot-theme', next);
+        localStorage.setItem('devbotai-theme', next);
         this.updateThemeIcon(next);
       });
     }

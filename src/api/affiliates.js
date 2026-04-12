@@ -77,7 +77,7 @@ export function registerAffiliateRoutes(app) {
         website: website || '',
         paypal_email: paypal_email || email,
         referral_code,
-        referral_link: `https://devbotai.store/?ref=${referral_code}`,
+        referral_link: `https://devbotai.shop/?ref=${referral_code}`,
         commission_rate: 0.20, // 20% recurring
         status: 'active',
         total_clicks: 0,
@@ -95,7 +95,7 @@ export function registerAffiliateRoutes(app) {
         affiliate: {
           id: affiliate_id,
           referral_code,
-          referral_link: `https://devbotai.store/?ref=${referral_code}`,
+          referral_link: `https://devbotai.shop/?ref=${referral_code}`,
           commission_rate: '20% recurring',
           cookie_duration: '90 days',
         },
@@ -137,7 +137,7 @@ export function registerAffiliateRoutes(app) {
         httpOnly: true,
         sameSite: 'lax',
       });
-      res.redirect(`https://devbotai.store/?ref=${code}`);
+      res.redirect(`https://devbotai.shop/?ref=${code}`);
     } catch (err) {
       res.redirect('https://devbotai.store/');
     }

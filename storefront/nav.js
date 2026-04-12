@@ -2,27 +2,26 @@
   'use strict';
 
   // Prevent double-injection
-  if (document.getElementById('dwvbot-global-nav')) return;
+  if (document.getElementById('devbotai-global-nav')) return;
 
   var nav = document.createElement('nav');
-  nav.id = 'dwvbot-global-nav';
+  nav.id = 'devbotai-global-nav';
   nav.setAttribute('role', 'navigation');
   nav.setAttribute('aria-label', 'Global navigation');
 
   nav.innerHTML = [
     '<div style="max-width:1200px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;padding:0 20px;">',
-    '  <a href="/" style="display:flex;align-items:center;gap:8px;text-decoration:none;font-weight:700;font-size:1.1rem;color:#fff;font-family:Inter,sans-serif;">',
-    '    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#6366f1" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>',
-    '    <span>dwvbotai<span style="color:#6366f1;">.store</span></span>',
+    '  <a href="/" style="display:flex;align-items:center;gap:8px;text-decoration:none;" aria-label="DevBotAI home">',
+    '    <img src="/storefront/logo.svg" alt="DevBotAI" style="height:32px;width:auto;">',
     '  </a>',
-    '  <div id="dwvbot-nav-links" style="display:flex;align-items:center;gap:6px;">',
-    '    <a href="/" class="dwvbot-nav-link">Home</a>',
-    '    <a href="/scent-of-adelaide" class="dwvbot-nav-link">Stores</a>',
-    '    <a href="/docs/trading.html" class="dwvbot-nav-link">Trading</a>',
-    '    <a href="/docs" class="dwvbot-nav-link">Docs</a>',
-    '    <a href="/health" class="dwvbot-nav-link">API</a>',
+    '  <div id="devbotai-nav-links" style="display:flex;align-items:center;gap:6px;">',
+    '    <a href="/" class="devbotai-nav-link">Home</a>',
+    '    <a href="/storefront/affiliates.html" class="devbotai-nav-link">Affiliate Hub</a>',
+    '    <a href="/storefront/trading.html" class="devbotai-nav-link">Trading</a>',
+    '    <a href="/storefront/integrations.html" class="devbotai-nav-link">Integrations</a>',
+    '    <a href="/health" class="devbotai-nav-link">API</a>',
     '  </div>',
-    '  <button id="dwvbot-nav-toggle" aria-label="Toggle menu" style="display:none;background:none;border:none;color:#fff;font-size:1.4rem;cursor:pointer;">&#9776;</button>',
+    '  <button id="devbotai-nav-toggle" aria-label="Toggle menu" style="display:none;background:none;border:none;color:#fff;font-size:1.4rem;cursor:pointer;">&#9776;</button>',
     '</div>'
   ].join('\n');
 
@@ -44,7 +43,7 @@
   // Inject a style block for links and responsive behavior
   var style = document.createElement('style');
   style.textContent = [
-    '.dwvbot-nav-link {',
+    '.devbotai-nav-link {',
     '  color: #a5a5c0;',
     '  text-decoration: none;',
     '  font-size: 0.875rem;',
@@ -54,13 +53,13 @@
     '  transition: color 0.2s, background 0.2s;',
     '  font-family: Inter, system-ui, sans-serif;',
     '}',
-    '.dwvbot-nav-link:hover {',
+    '.devbotai-nav-link:hover {',
     '  color: #fff;',
     '  background: rgba(99,102,241,0.15);',
     '}',
     'body { padding-top: 52px !important; }',
     '@media (max-width: 640px) {',
-    '  #dwvbot-nav-links {',
+    '  #devbotai-nav-links {',
     '    display: none !important;',
     '    position: absolute;',
     '    top: 52px;',
@@ -71,10 +70,10 @@
     '    padding: 12px 20px;',
     '    border-bottom: 1px solid #1e1e2e;',
     '  }',
-    '  #dwvbot-nav-links.open {',
+    '  #devbotai-nav-links.open {',
     '    display: flex !important;',
     '  }',
-    '  #dwvbot-nav-toggle {',
+    '  #devbotai-nav-toggle {',
     '    display: block !important;',
     '  }',
     '}'
@@ -86,8 +85,8 @@
   document.body.insertBefore(nav, document.body.firstChild);
 
   // Toggle handler for mobile
-  var toggle = document.getElementById('dwvbot-nav-toggle');
-  var links = document.getElementById('dwvbot-nav-links');
+  var toggle = document.getElementById('devbotai-nav-toggle');
+  var links = document.getElementById('devbotai-nav-links');
   if (toggle && links) {
     toggle.addEventListener('click', function() {
       links.classList.toggle('open');

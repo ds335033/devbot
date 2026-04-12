@@ -3,13 +3,52 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="dwvbotai.store Workflow Manager — Launch, monitor, and manage automation workflows.">
-  <title>Workflow Manager — dwvbotai.store</title>
+  <meta name="description" content="DevBotAI Revenue Workflows — 5 automated pipelines generating income 24/7. Customer onboarding, app generation, affiliate payouts, marketplace publishing, and AI chatbot deployment.">
+  <meta property="og:title" content="Revenue Workflows — DevBotAI">
+  <meta property="og:description" content="5 automated revenue workflows running 24/7. Launch, monitor, and scale your income pipelines.">
+  <meta property="og:url" content="https://devbotai-225be.web.app/workflows.html">
+  <link rel="canonical" href="https://devbotai-225be.web.app/workflows.html">
+  <title>Revenue Workflows — DevBotAI</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer">
   <link rel="stylesheet" href="style.css">
+  <style>
+    .wf-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); gap: 1.5rem; margin-bottom: 2rem; }
+    .wf-card { background: linear-gradient(135deg, rgba(99,102,241,0.08), rgba(139,92,246,0.05)); border: 1px solid rgba(99,102,241,0.2); border-radius: 16px; padding: 1.5rem; transition: transform 0.2s, box-shadow 0.2s; position: relative; overflow: hidden; }
+    .wf-card:hover { transform: translateY(-3px); box-shadow: 0 8px 32px rgba(99,102,241,0.15); }
+    .wf-card-badge { position: absolute; top: 12px; right: 12px; background: rgba(16,185,129,0.15); color: #10b981; font-size: 0.7rem; font-weight: 600; padding: 3px 10px; border-radius: 20px; text-transform: uppercase; letter-spacing: 0.5px; }
+    .wf-card-icon { width: 48px; height: 48px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 1.25rem; margin-bottom: 1rem; }
+    .wf-card-icon.green { background: rgba(16,185,129,0.15); color: #10b981; }
+    .wf-card-icon.blue { background: rgba(59,130,246,0.15); color: #3b82f6; }
+    .wf-card-icon.purple { background: rgba(139,92,246,0.15); color: #8b5cf6; }
+    .wf-card-icon.amber { background: rgba(245,158,11,0.15); color: #f59e0b; }
+    .wf-card-icon.pink { background: rgba(236,72,153,0.15); color: #ec4899; }
+    .wf-card h3 { font-size: 1.1rem; font-weight: 600; color: #e2e8f0; margin-bottom: 0.5rem; }
+    .wf-card p { font-size: 0.85rem; color: #94a3b8; line-height: 1.5; margin-bottom: 1rem; }
+    .wf-card-steps { display: flex; gap: 0.25rem; margin-bottom: 1rem; }
+    .wf-card-steps span { font-size: 0.7rem; background: rgba(99,102,241,0.1); color: #a5b4fc; padding: 2px 8px; border-radius: 4px; white-space: nowrap; }
+    .wf-card-meta { display: flex; justify-content: space-between; align-items: center; font-size: 0.8rem; color: #64748b; border-top: 1px solid rgba(255,255,255,0.05); padding-top: 0.75rem; }
+    .wf-card-actions { display: flex; gap: 0.5rem; margin-top: 1rem; }
+    .trigger-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1rem; margin-bottom: 1.5rem; }
+    .trigger-card { background: rgba(15,23,42,0.6); border: 1px solid rgba(99,102,241,0.15); border-radius: 12px; padding: 1.25rem; }
+    .trigger-card h4 { font-size: 0.95rem; font-weight: 600; color: #e2e8f0; margin-bottom: 0.5rem; display: flex; align-items: center; gap: 0.5rem; }
+    .trigger-card p { font-size: 0.8rem; color: #94a3b8; margin-bottom: 0.75rem; }
+    .trigger-indicator { display: inline-flex; align-items: center; gap: 0.35rem; font-size: 0.75rem; padding: 3px 10px; border-radius: 20px; }
+    .trigger-indicator.active { background: rgba(16,185,129,0.12); color: #10b981; }
+    .trigger-indicator.pending { background: rgba(245,158,11,0.12); color: #f59e0b; }
+    .cron-table { width: 100%; font-size: 0.85rem; }
+    .cron-table th { text-align: left; padding: 0.75rem 0.5rem; color: #94a3b8; font-weight: 500; border-bottom: 1px solid rgba(255,255,255,0.05); }
+    .cron-table td { padding: 0.75rem 0.5rem; color: #e2e8f0; border-bottom: 1px solid rgba(255,255,255,0.03); }
+    .cron-expr { font-family: 'Space Grotesk', monospace; background: rgba(99,102,241,0.1); padding: 2px 8px; border-radius: 4px; font-size: 0.8rem; color: #a5b4fc; }
+    .revenue-banner { background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 50%, #ec4899 100%); border-radius: 16px; padding: 2rem; margin-bottom: 2rem; text-align: center; }
+    .revenue-banner h2 { font-size: 1.5rem; font-weight: 700; color: #fff; margin-bottom: 0.5rem; }
+    .revenue-banner p { color: rgba(255,255,255,0.85); font-size: 0.95rem; }
+    .revenue-stat { display: inline-flex; flex-direction: column; align-items: center; padding: 0.75rem 1.5rem; }
+    .revenue-stat .val { font-size: 1.75rem; font-weight: 700; color: #fff; }
+    .revenue-stat .lbl { font-size: 0.75rem; color: rgba(255,255,255,0.7); text-transform: uppercase; letter-spacing: 0.5px; }
+  </style>
 </head>
 <body>
   <div id="toast-container" class="toast-container" aria-live="polite" aria-atomic="true"></div>
@@ -17,15 +56,15 @@
   <!-- Navigation -->
   <nav class="nav" role="navigation" aria-label="Main navigation">
     <div class="nav-inner container">
-      <a href="index.html" class="nav-brand" aria-label="dwvbotai.store home">
-        <i class="fa-solid fa-bolt"></i>
-        <span>dwvbotai<span class="accent">.store</span></span>
+      <a href="/" class="nav-brand" aria-label="DevBotAI home">
+        <img src="logo.svg" alt="DevBotAI" style="height:32px;width:auto;">
       </a>
       <div class="nav-links" id="nav-links">
         <a href="index.html" class="nav-link">Dashboard</a>
-        <a href="index.html#services" class="nav-link">Services</a>
+        <a href="affiliates.html" class="nav-link">Affiliates</a>
         <a href="integrations.html" class="nav-link">Integrations</a>
         <a href="workflows.html" class="nav-link" aria-current="page">Workflows</a>
+        <a href="pricing.html" class="nav-link">Pricing</a>
       </div>
       <div class="nav-actions">
         <button class="btn btn-icon" id="theme-toggle" aria-label="Toggle theme">
@@ -40,11 +79,23 @@
 
   <main>
     <div class="page-header">
-      <h1><span class="gradient-text">Workflow Manager</span></h1>
-      <p>Launch, monitor, and manage automation workflows</p>
+      <h1><span class="gradient-text">Revenue Workflows</span></h1>
+      <p>5 automated pipelines generating income 24/7/365</p>
     </div>
 
     <div class="container">
+      <!-- Revenue Banner -->
+      <div class="revenue-banner">
+        <h2>Workflow Automation Engine</h2>
+        <p>DAG-based orchestration with priority queue, cron scheduling, auto-triggers, and retry logic</p>
+        <div style="display:flex;justify-content:center;gap:0.5rem;margin-top:1.25rem;flex-wrap:wrap;">
+          <div class="revenue-stat"><span class="val" id="stat-workflows">5</span><span class="lbl">Workflows</span></div>
+          <div class="revenue-stat"><span class="val" id="stat-triggers">7</span><span class="lbl">Trigger Types</span></div>
+          <div class="revenue-stat"><span class="val" id="stat-steps">10</span><span class="lbl">Step Executors</span></div>
+          <div class="revenue-stat"><span class="val" id="stat-concurrent">5</span><span class="lbl">Concurrent</span></div>
+        </div>
+      </div>
+
       <!-- Dashboard Stats -->
       <div class="stats-row" id="wf-stats">
         <div class="stat-card">
@@ -52,11 +103,11 @@
           <div class="stat-card-label">Active Workflows</div>
         </div>
         <div class="stat-card">
-          <div class="stat-card-value" id="wf-success-rate">—</div>
+          <div class="stat-card-value" id="wf-success-rate">--</div>
           <div class="stat-card-label">Success Rate</div>
         </div>
         <div class="stat-card">
-          <div class="stat-card-value" id="wf-avg-time">—</div>
+          <div class="stat-card-value" id="wf-avg-time">--</div>
           <div class="stat-card-label">Avg. Duration</div>
         </div>
         <div class="stat-card">
@@ -64,6 +115,203 @@
           <div class="stat-card-label">Queued</div>
         </div>
       </div>
+
+      <!-- ═══ 5 REVENUE WORKFLOW CARDS ═══ -->
+      <section style="margin-bottom:2rem">
+        <h2 style="font-size:1.25rem;font-weight:600;color:#e2e8f0;margin-bottom:1rem;"><i class="fa-solid fa-money-bill-trend-up" style="color:#10b981;margin-right:0.5rem;"></i>Revenue Workflows</h2>
+        <div class="wf-grid">
+
+          <!-- 1. Customer Onboarding -->
+          <div class="wf-card">
+            <span class="wf-card-badge">LIVE</span>
+            <div class="wf-card-icon green"><i class="fa-solid fa-user-plus"></i></div>
+            <h3>Customer Onboarding</h3>
+            <p>Auto-onboard paying customers: Stripe payment, credits, welcome email, Slack alert, GitHub repo, and starter app generation.</p>
+            <div class="wf-card-steps">
+              <span>Stripe</span><span>Email</span><span>Slack</span><span>GitHub</span><span>AI Gen</span>
+            </div>
+            <div class="wf-card-meta">
+              <span><i class="fa-solid fa-clock"></i> 2-3 min</span>
+              <span>5 steps</span>
+            </div>
+            <div class="wf-card-actions">
+              <button class="btn btn-primary btn-sm" onclick="workflowsPage.quickLaunch('customer-onboarding', {customerId:'new', email:'customer@example.com', plan:'Pro', amount:9900})"><i class="fa-solid fa-play"></i> Launch</button>
+              <button class="btn btn-outline btn-sm" onclick="workflowsPage.viewDAG('customer-onboarding')"><i class="fa-solid fa-diagram-project"></i> View DAG</button>
+            </div>
+          </div>
+
+          <!-- 2. Full App Pipeline -->
+          <div class="wf-card">
+            <span class="wf-card-badge">LIVE</span>
+            <div class="wf-card-icon blue"><i class="fa-solid fa-rocket"></i></div>
+            <h3>Full App Pipeline</h3>
+            <p>AI-powered app factory: generate app, AI code review, auto-fix issues, push to GitHub, notify Slack, trigger deploy.</p>
+            <div class="wf-card-steps">
+              <span>AI Gen</span><span>Review</span><span>Fix</span><span>GitHub</span><span>Slack</span><span>Deploy</span>
+            </div>
+            <div class="wf-card-meta">
+              <span><i class="fa-solid fa-clock"></i> 3-5 min</span>
+              <span>6 steps</span>
+            </div>
+            <div class="wf-card-actions">
+              <button class="btn btn-primary btn-sm" onclick="workflowsPage.quickLaunch('full-app-pipeline', {prompt:'Build a SaaS dashboard with auth and billing'})"><i class="fa-solid fa-play"></i> Launch</button>
+              <button class="btn btn-outline btn-sm" onclick="workflowsPage.viewDAG('full-app-pipeline')"><i class="fa-solid fa-diagram-project"></i> View DAG</button>
+            </div>
+          </div>
+
+          <!-- 3. Affiliate Payout -->
+          <div class="wf-card">
+            <span class="wf-card-badge">LIVE</span>
+            <div class="wf-card-icon amber"><i class="fa-solid fa-hand-holding-dollar"></i></div>
+            <h3>Affiliate Payout</h3>
+            <p>Automated commission pipeline: calculate earnings, verify $50 threshold, process Stripe payout, send receipt, update leaderboard.</p>
+            <div class="wf-card-steps">
+              <span>Calculate</span><span>Verify</span><span>Payout</span><span>Receipt</span><span>Leaderboard</span>
+            </div>
+            <div class="wf-card-meta">
+              <span><i class="fa-solid fa-clock"></i> 30 sec</span>
+              <span>5 steps</span>
+            </div>
+            <div class="wf-card-actions">
+              <button class="btn btn-primary btn-sm" onclick="workflowsPage.quickLaunch('affiliate-payout', {affiliateId:'aff-001', affiliateEmail:'affiliate@example.com', payoutAmount:15000})"><i class="fa-solid fa-play"></i> Launch</button>
+              <button class="btn btn-outline btn-sm" onclick="workflowsPage.viewDAG('affiliate-payout')"><i class="fa-solid fa-diagram-project"></i> View DAG</button>
+            </div>
+          </div>
+
+          <!-- 4. Marketplace Publish -->
+          <div class="wf-card">
+            <span class="wf-card-badge">LIVE</span>
+            <div class="wf-card-icon purple"><i class="fa-solid fa-store"></i></div>
+            <h3>Marketplace Publish</h3>
+            <p>Generate apps for sale: AI builds the app, quality review, screenshots, list on marketplace, notify seller with details.</p>
+            <div class="wf-card-steps">
+              <span>AI Gen</span><span>QA Review</span><span>Screenshot</span><span>List</span><span>Notify</span>
+            </div>
+            <div class="wf-card-meta">
+              <span><i class="fa-solid fa-clock"></i> 3-5 min</span>
+              <span>5 steps</span>
+            </div>
+            <div class="wf-card-actions">
+              <button class="btn btn-primary btn-sm" onclick="workflowsPage.quickLaunch('marketplace-publish', {prompt:'Build a React weather dashboard', sellerEmail:'seller@devbot.ai', price:49})"><i class="fa-solid fa-play"></i> Launch</button>
+              <button class="btn btn-outline btn-sm" onclick="workflowsPage.viewDAG('marketplace-publish')"><i class="fa-solid fa-diagram-project"></i> View DAG</button>
+            </div>
+          </div>
+
+          <!-- 5. AI Chatbot Deploy -->
+          <div class="wf-card">
+            <span class="wf-card-badge">LIVE</span>
+            <div class="wf-card-icon pink"><i class="fa-solid fa-robot"></i></div>
+            <h3>AI Chatbot Deploy</h3>
+            <p>Deploy customer service bots: configure persona, generate 20+ response templates, test conversation flow, deploy endpoint, monitor.</p>
+            <div class="wf-card-steps">
+              <span>Persona</span><span>Responses</span><span>Test</span><span>Deploy</span><span>Monitor</span>
+            </div>
+            <div class="wf-card-meta">
+              <span><i class="fa-solid fa-clock"></i> 2-3 min</span>
+              <span>5 steps</span>
+            </div>
+            <div class="wf-card-actions">
+              <button class="btn btn-primary btn-sm" onclick="workflowsPage.quickLaunch('ai-chatbot-deploy', {persona:'Friendly sales assistant', businessName:'DevBotAI'})"><i class="fa-solid fa-play"></i> Launch</button>
+              <button class="btn btn-outline btn-sm" onclick="workflowsPage.viewDAG('ai-chatbot-deploy')"><i class="fa-solid fa-diagram-project"></i> View DAG</button>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- ═══ AUTO-TRIGGERS ═══ -->
+      <section class="panel" style="margin-bottom:2rem">
+        <h2 class="panel-title"><i class="fa-solid fa-bolt" style="color:#f59e0b"></i> Auto-Triggers (Event-Driven)</h2>
+        <p style="color:#94a3b8;font-size:0.85rem;margin-bottom:1.25rem;">Workflows fire automatically when events occur. 7 trigger types supported.</p>
+        <div class="trigger-grid">
+          <div class="trigger-card">
+            <h4><i class="fa-brands fa-stripe-s" style="color:#6366f1"></i> Stripe Payment</h4>
+            <p>On <code>payment_intent.succeeded</code> &rarr; auto-launch <strong>Customer Onboarding</strong></p>
+            <span class="trigger-indicator active"><i class="fa-solid fa-circle" style="font-size:6px"></i> Active</span>
+          </div>
+          <div class="trigger-card">
+            <h4><i class="fa-brands fa-github" style="color:#e2e8f0"></i> GitHub Push</h4>
+            <p>On push to <code>main</code> &rarr; auto-launch <strong>Full App Pipeline</strong> code review</p>
+            <span class="trigger-indicator active"><i class="fa-solid fa-circle" style="font-size:6px"></i> Active</span>
+          </div>
+          <div class="trigger-card">
+            <h4><i class="fa-brands fa-slack" style="color:#e01e5a"></i> Slack Command</h4>
+            <p>On <code>/devbot deploy</code> &rarr; auto-launch <strong>AI Chatbot Deploy</strong></p>
+            <span class="trigger-indicator active"><i class="fa-solid fa-circle" style="font-size:6px"></i> Active</span>
+          </div>
+          <div class="trigger-card">
+            <h4><i class="fa-solid fa-globe" style="color:#3b82f6"></i> Webhook</h4>
+            <p>On marketplace order &rarr; auto-launch <strong>Marketplace Publish</strong></p>
+            <span class="trigger-indicator active"><i class="fa-solid fa-circle" style="font-size:6px"></i> Active</span>
+          </div>
+          <div class="trigger-card">
+            <h4><i class="fa-solid fa-clock" style="color:#8b5cf6"></i> Cron Schedule</h4>
+            <p>Daily at midnight &rarr; auto-launch <strong>Affiliate Payout</strong> batch</p>
+            <span class="trigger-indicator active"><i class="fa-solid fa-circle" style="font-size:6px"></i> Active</span>
+          </div>
+          <div class="trigger-card">
+            <h4><i class="fa-solid fa-hand-pointer" style="color:#10b981"></i> Manual Trigger</h4>
+            <p>Fire any workflow on-demand from this dashboard or via API</p>
+            <span class="trigger-indicator active"><i class="fa-solid fa-circle" style="font-size:6px"></i> Active</span>
+          </div>
+        </div>
+        <button class="btn btn-outline btn-sm" onclick="workflowsPage.setupTriggers()"><i class="fa-solid fa-plus"></i> Configure New Trigger</button>
+      </section>
+
+      <!-- ═══ CRON SCHEDULED JOBS ═══ -->
+      <section class="panel" style="margin-bottom:2rem">
+        <h2 class="panel-title"><i class="fa-solid fa-calendar-days" style="color:#8b5cf6"></i> Scheduled Jobs (24/7 Cron)</h2>
+        <p style="color:#94a3b8;font-size:0.85rem;margin-bottom:1rem;">Recurring workflows running automatically on schedule.</p>
+        <div class="table-wrap">
+          <table class="cron-table">
+            <thead>
+              <tr><th>Job</th><th>Workflow</th><th>Schedule</th><th>Last Run</th><th>Runs</th><th>Status</th></tr>
+            </thead>
+            <tbody id="cron-body">
+              <tr>
+                <td>Affiliate Payouts</td>
+                <td>affiliate-payout</td>
+                <td><span class="cron-expr">0 0 * * *</span> Daily midnight</td>
+                <td id="cron-aff-last">--</td>
+                <td id="cron-aff-count">0</td>
+                <td><span class="trigger-indicator active"><i class="fa-solid fa-circle" style="font-size:6px"></i> Active</span></td>
+              </tr>
+              <tr>
+                <td>Marketplace Refresh</td>
+                <td>marketplace-publish</td>
+                <td><span class="cron-expr">0 */6 * * *</span> Every 6 hours</td>
+                <td id="cron-mkt-last">--</td>
+                <td id="cron-mkt-count">0</td>
+                <td><span class="trigger-indicator active"><i class="fa-solid fa-circle" style="font-size:6px"></i> Active</span></td>
+              </tr>
+              <tr>
+                <td>Chatbot Health Check</td>
+                <td>ai-chatbot-deploy</td>
+                <td><span class="cron-expr">*/30 * * * *</span> Every 30 min</td>
+                <td id="cron-bot-last">--</td>
+                <td id="cron-bot-count">0</td>
+                <td><span class="trigger-indicator active"><i class="fa-solid fa-circle" style="font-size:6px"></i> Active</span></td>
+              </tr>
+              <tr>
+                <td>Pipeline Status Report</td>
+                <td>full-app-pipeline</td>
+                <td><span class="cron-expr">0 9 * * 1-5</span> Weekdays 9AM</td>
+                <td id="cron-rpt-last">--</td>
+                <td id="cron-rpt-count">0</td>
+                <td><span class="trigger-indicator active"><i class="fa-solid fa-circle" style="font-size:6px"></i> Active</span></td>
+              </tr>
+              <tr>
+                <td>Onboarding Follow-up</td>
+                <td>customer-onboarding</td>
+                <td><span class="cron-expr">0 10 * * *</span> Daily 10AM</td>
+                <td id="cron-onb-last">--</td>
+                <td id="cron-onb-count">0</td>
+                <td><span class="trigger-indicator active"><i class="fa-solid fa-circle" style="font-size:6px"></i> Active</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
 
       <!-- Active Workflows -->
       <section class="panel" style="margin-bottom:2rem">
@@ -75,65 +323,66 @@
 
       <!-- Workflow DAG Viewer -->
       <section class="panel" style="margin-bottom:2rem">
-        <h2 class="panel-title"><i class="fa-solid fa-diagram-project" style="color:var(--accent)"></i> Workflow Steps</h2>
+        <h2 class="panel-title"><i class="fa-solid fa-diagram-project" style="color:var(--accent)"></i> Workflow Steps (DAG)</h2>
         <div id="dag-container">
           <div class="dag" id="workflow-dag">
             <div class="dag-step completed">
               <div class="dag-node"><i class="fa-solid fa-check"></i></div>
-              <div class="dag-label">Initialize</div>
+              <div class="dag-label">Payment</div>
             </div>
             <div class="dag-step completed">
               <div class="dag-node"><i class="fa-solid fa-check"></i></div>
-              <div class="dag-label">Fetch Data</div>
+              <div class="dag-label">Welcome Email</div>
             </div>
             <div class="dag-step active">
-              <div class="dag-node"><i class="fa-solid fa-gear"></i></div>
-              <div class="dag-label">Process</div>
+              <div class="dag-node"><i class="fa-solid fa-gear fa-spin"></i></div>
+              <div class="dag-label">Create Repo</div>
             </div>
             <div class="dag-step">
-              <div class="dag-node"><i class="fa-solid fa-file-export"></i></div>
-              <div class="dag-label">Generate Output</div>
+              <div class="dag-node"><i class="fa-solid fa-robot"></i></div>
+              <div class="dag-label">Generate App</div>
             </div>
             <div class="dag-step">
-              <div class="dag-node"><i class="fa-solid fa-cloud-arrow-up"></i></div>
-              <div class="dag-label">Deploy</div>
+              <div class="dag-node"><i class="fa-solid fa-bell"></i></div>
+              <div class="dag-label">Notify</div>
             </div>
           </div>
         </div>
       </section>
 
-      <!-- Launch Template -->
+      <!-- Launch Workflow (Advanced) -->
       <section class="panel" style="margin-bottom:2rem">
-        <h2 class="panel-title"><i class="fa-solid fa-rocket" style="color:var(--secondary)"></i> Launch Workflow</h2>
+        <h2 class="panel-title"><i class="fa-solid fa-terminal" style="color:var(--secondary)"></i> Launch Workflow (Advanced)</h2>
         <form id="launch-form" onsubmit="workflowsPage.launchWorkflow(event)">
           <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:1rem;margin-bottom:1rem">
             <div class="form-group">
               <label class="form-label" for="wf-template">Template</label>
               <select class="form-select" id="wf-template">
-                <option value="spfx-gen">SPFx App Generator</option>
-                <option value="code-review">AI Code Review</option>
-                <option value="trading-signal">Trading Signal Pipeline</option>
-                <option value="chatbot-deploy">Chatbot Deployment</option>
-                <option value="benchmark-suite">Benchmark Suite Runner</option>
-                <option value="report-gen">Financial Report</option>
-                <option value="site-provision">SharePoint Site Provisioning</option>
-                <option value="prompt-lesson">Lesson Builder</option>
-                <option value="data-pipeline">Data Pipeline</option>
-                <option value="full-stack">Full-Stack App Scaffold</option>
+                <option value="customer-onboarding">Customer Onboarding ($29-$499/mo)</option>
+                <option value="full-app-pipeline">Full App Pipeline (AI Gen + Deploy)</option>
+                <option value="affiliate-payout">Affiliate Payout (33% commission)</option>
+                <option value="marketplace-publish">Marketplace Publish (15% cut)</option>
+                <option value="ai-chatbot-deploy">AI Chatbot Deploy ($79/mo)</option>
+                <option value="code-review-loop">Code Review Loop</option>
+                <option value="security-audit">Security Audit ($299/audit)</option>
+                <option value="dropship-fulfillment">Dropship Fulfillment</option>
+                <option value="devfone-store-order">DevFone Store Order</option>
+                <option value="trading-setup">Trading Bot Setup</option>
               </select>
             </div>
             <div class="form-group">
               <label class="form-label" for="wf-priority">Priority</label>
               <select class="form-select" id="wf-priority">
-                <option value="normal">Normal</option>
-                <option value="high">High</option>
-                <option value="low">Low</option>
+                <option value="2">Normal</option>
+                <option value="0">Critical</option>
+                <option value="1">High</option>
+                <option value="3">Low</option>
               </select>
             </div>
           </div>
           <div class="form-group">
             <label class="form-label" for="wf-params">Parameters (JSON)</label>
-            <textarea class="form-textarea" id="wf-params" rows="4" placeholder='{"name": "my-project", "type": "webpart"}'></textarea>
+            <textarea class="form-textarea" id="wf-params" rows="4" placeholder='{"customerId": "cus_xxx", "email": "user@example.com", "plan": "Pro", "amount": 9900}'></textarea>
           </div>
           <button class="btn btn-primary" type="submit"><i class="fa-solid fa-play"></i> Launch Workflow</button>
         </form>
@@ -157,7 +406,6 @@
       <!-- Execution History -->
       <section class="panel">
         <h2 class="panel-title"><i class="fa-solid fa-clock-rotate-left" style="color:var(--text-muted)"></i> Execution History</h2>
-
         <div class="filter-bar">
           <select class="form-select" id="filter-status" aria-label="Filter by status">
             <option value="">All Statuses</option>
@@ -167,24 +415,42 @@
           </select>
           <select class="form-select" id="filter-template" aria-label="Filter by template">
             <option value="">All Templates</option>
-            <option value="spfx-gen">SPFx App Generator</option>
-            <option value="code-review">AI Code Review</option>
-            <option value="trading-signal">Trading Signal Pipeline</option>
-            <option value="chatbot-deploy">Chatbot Deployment</option>
-            <option value="report-gen">Financial Report</option>
+            <option value="customer-onboarding">Customer Onboarding</option>
+            <option value="full-app-pipeline">Full App Pipeline</option>
+            <option value="affiliate-payout">Affiliate Payout</option>
+            <option value="marketplace-publish">Marketplace Publish</option>
+            <option value="ai-chatbot-deploy">AI Chatbot Deploy</option>
           </select>
           <input class="form-input" type="date" id="filter-date-from" aria-label="Date from">
           <input class="form-input" type="date" id="filter-date-to" aria-label="Date to">
           <button class="btn btn-outline btn-sm" onclick="workflowsPage.applyFilters()"><i class="fa-solid fa-filter"></i> Apply</button>
         </div>
-
         <div class="table-wrap">
           <table>
             <thead>
               <tr><th>ID</th><th>Template</th><th>Status</th><th>Duration</th><th>Started</th><th>Actions</th></tr>
             </thead>
-            <tbody id="history-body">
-              <!-- Populated by JS with demo data -->
+            <tbody id="history-body"></tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- API Reference -->
+      <section class="panel" style="margin-top:2rem">
+        <h2 class="panel-title"><i class="fa-solid fa-code" style="color:#3b82f6"></i> API Endpoints</h2>
+        <div class="table-wrap">
+          <table style="font-size:0.85rem;">
+            <thead><tr><th>Method</th><th>Endpoint</th><th>Description</th></tr></thead>
+            <tbody>
+              <tr><td><span style="color:#10b981;font-weight:600">POST</span></td><td><code>/api/workflows/start</code></td><td>Start a workflow from template</td></tr>
+              <tr><td><span style="color:#3b82f6;font-weight:600">GET</span></td><td><code>/api/workflows/templates</code></td><td>List all 10 workflow templates</td></tr>
+              <tr><td><span style="color:#3b82f6;font-weight:600">GET</span></td><td><code>/api/workflows/dashboard</code></td><td>Aggregated stats dashboard</td></tr>
+              <tr><td><span style="color:#3b82f6;font-weight:600">GET</span></td><td><code>/api/workflows/queue</code></td><td>Queue status + cron jobs</td></tr>
+              <tr><td><span style="color:#3b82f6;font-weight:600">GET</span></td><td><code>/api/workflows/:id</code></td><td>Get workflow details</td></tr>
+              <tr><td><span style="color:#10b981;font-weight:600">POST</span></td><td><code>/api/workflows/triggers</code></td><td>Create event trigger</td></tr>
+              <tr><td><span style="color:#10b981;font-weight:600">POST</span></td><td><code>/api/workflows/triggers/fire</code></td><td>Manually fire a trigger</td></tr>
+              <tr><td><span style="color:#f59e0b;font-weight:600">POST</span></td><td><code>/api/workflows/:id/cancel</code></td><td>Cancel running workflow</td></tr>
+              <tr><td><span style="color:#f59e0b;font-weight:600">POST</span></td><td><code>/api/workflows/:id/retry</code></td><td>Retry failed workflow</td></tr>
             </tbody>
           </table>
         </div>
@@ -192,17 +458,59 @@
     </div>
   </main>
 
-  <footer class="footer" role="contentinfo">
-    <div class="container footer-inner">
-      <div class="footer-brand"><i class="fa-solid fa-bolt"></i> <span>dwvbotai<span class="accent">.store</span></span></div>
-      <p class="footer-text">Built by <strong>Dazza</strong> | Powered by <strong>Claude Opus 4.6</strong></p>
-      <div class="footer-links">
-        <a href="https://github.com/ds335033/devbot" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-github"></i> GitHub</a>
+  <!-- Footer -->
+  <footer style="background:#050510;border-top:1px solid rgba(99,102,241,0.2);padding:3rem 0 1.5rem;color:#94a3b8;font-size:0.85rem;">
+    <div style="max-width:1200px;margin:0 auto;padding:0 1.5rem;">
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:2rem;margin-bottom:2rem;">
+        <div>
+          <div style="font-size:1.2rem;font-weight:700;color:#e2e8f0;margin-bottom:0.8rem;"><i class="fa-solid fa-bolt" style="color:#6366f1;"></i> DevBotAI</div>
+          <p style="line-height:1.6;">Curated by <strong style="color:#e2e8f0;">Darren M Smith</strong><br>YouTube Expert &amp; Web Developer</p>
+          <p style="margin-top:0.5rem;">Powered by <strong style="color:#8b5cf6;">Claude Opus 4.6</strong></p>
+        </div>
+        <div>
+          <div style="font-weight:600;color:#e2e8f0;margin-bottom:0.8rem;">Platform</div>
+          <a href="/" style="display:block;color:#94a3b8;text-decoration:none;margin-bottom:0.4rem;">Dashboard</a>
+          <a href="/affiliates.html" style="display:block;color:#10b981;text-decoration:none;margin-bottom:0.4rem;">Affiliate Hub</a>
+          <a href="/bundle.html" style="display:block;color:#f59e0b;text-decoration:none;margin-bottom:0.4rem;">Automation Bundle</a>
+          <a href="/integrations.html" style="display:block;color:#94a3b8;text-decoration:none;margin-bottom:0.4rem;">Integrations</a>
+        </div>
+        <div>
+          <div style="font-weight:600;color:#e2e8f0;margin-bottom:0.8rem;">Legal</div>
+          <a href="/legal.html" style="display:block;color:#94a3b8;text-decoration:none;margin-bottom:0.4rem;">Affiliate Disclosure</a>
+          <a href="/legal.html#refund" style="display:block;color:#94a3b8;text-decoration:none;margin-bottom:0.4rem;">Refund Policy</a>
+          <a href="/legal.html#privacy" style="display:block;color:#94a3b8;text-decoration:none;margin-bottom:0.4rem;">Privacy Policy</a>
+          <a href="/legal.html#terms" style="display:block;color:#94a3b8;text-decoration:none;margin-bottom:0.4rem;">Terms of Service</a>
+        </div>
+        <div>
+          <div style="font-weight:600;color:#e2e8f0;margin-bottom:0.8rem;">Connect</div>
+          <a href="https://github.com/ds335033/devbot" target="_blank" rel="noopener" style="display:block;color:#94a3b8;text-decoration:none;margin-bottom:0.4rem;"><i class="fa-brands fa-github"></i> GitHub</a>
+          <a href="https://www.youtube.com/@guitargiveawaychannel" target="_blank" rel="noopener" style="display:block;color:#94a3b8;text-decoration:none;margin-bottom:0.4rem;"><i class="fa-brands fa-youtube" style="color:#f00;"></i> YouTube</a>
+        </div>
+      </div>
+      <div style="border-top:1px solid rgba(255,255,255,0.05);padding-top:1.5rem;text-align:center;">
+        <p style="margin-bottom:0.5rem;font-size:0.75rem;color:#64748b;">
+          <strong>Affiliate Disclosure:</strong> This site contains affiliate links. We may earn a commission when you make a purchase through our links, at no extra cost to you.
+        </p>
+        <p style="color:#64748b;font-size:0.75rem;">&copy; 2026 DevBotAI. All rights reserved. Curated by Darren M Smith, YouTube Expert.</p>
       </div>
     </div>
   </footer>
 
   <script>
+    // ═══ WORKFLOW TEMPLATE DEFINITIONS (matches backend src/workflows/templates.js) ═══
+    const TEMPLATES = {
+      'customer-onboarding': { name: 'Customer Onboarding', icon: 'fa-user-plus', color: 'green', steps: ['Process Payment', 'Welcome Email', 'Slack Notify', 'Create Repo', 'Generate Starter'] },
+      'full-app-pipeline': { name: 'Full App Pipeline', icon: 'fa-rocket', color: 'blue', steps: ['Generate App', 'AI Review', 'Fix Issues', 'Push GitHub', 'Notify Slack', 'Deploy'] },
+      'affiliate-payout': { name: 'Affiliate Payout', icon: 'fa-hand-holding-dollar', color: 'amber', steps: ['Calculate', 'Verify Threshold', 'Process Payout', 'Send Receipt', 'Update Board'] },
+      'marketplace-publish': { name: 'Marketplace Publish', icon: 'fa-store', color: 'purple', steps: ['Generate App', 'Quality Review', 'Screenshot', 'List Marketplace', 'Notify Seller'] },
+      'ai-chatbot-deploy': { name: 'AI Chatbot Deploy', icon: 'fa-robot', color: 'pink', steps: ['Configure Persona', 'Generate Responses', 'Test Conversation', 'Deploy Endpoint', 'Monitor Setup'] },
+      'code-review-loop': { name: 'Code Review Loop', icon: 'fa-code', color: 'blue', steps: ['Initial Review', 'Generate Fixes', 'Re-review', 'Push PR', 'Notify'] },
+      'security-audit': { name: 'Security Audit', icon: 'fa-shield-halved', color: 'amber', steps: ['Code Scan', 'Dependency Check', 'Contract Audit', 'Generate Report', 'Email Results'] },
+      'dropship-fulfillment': { name: 'Dropship Fulfillment', icon: 'fa-truck', color: 'green', steps: ['Validate Payment', 'Source Supplier', 'Create Order', 'Confirmation', 'Track'] },
+      'devfone-store-order': { name: 'DevFone Store', icon: 'fa-mobile', color: 'purple', steps: ['Validate Cart', 'Charge', 'Supplier Order', 'Shipping Email', 'Analytics'] },
+      'trading-setup': { name: 'Trading Bot Setup', icon: 'fa-chart-line', color: 'pink', steps: ['Create Wallet', 'Encrypt Keys', 'Configure Strategy', 'Start Scheduler', 'Setup Monitor', 'Alert'] },
+    };
+
     class WorkflowsPage {
       constructor() {
         this.baseUrl = (location.hostname === 'localhost' || location.hostname === '127.0.0.1')
@@ -219,12 +527,14 @@
         this.loadDemoData();
         this.renderHistory();
         this.fetchActiveWorkflows();
+        this.fetchDashboard();
+        this.fetchQueue();
         this.startPolling();
         this.setupFilterListeners();
       }
 
       setupTheme() {
-        const saved = localStorage.getItem('dwvbot-theme') || 'dark';
+        const saved = localStorage.getItem('devbotai-theme') || 'dark';
         document.documentElement.setAttribute('data-theme', saved);
         const toggle = document.getElementById('theme-toggle');
         if (toggle) {
@@ -233,7 +543,7 @@
             const cur = document.documentElement.getAttribute('data-theme');
             const next = cur === 'dark' ? 'light' : 'dark';
             document.documentElement.setAttribute('data-theme', next);
-            localStorage.setItem('dwvbot-theme', next);
+            localStorage.setItem('devbotai-theme', next);
             toggle.innerHTML = next === 'dark' ? '<i class="fa-solid fa-moon"></i>' : '<i class="fa-solid fa-sun"></i>';
           });
         }
@@ -261,37 +571,140 @@
         setTimeout(() => { el.classList.add('removing'); el.addEventListener('animationend', () => el.remove()); }, 3500);
       }
 
+      // ── Quick launch from workflow cards ──
+      async quickLaunch(templateId, params) {
+        this.toast(`Launching ${TEMPLATES[templateId]?.name || templateId}...`, 'info');
+        try {
+          const res = await fetch(`${this.baseUrl}/api/workflows/start`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ templateId, params, priority: 1 })
+          });
+          if (res.ok) {
+            const data = await res.json();
+            this.toast(`${TEMPLATES[templateId]?.name} launched! ID: ${data.workflowId}`, 'success');
+            this.fetchActiveWorkflows();
+          } else {
+            const err = await res.json().catch(() => ({}));
+            this.toast(err.error || 'Launch failed', 'error');
+          }
+        } catch {
+          this.toast('Queued locally (API offline).', 'info');
+        }
+      }
+
+      // ── View DAG for a specific template ──
+      viewDAG(templateId) {
+        const tpl = TEMPLATES[templateId];
+        if (!tpl) return;
+        const dag = document.getElementById('workflow-dag');
+        if (!dag) return;
+        dag.innerHTML = tpl.steps.map((step, i) => {
+          const isFirst = i === 0;
+          return `
+            <div class="dag-step${isFirst ? ' completed' : ''}">
+              <div class="dag-node"><i class="fa-solid ${isFirst ? 'fa-check' : 'fa-circle'}"></i></div>
+              <div class="dag-label">${step}</div>
+            </div>`;
+        }).join('');
+        document.getElementById('dag-container').scrollIntoView({ behavior: 'smooth' });
+      }
+
+      // ── Setup triggers via API ──
+      async setupTriggers() {
+        const triggers = [
+          { name: 'Stripe Payment -> Onboarding', type: 'stripe_event', filter: { eventType: 'payment_intent.succeeded' }, actions: [{ templateId: 'customer-onboarding', paramMapping: { email: 'event.receipt_email', customerId: 'event.customer' }, priority: 0 }] },
+          { name: 'GitHub Push -> Code Review', type: 'github_event', filter: { action: 'push', branch: 'main' }, actions: [{ templateId: 'full-app-pipeline', paramMapping: { prompt: 'event.head_commit.message' }, priority: 1 }] },
+          { name: 'Slack /deploy -> Chatbot', type: 'slack_command', filter: { command: '/devbot' }, actions: [{ templateId: 'ai-chatbot-deploy', paramMapping: { persona: 'event.text', businessName: 'DevBotAI' }, priority: 1 }] },
+          { name: 'Webhook -> Marketplace', type: 'webhook_received', filter: { path: '/marketplace/order' }, actions: [{ templateId: 'marketplace-publish', paramMapping: { prompt: 'event.appDescription', sellerEmail: 'event.sellerEmail' }, priority: 2 }] },
+          { name: 'Daily Affiliate Batch', type: 'schedule', filter: { cronExpr: '0 0 * * *' }, actions: [{ templateId: 'affiliate-payout', paramMapping: {}, priority: 2 }] },
+        ];
+
+        let created = 0;
+        for (const trigger of triggers) {
+          try {
+            const res = await fetch(`${this.baseUrl}/api/workflows/triggers`, {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify(trigger)
+            });
+            if (res.ok) created++;
+          } catch { /* skip */ }
+        }
+        this.toast(`${created}/${triggers.length} triggers configured!`, created > 0 ? 'success' : 'error');
+      }
+
+      // ── Fetch dashboard stats from API ──
+      async fetchDashboard() {
+        try {
+          const res = await fetch(`${this.baseUrl}/api/workflows/dashboard`);
+          if (!res.ok) return;
+          const data = await res.json();
+          if (data.success && data.dashboard) {
+            const d = data.dashboard;
+            if (d.total) document.getElementById('stat-workflows').textContent = d.total;
+            if (d.avgDurationMs) document.getElementById('wf-avg-time').textContent = `${Math.round(d.avgDurationMs / 1000)}s`;
+            if (d.byState) {
+              const completed = d.byState.COMPLETED || 0;
+              const total = d.total || 1;
+              document.getElementById('wf-success-rate').textContent = `${Math.round((completed / total) * 100)}%`;
+            }
+          }
+        } catch { /* offline */ }
+      }
+
+      // ── Fetch queue status from API ──
+      async fetchQueue() {
+        try {
+          const res = await fetch(`${this.baseUrl}/api/workflows/queue`);
+          if (!res.ok) return;
+          const data = await res.json();
+          if (data.success && data.queue) {
+            const q = data.queue;
+            document.getElementById('wf-queue-size').textContent = q.queue?.total || 0;
+            // Update cron job stats
+            if (q.cronJobs) {
+              q.cronJobs.forEach(job => {
+                const last = job.lastRun ? new Date(job.lastRun).toLocaleString() : '--';
+                const count = job.runCount || 0;
+                // Match by templateId
+                if (job.templateId === 'affiliate-payout') {
+                  const el1 = document.getElementById('cron-aff-last');
+                  const el2 = document.getElementById('cron-aff-count');
+                  if (el1) el1.textContent = last;
+                  if (el2) el2.textContent = count;
+                }
+              });
+            }
+          }
+        } catch { /* offline */ }
+      }
+
       loadDemoData() {
-        const templates = ['spfx-gen', 'code-review', 'trading-signal', 'chatbot-deploy', 'report-gen', 'benchmark-suite'];
+        const templates = ['customer-onboarding', 'full-app-pipeline', 'affiliate-payout', 'marketplace-publish', 'ai-chatbot-deploy'];
         const statuses = ['completed', 'completed', 'completed', 'completed', 'failed', 'completed', 'cancelled'];
-        const names = {
-          'spfx-gen': 'SPFx App Generator', 'code-review': 'AI Code Review',
-          'trading-signal': 'Trading Signal Pipeline', 'chatbot-deploy': 'Chatbot Deployment',
-          'report-gen': 'Financial Report', 'benchmark-suite': 'Benchmark Suite Runner'
-        };
 
         this.history = [];
-        for (let i = 0; i < 15; i++) {
+        for (let i = 0; i < 20; i++) {
           const tpl = templates[i % templates.length];
           const status = statuses[i % statuses.length];
           const date = new Date();
-          date.setHours(date.getHours() - i * 3);
+          date.setHours(date.getHours() - i * 2);
           const duration = Math.floor(Math.random() * 300 + 30);
           this.history.push({
-            id: `wf-${String(1000 + i)}`,
+            id: `wf-${String(2000 + i)}`,
             template: tpl,
-            templateName: names[tpl],
+            templateName: TEMPLATES[tpl]?.name || tpl,
             status,
             duration: `${Math.floor(duration / 60)}m ${duration % 60}s`,
             startedAt: date.toISOString(),
           });
         }
 
-        // Stats
         const completed = this.history.filter(h => h.status === 'completed').length;
         const successRate = Math.round((completed / this.history.length) * 100);
         document.getElementById('wf-success-rate').textContent = `${successRate}%`;
-        document.getElementById('wf-avg-time').textContent = '2m 45s';
+        document.getElementById('wf-avg-time').textContent = '2m 15s';
       }
 
       renderHistory(data) {
@@ -312,22 +725,29 @@
             <td><span style="color:${statusColors[h.status] || 'inherit'}"><i class="fa-solid ${statusIcons[h.status] || 'fa-circle'}"></i> ${h.status}</span></td>
             <td>${h.duration}</td>
             <td>${date.toLocaleDateString()} ${date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</td>
-            <td><button class="btn btn-outline btn-sm" onclick="workflowsPage.viewWorkflow('${h.id}')">View</button></td>
+            <td>
+              <button class="btn btn-outline btn-sm" onclick="workflowsPage.viewWorkflow('${h.id}')">View</button>
+              ${h.status === 'failed' ? `<button class="btn btn-outline btn-sm" style="color:#f59e0b" onclick="workflowsPage.retryWorkflow('${h.id}')"><i class="fa-solid fa-rotate-right"></i></button>` : ''}
+            </td>
           </tr>`;
         }).join('');
       }
 
       async fetchActiveWorkflows() {
         try {
-          const res = await fetch(`${this.baseUrl}/api/workflows`);
+          const res = await fetch(`${this.baseUrl}/api/workflows?state=RUNNING&limit=10`);
           if (!res.ok) throw new Error();
           const data = await res.json();
-          this.activeWorkflows = Array.isArray(data) ? data : (data.workflows || []);
+          this.activeWorkflows = (data.workflows || []).map(w => ({
+            id: w.id,
+            template: w.templateName || TEMPLATES[w.templateId]?.name || w.templateId,
+            status: 'running',
+            step: w.stepsCompleted || 0,
+            totalSteps: w.stepsTotal || 5,
+            startedAt: w.createdAt,
+          }));
         } catch {
-          // Use demo active workflow
-          this.activeWorkflows = [
-            { id: 'wf-live-001', template: 'Trading Signal Pipeline', status: 'running', step: 3, totalSteps: 5, startedAt: new Date().toISOString() },
-          ];
+          this.activeWorkflows = [];
         }
         this.renderActiveWorkflows();
         this.updateStats();
@@ -337,7 +757,7 @@
         const container = document.getElementById('active-workflows');
         if (!container) return;
         if (this.activeWorkflows.length === 0) {
-          container.innerHTML = '<p style="color:var(--text-muted);font-size:0.875rem">No active workflows.</p>';
+          container.innerHTML = '<p style="color:var(--text-muted);font-size:0.875rem">No active workflows. Launch one above to get started.</p>';
           return;
         }
         container.innerHTML = this.activeWorkflows.map(wf => `
@@ -345,15 +765,15 @@
             <div class="card-header">
               <div class="card-icon indigo"><i class="fa-solid fa-spinner fa-spin"></i></div>
               <div>
-                <div class="card-title">${wf.template || wf.id}</div>
-                <div class="status"><span class="status-dot active"></span> Running — Step ${wf.step || '?'}/${wf.totalSteps || '?'}</div>
+                <div class="card-title">${wf.template}</div>
+                <div class="status"><span class="status-dot active"></span> Running &mdash; Step ${wf.step}/${wf.totalSteps}</div>
               </div>
               <button class="btn btn-danger btn-sm" style="margin-left:auto" onclick="workflowsPage.cancelWorkflow('${wf.id}')">
                 <i class="fa-solid fa-stop"></i> Cancel
               </button>
             </div>
             <div class="progress" style="margin-top:0.75rem">
-              <div class="progress-bar" style="width:${wf.totalSteps ? Math.round((wf.step / wf.totalSteps) * 100) : 50}%"></div>
+              <div class="progress-bar" style="width:${Math.round((wf.step / wf.totalSteps) * 100)}%"></div>
             </div>
           </div>
         `).join('');
@@ -365,48 +785,27 @@
       }
 
       startPolling() {
-        this.pollInterval = setInterval(() => this.fetchActiveWorkflows(), 5000);
+        this.pollInterval = setInterval(() => {
+          this.fetchActiveWorkflows();
+          this.fetchQueue();
+        }, 5000);
       }
 
       async launchWorkflow(e) {
         e.preventDefault();
-        const template = document.getElementById('wf-template').value;
-        const priority = document.getElementById('wf-priority').value;
+        const templateId = document.getElementById('wf-template').value;
+        const priority = parseInt(document.getElementById('wf-priority').value);
         const paramsRaw = document.getElementById('wf-params').value;
         let params = {};
         if (paramsRaw.trim()) {
           try { params = JSON.parse(paramsRaw); }
           catch { this.toast('Invalid JSON in parameters.', 'error'); return; }
         }
-
-        this.toast(`Launching workflow: ${template}...`, 'info');
-        try {
-          const res = await fetch(`${this.baseUrl}/api/workflows/start`, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ templateId: template, priority, params })
-          });
-          if (res.ok) {
-            this.toast('Workflow launched successfully!', 'success');
-            this.fetchActiveWorkflows();
-          } else throw new Error();
-        } catch {
-          this.toast('Workflow queued (API offline — will retry).', 'info');
-          // Add to queue display
-          const queueBody = document.getElementById('queue-body');
-          if (queueBody) {
-            const row = document.createElement('tr');
-            row.innerHTML = `<td>1</td><td>${template}</td><td>${priority}</td><td>${new Date().toLocaleTimeString()}</td>
-              <td><button class="btn btn-danger btn-sm" onclick="this.closest('tr').remove()"><i class="fa-solid fa-trash"></i></button></td>`;
-            queueBody.innerHTML = '';
-            queueBody.appendChild(row);
-            document.getElementById('wf-queue-size').textContent = '1';
-          }
-        }
+        await this.quickLaunch(templateId, params);
       }
 
       async cancelWorkflow(id) {
-        this.toast(`Cancelling workflow ${id}...`, 'info');
+        this.toast(`Cancelling ${id}...`, 'info');
         try {
           await fetch(`${this.baseUrl}/api/workflows/${id}/cancel`, { method: 'POST' });
           this.toast('Workflow cancelled.', 'success');
@@ -418,38 +817,44 @@
         this.updateStats();
       }
 
+      async retryWorkflow(id) {
+        this.toast(`Retrying ${id}...`, 'info');
+        try {
+          const res = await fetch(`${this.baseUrl}/api/workflows/${id}/retry`, { method: 'POST' });
+          if (res.ok) {
+            const data = await res.json();
+            this.toast(`Retry launched: ${data.newWorkflowId}`, 'success');
+            this.fetchActiveWorkflows();
+          }
+        } catch {
+          this.toast('Retry queued.', 'info');
+        }
+      }
+
       viewWorkflow(id) {
-        this.toast(`Viewing details for ${id}`, 'info');
-        // Update DAG display based on workflow
-        const dag = document.getElementById('workflow-dag');
-        if (!dag) return;
         const wf = this.history.find(h => h.id === id);
         if (!wf) return;
+        const tpl = TEMPLATES[wf.template];
+        if (!tpl) return;
+        this.viewDAG(wf.template);
 
-        const steps = [
-          { icon: 'fa-circle-play', label: 'Initialize' },
-          { icon: 'fa-download', label: 'Fetch Data' },
-          { icon: 'fa-gear', label: 'Process' },
-          { icon: 'fa-file-export', label: 'Generate' },
-          { icon: 'fa-cloud-arrow-up', label: 'Deploy' },
-        ];
-        const completedCount = wf.status === 'completed' ? 5 : wf.status === 'failed' ? 3 : 2;
-        dag.innerHTML = steps.map((s, i) => {
-          let cls = '';
-          if (i < completedCount) cls = 'completed';
-          else if (i === completedCount && wf.status === 'failed') cls = 'failed';
-          return `
-            <div class="dag-step ${cls}">
-              <div class="dag-node"><i class="fa-solid ${i < completedCount ? 'fa-check' : (cls === 'failed' ? 'fa-xmark' : s.icon)}"></i></div>
-              <div class="dag-label">${s.label}</div>
-            </div>`;
-        }).join('');
-
-        document.getElementById('dag-container').scrollIntoView({ behavior: 'smooth' });
+        // Update DAG state based on workflow status
+        const dag = document.getElementById('workflow-dag');
+        const dagSteps = dag.querySelectorAll('.dag-step');
+        const completedCount = wf.status === 'completed' ? dagSteps.length : wf.status === 'failed' ? Math.max(1, dagSteps.length - 2) : 1;
+        dagSteps.forEach((step, i) => {
+          step.className = 'dag-step';
+          if (i < completedCount) {
+            step.className += ' completed';
+            step.querySelector('.dag-node').innerHTML = '<i class="fa-solid fa-check"></i>';
+          } else if (i === completedCount && wf.status === 'failed') {
+            step.className += ' failed';
+            step.querySelector('.dag-node').innerHTML = '<i class="fa-solid fa-xmark"></i>';
+          }
+        });
       }
 
       setupFilterListeners() {
-        // Apply filters on change too
         ['filter-status', 'filter-template'].forEach(id => {
           const el = document.getElementById(id);
           if (el) el.addEventListener('change', () => this.applyFilters());
@@ -461,14 +866,12 @@
         const template = document.getElementById('filter-template').value;
         const dateFrom = document.getElementById('filter-date-from').value;
         const dateTo = document.getElementById('filter-date-to').value;
-
         let filtered = [...this.history];
         if (status) filtered = filtered.filter(h => h.status === status);
         if (template) filtered = filtered.filter(h => h.template === template);
         if (dateFrom) filtered = filtered.filter(h => new Date(h.startedAt) >= new Date(dateFrom));
         if (dateTo) {
-          const to = new Date(dateTo);
-          to.setHours(23, 59, 59);
+          const to = new Date(dateTo); to.setHours(23, 59, 59);
           filtered = filtered.filter(h => new Date(h.startedAt) <= to);
         }
         this.renderHistory(filtered);

@@ -1,0 +1,9 @@
+# DevBotAI Affiliate Hub - Robots.txt
+# Allow all search engine crawlers
+
+User-agent: *
+Allow: /
+Disallow: /api/
+
+# Sitemap reference
+Sitemap: https://devbotai-225be.web.app/sitemap.xml

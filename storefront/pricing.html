@@ -1,0 +1,1201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="DevBotAI Affiliate Hub — Choose your membership tier. Free to Enterprise. Access 138+ affiliate programs, analytics, link cloaking, and more.">
+  <meta name="keywords" content="affiliate hub membership, affiliate marketing tools, DevBotAI pricing, affiliate program access, link cloaking, affiliate analytics">
+  <meta property="og:title" content="DevBotAI Affiliate Hub Membership Pricing">
+  <meta property="og:description" content="Unlock 138+ affiliate programs, full analytics, link cloaking, and done-for-you campaign tools. Plans from free to enterprise.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://devbotai.shop/pricing.html">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://devbotai.shop/pricing.html">
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#6366f1">
+  <title>Affiliate Hub Pricing — DevBotAI Membership Tiers</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    /* ===== SCREEN-READER ONLY UTILITY ===== */
+    .sr-only {
+      position: absolute; width: 1px; height: 1px;
+      padding: 0; margin: -1px; overflow: hidden;
+      clip: rect(0,0,0,0); white-space: nowrap; border: 0;
+    }
+
+    /* ===== PRICING PAGE STYLES ===== */
+    .pricing-hero {
+      background: linear-gradient(135deg, #0a0a1a 0%, #1a0a2e 30%, #0d1b2a 70%, #0a0a1a 100%);
+      padding: 6rem 0 4rem;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .pricing-hero::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background:
+        radial-gradient(ellipse at 50% 0%, rgba(99,102,241,0.18) 0%, transparent 60%),
+        radial-gradient(ellipse at 80% 80%, rgba(16,185,129,0.1) 0%, transparent 50%);
+    }
+    .pricing-hero-content { position: relative; z-index: 1; }
+    .pricing-hero h1 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 3rem; font-weight: 800; margin-bottom: 1rem;
+    }
+    .gradient-text {
+      background: linear-gradient(135deg, #6366f1, #10b981, #f59e0b);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+    }
+    .pricing-hero p {
+      color: #94a3b8; font-size: 1.2rem;
+      max-width: 650px; margin: 0 auto 2.5rem;
+    }
+
+    /* ===== BILLING TOGGLE ===== */
+    .billing-toggle-wrap {
+      display: flex; align-items: center; justify-content: center;
+      gap: 1rem; margin-bottom: 3rem;
+    }
+    .billing-label { color: #94a3b8; font-size: 0.95rem; font-weight: 500; cursor: pointer; }
+    .billing-label.active { color: #e2e8f0; }
+    .toggle-switch {
+      position: relative; width: 56px; height: 28px;
+    }
+    .toggle-switch input { opacity: 0; width: 0; height: 0; }
+    .toggle-slider {
+      position: absolute; inset: 0; cursor: pointer;
+      background: #1e293b; border-radius: 28px;
+      border: 1px solid rgba(99,102,241,0.4);
+      transition: all 0.3s;
+    }
+    .toggle-slider::before {
+      content: ''; position: absolute;
+      width: 20px; height: 20px; left: 3px; top: 3px;
+      background: #6366f1; border-radius: 50%;
+      transition: transform 0.3s;
+    }
+    .toggle-switch input:checked + .toggle-slider { background: rgba(99,102,241,0.2); }
+    .toggle-switch input:checked + .toggle-slider::before { transform: translateX(28px); }
+    .annual-badge {
+      background: linear-gradient(135deg, #10b981, #059669);
+      color: #fff; font-size: 0.72rem; font-weight: 700;
+      padding: 0.2rem 0.6rem; border-radius: 1rem;
+      text-transform: uppercase; letter-spacing: 0.05em;
+    }
+
+    /* ===== GUARANTEE BADGE ===== */
+    .guarantee-bar {
+      display: flex; align-items: center; justify-content: center;
+      gap: 0.75rem; margin-bottom: 2rem;
+      padding: 0.75rem 1.5rem;
+      background: rgba(16,185,129,0.08);
+      border: 1px solid rgba(16,185,129,0.25);
+      border-radius: 2rem; max-width: 420px; margin: 0 auto 2.5rem;
+    }
+    .guarantee-bar i { color: #10b981; font-size: 1.3rem; }
+    .guarantee-bar span { color: #94a3b8; font-size: 0.9rem; }
+    .guarantee-bar strong { color: #e2e8f0; }
+
+    /* ===== PRICING GRID ===== */
+    .pricing-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem;
+      padding: 3rem 0 2rem;
+      align-items: start;
+    }
+    .pricing-card {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 1.25rem;
+      padding: 2rem;
+      position: relative;
+      transition: all 0.3s;
+      display: flex; flex-direction: column;
+    }
+    .pricing-card:hover {
+      border-color: rgba(99,102,241,0.35);
+      transform: translateY(-4px);
+      box-shadow: 0 12px 40px rgba(99,102,241,0.1);
+    }
+    .pricing-card.featured {
+      border-color: rgba(99,102,241,0.6);
+      background: rgba(99,102,241,0.07);
+      box-shadow: 0 0 0 1px rgba(99,102,241,0.3), 0 16px 50px rgba(99,102,241,0.15);
+      transform: scale(1.02);
+    }
+    .pricing-card.featured:hover { transform: scale(1.02) translateY(-4px); }
+
+    .popular-badge {
+      position: absolute; top: -14px; left: 50%; transform: translateX(-50%);
+      background: linear-gradient(135deg, #6366f1, #8b5cf6);
+      color: #fff; font-size: 0.72rem; font-weight: 700;
+      padding: 0.3rem 1rem; border-radius: 2rem;
+      text-transform: uppercase; letter-spacing: 0.08em;
+      white-space: nowrap;
+    }
+
+    .card-tier-icon {
+      width: 48px; height: 48px; border-radius: 12px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.4rem; margin-bottom: 1.2rem;
+    }
+    .icon-free { background: rgba(100,116,139,0.2); color: #94a3b8; }
+    .icon-basic { background: rgba(59,130,246,0.15); color: #60a5fa; }
+    .icon-pro { background: rgba(99,102,241,0.2); color: #818cf8; }
+    .icon-enterprise { background: rgba(245,158,11,0.15); color: #f59e0b; }
+    .icon-developer { background: rgba(16,185,129,0.15); color: #10b981; }
+
+    .card-tier-name {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 1.15rem; font-weight: 700; color: #e2e8f0;
+      margin-bottom: 0.4rem;
+    }
+    .card-tier-desc { color: #64748b; font-size: 0.85rem; margin-bottom: 1.5rem; line-height: 1.5; }
+
+    .card-price-wrap { margin-bottom: 1.5rem; }
+    .card-price {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 2.8rem; font-weight: 800; color: #e2e8f0;
+      line-height: 1;
+    }
+    .card-price sup { font-size: 1.2rem; vertical-align: top; margin-top: 0.4rem; color: #94a3b8; }
+    .card-price span.period { font-size: 1rem; color: #64748b; font-weight: 400; }
+    .card-price-annual { display: none; }
+    .card-price-note { font-size: 0.8rem; color: #64748b; margin-top: 0.3rem; }
+    body.annual .card-price-monthly { display: none; }
+    body.annual .card-price-annual { display: block; }
+
+    .card-features {
+      list-style: none; flex: 1;
+      margin-bottom: 1.8rem;
+    }
+    .card-features li {
+      display: flex; align-items: flex-start; gap: 0.6rem;
+      padding: 0.45rem 0;
+      color: #94a3b8; font-size: 0.88rem;
+      border-bottom: 1px solid rgba(255,255,255,0.03);
+    }
+    .card-features li:last-child { border-bottom: none; }
+    .card-features li i {
+      color: #10b981; font-size: 0.8rem;
+      margin-top: 0.2rem; flex-shrink: 0;
+    }
+    .card-features li i.fa-times { color: #475569; }
+    .card-features li span { color: #c8d3e0; }
+    .card-features li .feat-muted { color: #64748b; }
+
+    .card-cta {
+      display: flex; align-items: center; justify-content: center; gap: 0.5rem;
+      width: 100%; padding: 0.85rem 1.5rem;
+      border-radius: 0.75rem; border: none; cursor: pointer;
+      font-size: 0.95rem; font-weight: 700; font-family: inherit;
+      transition: all 0.25s; text-decoration: none;
+    }
+    .cta-free {
+      background: transparent;
+      border: 1px solid rgba(100,116,139,0.5);
+      color: #94a3b8;
+    }
+    .cta-free:hover { border-color: #94a3b8; color: #e2e8f0; background: rgba(100,116,139,0.1); }
+    .cta-paid {
+      background: linear-gradient(135deg, #3b82f6, #2563eb);
+      color: #fff;
+    }
+    .cta-paid:hover { transform: scale(1.02); box-shadow: 0 4px 20px rgba(59,130,246,0.35); }
+    .cta-pro {
+      background: linear-gradient(135deg, #6366f1, #8b5cf6);
+      color: #fff;
+    }
+    .cta-pro:hover { transform: scale(1.02); box-shadow: 0 4px 20px rgba(99,102,241,0.4); }
+    .cta-enterprise {
+      background: linear-gradient(135deg, #f59e0b, #d97706);
+      color: #fff;
+    }
+    .cta-enterprise:hover { transform: scale(1.02); box-shadow: 0 4px 20px rgba(245,158,11,0.35); }
+    .cta-developer {
+      background: linear-gradient(135deg, #10b981, #059669);
+      color: #fff;
+    }
+    .cta-developer:hover { transform: scale(1.02); box-shadow: 0 4px 20px rgba(16,185,129,0.35); }
+
+    /* ===== LOADING SPINNER ON CTA ===== */
+    .card-cta.loading { pointer-events: none; opacity: 0.7; }
+    .card-cta.loading::after {
+      content: '';
+      width: 16px; height: 16px;
+      border: 2px solid rgba(255,255,255,0.3);
+      border-top-color: #fff;
+      border-radius: 50%;
+      animation: spin 0.6s linear infinite;
+      margin-left: 0.5rem;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    /* ===== ADD-ONS ===== */
+    .addons-section { padding: 4rem 0; }
+    .addons-section h2 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 2rem; font-weight: 800; text-align: center;
+      margin-bottom: 0.6rem; color: #e2e8f0;
+    }
+    .addons-section .sub-heading {
+      text-align: center; color: #64748b; font-size: 0.95rem;
+      margin-bottom: 2.5rem;
+    }
+    .addons-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 1.25rem;
+    }
+    .addon-card {
+      background: rgba(255,255,255,0.025);
+      border: 1px solid rgba(255,255,255,0.07);
+      border-radius: 1rem;
+      padding: 1.5rem;
+      display: flex; flex-direction: column;
+      transition: all 0.25s;
+    }
+    .addon-card:hover {
+      border-color: rgba(99,102,241,0.3);
+      box-shadow: 0 8px 30px rgba(99,102,241,0.08);
+      transform: translateY(-2px);
+    }
+    .addon-card-header {
+      display: flex; align-items: flex-start;
+      justify-content: space-between; gap: 1rem;
+      margin-bottom: 0.8rem;
+    }
+    .addon-icon {
+      width: 40px; height: 40px; border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.1rem; flex-shrink: 0;
+    }
+    .addon-name { font-weight: 700; color: #e2e8f0; font-size: 0.95rem; flex: 1; }
+    .addon-price {
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 800; color: #f59e0b; font-size: 1.05rem;
+      white-space: nowrap;
+    }
+    .addon-price small { font-size: 0.7rem; color: #64748b; font-weight: 400; display: block; text-align: right; }
+    .addon-desc { color: #64748b; font-size: 0.83rem; line-height: 1.55; margin-bottom: 1.2rem; flex: 1; }
+    .addon-cta {
+      display: flex; align-items: center; justify-content: center; gap: 0.4rem;
+      padding: 0.65rem 1rem; border-radius: 0.6rem;
+      background: rgba(99,102,241,0.12);
+      border: 1px solid rgba(99,102,241,0.3);
+      color: #818cf8; font-size: 0.85rem; font-weight: 600;
+      cursor: pointer; font-family: inherit;
+      transition: all 0.2s;
+    }
+    .addon-cta:hover {
+      background: rgba(99,102,241,0.2);
+      border-color: rgba(99,102,241,0.6);
+      color: #c7d2fe;
+    }
+
+    /* ===== COMPARE TABLE ===== */
+    .compare-section { padding: 2rem 0 3rem; }
+    .compare-toggle-btn {
+      display: flex; align-items: center; gap: 0.6rem;
+      margin: 0 auto 2rem;
+      padding: 0.75rem 1.8rem;
+      background: rgba(99,102,241,0.1);
+      border: 1px solid rgba(99,102,241,0.3);
+      border-radius: 0.75rem;
+      color: #818cf8; font-size: 0.95rem; font-weight: 600;
+      cursor: pointer; font-family: inherit;
+      transition: all 0.25s;
+    }
+    .compare-toggle-btn:hover {
+      background: rgba(99,102,241,0.18);
+      border-color: rgba(99,102,241,0.6);
+    }
+    .compare-table-wrap {
+      display: none; overflow-x: auto;
+      border-radius: 1rem;
+      border: 1px solid rgba(255,255,255,0.07);
+    }
+    .compare-table-wrap.open { display: block; }
+    .compare-table {
+      width: 100%; border-collapse: collapse;
+      font-size: 0.85rem;
+    }
+    .compare-table thead th {
+      background: rgba(99,102,241,0.1);
+      padding: 1rem 1.2rem;
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 700; color: #e2e8f0;
+      text-align: center; border-bottom: 1px solid rgba(255,255,255,0.07);
+    }
+    .compare-table thead th:first-child { text-align: left; }
+    .compare-table thead th.highlighted { background: rgba(99,102,241,0.2); color: #c7d2fe; }
+    .compare-table tbody tr {
+      border-bottom: 1px solid rgba(255,255,255,0.04);
+      transition: background 0.15s;
+    }
+    .compare-table tbody tr:hover { background: rgba(255,255,255,0.02); }
+    .compare-table tbody tr:last-child { border-bottom: none; }
+    .compare-table td {
+      padding: 0.85rem 1.2rem;
+      text-align: center; color: #94a3b8;
+    }
+    .compare-table td:first-child { text-align: left; color: #c8d3e0; font-weight: 500; }
+    .compare-table td.highlighted { background: rgba(99,102,241,0.05); }
+    .compare-table td i.fa-check { color: #10b981; }
+    .compare-table td i.fa-times { color: #475569; }
+    .compare-table .section-row td {
+      background: rgba(255,255,255,0.02);
+      color: #64748b; font-size: 0.75rem;
+      text-transform: uppercase; letter-spacing: 0.06em;
+      font-weight: 600; padding: 0.6rem 1.2rem;
+    }
+
+    /* ===== FAQ ===== */
+    .faq-section { padding: 4rem 0; }
+    .faq-section h2 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 2rem; font-weight: 800;
+      text-align: center; margin-bottom: 2.5rem;
+      color: #e2e8f0;
+    }
+    .faq-list { max-width: 760px; margin: 0 auto; }
+    .faq-item {
+      border: 1px solid rgba(255,255,255,0.07);
+      border-radius: 0.75rem;
+      margin-bottom: 0.75rem;
+      overflow: hidden;
+      transition: border-color 0.2s;
+    }
+    .faq-item.open { border-color: rgba(99,102,241,0.35); }
+    .faq-question {
+      width: 100%; display: flex; align-items: center;
+      justify-content: space-between; gap: 1rem;
+      padding: 1.1rem 1.4rem;
+      background: transparent; border: none; cursor: pointer;
+      color: #e2e8f0; font-size: 0.95rem; font-weight: 600;
+      font-family: inherit; text-align: left;
+      transition: background 0.2s;
+    }
+    .faq-question:hover { background: rgba(255,255,255,0.02); }
+    .faq-question i {
+      color: #6366f1; font-size: 0.85rem; flex-shrink: 0;
+      transition: transform 0.3s;
+    }
+    .faq-item.open .faq-question i { transform: rotate(180deg); }
+    .faq-answer {
+      max-height: 0; overflow: hidden;
+      transition: max-height 0.35s ease, padding 0.35s ease;
+      padding: 0 1.4rem;
+    }
+    .faq-answer p {
+      color: #94a3b8; font-size: 0.88rem; line-height: 1.7;
+      padding-bottom: 1.2rem;
+    }
+    .faq-item.open .faq-answer { max-height: 400px; }
+
+    /* ===== SUCCESS BANNER ===== */
+    .success-banner {
+      display: none; background: rgba(16,185,129,0.12);
+      border: 1px solid rgba(16,185,129,0.4);
+      border-radius: 1rem; padding: 1.2rem 1.8rem;
+      text-align: center; margin-bottom: 2rem;
+      color: #10b981; font-size: 0.95rem;
+    }
+    .success-banner.visible { display: block; }
+
+    /* ===== SECTION DIVIDER HEADING ===== */
+    .section-heading {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 2rem; font-weight: 800;
+      color: #e2e8f0; text-align: center;
+      margin-bottom: 0.5rem;
+    }
+    .section-sub {
+      text-align: center; color: #64748b;
+      font-size: 0.95rem; margin-bottom: 2rem;
+    }
+
+    @media (max-width: 768px) {
+      .pricing-hero h1 { font-size: 2rem; }
+      .pricing-grid { grid-template-columns: 1fr; }
+      .pricing-card.featured { transform: none; }
+      .pricing-card.featured:hover { transform: translateY(-4px); }
+      .addons-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Toast Container -->
+  <div id="toast-container" class="toast-container" aria-live="polite" aria-atomic="true"></div>
+
+  <!-- Navigation -->
+  <nav class="nav" role="navigation" aria-label="Main navigation">
+    <div class="nav-inner container">
+      <a href="/" class="nav-brand" aria-label="DevBotAI home">
+        <img src="logo.svg" alt="DevBotAI" style="height:32px;width:auto;">
+      </a>
+      <div class="nav-links" id="nav-links">
+        <a href="/" class="nav-link">Dashboard</a>
+        <a href="/affiliates.html" class="nav-link" style="color:#10b981;">Affiliate Hub</a>
+        <a href="/integrations.html" class="nav-link">Integrations</a>
+        <a href="/bundle.html" class="nav-link">Bundle</a>
+        <a href="/pricing.html" class="nav-link" style="color:#818cf8;">Pricing</a>
+      </div>
+      <button class="nav-toggle" id="nav-toggle" aria-label="Toggle menu">
+        <i class="fa-solid fa-bars"></i>
+      </button>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <section class="pricing-hero">
+    <div class="container pricing-hero-content">
+      <div class="success-banner" id="successBanner">
+        <i class="fa-solid fa-circle-check"></i>
+        Payment successful! Your membership is now active. Welcome to DevBotAI Affiliate Hub.
+      </div>
+      <p style="color:#818cf8;font-size:0.85rem;text-transform:uppercase;letter-spacing:0.1em;margin-bottom:0.75rem;font-weight:600;">
+        <i class="fa-solid fa-diagram-project"></i> Affiliate Hub Membership
+      </p>
+      <h1>Choose Your <span class="gradient-text">Earning Level</span></h1>
+      <p>
+        Access 138+ curated affiliate programs, AI-powered campaign tools, link cloaking, analytics, and more.
+        Start free and upgrade when you're ready to scale.
+      </p>
+
+      <!-- Guarantee -->
+      <div class="guarantee-bar">
+        <i class="fa-solid fa-shield-halved"></i>
+        <span><strong>30-day money-back guarantee</strong> on all paid plans</span>
+      </div>
+
+      <!-- Billing Toggle -->
+      <div class="billing-toggle-wrap">
+        <span class="billing-label active" id="labelMonthly">Monthly</span>
+        <label class="toggle-switch">
+          <input type="checkbox" id="billingToggle" aria-label="Switch to annual billing">
+          <span class="toggle-slider"></span>
+        </label>
+        <span class="billing-label" id="labelAnnual">Annual</span>
+        <span class="annual-badge">Save 20%</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Pricing Cards -->
+  <section style="padding:0 0 3rem;">
+    <div class="container">
+      <div class="pricing-grid">
+
+        <!-- FREE EXPLORER -->
+        <div class="pricing-card">
+          <div class="card-tier-icon icon-free">
+            <i class="fa-solid fa-seedling"></i>
+          </div>
+          <div class="card-tier-name">Free Explorer</div>
+          <div class="card-tier-desc">Dip your toes in. No credit card required.</div>
+          <div class="card-price-wrap">
+            <div class="card-price-monthly">
+              <div class="card-price"><sup>$</sup>0<span class="period">/mo</span></div>
+              <div class="card-price-note">Always free</div>
+            </div>
+            <div class="card-price-annual">
+              <div class="card-price"><sup>$</sup>0<span class="period">/yr</span></div>
+              <div class="card-price-note">Always free</div>
+            </div>
+          </div>
+          <ul class="card-features">
+            <li><i class="fa-solid fa-check"></i><span>Access to <strong>15 affiliate programs</strong> (top picks)</span></li>
+            <li><i class="fa-solid fa-check"></i><span>Basic category filters</span></li>
+            <li><i class="fa-solid fa-check"></i><span>Earnings calculator</span></li>
+            <li><i class="fa-solid fa-check"></i><span>Community access</span></li>
+            <li><i class="fa-times"></i><span class="feat-muted">Email digest</span></li>
+            <li><i class="fa-times"></i><span class="feat-muted">Analytics dashboard</span></li>
+            <li><i class="fa-times"></i><span class="feat-muted">Link cloaking</span></li>
+            <li><i class="fa-times"></i><span class="feat-muted">API access</span></li>
+          </ul>
+          <a href="/affiliates.html" class="card-cta cta-free">
+            <i class="fa-solid fa-rocket"></i> Start Free
+          </a>
+        </div>
+
+        <!-- BASIC AFFILIATE -->
+        <div class="pricing-card">
+          <div class="card-tier-icon icon-basic">
+            <i class="fa-solid fa-star-half-stroke"></i>
+          </div>
+          <div class="card-tier-name">Basic Affiliate</div>
+          <div class="card-tier-desc">Essential tools to start earning consistently.</div>
+          <div class="card-price-wrap">
+            <div class="card-price-monthly">
+              <div class="card-price"><sup>$</sup>19<span class="period">/mo</span></div>
+              <div class="card-price-note">Billed monthly, cancel anytime</div>
+            </div>
+            <div class="card-price-annual">
+              <div class="card-price"><sup>$</sup>182<span class="period">/yr</span></div>
+              <div class="card-price-note">Save $46 vs monthly — $15.17/mo</div>
+            </div>
+          </div>
+          <ul class="card-features">
+            <li><i class="fa-solid fa-check"></i><span>Access to <strong>50 affiliate programs</strong></span></li>
+            <li><i class="fa-solid fa-check"></i><span>All category filters</span></li>
+            <li><i class="fa-solid fa-check"></i><span>Earnings calculator</span></li>
+            <li><i class="fa-solid fa-check"></i><span>Email capture list access</span></li>
+            <li><i class="fa-solid fa-check"></i><span>Weekly "Top Picks" email digest</span></li>
+            <li><i class="fa-solid fa-check"></i><span>Basic analytics (clicks only)</span></li>
+            <li><i class="fa-times"></i><span class="feat-muted">Full analytics dashboard</span></li>
+            <li><i class="fa-times"></i><span class="feat-muted">Link cloaking</span></li>
+          </ul>
+          <button class="card-cta cta-paid" data-tier="basic">
+            <i class="fa-solid fa-bolt"></i> Go Basic
+          </button>
+        </div>
+
+        <!-- PRO MARKETER -->
+        <div class="pricing-card featured">
+          <div class="popular-badge"><i class="fa-solid fa-fire-flame-curved"></i> Most Popular</div>
+          <div class="card-tier-icon icon-pro">
+            <i class="fa-solid fa-chart-line"></i>
+          </div>
+          <div class="card-tier-name">Pro Marketer</div>
+          <div class="card-tier-desc">Everything you need to run a real affiliate business.</div>
+          <div class="card-price-wrap">
+            <div class="card-price-monthly">
+              <div class="card-price"><sup>$</sup>49<span class="period">/mo</span></div>
+              <div class="card-price-note">Billed monthly, cancel anytime</div>
+            </div>
+            <div class="card-price-annual">
+              <div class="card-price"><sup>$</sup>470<span class="period">/yr</span></div>
+              <div class="card-price-note">Save $118 vs monthly — $39.17/mo</div>
+            </div>
+          </div>
+          <ul class="card-features">
+            <li><i class="fa-solid fa-check"></i><span>Access to <strong>ALL 138+ programs</strong></span></li>
+            <li><i class="fa-solid fa-check"></i><span>Full analytics dashboard <kbd style="background:rgba(99,102,241,0.2);color:#818cf8;border-radius:3px;padding:0 4px;font-size:0.75rem;">Alt+A</kbd></span></li>
+            <li><i class="fa-solid fa-check"></i><span>Segmented email campaigns</span></li>
+            <li><i class="fa-solid fa-check"></i><span>Link cloaking (up to <strong>50 links</strong>)</span></li>
+            <li><i class="fa-solid fa-check"></i><span>Social media post generator (3 platforms)</span></li>
+            <li><i class="fa-solid fa-check"></i><span>Weekly + monthly campaign calendars</span></li>
+            <li><i class="fa-solid fa-check"></i><span>SEO article templates</span></li>
+            <li><i class="fa-solid fa-check"></i><span>Priority support</span></li>
+          </ul>
+          <button class="card-cta cta-pro" data-tier="pro">
+            <i class="fa-solid fa-rocket"></i> Go Pro
+          </button>
+        </div>
+
+        <!-- ENTERPRISE EMPIRE -->
+        <div class="pricing-card">
+          <div class="card-tier-icon icon-enterprise">
+            <i class="fa-solid fa-building-columns"></i>
+          </div>
+          <div class="card-tier-name">Enterprise Empire</div>
+          <div class="card-tier-desc">Full-scale operations with white-label rights.</div>
+          <div class="card-price-wrap">
+            <div class="card-price-monthly">
+              <div class="card-price"><sup>$</sup>149<span class="period">/mo</span></div>
+              <div class="card-price-note">Billed monthly, cancel anytime</div>
+            </div>
+            <div class="card-price-annual">
+              <div class="card-price"><sup>$</sup>1,430<span class="period">/yr</span></div>
+              <div class="card-price-note">Save $358 vs monthly — $119.17/mo</div>
+            </div>
+          </div>
+          <ul class="card-features">
+            <li><i class="fa-solid fa-check"></i><span>Everything in Pro</span></li>
+            <li><i class="fa-solid fa-check"></i><span><strong>Unlimited</strong> cloaked links</span></li>
+            <li><i class="fa-solid fa-check"></i><span>Full API access <code style="color:#818cf8;font-size:0.8rem;">/api/*</code></span></li>
+            <li><i class="fa-solid fa-check"></i><span>White-label rights</span></li>
+            <li><i class="fa-solid fa-check"></i><span>All <strong>7 social media platforms</strong></span></li>
+            <li><i class="fa-solid fa-check"></i><span>Done-for-you campaign setup (first month)</span></li>
+            <li><i class="fa-solid fa-check"></i><span>Custom landing page template</span></li>
+            <li><i class="fa-solid fa-check"></i><span>Dedicated Slack channel</span></li>
+            <li><i class="fa-solid fa-check"></i><span>Google Ads campaign templates</span></li>
+          </ul>
+          <button class="card-cta cta-enterprise" data-tier="enterprise">
+            <i class="fa-solid fa-crown"></i> Go Enterprise
+          </button>
+        </div>
+
+        <!-- DEVELOPER API -->
+        <div class="pricing-card">
+          <div class="card-tier-icon icon-developer">
+            <i class="fa-solid fa-code"></i>
+          </div>
+          <div class="card-tier-name">Developer API</div>
+          <div class="card-tier-desc">Build products on top of the DevBotAI platform.</div>
+          <div class="card-price-wrap">
+            <div class="card-price-monthly">
+              <div class="card-price"><sup>$</sup>299<span class="period">/mo</span></div>
+              <div class="card-price-note">Billed monthly, cancel anytime</div>
+            </div>
+            <div class="card-price-annual">
+              <div class="card-price"><sup>$</sup>2,870<span class="period">/yr</span></div>
+              <div class="card-price-note">Save $718 vs monthly — $239.17/mo</div>
+            </div>
+          </div>
+          <ul class="card-features">
+            <li><i class="fa-solid fa-check"></i><span>Everything in Enterprise</span></li>
+            <li><i class="fa-solid fa-check"></i><span>Full REST API with <strong>10,000 calls/mo</strong></span></li>
+            <li><i class="fa-solid fa-check"></i><span>Webhook integrations</span></li>
+            <li><i class="fa-solid fa-check"></i><span>Bulk link cloaking API</span></li>
+            <li><i class="fa-solid fa-check"></i><span>Raw affiliate database export (JSON/CSV)</span></li>
+            <li><i class="fa-solid fa-check"></i><span>Custom integration support</span></li>
+            <li><i class="fa-solid fa-check"></i><span>SDK access</span></li>
+            <li><i class="fa-solid fa-check"></i><span>SLA guarantee (99.9% uptime)</span></li>
+          </ul>
+          <button class="card-cta cta-developer" data-tier="developer">
+            <i class="fa-solid fa-terminal"></i> Go Developer
+          </button>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Compare All Features -->
+  <section class="compare-section">
+    <div class="container">
+      <button class="compare-toggle-btn" id="compareToggle">
+        <i class="fa-solid fa-table-columns"></i>
+        Compare all features
+        <i class="fa-solid fa-chevron-down" id="compareChevron"></i>
+      </button>
+      <div class="compare-table-wrap" id="compareTable">
+        <table class="compare-table">
+          <thead>
+            <tr>
+              <th>Feature</th>
+              <th>Free</th>
+              <th>Basic</th>
+              <th class="highlighted">Pro</th>
+              <th>Enterprise</th>
+              <th>Developer</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="section-row"><td colspan="6">Affiliate Programs</td></tr>
+            <tr>
+              <td>Programs Accessible</td>
+              <td>15</td><td>50</td>
+              <td class="highlighted"><strong>138+</strong></td>
+              <td>138+</td><td>138+</td>
+            </tr>
+            <tr>
+              <td>Category Filters</td>
+              <td>Basic</td><td>Full</td>
+              <td class="highlighted">Full</td>
+              <td>Full</td><td>Full</td>
+            </tr>
+            <tr>
+              <td>Database Export (JSON/CSV)</td>
+              <td><i class="fa-solid fa-times"></i></td>
+              <td><i class="fa-solid fa-times"></i></td>
+              <td class="highlighted"><i class="fa-solid fa-times"></i></td>
+              <td><i class="fa-solid fa-times"></i></td>
+              <td><i class="fa-solid fa-check"></i></td>
+            </tr>
+            <tr class="section-row"><td colspan="6">Analytics &amp; Tracking</td></tr>
+            <tr>
+              <td>Click Analytics</td>
+              <td><i class="fa-solid fa-times"></i></td>
+              <td><i class="fa-solid fa-check"></i></td>
+              <td class="highlighted"><i class="fa-solid fa-check"></i></td>
+              <td><i class="fa-solid fa-check"></i></td>
+              <td><i class="fa-solid fa-check"></i></td>
+            </tr>
+            <tr>
+              <td>Full Analytics Dashboard</td>
+              <td><i class="fa-solid fa-times"></i></td>
+              <td><i class="fa-solid fa-times"></i></td>
+              <td class="highlighted"><i class="fa-solid fa-check"></i></td>
+              <td><i class="fa-solid fa-check"></i></td>
+              <td><i class="fa-solid fa-check"></i></td>
+            </tr>
+            <tr>
+              <td>Earnings Calculator</td>
+              <td><i class="fa-solid fa-check"></i></td>
+              <td><i class="fa-solid fa-check"></i></td>
+              <td class="highlighted"><i class="fa-solid fa-check"></i></td>
+              <td><i class="fa-solid fa-check"></i></td>
+              <td><i class="fa-solid fa-check"></i></td>
+            </tr>
+            <tr class="section-row"><td colspan="6">Link Management</td></tr>
+            <tr>
+              <td>Cloaked Links</td>
+              <td><i class="fa-solid fa-times"></i></td>
+              <td><i class="fa-solid fa-times"></i></td>
+              <td class="highlighted">Up to 50</td>
+              <td>Unlimited</td>
+              <td>Unlimited + API</td>
+            </tr>
+            <tr>
+              <td>Bulk Link Cloaking API</td>
+              <td><i class="fa-solid fa-times"></i></td>
+              <td><i class="fa-solid fa-times"></i></td>
+              <td class="highlighted"><i class="fa-solid fa-times"></i></td>
+              <td><i class="fa-solid fa-times"></i></td>
+              <td><i class="fa-solid fa-check"></i></td>
+            </tr>
+            <tr class="section-row"><td colspan="6">Email &amp; Campaigns</td></tr>
+            <tr>
+              <td>Weekly Top Picks Digest</td>
+              <td><i class="fa-solid fa-times"></i></td>
+              <td><i class="fa-solid fa-check"></i></td>
+              <td class="highlighted"><i class="fa-solid fa-check"></i></td>
+              <td><i class="fa-solid fa-check"></i></td>
+              <td><i class="fa-solid fa-check"></i></td>
+            </tr>
+            <tr>
+              <td>Segmented Email Campaigns</td>
+              <td><i class="fa-solid fa-times"></i></td>
+              <td><i class="fa-solid fa-times"></i></td>
+              <td class="highlighted"><i class="fa-solid fa-check"></i></td>
+              <td><i class="fa-solid fa-check"></i></td>
+              <td><i class="fa-solid fa-check"></i></td>
+            </tr>
+            <tr>
+              <td>Campaign Calendars</td>
+              <td><i class="fa-solid fa-times"></i></td>
+              <td><i class="fa-solid fa-times"></i></td>
+              <td class="highlighted">Weekly + Monthly</td>
+              <td>Weekly + Monthly</td>
+              <td>Weekly + Monthly</td>
+            </tr>
+            <tr class="section-row"><td colspan="6">Content &amp; Social</td></tr>
+            <tr>
+              <td>Social Media Post Generator</td>
+              <td><i class="fa-solid fa-times"></i></td>
+              <td><i class="fa-solid fa-times"></i></td>
+              <td class="highlighted">3 platforms</td>
+              <td>7 platforms</td>
+              <td>7 platforms</td>
+            </tr>
+            <tr>
+              <td>SEO Article Templates</td>
+              <td><i class="fa-solid fa-times"></i></td>
+              <td><i class="fa-solid fa-times"></i></td>
+              <td class="highlighted"><i class="fa-solid fa-check"></i></td>
+              <td><i class="fa-solid fa-check"></i></td>
+              <td><i class="fa-solid fa-check"></i></td>
+            </tr>
+            <tr>
+              <td>Google Ads Templates</td>
+              <td><i class="fa-solid fa-times"></i></td>
+              <td><i class="fa-solid fa-times"></i></td>
+              <td class="highlighted"><i class="fa-solid fa-times"></i></td>
+              <td><i class="fa-solid fa-check"></i></td>
+              <td><i class="fa-solid fa-check"></i></td>
+            </tr>
+            <tr class="section-row"><td colspan="6">API &amp; Developer</td></tr>
+            <tr>
+              <td>REST API Access</td>
+              <td><i class="fa-solid fa-times"></i></td>
+              <td><i class="fa-solid fa-times"></i></td>
+              <td class="highlighted"><i class="fa-solid fa-times"></i></td>
+              <td>Full /api/*</td>
+              <td>Full + 10k calls/mo</td>
+            </tr>
+            <tr>
+              <td>Webhooks</td>
+              <td><i class="fa-solid fa-times"></i></td>
+              <td><i class="fa-solid fa-times"></i></td>
+              <td class="highlighted"><i class="fa-solid fa-times"></i></td>
+              <td><i class="fa-solid fa-times"></i></td>
+              <td><i class="fa-solid fa-check"></i></td>
+            </tr>
+            <tr>
+              <td>SDK Access</td>
+              <td><i class="fa-solid fa-times"></i></td>
+              <td><i class="fa-solid fa-times"></i></td>
+              <td class="highlighted"><i class="fa-solid fa-times"></i></td>
+              <td><i class="fa-solid fa-times"></i></td>
+              <td><i class="fa-solid fa-check"></i></td>
+            </tr>
+            <tr>
+              <td>SLA (99.9% uptime)</td>
+              <td><i class="fa-solid fa-times"></i></td>
+              <td><i class="fa-solid fa-times"></i></td>
+              <td class="highlighted"><i class="fa-solid fa-times"></i></td>
+              <td><i class="fa-solid fa-times"></i></td>
+              <td><i class="fa-solid fa-check"></i></td>
+            </tr>
+            <tr class="section-row"><td colspan="6">Support &amp; Extras</td></tr>
+            <tr>
+              <td>Community Access</td>
+              <td><i class="fa-solid fa-check"></i></td>
+              <td><i class="fa-solid fa-check"></i></td>
+              <td class="highlighted"><i class="fa-solid fa-check"></i></td>
+              <td><i class="fa-solid fa-check"></i></td>
+              <td><i class="fa-solid fa-check"></i></td>
+            </tr>
+            <tr>
+              <td>Priority Support</td>
+              <td><i class="fa-solid fa-times"></i></td>
+              <td><i class="fa-solid fa-times"></i></td>
+              <td class="highlighted"><i class="fa-solid fa-check"></i></td>
+              <td><i class="fa-solid fa-check"></i></td>
+              <td><i class="fa-solid fa-check"></i></td>
+            </tr>
+            <tr>
+              <td>Dedicated Slack Channel</td>
+              <td><i class="fa-solid fa-times"></i></td>
+              <td><i class="fa-solid fa-times"></i></td>
+              <td class="highlighted"><i class="fa-solid fa-times"></i></td>
+              <td><i class="fa-solid fa-check"></i></td>
+              <td><i class="fa-solid fa-check"></i></td>
+            </tr>
+            <tr>
+              <td>White-label Rights</td>
+              <td><i class="fa-solid fa-times"></i></td>
+              <td><i class="fa-solid fa-times"></i></td>
+              <td class="highlighted"><i class="fa-solid fa-times"></i></td>
+              <td><i class="fa-solid fa-check"></i></td>
+              <td><i class="fa-solid fa-check"></i></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- Add-on Upsells -->
+  <section class="addons-section">
+    <div class="container">
+      <h2 class="section-heading">Supercharge with <span class="gradient-text">Add-ons</span></h2>
+      <p class="section-sub">One-time and recurring add-ons to boost your affiliate business.</p>
+      <div class="addons-grid">
+
+        <div class="addon-card">
+          <div class="addon-card-header">
+            <div class="addon-icon" style="background:rgba(16,185,129,0.15);color:#10b981;">
+              <i class="fa-solid fa-gears"></i>
+            </div>
+            <div>
+              <div class="addon-name">Done-For-You Affiliate Setup</div>
+            </div>
+            <div class="addon-price">$199<small>one-time</small></div>
+          </div>
+          <div class="addon-desc">We configure your top 20 affiliate programs — tracking links, landing page copy, and email sequences — so you're earning from day one.</div>
+          <button class="addon-cta" data-addon="setup">
+            <i class="fa-solid fa-cart-plus"></i> Add to Order
+          </button>
+        </div>
+
+        <div class="addon-card">
+          <div class="addon-card-header">
+            <div class="addon-icon" style="background:rgba(99,102,241,0.15);color:#818cf8;">
+              <i class="fa-solid fa-pen-nib"></i>
+            </div>
+            <div>
+              <div class="addon-name">Monthly SEO Article Pack</div>
+            </div>
+            <div class="addon-price">$79<small>/mo recurring</small></div>
+          </div>
+          <div class="addon-desc">4 SEO-optimized articles per month targeting high-intent affiliate keywords. Includes interlinking, CTAs, and schema markup.</div>
+          <button class="addon-cta" data-addon="articles">
+            <i class="fa-solid fa-cart-plus"></i> Add to Order
+          </button>
+        </div>
+
+        <div class="addon-card">
+          <div class="addon-card-header">
+            <div class="addon-icon" style="background:rgba(245,158,11,0.15);color:#f59e0b;">
+              <i class="fa-solid fa-headset"></i>
+            </div>
+            <div>
+              <div class="addon-name">1-on-1 Affiliate Coaching</div>
+            </div>
+            <div class="addon-price">$149<small>per session</small></div>
+          </div>
+          <div class="addon-desc">60-minute strategy call with Darren. Walk away with a personalised affiliate funnel plan, program shortlist, and 30-day action roadmap.</div>
+          <button class="addon-cta" data-addon="coaching">
+            <i class="fa-solid fa-cart-plus"></i> Book Session
+          </button>
+        </div>
+
+        <div class="addon-card">
+          <div class="addon-card-header">
+            <div class="addon-icon" style="background:rgba(59,130,246,0.15);color:#60a5fa;">
+              <i class="fa-solid fa-file-code"></i>
+            </div>
+            <div>
+              <div class="addon-name">Custom Landing Pages</div>
+            </div>
+            <div class="addon-price">$299<small>one-time</small></div>
+          </div>
+          <div class="addon-desc">Conversion-optimised custom landing page for one affiliate program. A/B tested layout, trust signals, and email opt-in integration included.</div>
+          <button class="addon-cta" data-addon="landing">
+            <i class="fa-solid fa-cart-plus"></i> Add to Order
+          </button>
+        </div>
+
+        <div class="addon-card" style="border-color:rgba(245,158,11,0.3);background:rgba(245,158,11,0.04);">
+          <div class="addon-card-header">
+            <div class="addon-icon" style="background:rgba(245,158,11,0.2);color:#f59e0b;">
+              <i class="fa-solid fa-infinity"></i>
+            </div>
+            <div>
+              <div class="addon-name">Lifetime Access Pass</div>
+            </div>
+            <div class="addon-price" style="color:#f59e0b;">$999<small>one-time forever</small></div>
+          </div>
+          <div class="addon-desc">
+            <strong style="color:#f59e0b;">Pro tier forever</strong> — never pay monthly again. Equivalent to 20 months of Pro. Includes all future Pro feature updates at no extra cost.
+          </div>
+          <button class="addon-cta" data-addon="lifetime" style="background:rgba(245,158,11,0.15);border-color:rgba(245,158,11,0.4);color:#f59e0b;">
+            <i class="fa-solid fa-bolt"></i> Claim Lifetime Deal
+          </button>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="faq-section">
+    <div class="container">
+      <h2>Frequently Asked <span class="gradient-text">Questions</span></h2>
+      <div class="faq-list">
+
+        <div class="faq-item">
+          <button class="faq-question">
+            Can I switch tiers at any time?
+            <i class="fa-solid fa-chevron-down"></i>
+          </button>
+          <div class="faq-answer">
+            <p>Yes — you can upgrade or downgrade your plan at any time from your account dashboard. Upgrades take effect immediately and you'll be prorated for the remainder of your billing cycle. Downgrades take effect at the next renewal date.</p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question">
+            What's included in the 30-day money-back guarantee?
+            <i class="fa-solid fa-chevron-down"></i>
+          </button>
+          <div class="faq-answer">
+            <p>All paid plans (Basic, Pro, Enterprise, Developer) come with a 30-day no-questions-asked money-back guarantee. If you're not satisfied for any reason, contact us within 30 days of your first payment and we'll issue a full refund. Add-on purchases (excluding the Lifetime Pass) also qualify.</p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question">
+            What are the 138+ affiliate programs?
+            <i class="fa-solid fa-chevron-down"></i>
+          </button>
+          <div class="faq-answer">
+            <p>Our curated database covers AI tools, SaaS platforms, web hosting, finance &amp; crypto, e-commerce, VPN &amp; security, digital marketing tools, and more. Programs are selected for high commissions (typically 20–50% recurring), reliable tracking, and on-time payouts. The list is updated monthly with new additions. Visit the <a href="/affiliates.html" style="color:#818cf8;">Affiliate Hub</a> to see a preview.</p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question">
+            How does link cloaking work?
+            <i class="fa-solid fa-chevron-down"></i>
+          </button>
+          <div class="faq-answer">
+            <p>Link cloaking converts long, ugly affiliate URLs into clean branded URLs (e.g., <code style="color:#818cf8;">devbotai.shop/go/kinsta</code>). This improves click-through rates, protects your commissions, and makes links shareable on social media. Pro plans include up to 50 cloaked links; Enterprise and Developer get unlimited cloaking plus a bulk API endpoint.</p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question">
+            What's the difference between monthly and annual billing?
+            <i class="fa-solid fa-chevron-down"></i>
+          </button>
+          <div class="faq-answer">
+            <p>Annual billing is pre-paid for 12 months upfront and saves you exactly 20% compared to month-to-month pricing. For example, Pro drops from $49/mo to the equivalent of $39.17/mo ($470/yr). Annual plans are still covered by the 30-day guarantee — if you cancel in the first 30 days you receive a full refund.</p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question">
+            Can I use the API to build my own affiliate tools?
+            <i class="fa-solid fa-chevron-down"></i>
+          </button>
+          <div class="faq-answer">
+            <p>Enterprise plans get full read/write access to <code style="color:#818cf8;">/api/*</code> endpoints. Developer plans add 10,000 API calls per month, webhook support, bulk link cloaking, raw database exports (JSON or CSV), and SDK access for Node.js, Python, and PHP. A dedicated SLA (99.9% uptime guarantee) is also included on Developer tier.</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer style="background:#050510;border-top:1px solid rgba(99,102,241,0.2);padding:3rem 0 1.5rem;color:#94a3b8;font-size:0.85rem;">
+    <div style="max-width:1200px;margin:0 auto;padding:0 1.5rem;">
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:2rem;margin-bottom:2rem;">
+        <div>
+          <div style="font-size:1.2rem;font-weight:700;color:#e2e8f0;margin-bottom:0.8rem;">
+            <i class="fa-solid fa-bolt" style="color:#6366f1;"></i> DevBotAI
+          </div>
+          <p style="line-height:1.6;">Curated by <strong style="color:#e2e8f0;">Darren M Smith</strong><br>YouTube Expert &amp; Web Developer</p>
+          <p style="margin-top:0.5rem;">Powered by <strong style="color:#8b5cf6;">Claude Opus 4.6</strong></p>
+        </div>
+        <div>
+          <div style="font-weight:600;color:#e2e8f0;margin-bottom:0.8rem;">Platform</div>
+          <a href="/" style="display:block;color:#94a3b8;text-decoration:none;margin-bottom:0.4rem;">Dashboard</a>
+          <a href="/affiliates.html" style="display:block;color:#10b981;text-decoration:none;margin-bottom:0.4rem;">Affiliate Hub</a>
+          <a href="/pricing.html" style="display:block;color:#818cf8;text-decoration:none;margin-bottom:0.4rem;">Membership Pricing</a>
+          <a href="/bundle.html" style="display:block;color:#f59e0b;text-decoration:none;margin-bottom:0.4rem;">Automation Bundle</a>
+          <a href="/integrations.html" style="display:block;color:#94a3b8;text-decoration:none;margin-bottom:0.4rem;">Integrations</a>
+        </div>
+        <div>
+          <div style="font-weight:600;color:#e2e8f0;margin-bottom:0.8rem;">Legal</div>
+          <a href="/legal.html" style="display:block;color:#94a3b8;text-decoration:none;margin-bottom:0.4rem;">Affiliate Disclosure</a>
+          <a href="/legal.html#refund" style="display:block;color:#94a3b8;text-decoration:none;margin-bottom:0.4rem;">Refund Policy</a>
+          <a href="/legal.html#privacy" style="display:block;color:#94a3b8;text-decoration:none;margin-bottom:0.4rem;">Privacy Policy</a>
+          <a href="/legal.html#terms" style="display:block;color:#94a3b8;text-decoration:none;margin-bottom:0.4rem;">Terms of Service</a>
+        </div>
+        <div>
+          <div style="font-weight:600;color:#e2e8f0;margin-bottom:0.8rem;">Connect</div>
+          <a href="https://github.com/ds335033/devbot" target="_blank" rel="noopener" style="display:block;color:#94a3b8;text-decoration:none;margin-bottom:0.4rem;"><i class="fa-brands fa-github"></i> GitHub</a>
+          <a href="https://www.youtube.com/@guitargiveawaychannel" target="_blank" rel="noopener" style="display:block;color:#94a3b8;text-decoration:none;margin-bottom:0.4rem;"><i class="fa-brands fa-youtube" style="color:#f00;"></i> YouTube</a>
+        </div>
+      </div>
+      <div style="border-top:1px solid rgba(255,255,255,0.05);padding-top:1.5rem;text-align:center;">
+        <p style="margin-bottom:0.5rem;font-size:0.75rem;color:#64748b;">
+          <strong>Affiliate Disclosure:</strong> This site contains affiliate links. We may earn a commission when you make a purchase through our links, at no extra cost to you.
+        </p>
+        <p style="color:#64748b;font-size:0.75rem;">© 2026 DevBotAI. All rights reserved. Curated by Darren M Smith, YouTube Expert.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // ===== ANNUAL BILLING TOGGLE =====
+    const billingToggle = document.getElementById('billingToggle');
+    const labelMonthly = document.getElementById('labelMonthly');
+    const labelAnnual = document.getElementById('labelAnnual');
+
+    billingToggle.addEventListener('change', () => {
+      const isAnnual = billingToggle.checked;
+      document.body.classList.toggle('annual', isAnnual);
+      labelMonthly.classList.toggle('active', !isAnnual);
+      labelAnnual.classList.toggle('active', isAnnual);
+    });
+
+    // ===== SUCCESS BANNER =====
+    if (new URLSearchParams(location.search).get('success') === 'true') {
+      document.getElementById('successBanner').classList.add('visible');
+    }
+
+    // ===== TIER CHECKOUT =====
+    document.querySelectorAll('.card-cta[data-tier]').forEach(btn => {
+      btn.addEventListener('click', async () => {
+        const tier = btn.dataset.tier;
+        const billing = billingToggle.checked ? 'annual' : 'monthly';
+        btn.classList.add('loading');
+        try {
+          const res = await fetch('/api/checkout/tier', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ tier, billing }),
+          });
+          const data = await res.json();
+          if (data.url) {
+            window.location.href = data.url;
+          } else {
+            throw new Error(data.error || 'Checkout failed');
+          }
+        } catch (err) {
+          btn.classList.remove('loading');
+          showToast('Checkout error: ' + err.message, 'error');
+        }
+      });
+    });
+
+    // ===== ADDON CHECKOUT =====
+    document.querySelectorAll('.addon-cta[data-addon]').forEach(btn => {
+      btn.addEventListener('click', async () => {
+        const addon = btn.dataset.addon;
+        const orig = btn.innerHTML;
+        btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Processing…';
+        btn.disabled = true;
+        try {
+          const res = await fetch('/api/checkout/addon', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ addon }),
+          });
+          const data = await res.json();
+          if (data.url) {
+            window.location.href = data.url;
+          } else {
+            throw new Error(data.error || 'Checkout failed');
+          }
+        } catch (err) {
+          btn.innerHTML = orig;
+          btn.disabled = false;
+          showToast('Checkout error: ' + err.message, 'error');
+        }
+      });
+    });
+
+    // ===== COMPARE TABLE TOGGLE =====
+    const compareToggle = document.getElementById('compareToggle');
+    const compareTable = document.getElementById('compareTable');
+    const compareChevron = document.getElementById('compareChevron');
+
+    compareToggle.addEventListener('click', () => {
+      const open = compareTable.classList.toggle('open');
+      compareChevron.style.transform = open ? 'rotate(180deg)' : '';
+      compareToggle.querySelector('i:first-child').className = open
+        ? 'fa-solid fa-table-columns'
+        : 'fa-solid fa-table-columns';
+    });
+
+    // ===== COMPARE TABLE ACCESSIBILITY =====
+    // Inject sr-only text next to each check/times icon in the compare table
+    document.querySelectorAll('.compare-table td i.fa-check').forEach(icon => {
+      const sr = document.createElement('span');
+      sr.className = 'sr-only';
+      sr.textContent = '(Included)';
+      icon.after(sr);
+    });
+    document.querySelectorAll('.compare-table td i.fa-times').forEach(icon => {
+      const sr = document.createElement('span');
+      sr.className = 'sr-only';
+      sr.textContent = '(Not included)';
+      icon.after(sr);
+    });
+
+    // ===== FAQ ACCORDION =====
+    document.querySelectorAll('.faq-question').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const item = btn.closest('.faq-item');
+        const wasOpen = item.classList.contains('open');
+        document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
+        if (!wasOpen) item.classList.add('open');
+      });
+    });
+
+    // ===== MOBILE NAV TOGGLE =====
+    const navToggle = document.getElementById('nav-toggle');
+    const navLinks = document.getElementById('nav-links');
+    if (navToggle) {
+      navToggle.addEventListener('click', () => navLinks.classList.toggle('open'));
+    }
+
+    // ===== TOAST HELPER =====
+    function showToast(msg, type = 'info') {
+      const c = document.getElementById('toast-container');
+      if (!c) return;
+      const t = document.createElement('div');
+      t.className = `toast toast-${type}`;
+      t.innerHTML = `<i class="fa-solid fa-${type === 'error' ? 'circle-xmark' : 'circle-info'}"></i> ${msg}`;
+      c.appendChild(t);
+      setTimeout(() => t.remove(), 5000);
+    }
+  </script>
+</body>
+</html>

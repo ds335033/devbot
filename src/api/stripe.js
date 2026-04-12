@@ -57,8 +57,8 @@ export function registerStripeRoutes(app) {
           quantity: 1,
         }],
         mode: 'subscription',
-        success_url: 'https://devbotai.store/?success=true',
-        cancel_url: 'https://devbotai.store/?canceled=true',
+        success_url: 'https://devbotai.shop/?success=true',
+        cancel_url: 'https://devbotai.shop/?canceled=true',
       });
       res.json({ url: session.url });
     } catch (err) {

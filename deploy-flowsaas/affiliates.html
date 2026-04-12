@@ -1,0 +1,877 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="DevBotAI Affiliate Hub — Curated high-commission affiliate programs. AI tools, hosting, SaaS, finance, and more. Earn up to 50% recurring commissions.">
+  <meta name="keywords" content="affiliate marketing, high commission, AI tools, SaaS affiliate, recurring revenue, DevBotAI">
+  <meta property="og:title" content="DevBotAI Affiliate Hub — Top Affiliate Programs 2026">
+  <meta property="og:description" content="Curated collection of the most lucrative affiliate programs online. AI tools, hosting, SaaS, finance — earn up to 50% recurring commissions.">
+  <meta property="og:type" content="website">
+  <title>DevBotAI Affiliate Hub — Top Affiliate Programs 2026</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    /* Affiliate Hub Styles */
+    .aff-hero {
+      background: linear-gradient(135deg, #0a0a1a 0%, #1a0a2e 30%, #0d1b2a 70%, #0a0a1a 100%);
+      padding: 6rem 0 4rem;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .aff-hero::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: radial-gradient(ellipse at 50% 0%, rgba(99,102,241,0.15) 0%, transparent 60%),
+                  radial-gradient(ellipse at 80% 80%, rgba(16,185,129,0.1) 0%, transparent 50%);
+    }
+    .aff-hero-content { position: relative; z-index: 1; }
+    .aff-hero h1 { font-family: 'Space Grotesk', sans-serif; font-size: 3rem; font-weight: 800; margin-bottom: 1rem; }
+    .aff-hero .gradient-text { background: linear-gradient(135deg, #6366f1, #10b981, #f59e0b); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    .aff-hero p { color: #94a3b8; font-size: 1.2rem; max-width: 700px; margin: 0 auto 2rem; }
+
+    .aff-stats-bar {
+      display: flex; justify-content: center; gap: 3rem; flex-wrap: wrap;
+      padding: 1.5rem 0; margin-top: 2rem;
+    }
+    .aff-stat { text-align: center; }
+    .aff-stat-val { font-size: 2rem; font-weight: 800; color: #6366f1; display: block; }
+    .aff-stat-label { font-size: 0.85rem; color: #64748b; text-transform: uppercase; letter-spacing: 0.05em; }
+
+    /* Category filter */
+    .aff-filters {
+      display: flex; justify-content: center; gap: 0.5rem; flex-wrap: wrap;
+      padding: 2rem 0 1rem; position: sticky; top: 60px; z-index: 10;
+      background: var(--bg, #0a0a1a); border-bottom: 1px solid rgba(255,255,255,0.05);
+    }
+    .aff-filter-btn {
+      padding: 0.5rem 1.2rem; border-radius: 2rem; border: 1px solid rgba(99,102,241,0.3);
+      background: transparent; color: #94a3b8; cursor: pointer; font-size: 0.85rem;
+      transition: all 0.2s;
+    }
+    .aff-filter-btn:hover, .aff-filter-btn.active {
+      background: #6366f1; color: #fff; border-color: #6366f1;
+    }
+
+    /* Program cards */
+    .aff-grid {
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+      gap: 1.5rem; padding: 2rem 0;
+    }
+    .aff-card {
+      background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.06);
+      border-radius: 1rem; padding: 1.5rem; transition: all 0.3s;
+      position: relative; overflow: hidden;
+    }
+    .aff-card:hover {
+      border-color: rgba(99,102,241,0.4);
+      transform: translateY(-4px);
+      box-shadow: 0 12px 40px rgba(99,102,241,0.1);
+    }
+    .aff-card-header { display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem; }
+    .aff-card-icon {
+      width: 48px; height: 48px; border-radius: 12px; display: flex;
+      align-items: center; justify-content: center; font-size: 1.3rem;
+      flex-shrink: 0;
+    }
+    .aff-card-title { font-weight: 700; font-size: 1.1rem; color: #e2e8f0; }
+    .aff-card-cat { font-size: 0.75rem; color: #64748b; text-transform: uppercase; letter-spacing: 0.05em; }
+    .aff-card-desc { color: #94a3b8; font-size: 0.9rem; line-height: 1.6; margin-bottom: 1rem; }
+
+    .aff-card-meta { display: flex; gap: 1rem; flex-wrap: wrap; margin-bottom: 1.2rem; }
+    .aff-meta-pill {
+      padding: 0.3rem 0.7rem; border-radius: 1rem; font-size: 0.75rem; font-weight: 600;
+    }
+    .aff-meta-green { background: rgba(16,185,129,0.15); color: #10b981; }
+    .aff-meta-purple { background: rgba(99,102,241,0.15); color: #818cf8; }
+    .aff-meta-amber { background: rgba(245,158,11,0.15); color: #f59e0b; }
+    .aff-meta-blue { background: rgba(59,130,246,0.15); color: #60a5fa; }
+    .aff-meta-red { background: rgba(239,68,68,0.15); color: #f87171; }
+
+    .aff-card-cta {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      padding: 0.6rem 1.4rem; border-radius: 0.5rem;
+      background: linear-gradient(135deg, #6366f1, #8b5cf6);
+      color: #fff; text-decoration: none; font-weight: 600; font-size: 0.9rem;
+      transition: all 0.2s; border: none; cursor: pointer; width: 100%;
+      justify-content: center;
+    }
+    .aff-card-cta:hover { transform: scale(1.02); box-shadow: 0 4px 20px rgba(99,102,241,0.3); }
+
+    .aff-tier-badge {
+      position: absolute; top: 1rem; right: 1rem; padding: 0.25rem 0.6rem;
+      border-radius: 1rem; font-size: 0.7rem; font-weight: 700; text-transform: uppercase;
+    }
+    .tier-diamond { background: linear-gradient(135deg, #6366f1, #8b5cf6); color: #fff; }
+    .tier-gold { background: linear-gradient(135deg, #f59e0b, #d97706); color: #fff; }
+    .tier-silver { background: linear-gradient(135deg, #94a3b8, #64748b); color: #fff; }
+
+    /* Earnings calculator */
+    .aff-calculator {
+      background: rgba(255,255,255,0.03); border: 1px solid rgba(99,102,241,0.2);
+      border-radius: 1rem; padding: 2rem; margin: 3rem 0; text-align: center;
+    }
+    .aff-calculator h3 { font-size: 1.5rem; margin-bottom: 1rem; color: #e2e8f0; }
+    .aff-calc-inputs {
+      display: flex; gap: 1.5rem; justify-content: center; flex-wrap: wrap;
+      margin-bottom: 1.5rem;
+    }
+    .aff-calc-group { text-align: left; }
+    .aff-calc-group label { display: block; font-size: 0.8rem; color: #64748b; margin-bottom: 0.3rem; }
+    .aff-calc-group input, .aff-calc-group select {
+      padding: 0.6rem 1rem; border-radius: 0.5rem; border: 1px solid rgba(255,255,255,0.1);
+      background: rgba(0,0,0,0.3); color: #e2e8f0; font-size: 1rem; min-width: 180px;
+    }
+    .aff-calc-result {
+      font-size: 2.5rem; font-weight: 800; color: #10b981;
+    }
+    .aff-calc-result small { display: block; font-size: 0.85rem; color: #64748b; font-weight: 400; }
+
+    /* Bottom CTA */
+    .aff-bottom-cta {
+      text-align: center; padding: 4rem 0;
+      background: linear-gradient(135deg, rgba(99,102,241,0.1), rgba(16,185,129,0.05));
+      border-radius: 1rem; margin: 3rem 0;
+    }
+    .aff-bottom-cta h2 { font-size: 2rem; margin-bottom: 1rem; color: #e2e8f0; }
+    .aff-bottom-cta p { color: #94a3b8; margin-bottom: 2rem; max-width: 600px; margin-left: auto; margin-right: auto; }
+
+    @media (max-width: 768px) {
+      .aff-hero h1 { font-size: 2rem; }
+      .aff-grid { grid-template-columns: 1fr; }
+      .aff-stats-bar { gap: 1.5rem; }
+      .aff-calc-inputs { flex-direction: column; align-items: center; }
+    }
+  </style>
+</head>
+<body>
+  <!-- Navigation -->
+  <nav class="nav" role="navigation" aria-label="Main navigation">
+    <div class="nav-inner container">
+      <a href="/" class="nav-brand" aria-label="DevBotAI home">
+        <i class="fa-solid fa-bolt"></i>
+        <span>DevBot<span class="accent">AI</span></span>
+      </a>
+      <div class="nav-links" id="nav-links">
+        <a href="/" class="nav-link">Dashboard</a>
+        <a href="integrations.html" class="nav-link">Integrations</a>
+        <a href="workflows.html" class="nav-link">Workflows</a>
+        <a href="affiliates.html" class="nav-link" style="color:#10b981;font-weight:700;">Affiliate Hub</a>
+        <a href="trading.html" class="nav-link">Trading</a>
+      </div>
+      <div class="nav-actions">
+        <button class="btn btn-icon" id="theme-toggle" aria-label="Toggle theme">
+          <i class="fa-solid fa-moon"></i>
+        </button>
+        <button class="btn btn-icon nav-menu-toggle" id="nav-menu-toggle" aria-label="Toggle menu" aria-expanded="false">
+          <i class="fa-solid fa-bars"></i>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <main>
+    <!-- Hero -->
+    <section class="aff-hero">
+      <div class="container aff-hero-content">
+        <h1><span class="gradient-text">DevBotAI Affiliate Hub</span></h1>
+        <p>Curated collection of the highest-paying affiliate programs online. AI tools, cloud hosting, SaaS platforms, finance, and creator tools — all vetted for maximum commission potential.</p>
+        <div class="aff-stats-bar">
+          <div class="aff-stat">
+            <span class="aff-stat-val" id="total-programs">0</span>
+            <span class="aff-stat-label">Programs</span>
+          </div>
+          <div class="aff-stat">
+            <span class="aff-stat-val" style="color:#10b981;">50%</span>
+            <span class="aff-stat-label">Max Recurring</span>
+          </div>
+          <div class="aff-stat">
+            <span class="aff-stat-val" style="color:#f59e0b;">$10K+</span>
+            <span class="aff-stat-label">Max Per Sale</span>
+          </div>
+          <div class="aff-stat">
+            <span class="aff-stat-val" style="color:#f87171;">365</span>
+            <span class="aff-stat-label">Max Cookie Days</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Filters -->
+    <div class="container">
+      <div class="aff-filters" id="aff-filters">
+        <button class="aff-filter-btn active" data-cat="all">All Programs</button>
+        <button class="aff-filter-btn" data-cat="ai">AI & ML</button>
+        <button class="aff-filter-btn" data-cat="hosting">Hosting & Cloud</button>
+        <button class="aff-filter-btn" data-cat="saas">SaaS & Tools</button>
+        <button class="aff-filter-btn" data-cat="finance">Finance & Crypto</button>
+        <button class="aff-filter-btn" data-cat="marketing">Marketing</button>
+        <button class="aff-filter-btn" data-cat="education">Education</button>
+        <button class="aff-filter-btn" data-cat="ecommerce">E-Commerce</button>
+        <button class="aff-filter-btn" data-cat="security">Security & VPN</button>
+        <button class="aff-filter-btn" data-cat="design">Design & Creative</button>
+      </div>
+
+      <!-- Programs Grid -->
+      <div class="aff-grid" id="aff-grid"></div>
+
+      <!-- Earnings Calculator -->
+      <div class="aff-calculator" id="calc">
+        <h3><i class="fa-solid fa-calculator"></i> Affiliate Earnings Calculator</h3>
+        <div class="aff-calc-inputs">
+          <div class="aff-calc-group">
+            <label>Monthly Referrals</label>
+            <input type="number" id="calc-referrals" value="50" min="1" max="10000">
+          </div>
+          <div class="aff-calc-group">
+            <label>Average Sale Value</label>
+            <input type="number" id="calc-aov" value="100" min="1" max="50000" step="10">
+          </div>
+          <div class="aff-calc-group">
+            <label>Commission Rate</label>
+            <select id="calc-rate">
+              <option value="0.10">10%</option>
+              <option value="0.20">20%</option>
+              <option value="0.30" selected>30%</option>
+              <option value="0.40">40%</option>
+              <option value="0.50">50%</option>
+            </select>
+          </div>
+          <div class="aff-calc-group">
+            <label>Conversion Rate</label>
+            <select id="calc-conv">
+              <option value="0.02">2%</option>
+              <option value="0.05" selected>5%</option>
+              <option value="0.10">10%</option>
+              <option value="0.15">15%</option>
+            </select>
+          </div>
+        </div>
+        <div class="aff-calc-result" id="calc-result">
+          $0/mo
+          <small>Estimated monthly affiliate earnings</small>
+        </div>
+      </div>
+
+      <!-- Bottom CTA -->
+      <div class="aff-bottom-cta">
+        <h2>Start Earning With DevBotAI</h2>
+        <p>Join the DevBotAI affiliate ecosystem. Promote the best tools online and earn recurring commissions on every referral.</p>
+        <a href="#aff-grid" class="aff-card-cta" style="max-width:300px;margin:0 auto;">
+          <i class="fa-solid fa-rocket"></i> Browse All Programs
+        </a>
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer" role="contentinfo">
+    <div class="container footer-inner">
+      <div class="footer-brand">
+        <i class="fa-solid fa-bolt"></i>
+        <span>DevBot<span class="accent">AI</span></span>
+      </div>
+      <p class="footer-text">
+        Built by <strong>Dazza</strong> | Powered by <strong>Claude Opus 4.6</strong>
+      </p>
+      <div class="footer-links">
+        <a href="https://github.com/ds335033/devbot" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-github"></i> GitHub</a>
+        <a href="/">Dashboard</a>
+        <a href="affiliates.html">Affiliate Hub</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+  // ========== AFFILIATE PROGRAMS DATABASE ==========
+  const PROGRAMS = [
+    // === AI & ML — DIAMOND TIER ===
+    {
+      name: "Jasper AI",
+      cat: "ai", tier: "diamond",
+      icon: "fa-solid fa-pen-fancy", iconBg: "#6366f1",
+      commission: "30% recurring",
+      cookie: "30 days",
+      payout: "$100-$2,000+/mo per referral",
+      desc: "The #1 AI content platform. Jasper's 30% lifetime recurring commission means every paying user you refer keeps earning you money forever. Average customer LTV is $5,000+.",
+      url: "https://www.jasper.ai/partners",
+      tags: ["Recurring", "High LTV"]
+    },
+    {
+      name: "OpenAI / ChatGPT",
+      cat: "ai", tier: "diamond",
+      icon: "fa-solid fa-brain", iconBg: "#10b981",
+      commission: "Revenue share",
+      cookie: "N/A",
+      payout: "GPT Store revenue share",
+      desc: "Build and monetize custom GPTs in the OpenAI GPT Store. Earn revenue based on usage of your published GPTs. Enterprise API referrals also available.",
+      url: "https://openai.com/gpts",
+      tags: ["Revenue Share", "Scalable"]
+    },
+    {
+      name: "Anthropic Claude API",
+      cat: "ai", tier: "diamond",
+      icon: "fa-solid fa-robot", iconBg: "#8b5cf6",
+      commission: "Partner program",
+      cookie: "N/A",
+      payout: "Enterprise referral fees",
+      desc: "Refer enterprises to Claude API — the most capable AI model. Partner program for consultancies, agencies, and builders who drive Claude adoption.",
+      url: "https://www.anthropic.com/partners",
+      tags: ["Enterprise", "High Value"]
+    },
+    {
+      name: "Midjourney",
+      cat: "ai", tier: "gold",
+      icon: "fa-solid fa-image", iconBg: "#f59e0b",
+      commission: "Community-based",
+      cookie: "N/A",
+      payout: "Creator monetization",
+      desc: "The leading AI image generator. Build tutorials, courses, and content around Midjourney to monetize through education and content creation.",
+      url: "https://www.midjourney.com",
+      tags: ["Creator Economy", "High Demand"]
+    },
+    {
+      name: "Synthesia",
+      cat: "ai", tier: "diamond",
+      icon: "fa-solid fa-video", iconBg: "#6366f1",
+      commission: "25% recurring",
+      cookie: "90 days",
+      payout: "$75-$500+/mo per referral",
+      desc: "AI video generation platform. Enterprise plans start at $300/mo — 25% recurring on plans up to $2,000/mo gives massive earning potential.",
+      url: "https://www.synthesia.io/partners",
+      tags: ["Recurring", "Enterprise"]
+    },
+    {
+      name: "Copy.ai",
+      cat: "ai", tier: "gold",
+      icon: "fa-solid fa-feather", iconBg: "#10b981",
+      commission: "45% first year",
+      cookie: "60 days",
+      payout: "$150-$1,000+ per referral",
+      desc: "AI-powered copywriting and workflow automation. 45% commission on the first year of any plan — their enterprise plans run $4,000/yr+.",
+      url: "https://www.copy.ai/affiliates",
+      tags: ["High Commission", "Enterprise"]
+    },
+    {
+      name: "Surfer SEO",
+      cat: "ai", tier: "gold",
+      icon: "fa-solid fa-chart-line", iconBg: "#f59e0b",
+      commission: "25% recurring",
+      cookie: "30 days",
+      payout: "$25-$125/mo per referral",
+      desc: "AI-powered SEO content optimization. 25% recurring on all plans. Content creators and agencies are natural referrals with high retention.",
+      url: "https://surferseo.com/affiliate-program",
+      tags: ["Recurring", "SEO"]
+    },
+    {
+      name: "Writesonic",
+      cat: "ai", tier: "gold",
+      icon: "fa-solid fa-pencil", iconBg: "#8b5cf6",
+      commission: "30% recurring",
+      cookie: "30 days",
+      payout: "$30-$300/mo per referral",
+      desc: "AI writing assistant with GPT-4 and Claude integration. 30% lifetime recurring on all paid plans. Growing fast in the AI content space.",
+      url: "https://writesonic.com/affiliate",
+      tags: ["Recurring", "AI Writing"]
+    },
+
+    // === HOSTING & CLOUD — HIGH PAYOUTS ===
+    {
+      name: "Kinsta",
+      cat: "hosting", tier: "diamond",
+      icon: "fa-solid fa-server", iconBg: "#6366f1",
+      commission: "$50-$500 + 10% recurring",
+      cookie: "60 days",
+      payout: "$500+ first sale + monthly recurring",
+      desc: "Premium managed WordPress hosting. Up to $500 per signup PLUS 10% monthly recurring for life. Their $100/mo plans = $10/mo recurring per referral forever.",
+      url: "https://kinsta.com/affiliates",
+      tags: ["Hybrid", "Premium"]
+    },
+    {
+      name: "Cloudways",
+      cat: "hosting", tier: "diamond",
+      icon: "fa-solid fa-cloud", iconBg: "#10b981",
+      commission: "$125/sale OR 7% recurring",
+      cookie: "90 days",
+      payout: "$125/sale or lifetime recurring",
+      desc: "Managed cloud hosting (AWS, GCP, DigitalOcean). Choose between $125 flat per sale or 7% lifetime recurring. Hybrid model available for high-volume affiliates.",
+      url: "https://www.cloudways.com/en/affiliate.php",
+      tags: ["Flexible", "Cloud"]
+    },
+    {
+      name: "WP Engine",
+      cat: "hosting", tier: "diamond",
+      icon: "fa-brands fa-wordpress", iconBg: "#0073aa",
+      commission: "$200+ per sale",
+      cookie: "180 days",
+      payout: "$200 minimum, up to $7,500 for enterprise",
+      desc: "Premium WordPress hosting with $200 minimum commission per sale. Enterprise referrals can earn $7,500+. 180-day cookie is exceptional in the industry.",
+      url: "https://wpengine.com/partners",
+      tags: ["High CPA", "Long Cookie"]
+    },
+    {
+      name: "Hostinger",
+      cat: "hosting", tier: "gold",
+      icon: "fa-solid fa-globe", iconBg: "#f59e0b",
+      commission: "60% per sale",
+      cookie: "30 days",
+      payout: "$50-$150 per sale",
+      desc: "60% commission on all hosting plans — one of the highest rates in web hosting. Extremely high conversion rates due to competitive pricing.",
+      url: "https://www.hostinger.com/affiliates",
+      tags: ["High Rate", "High Conversion"]
+    },
+    {
+      name: "Liquid Web",
+      cat: "hosting", tier: "diamond",
+      icon: "fa-solid fa-database", iconBg: "#6366f1",
+      commission: "150% of monthly hosting cost",
+      cookie: "90 days",
+      payout: "$150-$7,000+ per sale",
+      desc: "150% of the referred customer's monthly hosting cost, with a $150 minimum. Dedicated server referrals can earn $2,000-$7,000+ per sale.",
+      url: "https://www.liquidweb.com/affiliate-program",
+      tags: ["Mega Payout", "Enterprise"]
+    },
+    {
+      name: "Bluehost",
+      cat: "hosting", tier: "gold",
+      icon: "fa-solid fa-house", iconBg: "#2e68d1",
+      commission: "$65+ per sale",
+      cookie: "90 days",
+      payout: "$65-$130 per sale",
+      desc: "WordPress.org recommended host. $65 per qualified signup with volume bonuses up to $130/sale. Massive brand recognition drives high conversions.",
+      url: "https://www.bluehost.com/affiliates",
+      tags: ["Trusted Brand", "High Volume"]
+    },
+    {
+      name: "Vultr",
+      cat: "hosting", tier: "gold",
+      icon: "fa-solid fa-microchip", iconBg: "#007bfc",
+      commission: "$35 per qualified referral",
+      cookie: "30 days",
+      payout: "$35+ per referral",
+      desc: "Cloud infrastructure for developers. $35 per qualified referral. Popular with dev audiences — easy sell for technical content creators.",
+      url: "https://www.vultr.com/affiliate",
+      tags: ["Developer", "Cloud"]
+    },
+
+    // === SaaS & TOOLS ===
+    {
+      name: "HubSpot",
+      cat: "saas", tier: "diamond",
+      icon: "fa-solid fa-bullseye", iconBg: "#ff7a59",
+      commission: "30% recurring (up to 1 year)",
+      cookie: "180 days",
+      payout: "$250-$1,000+/mo per enterprise referral",
+      desc: "CRM, marketing, sales — the #1 business platform. 30% recurring for up to one year. Enterprise deals worth $3,000+/mo = $900+/mo commission per referral.",
+      url: "https://www.hubspot.com/partners/affiliate",
+      tags: ["Recurring", "Enterprise", "Long Cookie"]
+    },
+    {
+      name: "Shopify",
+      cat: "saas", tier: "diamond",
+      icon: "fa-brands fa-shopify", iconBg: "#96bf48",
+      commission: "$150 per referral",
+      cookie: "30 days",
+      payout: "$150 standard, $2,000+ for Plus",
+      desc: "The world's leading e-commerce platform. $150 per standard referral, up to $2,000 for Shopify Plus enterprise referrals. Massive market and brand trust.",
+      url: "https://www.shopify.com/affiliates",
+      tags: ["High CPA", "E-Commerce"]
+    },
+    {
+      name: "Notion",
+      cat: "saas", tier: "gold",
+      icon: "fa-solid fa-note-sticky", iconBg: "#000",
+      commission: "50% of first payment",
+      cookie: "N/A",
+      payout: "$50-$500 per team signup",
+      desc: "Workspace platform used by millions. 50% commission on the first payment — team plans can reach $1,000+, earning $500+ per conversion.",
+      url: "https://www.notion.so/affiliates",
+      tags: ["High Rate", "Productivity"]
+    },
+    {
+      name: "ClickFunnels",
+      cat: "saas", tier: "diamond",
+      icon: "fa-solid fa-funnel-dollar", iconBg: "#6366f1",
+      commission: "40% recurring",
+      cookie: "45 days",
+      payout: "$40-$400+/mo per referral",
+      desc: "Sales funnel builder — 40% recurring commission for LIFE. Their top plan is $297/mo = $118/mo recurring per referral. Dream Car bonus at 100 active referrals.",
+      url: "https://www.clickfunnels.com/affiliates",
+      tags: ["Recurring", "High Rate", "Bonuses"]
+    },
+    {
+      name: "SEMrush",
+      cat: "saas", tier: "diamond",
+      icon: "fa-solid fa-magnifying-glass", iconBg: "#ff642d",
+      commission: "$200 per sale + $10/trial",
+      cookie: "120 days",
+      payout: "$200 per subscription, $10 per trial",
+      desc: "Industry-leading SEO toolkit. $200 per new subscription sale, $10 for every free trial signup. Their BeRush program pays last-click attribution with 120-day cookie.",
+      url: "https://www.semrush.com/lp/affiliate-program",
+      tags: ["High CPA", "Long Cookie", "Trial Pay"]
+    },
+    {
+      name: "Ahrefs",
+      cat: "saas", tier: "gold",
+      icon: "fa-solid fa-link", iconBg: "#1a73e8",
+      commission: "Up to 20% recurring",
+      cookie: "60 days",
+      payout: "$20-$200/mo per referral",
+      desc: "Premium SEO toolset. Up to 20% recurring commission on plans ranging $99-$999/mo. Essential tool for SEO professionals with very low churn.",
+      url: "https://ahrefs.com/affiliates",
+      tags: ["Recurring", "Low Churn"]
+    },
+    {
+      name: "Canva",
+      cat: "design", tier: "gold",
+      icon: "fa-solid fa-palette", iconBg: "#00c4cc",
+      commission: "Up to $36 per sale",
+      cookie: "30 days",
+      payout: "$36 per Pro signup",
+      desc: "Design platform with 170M+ users. Up to $36 per Canva Pro signup. Extremely high conversion due to freemium model and massive brand awareness.",
+      url: "https://www.canva.com/affiliates",
+      tags: ["High Conversion", "Popular"]
+    },
+
+    // === FINANCE & CRYPTO ===
+    {
+      name: "Coinbase",
+      cat: "finance", tier: "diamond",
+      icon: "fa-brands fa-bitcoin", iconBg: "#0052ff",
+      commission: "50% of trading fees (3 months)",
+      cookie: "30 days",
+      payout: "$10-$500+ per active trader",
+      desc: "Largest US crypto exchange. 50% of referred users' trading fees for the first 3 months. Active traders generate significant commission volume.",
+      url: "https://www.coinbase.com/affiliates",
+      tags: ["High Rate", "Crypto"]
+    },
+    {
+      name: "Binance",
+      cat: "finance", tier: "diamond",
+      icon: "fa-solid fa-coins", iconBg: "#f0b90b",
+      commission: "Up to 50% of trading fees",
+      cookie: "Lifetime",
+      payout: "$100-$10,000+/mo from active traders",
+      desc: "World's largest crypto exchange by volume. Up to 50% lifetime commission on trading fees. A single active whale trader can generate thousands per month.",
+      url: "https://www.binance.com/en/activity/affiliate",
+      tags: ["Lifetime", "Highest Potential"]
+    },
+    {
+      name: "eToro",
+      cat: "finance", tier: "diamond",
+      icon: "fa-solid fa-chart-candlestick", iconBg: "#6366f1",
+      commission: "$200-$400 CPA",
+      cookie: "45 days",
+      payout: "$200-$400 per qualified deposit",
+      desc: "Social trading platform with stocks, crypto, and ETFs. $200-$400 per qualified funded account. High payouts for finance content creators.",
+      url: "https://www.etoro.com/en-us/partners",
+      tags: ["High CPA", "Trading"]
+    },
+    {
+      name: "Wise (TransferWise)",
+      cat: "finance", tier: "gold",
+      icon: "fa-solid fa-money-bill-transfer", iconBg: "#9fe870",
+      commission: "$30 per referral + bonuses",
+      cookie: "Lifetime link",
+      payout: "$30+ per signup",
+      desc: "International money transfer platform. $30 per qualified referral. Trusted brand with high conversion. Great for expat and travel audiences.",
+      url: "https://wise.com/invite",
+      tags: ["Trusted", "Global"]
+    },
+    {
+      name: "Robinhood",
+      cat: "finance", tier: "gold",
+      icon: "fa-solid fa-chart-simple", iconBg: "#00c805",
+      commission: "Free stock for both parties",
+      cookie: "N/A",
+      payout: "$5-$200 in free stock per referral",
+      desc: "Commission-free trading app. Both referrer and referee get free stock ($5-$200 value). Extremely easy to convert due to no-cost barrier.",
+      url: "https://robinhood.com/us/en/about/referral",
+      tags: ["Easy Convert", "Stocks"]
+    },
+
+    // === MARKETING ===
+    {
+      name: "ConvertKit",
+      cat: "marketing", tier: "diamond",
+      icon: "fa-solid fa-envelope-open-text", iconBg: "#fb6970",
+      commission: "30% recurring",
+      cookie: "90 days",
+      payout: "$30-$300/mo per referral",
+      desc: "Email marketing for creators. 30% lifetime recurring commission. Creator plans run $29-$2,000+/mo. High retention means commissions compound over time.",
+      url: "https://convertkit.com/affiliates",
+      tags: ["Recurring", "Creator Economy"]
+    },
+    {
+      name: "GetResponse",
+      cat: "marketing", tier: "diamond",
+      icon: "fa-solid fa-paper-plane", iconBg: "#00baff",
+      commission: "33% recurring OR $100/sale",
+      cookie: "120 days",
+      payout: "$100-$500+/mo per referral",
+      desc: "All-in-one marketing platform. Choose 33% lifetime recurring or $100 flat per sale. Their MAX plans run $1,000+/mo = $330+/mo recurring commission.",
+      url: "https://www.getresponse.com/affiliate-programs",
+      tags: ["Flexible", "Recurring"]
+    },
+    {
+      name: "ActiveCampaign",
+      cat: "marketing", tier: "gold",
+      icon: "fa-solid fa-bullhorn", iconBg: "#356ae6",
+      commission: "20-30% recurring",
+      cookie: "90 days",
+      payout: "$50-$500/mo per referral",
+      desc: "Marketing automation + CRM. 20-30% recurring commission depending on tier. Enterprise customers have extremely high LTV with low churn.",
+      url: "https://www.activecampaign.com/partner/affiliate",
+      tags: ["Recurring", "Enterprise"]
+    },
+    {
+      name: "Moosend",
+      cat: "marketing", tier: "gold",
+      icon: "fa-solid fa-at", iconBg: "#4caf50",
+      commission: "30% recurring",
+      cookie: "90 days",
+      payout: "$30-$200/mo per referral",
+      desc: "Email marketing automation. 30% lifetime recurring with 90-day cookie. Lower price point means higher conversion rate for beginner audiences.",
+      url: "https://moosend.com/affiliate-program",
+      tags: ["Recurring", "Beginner Friendly"]
+    },
+
+    // === EDUCATION ===
+    {
+      name: "Teachable",
+      cat: "education", tier: "diamond",
+      icon: "fa-solid fa-graduation-cap", iconBg: "#6366f1",
+      commission: "30% recurring",
+      cookie: "90 days",
+      payout: "$30-$400/mo per referral",
+      desc: "Online course platform. 30% recurring on all plans ($39-$499/mo). Course creators stick for years, making this one of the stickiest recurring programs.",
+      url: "https://teachable.com/affiliates",
+      tags: ["Recurring", "Sticky"]
+    },
+    {
+      name: "Coursera",
+      cat: "education", tier: "gold",
+      icon: "fa-solid fa-book-open", iconBg: "#0056d2",
+      commission: "15-45% per sale",
+      cookie: "30 days",
+      payout: "$20-$200 per enrollment",
+      desc: "Leading online education platform. 15-45% commission on courses and specializations. Professional certificates and degrees command premium prices.",
+      url: "https://www.coursera.org/affiliates",
+      tags: ["Education", "Trusted"]
+    },
+    {
+      name: "Skillshare",
+      cat: "education", tier: "gold",
+      icon: "fa-solid fa-chalkboard-user", iconBg: "#00ff84",
+      commission: "$7 per free trial signup",
+      cookie: "30 days",
+      payout: "$7 per trial, 40% of first payment",
+      desc: "Creative education platform. $7 per free trial signup — no purchase required for commission. Plus 40% of their first payment if they convert.",
+      url: "https://www.skillshare.com/affiliates",
+      tags: ["Trial Pay", "Easy Convert"]
+    },
+    {
+      name: "Udemy",
+      cat: "education", tier: "silver",
+      icon: "fa-solid fa-laptop-code", iconBg: "#a435f0",
+      commission: "15% per sale",
+      cookie: "7 days",
+      payout: "$2-$30 per course sale",
+      desc: "Largest online course marketplace. 15% commission on all course sales. Lower per-sale amount but massive volume potential across 200K+ courses.",
+      url: "https://www.udemy.com/affiliate",
+      tags: ["Volume", "Marketplace"]
+    },
+
+    // === E-COMMERCE ===
+    {
+      name: "Amazon Associates",
+      cat: "ecommerce", tier: "gold",
+      icon: "fa-brands fa-amazon", iconBg: "#ff9900",
+      commission: "1-10% per category",
+      cookie: "24 hours (90 for cart)",
+      payout: "Volume-dependent, uncapped",
+      desc: "The world's largest affiliate program. 1-10% commission across all Amazon products. Low rates but enormous catalog and unmatched trust = high volume.",
+      url: "https://affiliate-program.amazon.com",
+      tags: ["Massive Catalog", "Trusted"]
+    },
+    {
+      name: "BigCommerce",
+      cat: "ecommerce", tier: "diamond",
+      icon: "fa-solid fa-store", iconBg: "#6366f1",
+      commission: "200% of first monthly payment",
+      cookie: "90 days",
+      payout: "$60-$1,500+ per referral",
+      desc: "Enterprise e-commerce platform. 200% of the customer's first monthly payment OR $1,500 per enterprise customer. One of the highest-paying e-commerce programs.",
+      url: "https://www.bigcommerce.com/affiliates",
+      tags: ["Mega Payout", "Enterprise"]
+    },
+    {
+      name: "Fiverr",
+      cat: "ecommerce", tier: "gold",
+      icon: "fa-solid fa-briefcase", iconBg: "#1dbf73",
+      commission: "$15-$150 CPA",
+      cookie: "30 days",
+      payout: "$15-$150 per first-time buyer",
+      desc: "Freelance marketplace. $15-$150 per first-time buyer depending on the category. Fiverr Business referrals earn $100+ per qualified lead.",
+      url: "https://affiliates.fiverr.com",
+      tags: ["CPA", "Freelance"]
+    },
+    {
+      name: "Elementor",
+      cat: "ecommerce", tier: "gold",
+      icon: "fa-solid fa-puzzle-piece", iconBg: "#92003b",
+      commission: "50% per sale",
+      cookie: "45 days",
+      payout: "$25-$100+ per sale",
+      desc: "WordPress website builder with 50% commission — one of the highest rates in the WordPress ecosystem. Plans range $49-$999/yr.",
+      url: "https://elementor.com/affiliates",
+      tags: ["High Rate", "WordPress"]
+    },
+
+    // === SECURITY & VPN ===
+    {
+      name: "NordVPN",
+      cat: "security", tier: "diamond",
+      icon: "fa-solid fa-shield-halved", iconBg: "#4687ff",
+      commission: "40% recurring + CPA",
+      cookie: "30 days",
+      payout: "$10-$100+ per sale, recurring",
+      desc: "Leading VPN service. 40% commission on new signups plus recurring on renewals. 2-year plans generate $40-$100+ per sale with renewal income.",
+      url: "https://nordvpn.com/affiliates",
+      tags: ["Recurring", "High Conversion"]
+    },
+    {
+      name: "Surfshark",
+      cat: "security", tier: "gold",
+      icon: "fa-solid fa-lock", iconBg: "#178de8",
+      commission: "40% recurring",
+      cookie: "30 days",
+      payout: "$20-$60 per sale + recurring",
+      desc: "Fast-growing VPN with unlimited device connections. 40% commission with recurring on renewals. Competitive pricing drives high conversion.",
+      url: "https://surfshark.com/affiliate",
+      tags: ["Recurring", "Growing"]
+    },
+    {
+      name: "1Password",
+      cat: "security", tier: "gold",
+      icon: "fa-solid fa-key", iconBg: "#0094ff",
+      commission: "25% of first year",
+      cookie: "30 days",
+      payout: "$10-$200+ per referral",
+      desc: "Password manager trusted by enterprises. 25% of the first year's subscription. Business plans at $7.99/user/mo mean large team referrals = big payouts.",
+      url: "https://1password.com/affiliates",
+      tags: ["Enterprise", "Security"]
+    },
+
+    // === DESIGN & CREATIVE ===
+    {
+      name: "Adobe Creative Cloud",
+      cat: "design", tier: "diamond",
+      icon: "fa-solid fa-wand-sparkles", iconBg: "#ff0000",
+      commission: "85% first month + 8.33% recurring",
+      cookie: "30 days",
+      payout: "$50-$85 first month per referral",
+      desc: "Photoshop, Illustrator, Premiere — the creative standard. 85% of the first month's subscription PLUS 8.33% monthly after. High-value sticky customers.",
+      url: "https://www.adobe.com/affiliates.html",
+      tags: ["Hybrid", "Premium Brand"]
+    },
+    {
+      name: "Envato Market",
+      cat: "design", tier: "gold",
+      icon: "fa-solid fa-shapes", iconBg: "#82b541",
+      commission: "30% on first purchase",
+      cookie: "60 days",
+      payout: "$5-$50+ per sale",
+      desc: "ThemeForest, CodeCanyon, GraphicRiver — massive digital marketplace. 30% commission on referred customers' first purchase across all Envato marketplaces.",
+      url: "https://envato.com/affiliates",
+      tags: ["Marketplace", "Digital Assets"]
+    },
+    {
+      name: "Figma",
+      cat: "design", tier: "gold",
+      icon: "fa-solid fa-vector-square", iconBg: "#a259ff",
+      commission: "Partner referral program",
+      cookie: "N/A",
+      payout: "Enterprise referral bonuses",
+      desc: "Industry-standard design tool. Partner referral program for agencies and consultancies who bring enterprise clients. High-value deals.",
+      url: "https://www.figma.com/partners",
+      tags: ["Enterprise", "Design"]
+    },
+  ];
+
+  // ========== RENDER FUNCTIONS ==========
+  function renderPrograms(filter = 'all') {
+    const grid = document.getElementById('aff-grid');
+    const filtered = filter === 'all' ? PROGRAMS : PROGRAMS.filter(p => p.cat === filter);
+
+    grid.innerHTML = filtered.map(p => `
+      <div class="aff-card" data-cat="${p.cat}">
+        <span class="aff-tier-badge tier-${p.tier}">${p.tier}</span>
+        <div class="aff-card-header">
+          <div class="aff-card-icon" style="background:${p.iconBg}20;color:${p.iconBg}">
+            <i class="${p.icon}"></i>
+          </div>
+          <div>
+            <div class="aff-card-title">${p.name}</div>
+            <div class="aff-card-cat">${p.cat.replace('ecommerce','E-Commerce').replace('ai','AI & ML')}</div>
+          </div>
+        </div>
+        <div class="aff-card-desc">${p.desc}</div>
+        <div class="aff-card-meta">
+          <span class="aff-meta-pill aff-meta-green">${p.commission}</span>
+          <span class="aff-meta-pill aff-meta-purple">${p.cookie} cookie</span>
+          <span class="aff-meta-pill aff-meta-amber">${p.payout}</span>
+        </div>
+        <div class="aff-card-meta" style="margin-bottom:1rem">
+          ${p.tags.map(t => `<span class="aff-meta-pill aff-meta-blue">${t}</span>`).join('')}
+        </div>
+        <a href="${p.url}" target="_blank" rel="noopener noreferrer" class="aff-card-cta">
+          <i class="fa-solid fa-arrow-up-right-from-square"></i> Join Program
+        </a>
+      </div>
+    `).join('');
+
+    document.getElementById('total-programs').textContent = PROGRAMS.length;
+  }
+
+  // ========== FILTER LOGIC ==========
+  document.getElementById('aff-filters').addEventListener('click', e => {
+    if (!e.target.classList.contains('aff-filter-btn')) return;
+    document.querySelectorAll('.aff-filter-btn').forEach(b => b.classList.remove('active'));
+    e.target.classList.add('active');
+    renderPrograms(e.target.dataset.cat);
+  });
+
+  // ========== CALCULATOR ==========
+  function updateCalc() {
+    const referrals = parseInt(document.getElementById('calc-referrals').value) || 0;
+    const aov = parseFloat(document.getElementById('calc-aov').value) || 0;
+    const rate = parseFloat(document.getElementById('calc-rate').value) || 0;
+    const conv = parseFloat(document.getElementById('calc-conv').value) || 0;
+    const monthly = referrals * conv * aov * rate;
+    document.getElementById('calc-result').innerHTML =
+      `$${monthly.toLocaleString('en-US', {minimumFractionDigits: 0, maximumFractionDigits: 0})}/mo<small>Estimated monthly affiliate earnings &bull; $${(monthly*12).toLocaleString('en-US', {minimumFractionDigits: 0, maximumFractionDigits: 0})}/yr projected</small>`;
+  }
+  document.querySelectorAll('#calc input, #calc select').forEach(el => el.addEventListener('input', updateCalc));
+
+  // ========== INIT ==========
+  renderPrograms();
+  updateCalc();
+
+  // Nav toggle
+  const toggle = document.getElementById('nav-menu-toggle');
+  const links = document.getElementById('nav-links');
+  if (toggle && links) {
+    toggle.addEventListener('click', () => {
+      links.classList.toggle('active');
+      toggle.setAttribute('aria-expanded', links.classList.contains('active'));
+    });
+  }
+  </script>
+</body>
+</html>

@@ -1,0 +1,107 @@
+[
+  {
+    "id": "trg-4b2ce36a-c16",
+    "name": "Stripe Payment → Onboarding",
+    "type": "stripe_event",
+    "enabled": true,
+    "filter": {
+      "eventType": "payment_intent.succeeded"
+    },
+    "actions": [
+      {
+        "templateId": "customer-onboarding",
+        "paramMapping": {
+          "email": "event.receipt_email",
+          "customerId": "event.customer"
+        },
+        "priority": 0
+      }
+    ],
+    "createdAt": "2026-04-12T12:31:03.836Z",
+    "fireCount": 0,
+    "lastFiredAt": null
+  },
+  {
+    "id": "trg-716db0a8-831",
+    "name": "GitHub Push → App Pipeline",
+    "type": "github_event",
+    "enabled": true,
+    "filter": {
+      "action": "push",
+      "branch": "main"
+    },
+    "actions": [
+      {
+        "templateId": "full-app-pipeline",
+        "paramMapping": {
+          "prompt": "event.head_commit.message"
+        },
+        "priority": 1
+      }
+    ],
+    "createdAt": "2026-04-12T12:31:03.837Z",
+    "fireCount": 0,
+    "lastFiredAt": null
+  },
+  {
+    "id": "trg-4f3fcbdd-e0b",
+    "name": "Slack /devbot → Chatbot Deploy",
+    "type": "slack_command",
+    "enabled": true,
+    "filter": {
+      "command": "/devbot"
+    },
+    "actions": [
+      {
+        "templateId": "ai-chatbot-deploy",
+        "paramMapping": {
+          "persona": "event.text",
+          "businessName": "DevBotAI"
+        },
+        "priority": 1
+      }
+    ],
+    "createdAt": "2026-04-12T12:31:03.838Z",
+    "fireCount": 0,
+    "lastFiredAt": null
+  },
+  {
+    "id": "trg-e53ea08a-870",
+    "name": "Webhook → Marketplace Publish",
+    "type": "webhook_received",
+    "enabled": true,
+    "filter": {
+      "path": "/marketplace/order"
+    },
+    "actions": [
+      {
+        "templateId": "marketplace-publish",
+        "paramMapping": {
+          "prompt": "event.appDescription",
+          "sellerEmail": "event.sellerEmail"
+        },
+        "priority": 2
+      }
+    ],
+    "createdAt": "2026-04-12T12:31:03.839Z",
+    "fireCount": 0,
+    "lastFiredAt": null
+  },
+  {
+    "id": "trg-69d95737-d19",
+    "name": "Manual → Any Workflow",
+    "type": "manual",
+    "enabled": true,
+    "filter": {},
+    "actions": [
+      {
+        "templateId": "customer-onboarding",
+        "paramMapping": {},
+        "priority": 2
+      }
+    ],
+    "createdAt": "2026-04-12T12:31:03.840Z",
+    "fireCount": 0,
+    "lastFiredAt": null
+  }
+]

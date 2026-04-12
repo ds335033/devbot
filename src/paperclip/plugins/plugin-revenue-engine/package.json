@@ -1,0 +1,22 @@
+{
+  "name": "devbot-revenue-engine",
+  "version": "1.0.0",
+  "description": "DevBot Revenue Engine — Full revenue orchestration plugin for Paperclip AI. 10 revenue streams, 49 API tools, real-time dashboard.",
+  "main": "dist/worker.js",
+  "types": "dist/worker.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "typecheck": "tsc --noEmit",
+    "test": "node --test tests/plugin.spec.js",
+    "dev": "tsc --watch"
+  },
+  "keywords": ["paperclip", "plugin", "devbot", "revenue", "ai-agents"],
+  "author": "Dazza",
+  "license": "MIT",
+  "peerDependencies": {
+    "@paperclipai/plugin-sdk": ">=2026.403.0"
+  },
+  "devDependencies": {
+    "typescript": "^5.4.0"
+  }
+}

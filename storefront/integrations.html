@@ -3,8 +3,10 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="dwvbotai.store Integrations Hub — SharePoint, Financial Markets, Chatbot Builder, Benchmarks, and Prompt Academy.">
-  <title>Integrations Hub — dwvbotai.store</title>
+  <meta name="description" content="DevBotAI Integrations Hub — SharePoint, Financial Markets, Chatbot Builder, Benchmarks, and Prompt Academy.">
+  <meta property="og:url" content="https://devbotai.shop/integrations.html">
+  <link rel="canonical" href="https://devbotai.shop/integrations.html">
+  <title>Integrations Hub — DevBotAI</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -17,9 +19,8 @@
   <!-- Navigation -->
   <nav class="nav" role="navigation" aria-label="Main navigation">
     <div class="nav-inner container">
-      <a href="index.html" class="nav-brand" aria-label="dwvbotai.store home">
-        <i class="fa-solid fa-bolt"></i>
-        <span>dwvbotai<span class="accent">.store</span></span>
+      <a href="/" class="nav-brand" aria-label="DevBotAI home">
+        <img src="logo.svg" alt="DevBotAI" style="height:32px;width:auto;">
       </a>
       <div class="nav-links" id="nav-links">
         <a href="index.html" class="nav-link">Dashboard</a>
@@ -439,12 +440,40 @@
     </div>
   </main>
 
-  <footer class="footer" role="contentinfo">
-    <div class="container footer-inner">
-      <div class="footer-brand"><i class="fa-solid fa-bolt"></i> <span>dwvbotai<span class="accent">.store</span></span></div>
-      <p class="footer-text">Built by <strong>Dazza</strong> | Powered by <strong>Claude Opus 4.6</strong></p>
-      <div class="footer-links">
-        <a href="https://github.com/ds335033/devbot" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-github"></i> GitHub</a>
+  <!-- Footer -->
+  <footer style="background:#050510;border-top:1px solid rgba(99,102,241,0.2);padding:3rem 0 1.5rem;color:#94a3b8;font-size:0.85rem;">
+    <div style="max-width:1200px;margin:0 auto;padding:0 1.5rem;">
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:2rem;margin-bottom:2rem;">
+        <div>
+          <div style="font-size:1.2rem;font-weight:700;color:#e2e8f0;margin-bottom:0.8rem;"><i class="fa-solid fa-bolt" style="color:#6366f1;"></i> DevBotAI</div>
+          <p style="line-height:1.6;">Curated by <strong style="color:#e2e8f0;">Darren M Smith</strong><br>YouTube Expert &amp; Web Developer</p>
+          <p style="margin-top:0.5rem;">Powered by <strong style="color:#8b5cf6;">Claude Opus 4.6</strong></p>
+        </div>
+        <div>
+          <div style="font-weight:600;color:#e2e8f0;margin-bottom:0.8rem;">Platform</div>
+          <a href="/" style="display:block;color:#94a3b8;text-decoration:none;margin-bottom:0.4rem;">Dashboard</a>
+          <a href="/affiliates.html" style="display:block;color:#10b981;text-decoration:none;margin-bottom:0.4rem;">Affiliate Hub</a>
+          <a href="/bundle.html" style="display:block;color:#f59e0b;text-decoration:none;margin-bottom:0.4rem;">Automation Bundle</a>
+          <a href="/integrations.html" style="display:block;color:#94a3b8;text-decoration:none;margin-bottom:0.4rem;">Integrations</a>
+        </div>
+        <div>
+          <div style="font-weight:600;color:#e2e8f0;margin-bottom:0.8rem;">Legal</div>
+          <a href="/legal.html" style="display:block;color:#94a3b8;text-decoration:none;margin-bottom:0.4rem;">Affiliate Disclosure</a>
+          <a href="/legal.html#refund" style="display:block;color:#94a3b8;text-decoration:none;margin-bottom:0.4rem;">Refund Policy</a>
+          <a href="/legal.html#privacy" style="display:block;color:#94a3b8;text-decoration:none;margin-bottom:0.4rem;">Privacy Policy</a>
+          <a href="/legal.html#terms" style="display:block;color:#94a3b8;text-decoration:none;margin-bottom:0.4rem;">Terms of Service</a>
+        </div>
+        <div>
+          <div style="font-weight:600;color:#e2e8f0;margin-bottom:0.8rem;">Connect</div>
+          <a href="https://github.com/ds335033/devbot" target="_blank" rel="noopener" style="display:block;color:#94a3b8;text-decoration:none;margin-bottom:0.4rem;"><i class="fa-brands fa-github"></i> GitHub</a>
+          <a href="https://www.youtube.com/@guitargiveawaychannel" target="_blank" rel="noopener" style="display:block;color:#94a3b8;text-decoration:none;margin-bottom:0.4rem;"><i class="fa-brands fa-youtube" style="color:#f00;"></i> YouTube</a>
+        </div>
+      </div>
+      <div style="border-top:1px solid rgba(255,255,255,0.05);padding-top:1.5rem;text-align:center;">
+        <p style="margin-bottom:0.5rem;font-size:0.75rem;color:#64748b;">
+          <strong>Affiliate Disclosure:</strong> This site contains affiliate links. We may earn a commission when you make a purchase through our links, at no extra cost to you.
+        </p>
+        <p style="color:#64748b;font-size:0.75rem;">© 2026 DevBotAI. All rights reserved. Curated by Darren M Smith, YouTube Expert.</p>
       </div>
     </div>
   </footer>
@@ -468,7 +497,7 @@
       }
 
       setupTheme() {
-        const saved = localStorage.getItem('dwvbot-theme') || 'dark';
+        const saved = localStorage.getItem('devbotai-theme') || 'dark';
         document.documentElement.setAttribute('data-theme', saved);
         const toggle = document.getElementById('theme-toggle');
         if (toggle) {
@@ -477,7 +506,7 @@
             const cur = document.documentElement.getAttribute('data-theme');
             const next = cur === 'dark' ? 'light' : 'dark';
             document.documentElement.setAttribute('data-theme', next);
-            localStorage.setItem('dwvbot-theme', next);
+            localStorage.setItem('devbotai-theme', next);
             toggle.innerHTML = next === 'dark' ? '<i class="fa-solid fa-moon"></i>' : '<i class="fa-solid fa-sun"></i>';
           });
         }

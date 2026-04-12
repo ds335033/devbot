@@ -1,0 +1,64 @@
+{
+  "queue": [],
+  "deadLetterQueue": [],
+  "cronJobs": [
+    {
+      "id": "cron-51253103",
+      "cronExpr": "0 0 * * *",
+      "templateId": "affiliate-payout",
+      "params": {
+        "affiliateId": "batch",
+        "affiliateEmail": "admin@devbot.ai"
+      },
+      "priority": 2,
+      "enabled": true,
+      "lastRun": null,
+      "runCount": 0,
+      "createdAt": "2026-04-12T12:31:03.842Z"
+    },
+    {
+      "id": "cron-a17b3961",
+      "cronExpr": "0 */6 * * *",
+      "templateId": "marketplace-publish",
+      "params": {
+        "prompt": "Generate trending app for marketplace",
+        "sellerEmail": "admin@devbot.ai"
+      },
+      "priority": 3,
+      "enabled": true,
+      "lastRun": null,
+      "runCount": 0,
+      "createdAt": "2026-04-12T12:31:03.843Z"
+    },
+    {
+      "id": "cron-eecbc14b",
+      "cronExpr": "0 9 * * 1-5",
+      "templateId": "full-app-pipeline",
+      "params": {
+        "prompt": "Daily status report app"
+      },
+      "priority": 3,
+      "enabled": true,
+      "lastRun": null,
+      "runCount": 0,
+      "createdAt": "2026-04-12T12:31:03.844Z"
+    },
+    {
+      "id": "cron-97293d44",
+      "cronExpr": "0 10 * * *",
+      "templateId": "customer-onboarding",
+      "params": {
+        "customerId": "followup",
+        "email": "admin@devbot.ai",
+        "plan": "Pro",
+        "amount": 0
+      },
+      "priority": 3,
+      "enabled": true,
+      "lastRun": null,
+      "runCount": 0,
+      "createdAt": "2026-04-12T12:31:03.845Z"
+    }
+  ],
+  "updatedAt": "2026-04-12T12:31:03.845Z"
+}

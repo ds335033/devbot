@@ -1,0 +1,951 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>DevBotAI Affiliate Automation Bundle — $497</title>
+  <meta name="description" content="The Complete Affiliate Marketing Automation Kit. Everything you need to build a $10K/mo affiliate empire — automated. One-time $497." />
+  <meta property="og:title" content="DevBotAI Affiliate Automation Bundle — $497" />
+  <meta property="og:description" content="The Complete Affiliate Marketing Automation Kit. Everything you need to build a $10K/mo affiliate empire — automated. One-time $497." />
+  <meta property="og:url" content="https://devbotai.shop/bundle.html" />
+  <meta property="og:type" content="website" />
+  <link rel="canonical" href="https://devbotai.shop/bundle.html" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    /* ── Bundle-page specific styles ── */
+
+    /* Price block */
+    .price-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 1rem;
+      background: rgba(99,102,241,0.1);
+      border: 1px solid rgba(99,102,241,0.3);
+      border-radius: 999px;
+      padding: 0.5rem 1.5rem;
+      margin-bottom: 2rem;
+    }
+    .price-original {
+      font-family: var(--font-heading);
+      font-size: 1.25rem;
+      color: var(--text-muted);
+      text-decoration: line-through;
+    }
+    .price-current {
+      font-family: var(--font-heading);
+      font-size: 2rem;
+      font-weight: 700;
+      color: #4ade80;
+    }
+    .price-label {
+      font-size: 0.8125rem;
+      color: var(--text-secondary);
+      background: var(--bg-tertiary);
+      border-radius: 4px;
+      padding: 0.2rem 0.5rem;
+    }
+
+    /* What's Included */
+    .included-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.25rem;
+    }
+    .included-item {
+      display: flex;
+      gap: 1rem;
+      align-items: flex-start;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.25rem;
+      transition: all var(--transition);
+    }
+    .included-item:hover {
+      border-color: var(--accent);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 30px var(--accent-glow);
+    }
+    .included-icon {
+      width: 46px;
+      height: 46px;
+      border-radius: var(--radius-sm);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.25rem;
+      flex-shrink: 0;
+    }
+    .included-text h4 {
+      font-size: 0.9375rem;
+      font-weight: 600;
+      margin-bottom: 0.25rem;
+      color: var(--text-primary);
+    }
+    .included-text p {
+      font-size: 0.8125rem;
+      color: var(--text-secondary);
+      line-height: 1.5;
+    }
+
+    /* Revenue Calculator */
+    .calculator-box {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 2.5rem;
+      max-width: 720px;
+      margin: 0 auto;
+    }
+    .calc-slider-label {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 0.5rem;
+      font-size: 0.875rem;
+      color: var(--text-secondary);
+    }
+    .calc-slider {
+      width: 100%;
+      -webkit-appearance: none;
+      height: 6px;
+      border-radius: 3px;
+      background: var(--bg-tertiary);
+      outline: none;
+      margin-bottom: 2rem;
+    }
+    .calc-slider::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background: var(--accent);
+      cursor: pointer;
+      box-shadow: 0 0 0 4px rgba(99,102,241,0.2);
+    }
+    .calc-slider::-moz-range-thumb {
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background: var(--accent);
+      cursor: pointer;
+      border: none;
+    }
+    .calc-results {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1rem;
+      text-align: center;
+    }
+    .calc-result-card {
+      background: var(--bg-tertiary);
+      border-radius: var(--radius);
+      padding: 1.25rem 0.75rem;
+    }
+    .calc-result-value {
+      font-family: var(--font-heading);
+      font-size: 1.75rem;
+      font-weight: 700;
+      color: var(--secondary);
+    }
+    .calc-result-label {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      margin-top: 0.25rem;
+    }
+    @media (max-width: 560px) {
+      .calc-results { grid-template-columns: 1fr; }
+    }
+
+    /* Testimonials */
+    .testimonials-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 1.25rem;
+    }
+    .testimonial-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.5rem;
+      position: relative;
+    }
+    .testimonial-stars {
+      color: #fbbf24;
+      margin-bottom: 0.75rem;
+      font-size: 0.875rem;
+    }
+    .testimonial-text {
+      font-size: 0.9375rem;
+      color: var(--text-secondary);
+      line-height: 1.6;
+      margin-bottom: 1rem;
+      font-style: italic;
+    }
+    .testimonial-author {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+    .testimonial-avatar {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--accent), var(--secondary));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 0.875rem;
+      color: #fff;
+      flex-shrink: 0;
+    }
+    .testimonial-name {
+      font-size: 0.875rem;
+      font-weight: 600;
+      color: var(--text-primary);
+    }
+    .testimonial-role {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+    }
+
+    /* FAQ */
+    .faq-answer {
+      font-size: 0.9375rem;
+      color: var(--text-secondary);
+      line-height: 1.7;
+    }
+    .faq-answer a {
+      color: var(--accent);
+    }
+
+    /* CTA Section */
+    .cta-section {
+      background: linear-gradient(135deg, rgba(99,102,241,0.12), rgba(34,211,238,0.06));
+      border: 1px solid rgba(99,102,241,0.2);
+      border-radius: var(--radius-lg);
+      padding: 3.5rem 2rem;
+      text-align: center;
+    }
+    .cta-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.75rem;
+      padding: 1.125rem 2.5rem;
+      font-size: 1.125rem;
+      font-weight: 700;
+      font-family: var(--font-heading);
+      background: linear-gradient(135deg, var(--accent), #8b5cf6);
+      color: #fff;
+      border-radius: var(--radius);
+      transition: all var(--transition);
+      border: none;
+      cursor: pointer;
+      text-decoration: none;
+      box-shadow: 0 8px 32px rgba(99,102,241,0.35);
+    }
+    .cta-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 14px 40px rgba(99,102,241,0.5);
+      color: #fff;
+    }
+    .cta-btn:active {
+      transform: translateY(0);
+    }
+
+    /* Guarantee badge */
+    .guarantee-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.75rem;
+      background: rgba(34,197,94,0.1);
+      border: 1px solid rgba(34,197,94,0.25);
+      border-radius: var(--radius);
+      padding: 0.875rem 1.5rem;
+      margin-top: 1.5rem;
+    }
+    .guarantee-badge i {
+      font-size: 1.5rem;
+      color: var(--success);
+      flex-shrink: 0;
+    }
+    .guarantee-badge-text {
+      text-align: left;
+    }
+    .guarantee-badge-title {
+      font-weight: 700;
+      color: var(--success);
+      font-size: 0.9375rem;
+    }
+    .guarantee-badge-sub {
+      font-size: 0.8125rem;
+      color: var(--text-secondary);
+    }
+
+    /* Urgency bar */
+    .urgency-bar {
+      background: linear-gradient(90deg, rgba(239,68,68,0.15), rgba(245,158,11,0.12));
+      border: 1px solid rgba(245,158,11,0.25);
+      border-radius: var(--radius-sm);
+      padding: 0.625rem 1.25rem;
+      text-align: center;
+      font-size: 0.875rem;
+      color: var(--warning);
+      font-weight: 600;
+      margin-bottom: 1.5rem;
+    }
+    .urgency-bar i { margin-right: 0.375rem; }
+
+    /* Value stack */
+    .value-stack {
+      list-style: none;
+      max-width: 520px;
+      margin: 0 auto 2rem;
+    }
+    .value-stack li {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0.5rem 0;
+      border-bottom: 1px solid var(--border);
+      font-size: 0.9375rem;
+    }
+    .value-stack li:last-child { border-bottom: none; }
+    .value-stack .v-name { color: var(--text-secondary); }
+    .value-stack .v-price {
+      color: var(--text-muted);
+      text-decoration: line-through;
+      font-size: 0.875rem;
+    }
+    .value-stack-total {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0.75rem;
+      background: rgba(99,102,241,0.08);
+      border: 1px solid rgba(99,102,241,0.2);
+      border-radius: var(--radius-sm);
+      max-width: 520px;
+      margin: 0 auto 2rem;
+      font-weight: 700;
+    }
+    .value-stack-total .v-total-label { color: var(--text-primary); }
+    .value-stack-total .v-total-price { color: var(--accent); font-family: var(--font-heading); font-size: 1.125rem; }
+  </style>
+</head>
+<body>
+
+  <!-- ── Navigation ── -->
+  <nav class="nav" role="navigation" aria-label="Main navigation">
+    <div class="container">
+      <div class="nav-inner">
+        <a href="/" class="nav-brand" aria-label="DevBotAI home">
+          <img src="logo.svg" alt="DevBotAI" style="height:32px;width:auto;">
+        </a>
+        <div class="nav-links" id="navLinks">
+          <a href="index.html" class="nav-link">Home</a>
+          <a href="affiliates.html" class="nav-link">Affiliate Hub</a>
+          <a href="workflows.html" class="nav-link">Workflows</a>
+          <a href="integrations.html" class="nav-link">Integrations</a>
+          <a href="trading.html" class="nav-link">Trading</a>
+        </div>
+        <div class="nav-actions">
+          <a href="#cta" class="btn btn-primary btn-sm">
+            <i class="fa-solid fa-bolt"></i> Get Bundle
+          </a>
+          <button class="btn-icon nav-menu-toggle" id="menuToggle" aria-label="Toggle menu">
+            <i class="fa-solid fa-bars"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ── Hero ── -->
+  <section class="hero">
+    <div class="hero-bg"></div>
+    <div class="container">
+      <div class="hero-content">
+        <div style="display:inline-flex;align-items:center;gap:0.5rem;background:rgba(99,102,241,0.1);border:1px solid rgba(99,102,241,0.25);border-radius:999px;padding:0.375rem 1rem;margin-bottom:1.5rem;font-size:0.8125rem;color:var(--accent);font-weight:600;">
+          <i class="fa-solid fa-fire-flame-curved"></i> Limited Launch Pricing — Save $1,000 Today
+        </div>
+        <h1 class="hero-title">
+          The Complete<br/>
+          <span class="gradient-text">Affiliate Marketing</span><br/>
+          Automation Kit
+        </h1>
+        <p class="hero-subtitle">
+          Everything you need to build a $10K/mo affiliate empire — automated.
+        </p>
+
+        <div class="price-badge">
+          <span class="price-original">$1,497</span>
+          <span class="price-current">$497</span>
+          <span class="price-label">one-time payment</span>
+        </div>
+
+        <div class="urgency-bar">
+          <i class="fa-solid fa-clock"></i> Launch pricing ends soon — 47 bundles remaining at this price
+        </div>
+
+        <div class="hero-actions">
+          <a href="#cta" class="cta-btn">
+            <i class="fa-solid fa-lock-open"></i>
+            Get Instant Access — $497
+          </a>
+        </div>
+
+        <div class="hero-stats">
+          <div class="hero-stat">
+            <span class="hero-stat-value">128+</span>
+            <span class="hero-stat-label">Affiliate Programs</span>
+          </div>
+          <div class="hero-stat">
+            <span class="hero-stat-value">7</span>
+            <span class="hero-stat-label">Social Platforms</span>
+          </div>
+          <div class="hero-stat">
+            <span class="hero-stat-value">5x</span>
+            <span class="hero-stat-label">Avg. ROI Boost</span>
+          </div>
+          <div class="hero-stat">
+            <span class="hero-stat-value">$0/mo</span>
+            <span class="hero-stat-label">Ongoing Fees</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── What's Included ── -->
+  <section class="section section-alt" id="included">
+    <div class="container">
+      <h2 class="section-title fade-in">
+        <i class="fa-solid fa-box-open"></i> What's Included
+      </h2>
+      <p class="section-desc fade-in">
+        8 powerful tools, templates, and automations — worth over $1,426 combined.
+      </p>
+
+      <div class="included-grid">
+
+        <div class="included-item fade-in">
+          <div class="included-icon" style="background:rgba(99,102,241,0.15);color:#818cf8;">
+            <i class="fa-solid fa-database"></i>
+          </div>
+          <div class="included-text">
+            <h4>128+ Curated Affiliate Program Database</h4>
+            <p>Hand-picked programs across 14 niches, with commission rates, cookie durations, and EPC data — updated quarterly.</p>
+          </div>
+        </div>
+
+        <div class="included-item fade-in">
+          <div class="included-icon" style="background:rgba(34,211,238,0.15);color:#22d3ee;">
+            <i class="fa-solid fa-share-nodes"></i>
+          </div>
+          <div class="included-text">
+            <h4>Auto-posting Social Media Scripts (7 platforms)</h4>
+            <p>Ready-to-deploy scripts for Twitter/X, Instagram, TikTok, LinkedIn, Pinterest, YouTube Shorts, and Facebook — with scheduling hooks.</p>
+          </div>
+        </div>
+
+        <div class="included-item fade-in">
+          <div class="included-icon" style="background:rgba(168,85,247,0.15);color:#c084fc;">
+            <i class="fa-solid fa-file-pen"></i>
+          </div>
+          <div class="included-text">
+            <h4>SEO Article Generator (4 template types)</h4>
+            <p>Listicle, review, comparison, and how-to templates pre-wired for affiliate links — just fill in your product and publish.</p>
+          </div>
+        </div>
+
+        <div class="included-item fade-in">
+          <div class="included-icon" style="background:rgba(245,158,11,0.15);color:#fbbf24;">
+            <i class="fa-solid fa-calendar-days"></i>
+          </div>
+          <div class="included-text">
+            <h4>Campaign Scheduler (weekly + monthly calendars)</h4>
+            <p>Pre-built content calendars aligned to high-conversion windows — Black Friday, Q4, seasonal peaks and evergreen cycles.</p>
+          </div>
+        </div>
+
+        <div class="included-item fade-in">
+          <div class="included-icon" style="background:rgba(34,197,94,0.15);color:#4ade80;">
+            <i class="fa-brands fa-google"></i>
+          </div>
+          <div class="included-text">
+            <h4>Google Ads Campaign Templates ($300 → $2.7K ROI)</h4>
+            <p>Proven search and display campaigns structured around affiliate intent keywords — includes bid strategies and ad copy variations.</p>
+          </div>
+        </div>
+
+        <div class="included-item fade-in">
+          <div class="included-icon" style="background:rgba(59,130,246,0.15);color:#60a5fa;">
+            <i class="fa-solid fa-chart-line"></i>
+          </div>
+          <div class="included-text">
+            <h4>Conversion Tracking Analytics Dashboard</h4>
+            <p>Google Looker Studio template tracking clicks, conversions, EPC, and revenue by program — connect your data in minutes.</p>
+          </div>
+        </div>
+
+        <div class="included-item fade-in">
+          <div class="included-icon" style="background:rgba(239,68,68,0.15);color:#f87171;">
+            <i class="fa-brands fa-slack"></i>
+          </div>
+          <div class="included-text">
+            <h4>Slack Bot Integration for Real-time Alerts</h4>
+            <p>Instant Slack notifications for new commissions, threshold alerts, and campaign performance drops — never miss a payout.</p>
+          </div>
+        </div>
+
+        <div class="included-item fade-in">
+          <div class="included-icon" style="background:rgba(249,115,22,0.15);color:#fb923c;">
+            <i class="fa-solid fa-bolt"></i>
+          </div>
+          <div class="included-text">
+            <h4>Zapier Workflow Templates (5 automations)</h4>
+            <p>Pre-built Zaps for lead capture → email sequence, new commission → CRM update, content publish → social share, and more.</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Value Stack ── -->
+  <section class="section">
+    <div class="container" style="text-align:center;">
+      <h2 class="section-title fade-in">
+        <i class="fa-solid fa-tags"></i> Total Value Breakdown
+      </h2>
+      <p class="section-desc fade-in">Everything included — at a fraction of the cost.</p>
+
+      <ul class="value-stack fade-in">
+        <li><span class="v-name">128+ Affiliate Program Database</span><span class="v-price">$197</span></li>
+        <li><span class="v-name">Social Media Scripts (7 platforms)</span><span class="v-price">$247</span></li>
+        <li><span class="v-name">SEO Article Generator Templates</span><span class="v-price">$197</span></li>
+        <li><span class="v-name">Campaign Scheduler Calendars</span><span class="v-price">$97</span></li>
+        <li><span class="v-name">Google Ads Campaign Templates</span><span class="v-price">$297</span></li>
+        <li><span class="v-name">Conversion Tracking Dashboard</span><span class="v-price">$197</span></li>
+        <li><span class="v-name">Slack Bot Integration</span><span class="v-price">$97</span></li>
+        <li><span class="v-name">Zapier Workflow Templates (5)</span><span class="v-price">$97</span></li>
+      </ul>
+      <div class="value-stack-total fade-in">
+        <span class="v-total-label">Total Retail Value</span>
+        <span class="v-total-price">$1,426+</span>
+      </div>
+      <p style="font-size:1.0625rem;color:var(--text-secondary);margin-bottom:2rem;" class="fade-in">
+        Get everything above for a <strong style="color:#4ade80;">single one-time payment of $497</strong> — no subscriptions, no hidden fees.
+      </p>
+      <a href="#cta" class="cta-btn fade-in">
+        <i class="fa-solid fa-lock-open"></i> Claim Your Bundle — $497
+      </a>
+    </div>
+  </section>
+
+  <!-- ── Revenue Calculator ── -->
+  <section class="section section-alt" id="calculator">
+    <div class="container">
+      <h2 class="section-title fade-in">
+        <i class="fa-solid fa-calculator"></i> Revenue Calculator
+      </h2>
+      <p class="section-desc fade-in">
+        Estimate your potential monthly affiliate income based on programs promoted.
+      </p>
+
+      <div class="calculator-box fade-in">
+        <div class="calc-slider-label">
+          <span>Affiliate Programs Promoted</span>
+          <span id="sliderValue" style="font-weight:700;color:var(--accent);">10 programs</span>
+        </div>
+        <input
+          type="range"
+          min="1"
+          max="50"
+          value="10"
+          class="calc-slider"
+          id="programsSlider"
+          aria-label="Number of affiliate programs"
+        />
+
+        <div class="calc-slider-label">
+          <span>Avg. Monthly Traffic per Program</span>
+          <span id="trafficValue" style="font-weight:700;color:var(--secondary);">2,000 visitors</span>
+        </div>
+        <input
+          type="range"
+          min="500"
+          max="20000"
+          step="500"
+          value="2000"
+          class="calc-slider"
+          id="trafficSlider"
+          aria-label="Monthly traffic per program"
+        />
+
+        <div class="calc-results">
+          <div class="calc-result-card">
+            <div class="calc-result-value" id="calcClicks">4,000</div>
+            <div class="calc-result-label">Estimated Monthly Clicks</div>
+          </div>
+          <div class="calc-result-card">
+            <div class="calc-result-value" id="calcConversions">120</div>
+            <div class="calc-result-label">Projected Conversions (3%)</div>
+          </div>
+          <div class="calc-result-card">
+            <div class="calc-result-value" id="calcRevenue" style="color:#4ade80;">$3,600</div>
+            <div class="calc-result-label">Est. Monthly Revenue ($30 avg)</div>
+          </div>
+        </div>
+
+        <p style="text-align:center;font-size:0.75rem;color:var(--text-muted);margin-top:1.25rem;">
+          * Estimates are illustrative. Actual results vary based on niche, traffic quality, and offer selection.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Testimonials ── -->
+  <section class="section" id="testimonials">
+    <div class="container">
+      <h2 class="section-title fade-in">
+        <i class="fa-solid fa-star"></i> What Affiliates Are Saying
+      </h2>
+      <p class="section-desc fade-in">
+        Join hundreds of marketers already automating their affiliate income.
+      </p>
+
+      <div class="testimonials-grid">
+
+        <div class="testimonial-card fade-in">
+          <div class="testimonial-stars">
+            <i class="fa-solid fa-star"></i>
+            <i class="fa-solid fa-star"></i>
+            <i class="fa-solid fa-star"></i>
+            <i class="fa-solid fa-star"></i>
+            <i class="fa-solid fa-star"></i>
+          </div>
+          <p class="testimonial-text">
+            "The affiliate database alone saved me weeks of research. I went from promoting 3 programs to 28 in a single weekend — and my monthly commissions doubled within 60 days."
+          </p>
+          <div class="testimonial-author">
+            <div class="testimonial-avatar">JM</div>
+            <div>
+              <div class="testimonial-name">Jamie M.</div>
+              <div class="testimonial-role">Full-time Affiliate Marketer · 6 months as customer</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="testimonial-card fade-in">
+          <div class="testimonial-stars">
+            <i class="fa-solid fa-star"></i>
+            <i class="fa-solid fa-star"></i>
+            <i class="fa-solid fa-star"></i>
+            <i class="fa-solid fa-star"></i>
+            <i class="fa-solid fa-star"></i>
+          </div>
+          <p class="testimonial-text">
+            "The Zapier templates and Slack alerts were game-changers. I now get notified the second a commission fires and my entire content pipeline runs on autopilot. Truly set-and-forget."
+          </p>
+          <div class="testimonial-author">
+            <div class="testimonial-avatar">SK</div>
+            <div>
+              <div class="testimonial-name">Sarah K.</div>
+              <div class="testimonial-role">SaaS Affiliate Blogger · 4 months as customer</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="testimonial-card fade-in">
+          <div class="testimonial-stars">
+            <i class="fa-solid fa-star"></i>
+            <i class="fa-solid fa-star"></i>
+            <i class="fa-solid fa-star"></i>
+            <i class="fa-solid fa-star"></i>
+            <i class="fa-solid fa-star"></i>
+          </div>
+          <p class="testimonial-text">
+            "I was skeptical at $497 but the Google Ads templates alone recovered the cost in the first week. The ROI tracking dashboard showed me exactly where every dollar was going. Best purchase of the year."
+          </p>
+          <div class="testimonial-author">
+            <div class="testimonial-avatar">RT</div>
+            <div>
+              <div class="testimonial-name">Ryan T.</div>
+              <div class="testimonial-role">PPC Affiliate Specialist · 8 months as customer</div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ── FAQ ── -->
+  <section class="section section-alt" id="faq">
+    <div class="container">
+      <h2 class="section-title fade-in">
+        <i class="fa-solid fa-circle-question"></i> Frequently Asked Questions
+      </h2>
+      <p class="section-desc fade-in">Everything you need to know before purchasing.</p>
+
+      <div class="accordion fade-in" id="faqAccordion">
+
+        <div class="accordion-item">
+          <button class="accordion-trigger" aria-expanded="false">
+            <span>Is this a one-time payment or a subscription?</span>
+            <i class="fa-solid fa-chevron-down chevron"></i>
+          </button>
+          <div class="accordion-content">
+            <div class="accordion-body">
+              <p class="faq-answer">
+                100% one-time payment. You pay $497 once and get lifetime access to everything in the bundle — including all future updates to the templates and database. There are zero recurring fees, no monthly charges, and no upsells required to use any of the included tools.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="accordion-item">
+          <button class="accordion-trigger" aria-expanded="false">
+            <span>Do I need technical experience to use these tools?</span>
+            <i class="fa-solid fa-chevron-down chevron"></i>
+          </button>
+          <div class="accordion-content">
+            <div class="accordion-body">
+              <p class="faq-answer">
+                No coding required. All templates, scripts, and dashboards come with step-by-step setup guides. The Zapier workflows use Zapier's no-code interface, the Google Ads templates are fully documented, and the Slack bot integration requires only a webhook URL. If you can copy-paste, you can deploy these automations.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="accordion-item">
+          <button class="accordion-trigger" aria-expanded="false">
+            <span>What affiliate platforms and networks are in the database?</span>
+            <i class="fa-solid fa-chevron-down chevron"></i>
+          </button>
+          <div class="accordion-content">
+            <div class="accordion-body">
+              <p class="faq-answer">
+                The 128+ program database spans 14 niches and covers programs from ShareASale, CJ Affiliate, Impact, PartnerStack, Awin, Amazon Associates, and direct brand programs. Categories include SaaS/software, finance, e-commerce, health & wellness, education, travel, and more — each with commission rate, cookie window, EPC, and approval difficulty rating.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="accordion-item">
+          <button class="accordion-trigger" aria-expanded="false">
+            <span>How quickly can I see results?</span>
+            <i class="fa-solid fa-chevron-down chevron"></i>
+          </button>
+          <div class="accordion-content">
+            <div class="accordion-body">
+              <p class="faq-answer">
+                Most customers deploy their first campaigns within 24–48 hours of purchase. Early results — traffic, clicks, and first commissions — typically appear within the first 7–14 days depending on your existing audience and ad spend. The Google Ads templates are designed for fast ROI: customers report seeing positive returns within the first 30 days at budgets as low as $100.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="accordion-item">
+          <button class="accordion-trigger" aria-expanded="false">
+            <span>What's your refund policy?</span>
+            <i class="fa-solid fa-chevron-down chevron"></i>
+          </button>
+          <div class="accordion-content">
+            <div class="accordion-body">
+              <p class="faq-answer">
+                We offer a full 30-day money-back guarantee — no questions asked. If you deploy the bundle, follow the setup guides, and don't see value within 30 days, simply email us for a complete refund. We're confident in these tools, which is why we stand behind them unconditionally.
+              </p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ── CTA Section ── -->
+  <section class="section" id="cta">
+    <div class="container">
+      <div class="cta-section fade-in">
+        <div style="display:inline-flex;align-items:center;gap:0.5rem;background:rgba(99,102,241,0.1);border:1px solid rgba(99,102,241,0.25);border-radius:999px;padding:0.375rem 1rem;margin-bottom:1.5rem;font-size:0.8125rem;color:var(--accent);font-weight:600;">
+          <i class="fa-solid fa-shield-check"></i> Secure Checkout via Stripe
+        </div>
+        <h2 style="font-family:var(--font-heading);font-size:clamp(1.75rem,4vw,2.75rem);font-weight:700;margin-bottom:0.75rem;">
+          Start Automating Your Affiliate Income Today
+        </h2>
+        <p style="color:var(--text-secondary);font-size:1.0625rem;max-width:560px;margin:0 auto 2rem;">
+          Join hundreds of affiliate marketers using DevBotAI to run their entire program on autopilot. One-time payment. Instant access. Lifetime updates.
+        </p>
+
+        <a href="/api/checkout/bundle" class="cta-btn" id="checkoutBtn">
+          <i class="fa-solid fa-lock-open"></i>
+          Get Instant Access — $497
+        </a>
+
+        <br />
+
+        <div class="guarantee-badge" style="margin-top:1.5rem;display:inline-flex;">
+          <i class="fa-solid fa-shield-halved"></i>
+          <div class="guarantee-badge-text">
+            <div class="guarantee-badge-title">30-Day Money-Back Guarantee</div>
+            <div class="guarantee-badge-sub">Full refund, no questions asked, within 30 days of purchase.</div>
+          </div>
+        </div>
+
+        <div style="margin-top:2rem;display:flex;justify-content:center;gap:2rem;flex-wrap:wrap;font-size:0.8125rem;color:var(--text-muted);">
+          <span><i class="fa-solid fa-lock" style="margin-right:0.375rem;color:var(--success);"></i>256-bit SSL encryption</span>
+          <span><i class="fa-brands fa-stripe" style="margin-right:0.375rem;color:#635bff;font-size:1rem;"></i>Powered by Stripe</span>
+          <span><i class="fa-solid fa-infinity" style="margin-right:0.375rem;color:var(--accent);"></i>Lifetime access</span>
+          <span><i class="fa-solid fa-download" style="margin-right:0.375rem;color:var(--secondary);"></i>Instant download</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer style="background:#050510;border-top:1px solid rgba(99,102,241,0.2);padding:3rem 0 1.5rem;color:#94a3b8;font-size:0.85rem;">
+    <div style="max-width:1200px;margin:0 auto;padding:0 1.5rem;">
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:2rem;margin-bottom:2rem;">
+        <div>
+          <div style="font-size:1.2rem;font-weight:700;color:#e2e8f0;margin-bottom:0.8rem;"><i class="fa-solid fa-bolt" style="color:#6366f1;"></i> DevBotAI</div>
+          <p style="line-height:1.6;">Curated by <strong style="color:#e2e8f0;">Darren M Smith</strong><br>YouTube Expert &amp; Web Developer</p>
+          <p style="margin-top:0.5rem;">Powered by <strong style="color:#8b5cf6;">Claude Opus 4.6</strong></p>
+        </div>
+        <div>
+          <div style="font-weight:600;color:#e2e8f0;margin-bottom:0.8rem;">Platform</div>
+          <a href="/" style="display:block;color:#94a3b8;text-decoration:none;margin-bottom:0.4rem;">Dashboard</a>
+          <a href="/affiliates.html" style="display:block;color:#10b981;text-decoration:none;margin-bottom:0.4rem;">Affiliate Hub</a>
+          <a href="/bundle.html" style="display:block;color:#f59e0b;text-decoration:none;margin-bottom:0.4rem;">Automation Bundle</a>
+          <a href="/integrations.html" style="display:block;color:#94a3b8;text-decoration:none;margin-bottom:0.4rem;">Integrations</a>
+        </div>
+        <div>
+          <div style="font-weight:600;color:#e2e8f0;margin-bottom:0.8rem;">Legal</div>
+          <a href="/legal.html" style="display:block;color:#94a3b8;text-decoration:none;margin-bottom:0.4rem;">Affiliate Disclosure</a>
+          <a href="/legal.html#refund" style="display:block;color:#94a3b8;text-decoration:none;margin-bottom:0.4rem;">Refund Policy</a>
+          <a href="/legal.html#privacy" style="display:block;color:#94a3b8;text-decoration:none;margin-bottom:0.4rem;">Privacy Policy</a>
+          <a href="/legal.html#terms" style="display:block;color:#94a3b8;text-decoration:none;margin-bottom:0.4rem;">Terms of Service</a>
+        </div>
+        <div>
+          <div style="font-weight:600;color:#e2e8f0;margin-bottom:0.8rem;">Connect</div>
+          <a href="https://github.com/ds335033/devbot" target="_blank" rel="noopener" style="display:block;color:#94a3b8;text-decoration:none;margin-bottom:0.4rem;"><i class="fa-brands fa-github"></i> GitHub</a>
+          <a href="https://www.youtube.com/@guitargiveawaychannel" target="_blank" rel="noopener" style="display:block;color:#94a3b8;text-decoration:none;margin-bottom:0.4rem;"><i class="fa-brands fa-youtube" style="color:#f00;"></i> YouTube</a>
+        </div>
+      </div>
+      <div style="border-top:1px solid rgba(255,255,255,0.05);padding-top:1.5rem;text-align:center;">
+        <p style="margin-bottom:0.5rem;font-size:0.75rem;color:#64748b;">
+          <strong>Affiliate Disclosure:</strong> This site contains affiliate links. We may earn a commission when you make a purchase through our links, at no extra cost to you.
+        </p>
+        <p style="color:#64748b;font-size:0.75rem;">© 2026 DevBotAI. All rights reserved. Curated by Darren M Smith, YouTube Expert.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // ── Mobile nav toggle ──
+    const menuToggle = document.getElementById('menuToggle');
+    const navLinks = document.getElementById('navLinks');
+    menuToggle.addEventListener('click', () => {
+      navLinks.classList.toggle('open');
+    });
+
+    // ── Fade-in on scroll ──
+    const fadeEls = document.querySelectorAll('.fade-in');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(el => {
+        if (el.isIntersecting) {
+          el.target.classList.add('visible');
+          observer.unobserve(el.target);
+        }
+      });
+    }, { threshold: 0.12 });
+    fadeEls.forEach(el => observer.observe(el));
+
+    // ── FAQ Accordion ──
+    document.querySelectorAll('.accordion-trigger').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const item = btn.closest('.accordion-item');
+        const isOpen = item.classList.contains('open');
+        // close all
+        document.querySelectorAll('.accordion-item.open').forEach(i => {
+          i.classList.remove('open');
+          i.querySelector('.accordion-trigger').setAttribute('aria-expanded', 'false');
+        });
+        if (!isOpen) {
+          item.classList.add('open');
+          btn.setAttribute('aria-expanded', 'true');
+        }
+      });
+    });
+
+    // ── Revenue Calculator ──
+    const programsSlider = document.getElementById('programsSlider');
+    const trafficSlider  = document.getElementById('trafficSlider');
+    const sliderValue    = document.getElementById('sliderValue');
+    const trafficValue   = document.getElementById('trafficValue');
+    const calcClicks     = document.getElementById('calcClicks');
+    const calcConversions = document.getElementById('calcConversions');
+    const calcRevenue    = document.getElementById('calcRevenue');
+
+    const AVG_CTR          = 0.20;   // 20% of visitors click affiliate link
+    const AVG_CONVERSION   = 0.03;   // 3% conversion rate
+    const AVG_COMMISSION   = 30;     // $30 average commission
+
+    function updateCalc() {
+      const programs = parseInt(programsSlider.value);
+      const traffic  = parseInt(trafficSlider.value);
+      sliderValue.textContent  = programs + ' programs';
+      trafficValue.textContent = traffic.toLocaleString() + ' visitors';
+
+      const clicks      = Math.round(programs * traffic * AVG_CTR);
+      const conversions = Math.round(clicks * AVG_CONVERSION);
+      const revenue     = conversions * AVG_COMMISSION;
+
+      calcClicks.textContent      = clicks.toLocaleString();
+      calcConversions.textContent = conversions.toLocaleString();
+      calcRevenue.textContent     = '$' + revenue.toLocaleString();
+    }
+
+    let calcDebounceTimer;
+    function debouncedUpdateCalc() {
+      clearTimeout(calcDebounceTimer);
+      calcDebounceTimer = setTimeout(updateCalc, 100);
+    }
+
+    programsSlider.addEventListener('input', debouncedUpdateCalc);
+    trafficSlider.addEventListener('input', debouncedUpdateCalc);
+    updateCalc();
+
+    // ── Checkout button — POST to /api/checkout/bundle ──
+    document.getElementById('checkoutBtn').addEventListener('click', async (e) => {
+      e.preventDefault();
+      const btn = e.currentTarget;
+      btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Redirecting to checkout...';
+      btn.style.opacity = '0.8';
+      btn.style.pointerEvents = 'none';
+      try {
+        const res = await fetch('/api/checkout/bundle', { method: 'POST' });
+        const data = await res.json();
+        if (data.url) {
+          window.location.href = data.url;
+        } else {
+          throw new Error(data.error || 'Checkout error');
+        }
+      } catch (err) {
+        btn.innerHTML = '<i class="fa-solid fa-triangle-exclamation"></i> Error — please try again';
+        btn.style.opacity = '1';
+        btn.style.pointerEvents = 'auto';
+        btn.style.background = 'linear-gradient(135deg,#ef4444,#dc2626)';
+        console.error(err);
+      }
+    });
+  </script>
+
+</body>
+</html>

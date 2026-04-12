@@ -137,33 +137,68 @@ def load_state():
 def save_state(state):
     STATE_FILE.write_text(json.dumps(state, indent=2))
 
-# ── AUTH — EdDSA JWT ────────────────────────────────────────
+# ── AUTH — CDP JWT (EC or EdDSA auto-detect) ───────────────
 _cached_key = None
+_key_algorithm = None
 
 def get_private_key():
-    global _cached_key
+    global _cached_key, _key_algorithm
     if _cached_key is None:
-        from cryptography.hazmat.primitives.asymmetric.ed25519 import Ed25519PrivateKey
-        key_bytes = base64.b64decode(CDP_PRIVATE_KEY)
-        seed = key_bytes[:32] if len(key_bytes) == 64 else key_bytes
-        _cached_key = Ed25519PrivateKey.from_private_bytes(seed)
+        key_data = CDP_PRIVATE_KEY.strip()
+
+        if key_data.startswith("-----BEGIN EC PRIVATE KEY-----"):
+            # ECDSA PEM key (ES256)
+            from cryptography.hazmat.primitives.serialization import load_pem_private_key
+            _cached_key = load_pem_private_key(key_data.encode(), password=None)
+            _key_algorithm = "ES256"
+        elif key_data.startswith("-----BEGIN PRIVATE KEY-----"):
+            # Generic PEM — could be EC or Ed25519
+            from cryptography.hazmat.primitives.serialization import load_pem_private_key
+            _cached_key = load_pem_private_key(key_data.encode(), password=None)
+            from cryptography.hazmat.primitives.asymmetric.ec import EllipticCurvePrivateKey
+            from cryptography.hazmat.primitives.asymmetric.ed25519 import Ed25519PrivateKey
+            if isinstance(_cached_key, EllipticCurvePrivateKey):
+                _key_algorithm = "ES256"
+            elif isinstance(_cached_key, Ed25519PrivateKey):
+                _key_algorithm = "EdDSA"
+            else:
+                _key_algorithm = "ES256"
+        else:
+            # Raw base64 bytes — assume EdDSA
+            from cryptography.hazmat.primitives.asymmetric.ed25519 import Ed25519PrivateKey
+            key_bytes = base64.b64decode(key_data)
+            seed = key_bytes[:32] if len(key_bytes) == 64 else key_bytes
+            _cached_key = Ed25519PrivateKey.from_private_bytes(seed)
+            _key_algorithm = "EdDSA"
+
+        log(f"Auth: {_key_algorithm} key loaded")
     return _cached_key
 
 def make_jwt(method, path):
     import jwt as pyjwt
+    key = get_private_key()
+    now = int(time.time())
     uri = f"{method} api.coinbase.com{path}"
+
+    # CDP org keys use this format
     payload = {
         "sub": CDP_API_KEY,
-        "iss": "cdp",
-        "nbf": int(time.time()),
-        "exp": int(time.time()) + 120,
-        "uri": uri,
+        "iss": "coinbase-cloud",
+        "nbf": now,
+        "exp": now + 120,
+        "aud": ["cdp_service"],
+        "uris": [uri],
+    }
+    headers = {
+        "kid": CDP_API_KEY,
+        "nonce": sec.token_hex(16),
+        "typ": "JWT",
     }
     return pyjwt.encode(
         payload,
-        get_private_key(),
-        algorithm="EdDSA",
-        headers={"kid": CDP_API_KEY, "nonce": sec.token_hex()},
+        key,
+        algorithm=_key_algorithm,
+        headers=headers,
     )
 
 # ── COINBASE API ────────────────────────────────────────────
@@ -654,7 +689,8 @@ def main():
 
     log("=" * 60)
     log("  DEVBOT MULTI-STRATEGY TRADER")
-    log(f"  Tiers: {', '.join(f'T{t} ({TIERS[t][\"name\"]} {TIERS[t][\"allocation_pct\"]}%)' for t in tiers_to_run)}")
+    tier_labels = ", ".join(f"T{t} ({TIERS[t]['name']} {TIERS[t]['allocation_pct']}%)" for t in tiers_to_run)
+    log(f"  Tiers: {tier_labels}")
     log(f"  Total allocation: {sum(TIERS[t]['allocation_pct'] for t in tiers_to_run)}% of portfolio")
     log(f"  Cycle interval: {CYCLE_INTERVAL // 60} minutes")
     log(f"  Mode: {'DRY RUN (no real trades)' if dry_run else '*** LIVE — REAL MONEY ***'}")

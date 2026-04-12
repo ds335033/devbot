@@ -1,0 +1,1249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="DevBot AI Trading Dashboard — Autonomous crypto trading powered by Claude AI + Coinbase AgentKit">
+  <title>DevBot AI Trading Dashboard — dwvbotai.store</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer">
+  <style>
+    /* --- Design Tokens (matching storefront) --- */
+    :root {
+      --bg-primary: #0a0a0f;
+      --bg-secondary: #12121a;
+      --bg-tertiary: #1a1a28;
+      --bg-card: #12121a;
+      --bg-card-hover: #1a1a28;
+      --accent: #6366f1;
+      --accent-hover: #818cf8;
+      --accent-glow: rgba(99, 102, 241, 0.25);
+      --secondary: #22d3ee;
+      --success: #22c55e;
+      --success-bg: rgba(34, 197, 94, 0.12);
+      --danger: #ef4444;
+      --danger-bg: rgba(239, 68, 68, 0.12);
+      --warning: #f59e0b;
+      --warning-bg: rgba(245, 158, 11, 0.12);
+      --text-primary: #f1f5f9;
+      --text-secondary: #94a3b8;
+      --text-muted: #64748b;
+      --border: #1e293b;
+      --border-hover: #334155;
+      --radius: 12px;
+      --radius-sm: 8px;
+      --radius-lg: 16px;
+      --shadow-card: 0 4px 24px rgba(0, 0, 0, 0.3);
+      --shadow-hover: 0 8px 40px rgba(0, 0, 0, 0.5);
+      --transition: 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+      --font-body: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      --font-heading: 'Space Grotesk', 'Inter', sans-serif;
+    }
+
+    /* --- Reset & Base --- */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: var(--font-body);
+      background: var(--bg-primary);
+      color: var(--text-primary);
+      line-height: 1.6;
+      min-height: 100vh;
+    }
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { color: var(--accent-hover); }
+
+    /* --- Nav --- */
+    .nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(10, 10, 15, 0.85);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border);
+      padding: 0 1.5rem;
+    }
+    .nav-inner {
+      max-width: 1320px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 64px;
+    }
+    .nav-brand {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-family: var(--font-heading);
+      font-weight: 700;
+      font-size: 1.25rem;
+      color: var(--text-primary);
+    }
+    .nav-brand i { color: var(--accent); }
+    .nav-brand .accent { color: var(--accent); }
+    .nav-links {
+      display: flex;
+      gap: 0.25rem;
+    }
+    .nav-link {
+      color: var(--text-secondary);
+      padding: 0.5rem 1rem;
+      border-radius: var(--radius-sm);
+      font-size: 0.875rem;
+      font-weight: 500;
+      transition: var(--transition);
+    }
+    .nav-link:hover, .nav-link.active {
+      color: var(--text-primary);
+      background: var(--bg-tertiary);
+    }
+    .nav-link.active { color: var(--accent); }
+
+    /* --- Container --- */
+    .container {
+      max-width: 1320px;
+      margin: 0 auto;
+      padding: 0 1.5rem;
+    }
+
+    /* --- Header --- */
+    .dashboard-header {
+      padding: 3rem 0 2rem;
+      text-align: center;
+      position: relative;
+    }
+    .dashboard-header::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 600px;
+      height: 300px;
+      background: radial-gradient(ellipse, var(--accent-glow), transparent 70%);
+      pointer-events: none;
+      z-index: 0;
+    }
+    .dashboard-header h1 {
+      font-family: var(--font-heading);
+      font-size: 2.5rem;
+      font-weight: 700;
+      position: relative;
+      z-index: 1;
+    }
+    .gradient-text {
+      background: linear-gradient(135deg, var(--accent), var(--secondary));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .dashboard-header p {
+      color: var(--text-secondary);
+      font-size: 1.1rem;
+      margin-top: 0.5rem;
+      position: relative;
+      z-index: 1;
+    }
+    .status-bar {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 1.5rem;
+      margin-top: 1.25rem;
+      font-size: 0.875rem;
+      color: var(--text-muted);
+      position: relative;
+      z-index: 1;
+    }
+    .status-live {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      color: var(--success);
+      font-weight: 600;
+    }
+    .pulse-dot {
+      width: 8px;
+      height: 8px;
+      background: var(--success);
+      border-radius: 50%;
+      display: inline-block;
+      animation: pulse 2s infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.5); }
+      50% { box-shadow: 0 0 0 6px rgba(34, 197, 94, 0); }
+    }
+    .api-status {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+    .api-status .dot {
+      width: 6px; height: 6px; border-radius: 50%;
+      background: var(--text-muted);
+    }
+    .api-status .dot.ok { background: var(--success); }
+    .api-status .dot.err { background: var(--danger); }
+
+    /* --- Section --- */
+    .section {
+      padding: 1.5rem 0;
+    }
+    .section-title {
+      font-family: var(--font-heading);
+      font-size: 1.25rem;
+      font-weight: 600;
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .section-title i {
+      color: var(--accent);
+      font-size: 1rem;
+    }
+
+    /* --- Cards Grid --- */
+    .overview-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1rem;
+    }
+    .overview-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.5rem;
+      transition: var(--transition);
+    }
+    .overview-card:hover {
+      border-color: var(--border-hover);
+      box-shadow: var(--shadow-hover);
+      transform: translateY(-2px);
+    }
+    .overview-card .label {
+      color: var(--text-muted);
+      font-size: 0.75rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    .overview-card .value {
+      font-family: var(--font-heading);
+      font-size: 1.75rem;
+      font-weight: 700;
+      margin-top: 0.25rem;
+    }
+    .overview-card .sub {
+      font-size: 0.85rem;
+      margin-top: 0.25rem;
+    }
+    .text-green { color: var(--success); }
+    .text-red { color: var(--danger); }
+    .text-muted { color: var(--text-muted); }
+    .text-accent { color: var(--accent); }
+
+    /* --- Strategy Cards --- */
+    .strategies-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 1rem;
+    }
+    .strategy-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+      transition: var(--transition);
+      cursor: pointer;
+    }
+    .strategy-card:hover {
+      border-color: var(--border-hover);
+      box-shadow: var(--shadow-hover);
+    }
+    .strategy-head {
+      padding: 1.25rem 1.25rem 0.75rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .strategy-name {
+      font-family: var(--font-heading);
+      font-weight: 600;
+      font-size: 1rem;
+    }
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+      padding: 0.2rem 0.65rem;
+      border-radius: 999px;
+      font-size: 0.7rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+    .badge-active {
+      background: var(--success-bg);
+      color: var(--success);
+    }
+    .badge-paused {
+      background: var(--warning-bg);
+      color: var(--warning);
+    }
+    .badge-inactive {
+      background: rgba(100, 116, 139, 0.15);
+      color: var(--text-muted);
+    }
+    .strategy-body {
+      padding: 0 1.25rem 1rem;
+    }
+    .strategy-meta {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.5rem;
+      font-size: 0.8rem;
+    }
+    .strategy-meta dt {
+      color: var(--text-muted);
+    }
+    .strategy-meta dd {
+      text-align: right;
+      font-weight: 500;
+    }
+    .strategy-details {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.35s ease;
+      border-top: 1px solid transparent;
+    }
+    .strategy-card.expanded .strategy-details {
+      max-height: 200px;
+      border-top-color: var(--border);
+    }
+    .strategy-details-inner {
+      padding: 1rem 1.25rem;
+      font-size: 0.8rem;
+      color: var(--text-secondary);
+    }
+    .strategy-details-inner p { margin-bottom: 0.5rem; }
+    .strategy-controls {
+      display: flex;
+      gap: 0.5rem;
+      margin-top: 0.75rem;
+    }
+
+    /* --- Buttons --- */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      padding: 0.5rem 1rem;
+      border-radius: var(--radius-sm);
+      font-size: 0.8rem;
+      font-weight: 600;
+      border: 1px solid transparent;
+      cursor: pointer;
+      transition: var(--transition);
+      font-family: var(--font-body);
+    }
+    .btn-primary {
+      background: var(--accent);
+      color: #fff;
+      border-color: var(--accent);
+    }
+    .btn-primary:hover {
+      background: var(--accent-hover);
+      border-color: var(--accent-hover);
+    }
+    .btn-success {
+      background: var(--success);
+      color: #fff;
+    }
+    .btn-success:hover { filter: brightness(1.15); }
+    .btn-danger {
+      background: var(--danger);
+      color: #fff;
+    }
+    .btn-danger:hover { filter: brightness(1.15); }
+    .btn-outline {
+      background: transparent;
+      color: var(--text-secondary);
+      border-color: var(--border);
+    }
+    .btn-outline:hover {
+      border-color: var(--border-hover);
+      color: var(--text-primary);
+      background: var(--bg-tertiary);
+    }
+    .btn-sm {
+      padding: 0.35rem 0.75rem;
+      font-size: 0.75rem;
+    }
+
+    /* --- Trades Table --- */
+    .table-wrapper {
+      overflow-x: auto;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.85rem;
+    }
+    thead {
+      border-bottom: 1px solid var(--border);
+    }
+    th {
+      padding: 0.75rem 1rem;
+      text-align: left;
+      color: var(--text-muted);
+      font-weight: 600;
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      white-space: nowrap;
+    }
+    td {
+      padding: 0.65rem 1rem;
+      border-top: 1px solid var(--border);
+      white-space: nowrap;
+    }
+    tr:hover td {
+      background: var(--bg-tertiary);
+    }
+    .side-buy { color: var(--success); font-weight: 600; }
+    .side-sell { color: var(--danger); font-weight: 600; }
+
+    /* --- Performance Chart (CSS-only) --- */
+    .chart-container {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.25rem;
+    }
+    .bar-chart {
+      display: flex;
+      align-items: flex-end;
+      gap: 6px;
+      height: 160px;
+      padding-top: 1rem;
+      position: relative;
+    }
+    .bar-chart::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 0;
+      right: 0;
+      border-top: 1px dashed var(--border);
+    }
+    .bar-col {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      position: relative;
+      height: 100%;
+      justify-content: flex-end;
+    }
+    .bar {
+      width: 100%;
+      max-width: 40px;
+      border-radius: 4px 4px 0 0;
+      transition: var(--transition);
+      position: relative;
+    }
+    .bar:hover { filter: brightness(1.3); }
+    .bar.positive { background: var(--success); }
+    .bar.negative {
+      background: var(--danger);
+      border-radius: 0 0 4px 4px;
+      align-self: flex-start;
+    }
+    .bar-label {
+      font-size: 0.65rem;
+      color: var(--text-muted);
+      margin-top: 0.4rem;
+      text-align: center;
+    }
+    /* For negative bars, we use a wrapper to position them from the center */
+    .bar-chart-area {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      height: 140px;
+      position: relative;
+    }
+    .bar-chart-area .bar-col {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      height: 100%;
+      position: relative;
+    }
+    .bar-chart-area .bar-col .bar-positive {
+      position: absolute;
+      bottom: 50%;
+      width: 70%;
+      max-width: 36px;
+      background: var(--success);
+      border-radius: 4px 4px 0 0;
+      transition: var(--transition);
+    }
+    .bar-chart-area .bar-col .bar-negative {
+      position: absolute;
+      top: 50%;
+      width: 70%;
+      max-width: 36px;
+      background: var(--danger);
+      border-radius: 0 0 4px 4px;
+      transition: var(--transition);
+    }
+    .bar-chart-area .bar-col .bar-positive:hover,
+    .bar-chart-area .bar-col .bar-negative:hover {
+      filter: brightness(1.3);
+    }
+    .bar-chart-area .zero-line {
+      position: absolute;
+      top: 50%;
+      left: 0;
+      right: 0;
+      border-top: 1px dashed var(--border-hover);
+      z-index: 1;
+    }
+    .bar-chart-labels {
+      display: flex;
+      gap: 6px;
+      margin-top: 0.35rem;
+    }
+    .bar-chart-labels span {
+      flex: 1;
+      text-align: center;
+      font-size: 0.6rem;
+      color: var(--text-muted);
+    }
+    .chart-legend {
+      display: flex;
+      gap: 1.5rem;
+      margin-top: 0.75rem;
+      font-size: 0.75rem;
+      color: var(--text-muted);
+    }
+    .chart-legend span {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+    }
+    .chart-legend .swatch {
+      width: 10px; height: 10px; border-radius: 2px; display: inline-block;
+    }
+
+    /* --- Wallet Balances --- */
+    .wallet-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1rem;
+    }
+    .wallet-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.25rem;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      transition: var(--transition);
+    }
+    .wallet-card:hover {
+      border-color: var(--border-hover);
+    }
+    .wallet-icon {
+      width: 44px; height: 44px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 0.8rem;
+      flex-shrink: 0;
+    }
+    .wallet-icon.eth { background: rgba(98, 126, 234, 0.15); color: #627eea; }
+    .wallet-icon.btc { background: rgba(247, 147, 26, 0.15); color: #f7931a; }
+    .wallet-icon.sol { background: rgba(153, 69, 255, 0.15); color: #9945ff; }
+    .wallet-icon.usdc { background: rgba(39, 117, 202, 0.15); color: #2775ca; }
+    .wallet-info .amount {
+      font-family: var(--font-heading);
+      font-weight: 600;
+      font-size: 1.05rem;
+    }
+    .wallet-info .usd {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+
+    /* --- Risk Panel --- */
+    .risk-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 1rem;
+    }
+    .risk-item {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1rem 1.25rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .risk-item .risk-label {
+      color: var(--text-secondary);
+      font-size: 0.8rem;
+    }
+    .risk-item .risk-value {
+      font-family: var(--font-heading);
+      font-weight: 600;
+      font-size: 0.95rem;
+    }
+    .progress-bar {
+      width: 100%;
+      height: 6px;
+      background: var(--bg-tertiary);
+      border-radius: 3px;
+      margin-top: 0.5rem;
+      overflow: hidden;
+    }
+    .progress-bar .fill {
+      height: 100%;
+      border-radius: 3px;
+      transition: width 1s ease;
+    }
+
+    /* --- Bot Controls --- */
+    .controls-bar {
+      display: flex;
+      gap: 0.75rem;
+      flex-wrap: wrap;
+    }
+
+    /* --- Footer --- */
+    .dashboard-footer {
+      text-align: center;
+      padding: 2.5rem 0 1.5rem;
+      color: var(--text-muted);
+      font-size: 0.8rem;
+      border-top: 1px solid var(--border);
+      margin-top: 2rem;
+    }
+    .dashboard-footer a { color: var(--accent); }
+
+    /* --- Fade-in animation --- */
+    .fade-in {
+      opacity: 0;
+      transform: translateY(16px);
+      animation: fadeUp 0.6s ease forwards;
+    }
+    .fade-in:nth-child(2) { animation-delay: 0.08s; }
+    .fade-in:nth-child(3) { animation-delay: 0.16s; }
+    .fade-in:nth-child(4) { animation-delay: 0.24s; }
+    .fade-in:nth-child(5) { animation-delay: 0.32s; }
+    @keyframes fadeUp {
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* --- Responsive --- */
+    @media (max-width: 1024px) {
+      .overview-grid { grid-template-columns: repeat(2, 1fr); }
+      .wallet-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 768px) {
+      .dashboard-header h1 { font-size: 1.75rem; }
+      .nav-links { display: none; }
+      .overview-grid { grid-template-columns: 1fr 1fr; }
+      .strategies-grid { grid-template-columns: 1fr; }
+      .wallet-grid { grid-template-columns: 1fr 1fr; }
+      .risk-grid { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 480px) {
+      .overview-grid { grid-template-columns: 1fr; }
+      .wallet-grid { grid-template-columns: 1fr; }
+      .risk-grid { grid-template-columns: 1fr; }
+      .status-bar { flex-direction: column; gap: 0.5rem; }
+    }
+
+    /* Tooltip on bar hover */
+    .bar-col[data-tooltip]:hover::after {
+      content: attr(data-tooltip);
+      position: absolute;
+      top: -1.75rem;
+      font-size: 0.65rem;
+      background: var(--bg-tertiary);
+      color: var(--text-primary);
+      padding: 0.2rem 0.5rem;
+      border-radius: 4px;
+      white-space: nowrap;
+      z-index: 5;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navigation -->
+  <nav class="nav" role="navigation" aria-label="Main navigation">
+    <div class="nav-inner">
+      <a href="/storefront/" class="nav-brand" aria-label="dwvbotai.store home">
+        <i class="fa-solid fa-bolt"></i>
+        <span>dwvbotai<span class="accent">.store</span></span>
+      </a>
+      <div class="nav-links">
+        <a href="/storefront/" class="nav-link">Home</a>
+        <a href="/storefront/integrations.html" class="nav-link">Integrations</a>
+        <a href="/storefront/workflows.html" class="nav-link">Workflows</a>
+        <a href="/storefront/trading.html" class="nav-link active">Trading</a>
+      </div>
+    </div>
+  </nav>
+
+  <main class="container">
+
+    <!-- 1. Dashboard Header -->
+    <section class="dashboard-header">
+      <h1 class="fade-in"><span class="gradient-text">DevBot AI Trading Dashboard</span></h1>
+      <p class="fade-in">Autonomous crypto trading powered by Claude AI + Coinbase AgentKit</p>
+      <div class="status-bar fade-in">
+        <span class="status-live"><span class="pulse-dot"></span> LIVE</span>
+        <span class="api-status"><span class="dot" id="api-dot"></span> API: <span id="api-label">Checking...</span></span>
+        <span>Last updated: <span id="last-updated">--</span></span>
+      </div>
+    </section>
+
+    <!-- 2. Portfolio Overview -->
+    <section class="section">
+      <h2 class="section-title"><i class="fa-solid fa-chart-pie"></i> Portfolio Overview</h2>
+      <div class="overview-grid">
+        <div class="overview-card fade-in">
+          <div class="label">Total Portfolio Value</div>
+          <div class="value" data-counter="12847.32" data-prefix="$">$0</div>
+          <div class="sub text-muted"><i class="fa-solid fa-wallet"></i> All assets combined</div>
+        </div>
+        <div class="overview-card fade-in">
+          <div class="label">24h P&amp;L</div>
+          <div class="value text-green" data-counter="342.18" data-prefix="+$">+$0</div>
+          <div class="sub text-green">+2.73%</div>
+        </div>
+        <div class="overview-card fade-in">
+          <div class="label">Active Strategies</div>
+          <div class="value text-accent" data-counter="3" data-prefix="">0</div>
+          <div class="sub text-muted">3 of 5 running</div>
+        </div>
+        <div class="overview-card fade-in">
+          <div class="label">Total Trades</div>
+          <div class="value" data-counter="147" data-prefix="">0</div>
+          <div class="sub text-muted">Since deployment</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 3. Live Strategies -->
+    <section class="section">
+      <h2 class="section-title"><i class="fa-solid fa-robot"></i> Live Strategies</h2>
+      <div class="strategies-grid">
+
+        <!-- DCA -->
+        <div class="strategy-card" data-strategy="dca">
+          <div class="strategy-head">
+            <span class="strategy-name">DCA (Dollar Cost Average)</span>
+            <span class="badge badge-active"><i class="fa-solid fa-circle" style="font-size:6px"></i> Active</span>
+          </div>
+          <div class="strategy-body">
+            <dl class="strategy-meta">
+              <dt>Pair</dt><dd>ETH/USD</dd>
+              <dt>Interval</dt><dd>$25 every 8min</dd>
+              <dt>ROI</dt><dd class="text-green">+4.2%</dd>
+              <dt>Trades</dt><dd>52</dd>
+            </dl>
+          </div>
+          <div class="strategy-details">
+            <div class="strategy-details-inner">
+              <p>Automatically buys $25 of ETH every 8 minutes, averaging cost over time. Low risk, steady accumulation strategy.</p>
+              <div class="strategy-controls">
+                <button class="btn btn-danger btn-sm btn-stop"><i class="fa-solid fa-stop"></i> Stop</button>
+                <button class="btn btn-outline btn-sm"><i class="fa-solid fa-gear"></i> Configure</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Momentum -->
+        <div class="strategy-card" data-strategy="momentum">
+          <div class="strategy-head">
+            <span class="strategy-name">Momentum</span>
+            <span class="badge badge-active"><i class="fa-solid fa-circle" style="font-size:6px"></i> Active</span>
+          </div>
+          <div class="strategy-body">
+            <dl class="strategy-meta">
+              <dt>Pair</dt><dd>BTC/USD</dd>
+              <dt>Interval</dt><dd>Follows trends</dd>
+              <dt>ROI</dt><dd class="text-green">+8.7%</dd>
+              <dt>Trades</dt><dd>38</dd>
+            </dl>
+          </div>
+          <div class="strategy-details">
+            <div class="strategy-details-inner">
+              <p>Detects upward/downward price momentum using EMA crossovers. Enters on confirmed trend, exits on reversal signals.</p>
+              <div class="strategy-controls">
+                <button class="btn btn-danger btn-sm btn-stop"><i class="fa-solid fa-stop"></i> Stop</button>
+                <button class="btn btn-outline btn-sm"><i class="fa-solid fa-gear"></i> Configure</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Mean Reversion -->
+        <div class="strategy-card" data-strategy="meanrev">
+          <div class="strategy-head">
+            <span class="strategy-name">Mean Reversion</span>
+            <span class="badge badge-paused"><i class="fa-solid fa-pause" style="font-size:6px"></i> Paused</span>
+          </div>
+          <div class="strategy-body">
+            <dl class="strategy-meta">
+              <dt>Pair</dt><dd>SOL/USD</dd>
+              <dt>Interval</dt><dd>Buys dips / sells rallies</dd>
+              <dt>ROI</dt><dd class="text-red">-1.3%</dd>
+              <dt>Trades</dt><dd>31</dd>
+            </dl>
+          </div>
+          <div class="strategy-details">
+            <div class="strategy-details-inner">
+              <p>Buys when price drops below Bollinger Band lower limit, sells when above upper limit. Paused due to elevated volatility.</p>
+              <div class="strategy-controls">
+                <button class="btn btn-success btn-sm btn-start"><i class="fa-solid fa-play"></i> Resume</button>
+                <button class="btn btn-outline btn-sm"><i class="fa-solid fa-gear"></i> Configure</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Grid Trading -->
+        <div class="strategy-card" data-strategy="grid">
+          <div class="strategy-head">
+            <span class="strategy-name">Grid Trading</span>
+            <span class="badge badge-active"><i class="fa-solid fa-circle" style="font-size:6px"></i> Active</span>
+          </div>
+          <div class="strategy-body">
+            <dl class="strategy-meta">
+              <dt>Pair</dt><dd>ETH/USD</dd>
+              <dt>Interval</dt><dd>Price grid levels</dd>
+              <dt>ROI</dt><dd class="text-green">+3.1%</dd>
+              <dt>Trades</dt><dd>26</dd>
+            </dl>
+          </div>
+          <div class="strategy-details">
+            <div class="strategy-details-inner">
+              <p>Places buy/sell orders at preset price intervals. Profits from oscillation within a defined range ($2,800-$3,400).</p>
+              <div class="strategy-controls">
+                <button class="btn btn-danger btn-sm btn-stop"><i class="fa-solid fa-stop"></i> Stop</button>
+                <button class="btn btn-outline btn-sm"><i class="fa-solid fa-gear"></i> Configure</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Portfolio Rebalance -->
+        <div class="strategy-card" data-strategy="rebalance">
+          <div class="strategy-head">
+            <span class="strategy-name">Portfolio Rebalance</span>
+            <span class="badge badge-inactive"><i class="fa-solid fa-minus" style="font-size:6px"></i> Inactive</span>
+          </div>
+          <div class="strategy-body">
+            <dl class="strategy-meta">
+              <dt>Pair</dt><dd>Multi-asset</dd>
+              <dt>Interval</dt><dd>Target allocation</dd>
+              <dt>ROI</dt><dd class="text-muted">N/A</dd>
+              <dt>Trades</dt><dd>0</dd>
+            </dl>
+          </div>
+          <div class="strategy-details">
+            <div class="strategy-details-inner">
+              <p>Rebalances portfolio to target allocation (50% ETH, 30% BTC, 20% SOL) on a weekly basis. Not yet activated.</p>
+              <div class="strategy-controls">
+                <button class="btn btn-success btn-sm btn-start"><i class="fa-solid fa-play"></i> Start</button>
+                <button class="btn btn-outline btn-sm"><i class="fa-solid fa-gear"></i> Configure</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- 4. Recent Trades -->
+    <section class="section">
+      <h2 class="section-title"><i class="fa-solid fa-clock-rotate-left"></i> Recent Trades</h2>
+      <div class="table-wrapper">
+        <table>
+          <thead>
+            <tr>
+              <th>Time</th>
+              <th>Pair</th>
+              <th>Side</th>
+              <th>Amount</th>
+              <th>Price</th>
+              <th>P&amp;L</th>
+              <th>Strategy</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>14:32:07</td><td>ETH/USD</td>
+              <td class="side-buy">BUY</td>
+              <td>0.0083 ETH</td><td>$3,012.44</td>
+              <td class="text-green">+$2.18</td><td>DCA</td>
+            </tr>
+            <tr>
+              <td>14:24:15</td><td>BTC/USD</td>
+              <td class="side-sell">SELL</td>
+              <td>0.0012 BTC</td><td>$60,247.80</td>
+              <td class="text-green">+$18.42</td><td>Momentum</td>
+            </tr>
+            <tr>
+              <td>14:18:33</td><td>ETH/USD</td>
+              <td class="side-buy">BUY</td>
+              <td>0.0150 ETH</td><td>$3,008.12</td>
+              <td class="text-muted">--</td><td>Grid</td>
+            </tr>
+            <tr>
+              <td>14:10:52</td><td>ETH/USD</td>
+              <td class="side-buy">BUY</td>
+              <td>0.0083 ETH</td><td>$3,005.90</td>
+              <td class="text-green">+$1.87</td><td>DCA</td>
+            </tr>
+            <tr>
+              <td>13:58:41</td><td>BTC/USD</td>
+              <td class="side-buy">BUY</td>
+              <td>0.0015 BTC</td><td>$59,812.50</td>
+              <td class="text-green">+$6.53</td><td>Momentum</td>
+            </tr>
+            <tr>
+              <td>13:47:19</td><td>SOL/USD</td>
+              <td class="side-sell">SELL</td>
+              <td>2.5 SOL</td><td>$142.38</td>
+              <td class="text-red">-$8.12</td><td>Mean Reversion</td>
+            </tr>
+            <tr>
+              <td>13:35:08</td><td>ETH/USD</td>
+              <td class="side-sell">SELL</td>
+              <td>0.0200 ETH</td><td>$3,021.75</td>
+              <td class="text-green">+$4.30</td><td>Grid</td>
+            </tr>
+            <tr>
+              <td>13:22:44</td><td>ETH/USD</td>
+              <td class="side-buy">BUY</td>
+              <td>0.0083 ETH</td><td>$3,001.22</td>
+              <td class="text-green">+$1.52</td><td>DCA</td>
+            </tr>
+            <tr>
+              <td>13:11:30</td><td>BTC/USD</td>
+              <td class="side-buy">BUY</td>
+              <td>0.0008 BTC</td><td>$59,650.00</td>
+              <td class="text-green">+$4.78</td><td>Momentum</td>
+            </tr>
+            <tr>
+              <td>12:58:16</td><td>SOL/USD</td>
+              <td class="side-buy">BUY</td>
+              <td>3.0 SOL</td><td>$141.26</td>
+              <td class="text-red">-$3.36</td><td>Mean Reversion</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- 5. Performance Chart -->
+    <section class="section">
+      <h2 class="section-title"><i class="fa-solid fa-chart-bar"></i> 14-Day P&amp;L Performance</h2>
+      <div class="chart-container">
+        <div class="bar-chart-area" id="pnl-chart">
+          <div class="zero-line"></div>
+          <!-- bars injected by JS -->
+        </div>
+        <div class="bar-chart-labels" id="pnl-labels">
+          <!-- labels injected by JS -->
+        </div>
+        <div class="chart-legend">
+          <span><span class="swatch" style="background:var(--success)"></span> Profit</span>
+          <span><span class="swatch" style="background:var(--danger)"></span> Loss</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- 6. Wallet Balances -->
+    <section class="section">
+      <h2 class="section-title"><i class="fa-solid fa-coins"></i> Wallet Balances</h2>
+      <div class="wallet-grid">
+        <div class="wallet-card fade-in">
+          <div class="wallet-icon eth">ETH</div>
+          <div class="wallet-info">
+            <div class="amount">2.847 ETH</div>
+            <div class="usd">$8,541.00</div>
+          </div>
+        </div>
+        <div class="wallet-card fade-in">
+          <div class="wallet-icon btc">BTC</div>
+          <div class="wallet-info">
+            <div class="amount">0.0423 BTC</div>
+            <div class="usd">$2,538.00</div>
+          </div>
+        </div>
+        <div class="wallet-card fade-in">
+          <div class="wallet-icon sol">SOL</div>
+          <div class="wallet-info">
+            <div class="amount">12.5 SOL</div>
+            <div class="usd">$1,768.32</div>
+          </div>
+        </div>
+        <div class="wallet-card fade-in">
+          <div class="wallet-icon usdc">USDC</div>
+          <div class="wallet-info">
+            <div class="amount">1,247.83 USDC</div>
+            <div class="usd">$1,247.83</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 7. Risk Management -->
+    <section class="section">
+      <h2 class="section-title"><i class="fa-solid fa-shield-halved"></i> Risk Management</h2>
+      <div class="risk-grid">
+        <div class="risk-item">
+          <div>
+            <div class="risk-label">Max Daily Trades</div>
+            <div class="risk-value">7 / 10</div>
+            <div class="progress-bar"><div class="fill" style="width:70%;background:var(--warning)"></div></div>
+          </div>
+        </div>
+        <div class="risk-item">
+          <div>
+            <div class="risk-label">Stop Loss</div>
+            <div class="risk-value text-red">-5%</div>
+          </div>
+        </div>
+        <div class="risk-item">
+          <div>
+            <div class="risk-label">Take Profit</div>
+            <div class="risk-value text-green">+10%</div>
+          </div>
+        </div>
+        <div class="risk-item">
+          <div>
+            <div class="risk-label">Network</div>
+            <div class="risk-value">Base Mainnet</div>
+          </div>
+        </div>
+        <div class="risk-item">
+          <div>
+            <div class="risk-label">Vault Encryption</div>
+            <div class="risk-value"><i class="fa-solid fa-lock" style="color:var(--success);margin-right:4px"></i> AES-256-GCM</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 8. Bot Controls -->
+    <section class="section">
+      <h2 class="section-title"><i class="fa-solid fa-sliders"></i> Bot Controls</h2>
+      <div class="controls-bar">
+        <button class="btn btn-success" id="btn-start-all"><i class="fa-solid fa-play"></i> Start All Strategies</button>
+        <button class="btn btn-danger" id="btn-stop-all"><i class="fa-solid fa-stop"></i> Stop All Strategies</button>
+        <button class="btn btn-primary" id="btn-deploy"><i class="fa-solid fa-plus"></i> Deploy New Strategy</button>
+        <button class="btn btn-outline" id="btn-export"><i class="fa-solid fa-file-export"></i> Export Trade History</button>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="dashboard-footer">
+    <p>&copy; 2026 <a href="/storefront/">dwvbotai.store</a> &mdash; DevBot AI Trading. All data is simulated for demonstration.</p>
+  </footer>
+
+  <!-- Shared nav script -->
+  <script src="/storefront/nav.js"></script>
+
+  <script>
+    // ========== Animated Number Counters ==========
+    function animateCounters() {
+      document.querySelectorAll('[data-counter]').forEach(el => {
+        const target = parseFloat(el.dataset.counter);
+        const prefix = el.dataset.prefix || '';
+        const isDecimal = String(target).includes('.');
+        const decimals = isDecimal ? 2 : 0;
+        const duration = 1200;
+        const start = performance.now();
+
+        function step(now) {
+          const elapsed = now - start;
+          const progress = Math.min(elapsed / duration, 1);
+          // ease out cubic
+          const ease = 1 - Math.pow(1 - progress, 3);
+          const current = target * ease;
+          el.textContent = prefix + current.toLocaleString('en-US', {
+            minimumFractionDigits: decimals,
+            maximumFractionDigits: decimals
+          });
+          if (progress < 1) requestAnimationFrame(step);
+        }
+        requestAnimationFrame(step);
+      });
+    }
+
+    // ========== Performance Chart ==========
+    function renderChart() {
+      const data = [
+        { day: 'Mar 16', pnl: 128 },
+        { day: 'Mar 17', pnl: -42 },
+        { day: 'Mar 18', pnl: 87 },
+        { day: 'Mar 19', pnl: 215 },
+        { day: 'Mar 20', pnl: -18 },
+        { day: 'Mar 21', pnl: 156 },
+        { day: 'Mar 22', pnl: 42 },
+        { day: 'Mar 23', pnl: -95 },
+        { day: 'Mar 24', pnl: 73 },
+        { day: 'Mar 25', pnl: 189 },
+        { day: 'Mar 26', pnl: -31 },
+        { day: 'Mar 27', pnl: 264 },
+        { day: 'Mar 28', pnl: 118 },
+        { day: 'Mar 29', pnl: 342 }
+      ];
+
+      const maxAbs = Math.max(...data.map(d => Math.abs(d.pnl)));
+      const chart = document.getElementById('pnl-chart');
+      const labels = document.getElementById('pnl-labels');
+
+      data.forEach(d => {
+        const col = document.createElement('div');
+        col.className = 'bar-col';
+        col.dataset.tooltip = (d.pnl >= 0 ? '+' : '') + '$' + d.pnl;
+
+        const pct = (Math.abs(d.pnl) / maxAbs) * 45; // max 45% of height
+
+        if (d.pnl >= 0) {
+          const bar = document.createElement('div');
+          bar.className = 'bar-positive';
+          bar.style.height = pct + '%';
+          col.appendChild(bar);
+        } else {
+          const bar = document.createElement('div');
+          bar.className = 'bar-negative';
+          bar.style.height = pct + '%';
+          col.appendChild(bar);
+        }
+
+        chart.appendChild(col);
+
+        const lbl = document.createElement('span');
+        lbl.textContent = d.day.split(' ')[1];
+        labels.appendChild(lbl);
+      });
+    }
+
+    // ========== Strategy Expand/Collapse ==========
+    document.querySelectorAll('.strategy-card').forEach(card => {
+      card.addEventListener('click', e => {
+        // Don't toggle if clicking a button
+        if (e.target.closest('button')) return;
+        card.classList.toggle('expanded');
+      });
+    });
+
+    // ========== API Health Check ==========
+    async function checkHealth() {
+      const dot = document.getElementById('api-dot');
+      const label = document.getElementById('api-label');
+      try {
+        const res = await fetch('/health', { signal: AbortSignal.timeout(3000) });
+        if (res.ok) {
+          dot.className = 'dot ok';
+          label.textContent = 'Connected';
+          label.style.color = 'var(--success)';
+        } else {
+          throw new Error('not ok');
+        }
+      } catch {
+        dot.className = 'dot err';
+        label.textContent = 'Offline';
+        label.style.color = 'var(--danger)';
+      }
+    }
+
+    // ========== Auto-Refresh Timestamp ==========
+    function updateTimestamp() {
+      const el = document.getElementById('last-updated');
+      const now = new Date();
+      el.textContent = now.toLocaleTimeString('en-US', { hour12: true });
+    }
+
+    // ========== Button handlers (UI only) ==========
+    document.getElementById('btn-start-all')?.addEventListener('click', () => {
+      document.querySelectorAll('.badge-paused, .badge-inactive').forEach(b => {
+        b.className = 'badge badge-active';
+        b.innerHTML = '<i class="fa-solid fa-circle" style="font-size:6px"></i> Active';
+      });
+    });
+    document.getElementById('btn-stop-all')?.addEventListener('click', () => {
+      document.querySelectorAll('.badge-active').forEach(b => {
+        b.className = 'badge badge-inactive';
+        b.innerHTML = '<i class="fa-solid fa-minus" style="font-size:6px"></i> Inactive';
+      });
+    });
+    document.getElementById('btn-deploy')?.addEventListener('click', () => {
+      alert('Deploy New Strategy — Coming soon. Configure strategies via the DevBot API.');
+    });
+    document.getElementById('btn-export')?.addEventListener('click', () => {
+      alert('Trade history export initiated. CSV will download shortly.');
+    });
+
+    // Individual start/stop buttons
+    document.querySelectorAll('.btn-stop').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const card = btn.closest('.strategy-card');
+        const badge = card.querySelector('.badge');
+        badge.className = 'badge badge-inactive';
+        badge.innerHTML = '<i class="fa-solid fa-minus" style="font-size:6px"></i> Stopped';
+      });
+    });
+    document.querySelectorAll('.btn-start').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const card = btn.closest('.strategy-card');
+        const badge = card.querySelector('.badge');
+        badge.className = 'badge badge-active';
+        badge.innerHTML = '<i class="fa-solid fa-circle" style="font-size:6px"></i> Active';
+      });
+    });
+
+    // ========== Init ==========
+    document.addEventListener('DOMContentLoaded', () => {
+      animateCounters();
+      renderChart();
+      updateTimestamp();
+      checkHealth();
+
+      // Auto-refresh every 30 seconds
+      setInterval(() => {
+        updateTimestamp();
+        checkHealth();
+      }, 30000);
+    });
+  </script>
+
+</body>
+</html>

@@ -98,11 +98,12 @@ async function getCdpClient() {
     throw new Error('CDP API key secret not found. Place PEM at data/vault/cdp_key.pem or set CDP_API_KEY_SECRET in .env');
   }
 
-  _cdpClient = new CdpClient({
-    apiKeyId,
-    apiKeySecret,
-    walletSecret: walletSecret || undefined,
-  });
+  // Don't pass walletSecret unless explicitly needed — it can cause auth issues
+  const clientOpts = { apiKeyId, apiKeySecret };
+  if (walletSecret && walletSecret !== 'undefined') {
+    clientOpts.walletSecret = walletSecret;
+  }
+  _cdpClient = new CdpClient(clientOpts);
 
   log('CDP Client initialized');
   return _cdpClient;
@@ -119,28 +120,58 @@ function resetCdpClient() {
 // ─── Wallet Management ───────────────────────────────────────────────────────
 
 /**
- * Create or retrieve an EVM account for a user
+ * Primary funded wallet address on Base
  */
-async function getOrCreateWallet(userId, network = 'base-sepolia') {
+const PRIMARY_WALLET = '0x4154E42E9266Bb0418d2C8F42F530831DFf26304';
+
+/**
+ * Get an EVM account — uses existing funded wallet first, falls back to getOrCreate
+ */
+async function getOrCreateWallet(userId, network = 'base') {
   const cdp = await getCdpClient();
-  const accountName = `devbot-${userId.replace(/[^a-zA-Z0-9]/g, '-')}`;
 
-  const account = await cdp.evm.getOrCreateAccount({ name: accountName });
+  // Try to get the primary funded wallet first
+  try {
+    const account = await cdp.evm.getAccount({ address: PRIMARY_WALLET });
+    log(`Using primary wallet: ${PRIMARY_WALLET}`);
 
-  // Track wallet in local storage
-  const db = loadJson('wallets.json', { wallets: {} });
-  if (!db.wallets[userId]) {
-    db.wallets[userId] = {
-      address: account.address,
-      name: accountName,
-      network,
-      createdAt: new Date().toISOString(),
-    };
-    saveJson('wallets.json', db);
-    log(`Wallet created for ${userId}: ${account.address}`);
+    // Track in local storage
+    const db = loadJson('wallets.json', { wallets: {} });
+    if (!db.wallets[userId]) {
+      db.wallets[userId] = {
+        address: account.address,
+        name: 'primary',
+        network,
+        createdAt: new Date().toISOString(),
+      };
+      saveJson('wallets.json', db);
+    }
+    return account;
+  } catch (e) {
+    log(`Primary wallet lookup failed: ${e.message}, trying getOrCreate`);
   }
 
-  return account;
+  // Fallback to creating/getting by name
+  try {
+    const accountName = `devbot-${userId.replace(/[^a-zA-Z0-9]/g, '-')}`;
+    const account = await cdp.evm.getOrCreateAccount({ name: accountName });
+
+    const db = loadJson('wallets.json', { wallets: {} });
+    if (!db.wallets[userId]) {
+      db.wallets[userId] = {
+        address: account.address,
+        name: accountName,
+        network,
+        createdAt: new Date().toISOString(),
+      };
+      saveJson('wallets.json', db);
+      log(`Wallet created for ${userId}: ${account.address}`);
+    }
+    return account;
+  } catch (e) {
+    log(`getOrCreateAccount failed: ${e.message}`);
+    throw e;
+  }
 }
 
 /**
@@ -169,10 +200,35 @@ async function createSmartWallet(userId) {
  * Get wallet balance (query on-chain)
  */
 async function getWalletInfo(userId) {
-  const db = loadJson('wallets.json', { wallets: {} });
-  const wallet = db.wallets[userId];
-  if (!wallet) return null;
-  return wallet;
+  const cdp = await getCdpClient();
+  const address = PRIMARY_WALLET;
+
+  try {
+    const balResult = await cdp.evm.listTokenBalances({ address, network: 'base' });
+    const tokens = balResult.tokenBalances || balResult.balances || [];
+
+    const balances = [];
+    for (const t of (Array.isArray(tokens) ? tokens : [])) {
+      const symbol = t.token?.symbol || 'UNKNOWN';
+      const decimals = t.amount?.decimals || 18;
+      const raw = t.amount?.amount || 0n;
+      const value = Number(raw) / Math.pow(10, decimals);
+      if (value > 0) {
+        balances.push({ symbol, balance: value, raw: raw.toString(), decimals });
+      }
+    }
+
+    return {
+      address,
+      network: 'base',
+      balances,
+      queriedAt: new Date().toISOString(),
+    };
+  } catch (e) {
+    log(`getWalletInfo error: ${e.message}`);
+    const db = loadJson('wallets.json', { wallets: {} });
+    return db.wallets[userId] || { address, network: 'base', error: e.message };
+  }
 }
 
 
@@ -194,12 +250,27 @@ async function executeSwap(userId, { fromToken, toToken, amount, network = 'base
 
   log(`Swap: ${amount} ${fromToken} → ${toToken} on ${network} for ${userId}`);
 
-  const result = await account.swap({
+  const nativeAddr = '0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE';
+  const resolvedFrom = fromAddr === 'native' ? nativeAddr : fromAddr;
+  const resolvedTo = toAddr === 'native' ? nativeAddr : toAddr;
+
+  // Step 1: Get swap quote
+  const quote = await cdp.evm.createSwapQuote({
     network,
-    fromToken: fromAddr === 'native' ? '0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE' : fromAddr,
-    toToken: toAddr === 'native' ? '0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE' : toAddr,
-    fromAmount: BigInt(amount),
-    slippageBps,
+    fromToken: resolvedFrom,
+    toToken: resolvedTo,
+    fromAmount: BigInt(amount).toString(),
+    slippageBps: String(slippageBps),
+    taker: account.address,
+  });
+
+  log(`Quote received: ${fromToken} → ${toToken}`);
+
+  // Step 2: Execute the swap via sendTransaction
+  const result = await cdp.evm.sendTransaction({
+    address: account.address,
+    network,
+    transaction: quote.transaction,
   });
 
   // Log trade

@@ -16,8 +16,8 @@
     "config": {
       "topicCount": 15
     },
-    "registeredAt": "2026-03-29T22:43:04.304Z",
-    "updatedAt": "2026-03-29T22:43:04.304Z"
+    "registeredAt": "2026-04-12T12:31:03.862Z",
+    "updatedAt": "2026-04-12T12:31:03.862Z"
   },
   {
     "id": "financial",
@@ -41,8 +41,8 @@
       "requiresApiKey": true,
       "envVar": "FINANCIAL_MODELING_PREP_API_KEY"
     },
-    "registeredAt": "2026-03-29T22:43:04.305Z",
-    "updatedAt": "2026-03-29T22:43:04.305Z"
+    "registeredAt": "2026-04-12T12:31:03.863Z",
+    "updatedAt": "2026-04-12T12:31:03.863Z"
   },
   {
     "id": "chatbot-builder",
@@ -72,8 +72,8 @@
         "education"
       ]
     },
-    "registeredAt": "2026-03-29T22:43:04.306Z",
-    "updatedAt": "2026-03-29T22:43:04.306Z"
+    "registeredAt": "2026-04-12T12:31:03.866Z",
+    "updatedAt": "2026-04-12T12:31:03.866Z"
   },
   {
     "id": "agent-benchmarks",
@@ -92,8 +92,8 @@
       "agentCount": 15,
       "revenueStream": "#44"
     },
-    "registeredAt": "2026-03-29T22:43:04.307Z",
-    "updatedAt": "2026-03-29T22:43:04.307Z"
+    "registeredAt": "2026-04-12T12:31:03.868Z",
+    "updatedAt": "2026-04-12T12:31:03.868Z"
   },
   {
     "id": "prompt-academy",
@@ -114,8 +114,8 @@
       "revenue": "$29/mo DevBot Academy",
       "revenueStream": "#44"
     },
-    "registeredAt": "2026-03-29T22:43:04.308Z",
-    "updatedAt": "2026-03-29T22:43:04.308Z"
+    "registeredAt": "2026-04-12T12:31:03.869Z",
+    "updatedAt": "2026-04-12T12:31:03.869Z"
   },
   {
     "id": "langchain-rag",
@@ -130,8 +130,8 @@
       "retrieval-augmented-generation"
     ],
     "config": {},
-    "registeredAt": "2026-03-29T22:43:04.359Z",
-    "updatedAt": "2026-03-29T22:43:04.359Z"
+    "registeredAt": "2026-04-12T12:31:03.911Z",
+    "updatedAt": "2026-04-12T12:31:03.911Z"
   },
   {
     "id": "image-gen",
@@ -147,8 +147,8 @@
       "multi-model"
     ],
     "config": {},
-    "registeredAt": "2026-03-29T22:43:04.360Z",
-    "updatedAt": "2026-03-29T22:43:04.360Z"
+    "registeredAt": "2026-04-12T12:31:03.912Z",
+    "updatedAt": "2026-04-12T12:31:03.912Z"
   },
   {
     "id": "voice-ai",
@@ -164,8 +164,8 @@
       "real-time-transcription"
     ],
     "config": {},
-    "registeredAt": "2026-03-29T22:43:04.361Z",
-    "updatedAt": "2026-03-29T22:43:04.361Z"
+    "registeredAt": "2026-04-12T12:31:03.913Z",
+    "updatedAt": "2026-04-12T12:31:03.913Z"
   },
   {
     "id": "dify-builder",
@@ -181,8 +181,8 @@
       "analytics"
     ],
     "config": {},
-    "registeredAt": "2026-03-29T22:43:04.362Z",
-    "updatedAt": "2026-03-29T22:43:04.362Z"
+    "registeredAt": "2026-04-12T12:31:03.915Z",
+    "updatedAt": "2026-04-12T12:31:03.915Z"
   },
   {
     "id": "llama-index",
@@ -197,8 +197,8 @@
       "document-indexing"
     ],
     "config": {},
-    "registeredAt": "2026-03-29T22:43:04.363Z",
-    "updatedAt": "2026-03-29T22:43:04.363Z"
+    "registeredAt": "2026-04-12T12:31:03.917Z",
+    "updatedAt": "2026-04-12T12:31:03.917Z"
   },
   {
     "id": "commerce",
@@ -214,8 +214,8 @@
       "analytics"
     ],
     "config": {},
-    "registeredAt": "2026-03-29T22:43:04.368Z",
-    "updatedAt": "2026-03-29T22:43:04.368Z"
+    "registeredAt": "2026-04-12T12:31:03.918Z",
+    "updatedAt": "2026-04-12T12:31:03.918Z"
   },
   {
     "id": "cms",
@@ -231,8 +231,8 @@
       "templates"
     ],
     "config": {},
-    "registeredAt": "2026-03-29T22:43:04.369Z",
-    "updatedAt": "2026-03-29T22:43:04.369Z"
+    "registeredAt": "2026-04-12T12:31:03.919Z",
+    "updatedAt": "2026-04-12T12:31:03.919Z"
   },
   {
     "id": "billing",
@@ -248,8 +248,8 @@
       "payment-processing"
     ],
     "config": {},
-    "registeredAt": "2026-03-29T22:43:04.372Z",
-    "updatedAt": "2026-03-29T22:43:04.372Z"
+    "registeredAt": "2026-04-12T12:31:03.920Z",
+    "updatedAt": "2026-04-12T12:31:03.920Z"
   },
   {
     "id": "shopify-sync",
@@ -265,8 +265,8 @@
       "analytics"
     ],
     "config": {},
-    "registeredAt": "2026-03-29T22:43:04.374Z",
-    "updatedAt": "2026-03-29T22:43:04.374Z"
+    "registeredAt": "2026-04-12T12:31:03.921Z",
+    "updatedAt": "2026-04-12T12:31:03.921Z"
   },
   {
     "id": "workflow-automation",
@@ -283,8 +283,8 @@
       "execution-history"
     ],
     "config": {},
-    "registeredAt": "2026-03-29T22:43:04.375Z",
-    "updatedAt": "2026-03-29T22:43:04.375Z"
+    "registeredAt": "2026-04-12T12:31:03.922Z",
+    "updatedAt": "2026-04-12T12:31:03.922Z"
   },
   {
     "id": "notifications",
@@ -301,8 +301,8 @@
       "analytics"
     ],
     "config": {},
-    "registeredAt": "2026-03-29T22:43:04.376Z",
-    "updatedAt": "2026-03-29T22:43:04.376Z"
+    "registeredAt": "2026-04-12T12:31:03.922Z",
+    "updatedAt": "2026-04-12T12:31:03.922Z"
   },
   {
     "id": "whatsapp",
@@ -318,8 +318,8 @@
       "analytics"
     ],
     "config": {},
-    "registeredAt": "2026-03-29T22:43:04.377Z",
-    "updatedAt": "2026-03-29T22:43:04.377Z"
+    "registeredAt": "2026-04-12T12:31:03.924Z",
+    "updatedAt": "2026-04-12T12:31:03.924Z"
   },
   {
     "id": "auth",
@@ -336,8 +336,8 @@
       "audit-log"
     ],
     "config": {},
-    "registeredAt": "2026-03-29T22:43:04.377Z",
-    "updatedAt": "2026-03-29T22:43:04.377Z"
+    "registeredAt": "2026-04-12T12:31:03.925Z",
+    "updatedAt": "2026-04-12T12:31:03.925Z"
   },
   {
     "id": "email-templates",
@@ -354,8 +354,8 @@
       "analytics"
     ],
     "config": {},
-    "registeredAt": "2026-03-29T22:43:04.378Z",
-    "updatedAt": "2026-03-29T22:43:04.378Z"
+    "registeredAt": "2026-04-12T12:31:03.925Z",
+    "updatedAt": "2026-04-12T12:31:03.925Z"
   },
   {
     "id": "low-code",
@@ -372,8 +372,8 @@
       "drag-and-drop"
     ],
     "config": {},
-    "registeredAt": "2026-03-29T22:43:04.379Z",
-    "updatedAt": "2026-03-29T22:43:04.379Z"
+    "registeredAt": "2026-04-12T12:31:03.926Z",
+    "updatedAt": "2026-04-12T12:31:03.926Z"
   },
   {
     "id": "analytics",
@@ -392,7 +392,7 @@
       "chartjs"
     ],
     "config": {},
-    "registeredAt": "2026-03-29T22:43:04.380Z",
-    "updatedAt": "2026-03-29T22:43:04.380Z"
+    "registeredAt": "2026-04-12T12:31:03.928Z",
+    "updatedAt": "2026-04-12T12:31:03.928Z"
   }
 ]
