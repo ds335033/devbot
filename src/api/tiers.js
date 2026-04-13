@@ -139,6 +139,13 @@ const ADDONS = {
     price: 99900,
     recurring: false,
   },
+  guide: {
+    name: 'DevBotAI Pro Affiliate Guide',
+    description: 'Step-by-step YouTube + Facebook launch plan, copy templates, sales scripts, and 30-day action roadmap.',
+    price: 1999,
+    currency: 'aud',
+    recurring: false,
+  },
 };
 
 // ===== MEMBERS DATA PATH =====
@@ -211,8 +218,8 @@ export function registerTierRoutes(app) {
         ],
         mode: 'subscription',
         metadata: { tier, billing, source: 'affiliate_hub' },
-        success_url: 'https://devbotai.shop/pricing.html?success=true',
-        cancel_url: 'https://devbotai.shop/pricing.html',
+        success_url: 'https://devbotai.shop/?success=true',
+        cancel_url: 'https://devbotai.shop/#pricing',
       });
 
       console.log(`[Tiers] Checkout created — tier:${tier} billing:${billing} amount:${unitAmount}`);
@@ -242,7 +249,7 @@ export function registerTierRoutes(app) {
     try {
       const lineItem = {
         price_data: {
-          currency: 'usd',
+          currency: addonConfig.currency || 'usd',
           product_data: {
             name: addonConfig.name,
             description: addonConfig.description,
@@ -263,8 +270,8 @@ export function registerTierRoutes(app) {
         line_items: [lineItem],
         mode: addonConfig.recurring ? 'subscription' : 'payment',
         metadata: { addon, source: 'affiliate_hub_addon' },
-        success_url: 'https://devbotai.shop/pricing.html?success=true',
-        cancel_url: 'https://devbotai.shop/pricing.html',
+        success_url: 'https://devbotai.shop/?success=true',
+        cancel_url: 'https://devbotai.shop/#pricing',
       });
 
       console.log(`[Addons] Checkout created — addon:${addon} amount:${addonConfig.price}`);

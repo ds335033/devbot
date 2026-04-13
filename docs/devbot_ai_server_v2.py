@@ -312,6 +312,28 @@ setInterval(function(){
 },30000);
 """
 
+JS_CHECKOUT = """
+function startCheckout(tier){
+  var btn=event.target;
+  var origText=btn.textContent;
+  btn.textContent='Loading...';btn.disabled=true;
+  fetch('/api/checkout/tier',{
+    method:'POST',
+    headers:{'Content-Type':'application/json'},
+    body:JSON.stringify({tier:tier,billing:'monthly'})
+  })
+  .then(function(r){return r.json()})
+  .then(function(d){
+    if(d.url){window.location.href=d.url}
+    else{alert(d.error||'Checkout unavailable. Please try again.');btn.textContent=origText;btn.disabled=false}
+  })
+  .catch(function(){
+    alert('Connection error. Please try again.');
+    btn.textContent=origText;btn.disabled=false;
+  });
+}
+"""
+
 
 # ═══════════════════════════════════════════════════════════════
 #  SHARED COMPONENTS
@@ -485,7 +507,8 @@ def build_index():
         ("Enterprise","$149","/mo","var(--purple)",["Full agent suite","Dedicated VPS slot","Custom strategies","SLA guarantee","Direct Slack channel"],"Contact Sales",False),
         ("Developer","$299","/mo","var(--orange)",["Full REST API access","White-label rights","Webhook integrations","Custom agent builds","Revenue sharing model"],"Get API Access",False),
     ]
-    for name, price, per, color, feats, cta, pop in pricing:
+    tier_ids = ["free", "basic", "pro", "enterprise", "developer"]
+    for idx, (name, price, per, color, feats, cta, pop) in enumerate(pricing):
         hl = "border-color:{c};box-shadow:0 0 40px {c}22;".format(c=color.replace("var(","").replace(")","")) if pop else ""
         if pop:
             hl = "border-color:var(--green);box-shadow:0 0 40px rgba(0,255,136,0.12);"
@@ -498,7 +521,11 @@ def build_index():
         html += '{}<div style="font-size:1.05rem;font-weight:700;color:{};margin-bottom:.3rem">{}</div>'.format(badge, color, name)
         html += '<div style="font-size:3rem;font-weight:900;color:var(--text);line-height:1;margin-bottom:.25rem">{}<span style="font-size:1rem;font-weight:400;color:var(--muted)">{}</span></div>'.format(price, per)
         html += '<ul style="list-style:none;text-align:left;margin:1.5rem 0;flex:1;color:var(--muted)">{}</ul>'.format(fl)
-        html += '<a href="/partners" class="btn {}" style="width:100%">{}</a></div>'.format(bc, cta)
+        tid = tier_ids[idx]
+        if tid == "free":
+            html += '<a href="/optin" class="btn {}" style="width:100%">{}</a></div>'.format(bc, cta)
+        else:
+            html += '<button onclick="startCheckout(\'{}\')" class="btn {}" style="width:100%">{}</button></div>'.format(tid, bc, cta)
     html += '</div></div></section>'
 
     # ── INTEGRATIONS ──
@@ -515,6 +542,7 @@ def build_index():
     html += '<script>' + JS_CORE + '</script>'
     html += '<script>' + JS_YOUTUBE + '</script>'
     html += '<script>' + JS_LIVE + '</script>'
+    html += '<script>' + JS_CHECKOUT + '</script>'
     html += '</body></html>'
     return html
 
